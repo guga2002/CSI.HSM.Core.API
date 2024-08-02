@@ -4,7 +4,7 @@ using GuestSide.Core.Entities.AbstractEntities;
 namespace GuestSide.Core.Entities.Task
 {
     [Table("TaskStatus")]
-    public class TaskStatus:AbstractEntity
+    public class TasksStatus:AbstractEntity
     {
         [Column("NameOfStatus")]
         public required string Name { get; set; }

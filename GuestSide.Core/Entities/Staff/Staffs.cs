@@ -1,11 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GuestSide.Core.Entities.AbstractEntities;
+using GuestSide.Core.Entities.Item;
+using GuestSide.Core.Entities.Notification;
+using GuestSide.Core.Entities.Task;
 
 namespace GuestSide.Core.Entities.Staff
 {
     [Table("Staffs")]
-    public class Staff:AbstractEntity
+    public class Staffs:AbstractEntity
     {
         public required string FirstName { get; set; }
 
@@ -26,5 +29,11 @@ namespace GuestSide.Core.Entities.Staff
         public long StaffCategoryId {  get; set; }
 
         public StaffCategory StaffCategory { get; set; }
+
+        public IEnumerable<Cart> Tasks { get; set; }
+
+        public IEnumerable<StaffNotification>StaffNotifications { get; set; }
+     
+
     }
 }

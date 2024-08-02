@@ -7,6 +7,6 @@ namespace GuestSide.Core.Entities.Staff
     public class StaffCategory:AbstractEntity
     {
         public required string CategoryName { get; set; }
-        public IEnumerable<Staff>Staff { get; set; }
+        public IEnumerable<Staffs>Staff { get; set; }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using GuestSide.Core.Entities.AbstractEntities;
+using GuestSide.Core.Entities.Task;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuestSide.Core.Entities.Item
 {
     [Table("Items")]
-    public class Item:AbstractEntity
+    public class Items:AbstractEntity
     {
         //Name of the item
         [Column("ItemName")]
@@ -19,5 +20,8 @@ namespace GuestSide.Core.Entities.Item
         public long ItemCategoryId {  get; set; }
 
         public ItemCategory ItemCategory { get; set; }
+
+        public IEnumerable<Cart> Cart { get; set; }
+
     }
 }

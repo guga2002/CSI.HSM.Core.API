@@ -1,7 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GuestSide.Core.Entities.AbstractEntities;
+using GuestSide.Core.Entities.Item;
+using GuestSide.Core.Entities.Notification;
 using GuestSide.Core.Entities.Room;
+using GuestSide.Core.Entities.Task;
 
 namespace GuestSide.Core.Entities.Guest
 {
@@ -36,5 +39,11 @@ namespace GuestSide.Core.Entities.Guest
         public long RoomId{ get; set; }
 
         public Rooms Room{ get; set; }
+
+        public IEnumerable<Cart>Tasks { get; set; }
+
+        public QRCode QRCode { get; set; }
+
+        public IEnumerable<GuestNotification> GuestNotifications { get; set; }
     }
 }

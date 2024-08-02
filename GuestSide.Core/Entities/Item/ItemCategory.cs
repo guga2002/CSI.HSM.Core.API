@@ -11,6 +11,6 @@ namespace GuestSide.Core.Entities.Item
 
         public string? Description { get; set; }
 
-        public IEnumerable<Item> Item { get; set; }
+        public IEnumerable<Items> Item { get; set; }
     }
 }

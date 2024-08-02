@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GuestSide.Core.Entities.AbstractEntities;
+using GuestSide.Core.Entities.Feedbacks;
+using GuestSide.Core.Entities.Item;
 
 namespace GuestSide.Core.Entities.Task
 {
@@ -22,11 +24,16 @@ namespace GuestSide.Core.Entities.Task
         [ForeignKey(nameof(Status))]
         public long StatusId {  get; set; }
 
-        public TaskStatus Status { get; set; }
+        public TasksStatus Status { get; set; }
 
         [ForeignKey(nameof(Category))]
         public long CategoryId { get; set; }
 
-        public TaskStatus Category { get; set; }
+        public TaskCategory Category { get; set; }
+
+        public IEnumerable<Cart> Cart { get; set; }
+
+        public IEnumerable<Feedback>Feedbacks { get; set; }
+
     }
 }
