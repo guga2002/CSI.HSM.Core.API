@@ -16,7 +16,7 @@ namespace GuestSide.Core.Data
     {
         public GuestSideDb(DbContextOptions<GuestSideDb> options) : base(options) { }
 
-        public virtual DbSet<Advertisement> Advertisements { get; set; }
+        public virtual DbSet<Advertisements> Advertisements { get; set; }
 
         public virtual DbSet<AdvertisementType> AdvertisementTypes { get; set; }
 
@@ -30,7 +30,7 @@ namespace GuestSide.Core.Data
 
         public virtual DbSet<ItemCategory> ItemCategories { get; set; }
 
-        public virtual DbSet<Log>Logs { get; set; }
+        public virtual DbSet<Logs>Logs { get; set; }
 
         public virtual DbSet<GuestNotification> GuestNotifications { get; set; }
 
