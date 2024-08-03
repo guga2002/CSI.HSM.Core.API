@@ -42,8 +42,6 @@ namespace GuestSide.Core.Entities.Guest
 
         public IEnumerable<Cart>Tasks { get; set; }
 
-        public QRCode QRCode { get; set; }
-
         public IEnumerable<GuestNotification> GuestNotifications { get; set; }
     }
 }

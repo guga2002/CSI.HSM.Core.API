@@ -11,9 +11,9 @@ namespace GuestSide.Core.Entities.Room
 
         public DateTime GeneratedDate {  get; set; }
 
-        [ForeignKey(nameof(Guest))]
-        public long GuestId {  get; set; }
+        [ForeignKey(nameof(Room))]
+        public long RoomId {  get; set; }
 
-        public Guests Guest{ get; set; }
+        public Rooms Room{ get; set; }
     }
 }

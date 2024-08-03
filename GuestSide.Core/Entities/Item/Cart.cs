@@ -18,13 +18,7 @@ namespace GuestSide.Core.Entities.Item
         public long? StaffId { get; set; }
         public Staffs Staff { get; set; }
 
-        [ForeignKey(nameof(Item))]
-        public long ItemId {  get; set; }
-        public Items Item { get; set; }
-
-        [ForeignKey(nameof(Task))]
-        public long TaskId { get; set; }
-        public Tasks Task { get; set; }
+        public IEnumerable<Tasks> Tasks {  get; set; }
     }
 
 }

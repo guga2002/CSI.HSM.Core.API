@@ -19,5 +19,7 @@ namespace GuestSide.Core.Entities.Room
         public RoomCategory RoomCategory { get; set; }
 
         public IEnumerable<Guests>Guests { get; set; }
+
+        public QRCode QRCode { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace GuestSide.Core.Entities.Item
 
         public ItemCategory ItemCategory { get; set; }
 
-        public IEnumerable<Cart> Cart { get; set; }
+        public IEnumerable<Tasks> Tasks {  get; set; }
 
     }
 }
