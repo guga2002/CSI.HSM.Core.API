@@ -14,11 +14,9 @@ namespace GuestSide.Core.Entities.Item
 
         public Guests Guest { get; set; }
 
-        [ForeignKey(nameof(Staff))]
-        public long? StaffId { get; set; }
-        public Staffs Staff { get; set; }
-
         public IEnumerable<Tasks> Tasks {  get; set; }
+
+        public CartToStaff CartToStaff { get; set; }
     }
 
 }

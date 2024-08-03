@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using GuestSide.Core.Entities.AbstractEntities;
+using GuestSide.Core.Entities.Staff;
 
 namespace GuestSide.Core.Entities.Task
 {
@@ -11,6 +12,6 @@ namespace GuestSide.Core.Entities.Task
 
         public string? Description { get; set; }
 
-        public IEnumerable<Tasks>Tasks { get; set; }
+        public IEnumerable<CartToStaff>CartToStaffs { get; set; }
     }
 }

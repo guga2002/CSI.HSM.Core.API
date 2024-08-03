@@ -17,14 +17,6 @@ namespace GuestSide.Core.Entities.Task
         [DataType(DataType.Date)]
         public DateTime CreatedDate { get; set; }
 
-        //date when the task is completed
-        [DataType(DataType.Date)]
-        public DateTime? EndDate { get; set; }
-
-        [ForeignKey(nameof(Status))]
-        public long StatusId { get; set; }
-
-        public TasksStatus Status { get; set; }
 
         [ForeignKey(nameof(Category))]
         public long CategoryId { get; set; }

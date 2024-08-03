@@ -30,9 +30,9 @@ namespace GuestSide.Core.Entities.Staff
 
         public StaffCategory StaffCategory { get; set; }
 
-        public IEnumerable<Cart> Tasks { get; set; }
-
         public IEnumerable<StaffNotification>StaffNotifications { get; set; }
+
+        public IEnumerable<CartToStaff> CartToStaffs { get; set; }
      
 
     }
