@@ -4,17 +4,14 @@ using System.Linq.Expressions;
 
 namespace GuestSide.Infrastructure.Repositories.AbstractRepository
 {
-    public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
+    public abstract class GenericRepository<T>(DbContext context) : IGenericRepository<T> where T : class
     {
-        protected readonly DbContext Context;
-        protected readonly DbSet<T> DbSet;
+        protected readonly DbContext Context = context ?? throw new ArgumentNullException(nameof(context));
+        protected readonly DbSet<T> DbSet = context.Set<T>();
 
-        public GenericRepository(DbContext context)
-        {
-            Context = context ?? throw new ArgumentNullException(nameof(context));
-            DbSet = context.Set<T>();
-        }
+        #region GetAllAsync
 
+        #endregion
         public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             return await DbSet.ToListAsync();
