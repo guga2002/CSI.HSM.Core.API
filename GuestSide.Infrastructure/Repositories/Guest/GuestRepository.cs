@@ -1,9 +1,9 @@
 ﻿using GuestSide.Core.Entities.Guest;
-using GuestSide.Core.Interfaces;
+using GuestSide.Core.Interfaces.Guest;
 using GuestSide.Infrastructure.Repositories.AbstractRepository;
 using Microsoft.EntityFrameworkCore;
 
-namespace GuestSide.Infrastructure.Repositories
+namespace GuestSide.Infrastructure.Repositories.Guest
 {
     public class GuestRepository : GenericRepository<Guests>, IGuestRepository
     {

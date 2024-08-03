@@ -11,6 +11,6 @@ namespace GuestSide.Core.Entities.Advertisments
 
         public string? Description {  get; set; }
 
-        public IEnumerable<Advertisement>Advertisements { get; set; }
+        public IEnumerable<Advertisements.Advertisements>Advertisements { get; set; }
     }
 }
