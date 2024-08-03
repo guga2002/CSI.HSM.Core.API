@@ -23,5 +23,7 @@ namespace GuestSide.Core.Entities.Item
 
         public IEnumerable<Tasks> Tasks {  get; set; }
 
+        public byte ItemCount {  get; set; }
+
     }
 }
