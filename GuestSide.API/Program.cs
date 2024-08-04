@@ -1,5 +1,7 @@
 using GuestSide.Core.Data;
+using GuestSide.Persistance.Reflections;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -14,7 +16,9 @@ builder.Services.AddDbContext<GuestSideDb>(
     }
 );
 
-
+var interfaceAssembly = Assembly.Load("GuestSide.Core");
+var implementationAssembly = Assembly.Load("GuestSide.Infrastructure");
+builder.Services.AddInjectRepositories(interfaceAssembly, implementationAssembly);
 
 var app = builder.Build();
 

@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GuestSide.Core\GuestSide.Core.csproj" />
+    <ProjectReference Include="..\GuestSide.Persistance\GuestSide.Persistance.csproj" />
   </ItemGroup>
 
 </Project>
