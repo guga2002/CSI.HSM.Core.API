@@ -10,7 +10,5 @@ namespace GuestSide.Infrastructure.Repositories.Guest
         public GuestRepository(DbContext context) : base(context)
         {
         }
-
-
     }
 }
