@@ -10,9 +10,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<GuestSideDb>(
     str =>
     {
-        str.UseSqlServer(builder.Configuration.GetConnectionString("GugassConnection"));
+        str.UseSqlServer(builder.Configuration.GetConnectionString("CSIGuest"));
     }
 );
+
+
 
 var app = builder.Build();
 
