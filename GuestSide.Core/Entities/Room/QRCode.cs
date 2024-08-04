@@ -1,5 +1,4 @@
 ﻿using GuestSide.Core.Entities.AbstractEntities;
-using GuestSide.Core.Entities.Guest;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuestSide.Core.Entities.Room
@@ -8,6 +7,10 @@ namespace GuestSide.Core.Entities.Room
     public class QRCode:AbstractEntity
     {
         public required string Code { get; set; }
+
+        public string? Text { get; set; }
+
+        public required byte[] QrCodeImage { get; set; }
 
         public DateTime GeneratedDate {  get; set; }
 
