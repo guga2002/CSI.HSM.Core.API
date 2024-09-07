@@ -16,9 +16,13 @@ builder.Services.AddDbContext<GuestSideDb>(
     }
 );
 
+builder.Services.AddAutoMapper(typeof(GuestSide.Application.Mapper.AutoMapper));
+
 var interfaceAssembly = Assembly.Load("GuestSide.Core");
 var implementationAssembly = Assembly.Load("GuestSide.Infrastructure");
 builder.Services.AddInjectRepositories(interfaceAssembly, implementationAssembly);
+
+
 
 var app = builder.Build();
 
