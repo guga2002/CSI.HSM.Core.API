@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
       <PrivateAssets>all</PrivateAssets>
@@ -29,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GuestSide.Application\GuestSide.Application.csproj" />
     <ProjectReference Include="..\GuestSide.Core\GuestSide.Core.csproj" />
     <ProjectReference Include="..\GuestSide.Persistance\GuestSide.Persistance.csproj" />
   </ItemGroup>
