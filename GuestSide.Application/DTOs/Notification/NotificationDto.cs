@@ -1,6 +1,6 @@
 ﻿namespace GuestSide.Application.DTOs.Notification
 {
-    internal class NotificationDto
+    public class NotificationDto
     {
         public required string Title { get; set; }
 
