@@ -1,4 +1,7 @@
-﻿namespace GuestSide.Application.Interface
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace GuestSide.Application.Interface
 {
     public interface IService<TEntityDto, TKey>
     {

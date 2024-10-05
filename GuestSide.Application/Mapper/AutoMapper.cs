@@ -44,7 +44,6 @@ namespace GuestSide.Application.Mapper
             CreateMap<StaffDto,Staffs>().ReverseMap();
             CreateMap<TaskCategoryDto,TaskCategory>().ReverseMap();
             CreateMap<TaskDto,Tasks>().ReverseMap();
-            CreateMap<TaskStatusDto,TaskStatus>().ReverseMap();
         }
     }
 }

@@ -1,3 +1,5 @@
+using GuestSide.Application.Services.AdvertisementType;
+using GuestSide.Application.Services.Advertismenet;
 using GuestSide.Core.Data;
 using GuestSide.Persistance.Reflections;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddAdvertisementType();
+builder.Services.InjectAdvertisment();
 
 builder.Services.AddDbContext<GuestSideDb>(
     str =>
