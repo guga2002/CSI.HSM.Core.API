@@ -26,10 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\GuestSide.Application\GuestSide.Application.csproj" />
     <ProjectReference Include="..\GuestSide.Core\GuestSide.Core.csproj" />
     <ProjectReference Include="..\GuestSide.Persistance\GuestSide.Persistance.csproj" />

@@ -15,7 +15,7 @@ namespace GuestSide.Application.Services.AdvertisementType
     public class AdvertisementTypeService : GenericService<AdvertisementTypeDto, long, GuestSide.Core.Entities.Advertisments.AdvertisementType>, IAdvertisementTypeService
     {
         public AdvertisementTypeService(
-            IGenericRepository<GuestSide.Core.Entities.Advertisments.AdvertisementType> servic, [FromServices]IMapper map, [FromServices]ILogger<GenericService<AdvertisementTypeDto, long, GuestSide.Core.Entities.Advertisments.AdvertisementType>>log) : base(map,servic,log)
+            IGenericRepository<GuestSide.Core.Entities.Advertisments.AdvertisementType> servic,IMapper map,ILogger<GenericService<AdvertisementTypeDto, long, GuestSide.Core.Entities.Advertisments.AdvertisementType>>log) : base(map,servic,log)
         {
         }
     }

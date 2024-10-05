@@ -1,13 +1,14 @@
-﻿using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using GuestSide.Core.Data;
+using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using System.Threading;
 
 namespace GuestSide.Infrastructure.Repositories.AbstractRepository
 {
-    public abstract class GenericRepository<T>(DbContext context) : IGenericRepository<T> where T : class
+    public abstract class GenericRepository<T>(GuestSideDb context) : IGenericRepository<T> where T : class
     {
-        protected readonly DbContext Context = context ?? throw new ArgumentNullException(nameof(context));
+        protected readonly GuestSideDb Context = context ?? throw new ArgumentNullException(nameof(context));
         protected readonly DbSet<T> DbSet = context.Set<T>();
 
         #region GetAllAsync

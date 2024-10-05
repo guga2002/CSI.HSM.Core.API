@@ -11,7 +11,7 @@ namespace GuestSide.Application.Services.Feadback
     public class feadbackService : GenericService<FeedbackDto, long, Feedback>, IFeadbackService
     {
 
-        public feadbackService(IGenericRepository<Feedback> servic, [FromServices] IMapper Map, [FromServices] ILogger<GenericService<FeedbackDto, long, Feedback>> log) : base(Map, servic, log)
+        public feadbackService(IGenericRepository<Feedback> servic,  IMapper Map, ILogger<GenericService<FeedbackDto, long, Feedback>> log) : base(Map, servic, log)
         {
         }
     }
