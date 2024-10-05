@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace GuestSide.Application.Interface
 {
-    public interface IService<TEntityDto, TKey>
+    public interface IService<TEntityDto, TKey, DatabaseEntity>
     {
         Task<IEnumerable<TEntityDto>> GetAllAsync();
         Task<TEntityDto> GetByIdAsync(TKey id);

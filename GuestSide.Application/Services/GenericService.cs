@@ -1,45 +1,71 @@
-﻿using GuestSide.Application.Interface;
+﻿using AutoMapper;
+using GuestSide.Application.CustomExceptions;
+using GuestSide.Application.Interface;
 using GuestSide.Core.Interfaces.AbstractInterface;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace GuestSide.Application.Services
 {
-    public class GenericService<T, K> : IService<T, K>where T : class
+    public class GenericService<Tmodel, Key, DatabaseEntity> : IService<Tmodel, Key, DatabaseEntity>
+        where DatabaseEntity : class
     {
-        private readonly IGenericRepository<T> service;
+        private readonly IMapper _mapper;
+        private readonly IGenericRepository<DatabaseEntity> _repository;
+        private readonly ILogger<GenericService<Tmodel, Key, DatabaseEntity>> _logger;
 
-        public GenericService(IGenericRepository<T> servic)
+        public GenericService(IMapper mapper, IGenericRepository<DatabaseEntity> repository, ILogger<GenericService<Tmodel, Key, DatabaseEntity>> logger)
         {
-            this.service = servic;
-        }
-        public async Task<bool> CreateAsync(T entityDto)
-        {
-           var res=await service.AddAsync(entityDto);
-            return res;
-        }
-
-        public async Task<bool> DeleteAsync(K id)
-        {
-            var res=await this.service.DeleteAsync(id);
-            return res;
+            _mapper = mapper;
+            _repository = repository;
+            _logger = logger;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<bool> CreateAsync(Tmodel entityDto)
         {
-           var res= await service.GetAllAsync();
-            return res;
+            var mapped = _mapper.Map<DatabaseEntity>(entityDto);
+            if (mapped is not null)
+            {
+                var result = await _repository.AddAsync(mapped);
+                return result;
+            }
+            throw new BusinessRuleViolationException(ErrorSuccessKeys.ErrorKeys.INVALID_FORMAT);
         }
 
-        public async Task<T> GetByIdAsync(K id)
+        public async Task<bool> DeleteAsync(Key id)
         {
-            var res = await service.GetByIdAsync(id);
-            return res;
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity == null)
+            {
+                throw new BusinessRuleViolationException(ErrorSuccessKeys.ErrorKeys.INVALID_INPUT);
+            }
+            return await _repository.DeleteAsync(entity);
         }
 
-        public async Task<bool> UpdateAsync(K id, T entityDto)
-        { 
-           var result=await service.UpdateAsync(entityDto);
-            return result;
+        public async Task<IEnumerable<Tmodel>> GetAllAsync()
+        {
+            var entities = await _repository.GetAllAsync();
+            return _mapper.Map<IEnumerable<Tmodel>>(entities);
+        }
+
+        public async Task<Tmodel> GetByIdAsync(Key id)
+        {
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity == null)
+            {
+                throw new BusinessRuleViolationException(ErrorSuccessKeys.ErrorKeys.ACCESS_DENIED);
+            }
+            return _mapper.Map<Tmodel>(entity);
+        }
+
+        public async Task<bool> UpdateAsync(Key id, Tmodel entityDto)
+        {
+            var existingEntity = await _repository.GetByIdAsync(id);
+            if (existingEntity == null)
+            {
+                throw new BusinessRuleViolationException(ErrorSuccessKeys.ErrorKeys.ACCESS_DENIED);
+            }
+            var mappedEntity = _mapper.Map(entityDto, existingEntity);
+            return await _repository.UpdateAsync(mappedEntity);
         }
     }
 }
