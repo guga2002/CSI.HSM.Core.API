@@ -15,7 +15,7 @@ namespace GuestSide.Application.Services.AdvertisementType
             collect.AddScoped<IGenericRepository<GuestSide.Core.Entities.Advertisments.AdvertisementType>,AdvertisementTypeRepository>();
             collect.AddScoped<IAdvertisementTypeRepository,AdvertisementTypeRepository>();
             collect.AddScoped<IAdvertisementTypeService,AdvertisementTypeService>();
-            collect.AddScoped < ILogger<GenericService<AdvertisementTypeDto, long, GuestSide.Core.Entities.Advertisments.AdvertisementType>>>();
+           // collect.AddScoped < ILogger<GenericService<AdvertisementTypeDto, long, GuestSide.Core.Entities.Advertisments.AdvertisementType>>>();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace GuestSide.Application.Services.Feadback
             services.AddScoped<IGenericRepository<Feedback>, FeedbackRepository>();
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.AddScoped<IFeadbackService,feadbackService>();
-            services.AddScoped<ILogger<GenericService<FeedbackDto, long, Feedback>>>();
+           /// services.AddScoped<ILogger<GenericService<FeedbackDto, long, Feedback>>>();
         }
     }
 }

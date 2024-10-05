@@ -10,7 +10,7 @@ namespace GuestSide.Application.Services.Advertismenet
 {
     public class AdvertisementService : GenericService<AdvertismentDto, long,Advertisements>, IAdvertismentService
     {
-        public AdvertisementService(IGenericRepository<Advertisements> servic, [FromServices]IMapper map, [FromServices]ILogger<GenericService<AdvertismentDto, long, Advertisements>> loger) : base(map,servic, loger)
+        public AdvertisementService(IGenericRepository<Advertisements> servic,IMapper map,ILogger<GenericService<AdvertismentDto, long, Advertisements>> loger) : base(map,servic, loger)
         {
         }
     }
