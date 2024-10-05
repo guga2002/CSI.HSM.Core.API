@@ -4,7 +4,7 @@ using GuestSide.Application.Interface;
 using GuestSide.Core.Entities.Advertisments;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GuestSide.API.Controllers
+namespace GuestSide.API.Controllers.Advertisement
 {
     [Route("api/[controller]")]
     [ApiController]

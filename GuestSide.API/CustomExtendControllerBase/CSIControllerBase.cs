@@ -1,6 +1,7 @@
 ﻿using GuestSide.API.Response;
 using GuestSide.Application.Interface;
 using Microsoft.AspNetCore.Mvc;
+using GuestSide.API.Extensions;
 
 namespace GuestSide.API.CustomExtendControllerBase
 {
@@ -43,7 +44,8 @@ namespace GuestSide.API.CustomExtendControllerBase
         [Route("Create")]
         public async Task<Response<TModel>> CreateAsync([FromBody] TModel entityDto, CancellationToken cancellationToken = default)
         {
-           
+
+            GuestSide.API.Extensions.ControllerBaseExtension.ValidateModel(this);
 
             if (entityDto == null)
             {

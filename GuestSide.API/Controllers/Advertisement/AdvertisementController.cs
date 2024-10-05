@@ -4,7 +4,7 @@ using GuestSide.Application.Interface;
 using GuestSide.Core.Entities.Advertisements;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GuestSide.API.Controllers
+namespace GuestSide.API.Controllers.Advertisement
 {
     [ApiController]
     public class AdvertisementController : CSIControllerBase<AdvertismentDto, long, Advertisements>

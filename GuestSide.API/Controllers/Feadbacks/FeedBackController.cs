@@ -4,7 +4,7 @@ using GuestSide.Application.Interface;
 using GuestSide.Core.Entities.Feedbacks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GuestSide.API.Controllers
+namespace GuestSide.API.Controllers.Feadbacks
 {
     [Route("api/[controller]")]
     [ApiController]
