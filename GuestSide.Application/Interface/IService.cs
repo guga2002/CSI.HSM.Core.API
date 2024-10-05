@@ -1,15 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace GuestSide.Application.Interface
+﻿namespace GuestSide.Application.Interface
 {
     public interface IService<TEntityDto, TKey, DatabaseEntity>
     {
-        Task<IEnumerable<TEntityDto>> GetAllAsync();
-        Task<TEntityDto> GetByIdAsync(TKey id);
-        Task<bool> CreateAsync(TEntityDto entityDto);
-        Task<bool> UpdateAsync(TKey id, TEntityDto entityDto);
-        Task<bool> DeleteAsync(TKey id);
+        Task<IEnumerable<TEntityDto>> GetAllAsync(CancellationToken cancellationToken = default);
+        Task<TEntityDto> GetByIdAsync(TKey id, CancellationToken cancellationToken = default);
+        Task<bool> CreateAsync(TEntityDto entityDto, CancellationToken cancellationToken = default);
+        Task<bool> UpdateAsync(TKey id, TEntityDto entityDto, CancellationToken cancellationToken = default);
+        Task<bool> DeleteAsync(TKey id, CancellationToken cancellationToken = default);
     }
 
 }

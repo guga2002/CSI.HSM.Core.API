@@ -1,6 +1,7 @@
 ﻿using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using System.Threading;
 
 namespace GuestSide.Infrastructure.Repositories.AbstractRepository
 {
@@ -12,19 +13,19 @@ namespace GuestSide.Infrastructure.Repositories.AbstractRepository
         #region GetAllAsync
 
         #endregion
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await DbSet.ToListAsync();
+            return await DbSet.ToListAsync(cancellationToken);
         }
 
-        public virtual async Task<T> GetByIdAsync(object id)
+        public virtual async Task<T> GetByIdAsync(object id, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
-            var entity = await DbSet.FindAsync(id);
+            var entity = await DbSet.FindAsync(new object[] { id }, cancellationToken);
             if (entity == null)
             {
                 throw new KeyNotFoundException($"Entity with id {id} not found.");
@@ -33,23 +34,26 @@ namespace GuestSide.Infrastructure.Repositories.AbstractRepository
             return entity;
         }
 
-        public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
+        public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
         {
-            return await DbSet.Where(predicate).ToListAsync();
+            return await DbSet.Where(predicate).ToListAsync(cancellationToken);
         }
 
-        public virtual async Task<bool> AddAsync(T entity)
+        public virtual async Task<bool> AddAsync(T entity, CancellationToken cancellationToken = default)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            await DbSet.AddAsync(entity);
-            return await Context.SaveChangesAsync() > 0;
+            if (Context.Entry(entity).State == EntityState.Detached)
+            {
+                await DbSet.AddAsync(entity, cancellationToken);
+            }
+            return await context.SaveChangesAsync(cancellationToken)>0;
         }
 
-        public virtual async Task<bool> UpdateAsync(T entity)
+        public virtual async Task<bool> UpdateAsync(T entity, CancellationToken cancellationToken = default)
         {
             if (entity == null)
             {
@@ -58,27 +62,27 @@ namespace GuestSide.Infrastructure.Repositories.AbstractRepository
 
             DbSet.Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
-            return await Context.SaveChangesAsync() > 0;
+            return await Context.SaveChangesAsync(cancellationToken) > 0;
         }
 
-        public virtual async Task<bool> DeleteAsync(object id)
+        public virtual async Task<bool> DeleteAsync(object id, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
-            var entityToDelete = await DbSet.FindAsync(id);
+            var entityToDelete = await DbSet.FindAsync(id, cancellationToken);
             if (entityToDelete == null)
             {
                 throw new KeyNotFoundException($"Entity with id {id} not found.");
             }
 
             await Delete(entityToDelete);
-            return await Context.SaveChangesAsync() > 0;
+            return await Context.SaveChangesAsync(cancellationToken) > 0;
         }
 
-        public async virtual Task<bool> Delete(T entityToDelete)
+        public async virtual Task<bool> Delete(T entityToDelete, CancellationToken cancellationToken = default)
         {
             if (entityToDelete == null)
             {
@@ -92,7 +96,7 @@ namespace GuestSide.Infrastructure.Repositories.AbstractRepository
 
             DbSet.Remove(entityToDelete);
 
-            return await Context.SaveChangesAsync() > 0;
+            return await Context.SaveChangesAsync(cancellationToken) > 0;
         }
     }
 }
