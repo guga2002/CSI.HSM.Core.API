@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAdvertisementType();
 builder.Services.InjectAdvertisment();
+builder.Services.AddAdvertisementType();
 
 builder.Services.AddDbContext<GuestSideDb>(
     str =>

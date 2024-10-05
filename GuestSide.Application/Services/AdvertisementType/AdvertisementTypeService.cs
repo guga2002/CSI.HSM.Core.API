@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace GuestSide.Application.Services.AdvertisementType
 {
-    public class AdvertisementTypeService : GenericService<AdvertisementTypeDto, long>, IAdvertisementTypeService
+    public class AdvertisementTypeService : GenericService<GuestSide.Core.Entities.Advertisments.AdvertisementType, long>, IAdvertisementTypeService
     {
-        public AdvertisementTypeService(IGenericRepository<AdvertisementTypeDto> servic) : base(servic)
+        public AdvertisementTypeService(IGenericRepository<GuestSide.Core.Entities.Advertisments.AdvertisementType> servic) : base(servic)
         {
         }
     }

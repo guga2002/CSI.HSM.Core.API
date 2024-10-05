@@ -1,12 +1,9 @@
 ﻿using GuestSide.Application.Interface.Advertisment;
+using GuestSide.Core.Entities.Advertisements;
+using GuestSide.Core.Interfaces.AbstractInterface;
 using GuestSide.Core.Interfaces.Advertisement;
 using GuestSide.Infrastructure.Repositories.Advertisement;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GuestSide.Application.Services.Advertismenet
 {
@@ -14,6 +11,7 @@ namespace GuestSide.Application.Services.Advertismenet
     {
         public static void InjectAdvertisment(this IServiceCollection serviceProvider)
         {
+            serviceProvider.AddScoped<IGenericRepository<Advertisements>,AdvertisementRepository>();
             serviceProvider.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
             serviceProvider.AddScoped<IAdvertismentService, AdvertisementService>();
         }

@@ -1,13 +1,8 @@
-﻿using GuestSide.Application.DTOs.Advertisment;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GuestSide.Core.Entities.Advertisments;
 
 namespace GuestSide.Application.Interface.AdvertiementType
 {
-    public interface IAdvertisementTypeService:IService<AdvertisementTypeDto,long>
+    public interface IAdvertisementTypeService:IService<GuestSide.Core.Entities.Advertisments.AdvertisementType, long>
     {
     }
 }
