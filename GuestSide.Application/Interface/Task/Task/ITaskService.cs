@@ -7,5 +7,6 @@ namespace GuestSide.Application.Interface.Task.Task
 {
     public interface ITaskService : IService<TaskDto, long, Tasks>
     {
+        Task<TaskDto> GetTaskbycartId(long CartId, CancellationToken cancellationToken = default);
     }
 }

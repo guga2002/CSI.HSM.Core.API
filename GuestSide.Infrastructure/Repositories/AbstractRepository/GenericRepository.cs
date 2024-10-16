@@ -12,12 +12,11 @@ namespace GuestSide.Infrastructure.Repositories.AbstractRepository
         protected readonly DbSet<T> DbSet = context.Set<T>();
 
         #region GetAllAsync
-
-        #endregion
         public virtual async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return await DbSet.ToListAsync(cancellationToken);
         }
+        #endregion
 
         public virtual async Task<T> GetByIdAsync(object id, CancellationToken cancellationToken = default)
         {

@@ -11,5 +11,10 @@ namespace GuestSide.Infrastructure.Repositories.Item
         public CartRepository(GuestSideDb context) : base(context)
         {
         }
+
+        public async override Task<IEnumerable<Cart>> GetAllAsync(CancellationToken cancellationToken = default)
+        {
+           return await Context.Carts.Include(io=>io.Tasks).ToListAsync(cancellationToken);
+        }
     }
 }

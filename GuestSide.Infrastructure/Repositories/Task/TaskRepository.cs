@@ -11,5 +11,10 @@ namespace GuestSide.Infrastructure.Repositories.Task
         public TaskRepository(GuestSideDb context) : base(context)
         {
         }
+
+        public async Task<Tasks> GetTaskbycartId(long CartId, CancellationToken cancellationToken = default)
+        {
+            return await Context.Tasks.Where(io => io.CartId == CartId).FirstOrDefaultAsync()??throw new ArgumentException("No  item found on  this card");
+        }
     }
 }
