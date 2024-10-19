@@ -2,11 +2,14 @@
 using GuestSide.Application.Interface;
 using Microsoft.AspNetCore.Mvc;
 using GuestSide.API.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GuestSide.API.CustomExtendControllerBase
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CSIControllerBase<TModel, TKey, TDatabase> : ControllerBase
     {
         private readonly IService<TModel, TKey, TDatabase> _serviceProvider;
