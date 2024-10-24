@@ -65,7 +65,7 @@ internal class Program
 
         builder.Services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "HelpDesk.Api", Version = "v1" });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Core.Api", Version = "v1" });
 
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {

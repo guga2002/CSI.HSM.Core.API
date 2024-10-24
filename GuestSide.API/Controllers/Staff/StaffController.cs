@@ -1,8 +1,10 @@
 ﻿using GuestSide.API.CustomExtendControllerBase;
+using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Staff;
 using GuestSide.Application.Interface;
 using GuestSide.Core.Entities.Staff;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace GuestSide.API.Controllers.Staff
 {
@@ -13,5 +15,82 @@ namespace GuestSide.API.Controllers.Staff
         public StaffController(IService<StaffDto, long, Staffs> serviceProvider) : base(serviceProvider)
         {
         }
+
+        /// <summary>
+        /// Retrieves all staff members.
+        /// </summary>
+        /// <param name="cancellationToken">Token to cancel the request.</param>
+        /// <returns>A list of all staff members.</returns>
+        [HttpGet("GetAllStaff")]
+        [SwaggerOperation(Summary = "Retrieve all staff members", Description = "Returns a list of all staff members.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved staff members.", typeof(Response<IEnumerable<StaffDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No staff members found.")]
+        public override Task<Response<IEnumerable<StaffDto>>> GetAllAsync(CancellationToken cancellationToken = default)
+        {
+            return base.GetAllAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Retrieves a staff member by their ID.
+        /// </summary>
+        /// <param name="id">The ID of the staff member.</param>
+        /// <param name="cancellationToken">Token to cancel the request.</param>
+        /// <returns>The staff member matching the specified ID.</returns>
+        [HttpGet("GetStaffById/{id}")]
+        [SwaggerOperation(Summary = "Retrieve staff member by ID", Description = "Returns a specific staff member by their ID.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved the staff member.", typeof(Response<StaffDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Staff member not found.")]
+        public override Task<Response<StaffDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        {
+            return base.GetByIdAsync(id, cancellationToken);
+        }
+
+        /// <summary>
+        /// Creates a new staff member.
+        /// </summary>
+        /// <param name="entityDto">The staff member to create.</param>
+        /// <param name="cancellationToken">Token to cancel the request.</param>
+        /// <returns>The created staff member.</returns>
+        [HttpPost("CreateStaff")]
+        [SwaggerOperation(Summary = "Create a new staff member", Description = "Creates a new staff member.")]
+        [SwaggerResponse(StatusCodes.Status201Created, "Staff member created successfully.", typeof(Response<StaffDto>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
+        public override Task<Response<StaffDto>> CreateAsync([FromBody] StaffDto entityDto, CancellationToken cancellationToken = default)
+        {
+            return base.CreateAsync(entityDto, cancellationToken);
+        }
+
+        /// <summary>
+        /// Updates an existing staff member.
+        /// </summary>
+        /// <param name="id">The ID of the staff member to update.</param>
+        /// <param name="entityDto">The updated staff member data.</param>
+        /// <param name="cancellationToken">Token to cancel the request.</param>
+        /// <returns>The updated staff member.</returns>
+        [HttpPut("UpdateStaff/{id}")]
+        [SwaggerOperation(Summary = "Update an existing staff member", Description = "Updates the staff member with the specified ID.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Staff member updated successfully.", typeof(Response<StaffDto>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
+        public override Task<Response<StaffDto>> UpdateAsync([FromRoute] long id, [FromBody] StaffDto entityDto, CancellationToken cancellationToken = default)
+        {
+            return base.UpdateAsync(id, entityDto, cancellationToken);
+        }
+
+        /// <summary>
+        /// Deletes a staff member by their ID.
+        /// </summary>
+        /// <param name="id">The ID of the staff member to delete.</param>
+        /// <param name="cancellationToken">Token to cancel the request.</param>
+        /// <returns>A success or failure response.</returns>
+        [HttpDelete("DeleteStaff/{id}")]
+        [SwaggerOperation(Summary = "Delete a staff member", Description = "Deletes the staff member with the specified ID.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Staff member deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Staff member not found or failed to delete.")]
+        public override Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        {
+            return base.DeleteAsync(id, cancellationToken);
+        }
+
+        // Add more methods or features as needed.
     }
 }
