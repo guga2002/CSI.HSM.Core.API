@@ -23,12 +23,14 @@ namespace GuestSide.API.Controllers.Tasks
         }
 
         /// <summary>
-        /// Retrieves tasks by Cart ID.
+        /// Retrieves all guest notifications.
         /// </summary>
-        /// <param name="CardId">The ID of the cart associated with the tasks.</param>
-        /// <returns>A response containing the task details or an error message.</returns>
-        [HttpGet]
-        [Route("GetTaskByCartId")]
+        /// <param name="CardId">Token to cancel the request.</param>
+        /// <returns>A list of all guest notifications.</returns>
+        [HttpGet("GetTaskByCartId")]
+        [SwaggerOperation(Summary = "Retrieve all guest notifications", Description = "Returns a list of all guest notifications.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved notifications.", typeof(Response<TaskDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No notifications found.")]
         public  async Task<Response<TaskDto>> GetTaskByCartId([FromQuery] long CardId)
         {
             var result = await _taskService.GetTaskbycartId(CardId);
@@ -45,7 +47,7 @@ namespace GuestSide.API.Controllers.Tasks
         /// </summary>
         /// <param name="cancellationToken">Token to cancel the request.</param>
         /// <returns>A list of all guest notifications.</returns>
-        [HttpGet("GetNotifications")]
+        [HttpGet("GetAllTasks")]
         [SwaggerOperation(Summary = "Retrieve all guest notifications", Description = "Returns a list of all guest notifications.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved notifications.", typeof(Response<IEnumerable<TaskDto>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "No notifications found.")]
@@ -62,7 +64,7 @@ namespace GuestSide.API.Controllers.Tasks
         /// <param name="id">The ID of the guest notification.</param>
         /// <param name="cancellationToken">Token to cancel the request.</param>
         /// <returns>The guest notification matching the specified ID.</returns>
-        [HttpGet("GetNotificationById/{id}")]
+        [HttpGet("GetTaskById/{id}")]
         [SwaggerOperation(Summary = "Retrieve guest notification by ID", Description = "Returns a specific guest notification by its ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved the guest notification.", typeof(Response<TaskDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Guest notification not found.")]
@@ -79,7 +81,7 @@ namespace GuestSide.API.Controllers.Tasks
         /// <param name="entityDto">The guest notification to create.</param>
         /// <param name="cancellationToken">Token to cancel the request.</param>
         /// <returns>The created guest notification.</returns>
-        [HttpPost("CreateNotification")]
+        [HttpPost("CreateTask")]
         [SwaggerOperation(Summary = "Create a new guest notification", Description = "Creates a new guest notification.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Guest notification created successfully.", typeof(Response<TaskDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
@@ -101,7 +103,7 @@ namespace GuestSide.API.Controllers.Tasks
         /// <param name="entityDto">The updated guest notification data.</param>
         /// <param name="cancellationToken">Token to cancel the request.</param>
         /// <returns>The updated guest notification.</returns>
-        [HttpPut("UpdateNotification/{id}")]
+        [HttpPut("UpdateTask/{id}")]
         [SwaggerOperation(Summary = "Update an existing guest notification", Description = "Updates the guest notification with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Guest notification updated successfully.", typeof(Response<TaskDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
@@ -122,7 +124,7 @@ namespace GuestSide.API.Controllers.Tasks
         /// <param name="id">The ID of the guest notification to delete.</param>
         /// <param name="cancellationToken">Token to cancel the request.</param>
         /// <returns>A success or failure response.</returns>
-        [HttpDelete("DeleteNotification/{id}")]
+        [HttpDelete("DeleteTask/{id}")]
         [SwaggerOperation(Summary = "Delete a guest notification", Description = "Deletes the guest notification with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Guest notification deleted successfully.", typeof(Response<bool>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Guest notification not found or failed to delete.")]
