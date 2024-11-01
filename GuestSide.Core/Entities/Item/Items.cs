@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuestSide.Core.Entities.Item
 {
-    [Table("Items")]
+    [Table("Items", Schema = "CSI")]
     public class Items:AbstractEntity
     {
         //Name of the item

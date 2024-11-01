@@ -4,7 +4,7 @@ using GuestSide.Core.Entities.Staff;
 
 namespace GuestSide.Core.Entities.Task
 {
-    [Table("TaskStatus")]
+    [Table("TaskStatus",Schema = "CSI")]
     public class TasksStatus:AbstractEntity
     {
         [Column("NameOfStatus")]

@@ -2,7 +2,9 @@
 using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Advertisment;
 using GuestSide.Application.Interface;
+using GuestSide.Core.Data;
 using GuestSide.Core.Entities.Advertisements;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -11,10 +13,21 @@ namespace GuestSide.API.Controllers.Advertisement
     [ApiController]
     public class AdvertisementController : CSIControllerBase<AdvertismentDto, long, Advertisements>
     {
-        public AdvertisementController(IService<AdvertismentDto, long, Advertisements> serviceProvider) : base(serviceProvider)
+        private readonly GuestSideDb _db;
+        public AdvertisementController(IService<AdvertismentDto, long, Advertisements> serviceProvider,GuestSideDb db) : base(serviceProvider)
         {
+            _db = db;
         }
 
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("GetTasksByCartId/{CartId}")]
+        public async Task<GuestSide.Core.Entities.Task.Tasks> Gettasks(long CartId)
+        {
+           var res=await _db.GetTaskByCartId(CartId);
+            return res;
+        }
         /// <summary>
         /// Retrieves all records.
         /// </summary>

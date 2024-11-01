@@ -1,7 +1,9 @@
 ﻿using GuestSide.Core.Entities.AbstractEntities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuestSide.Core.Entities.Notification
 {
+    [Table("Notifications", Schema = "CSI")]
     public class Notifications:AbstractEntity
     {
         public required string Title { get; set; }

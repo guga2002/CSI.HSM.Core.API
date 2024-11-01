@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuestSide.Core.Entities.LogEntities
 {
-    [Table("Logs")]
+    [Table("Logs", Schema = "CSI")]
     public class Logs:AbstractEntity
     {
         public required string LogLevel { get; set; }

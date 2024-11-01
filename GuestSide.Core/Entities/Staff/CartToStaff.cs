@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuestSide.Core.Entities.Staff
 {
-    [Table("CartToStaffs")]
+    [Table("CartToStaffs", Schema = "CSI")]
     public class CartToStaff:AbstractEntity
     {
         //date when the task is assigned to staff

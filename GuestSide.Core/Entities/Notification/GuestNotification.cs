@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuestSide.Core.Entities.Notification
 {
-    [Table("GuestNotifications")]
+    [Table("GuestNotifications", Schema = "CSI")]
     public class GuestNotification:AbstractEntity
     {
 

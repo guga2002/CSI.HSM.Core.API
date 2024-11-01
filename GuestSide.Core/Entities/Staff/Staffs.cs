@@ -7,7 +7,7 @@ using GuestSide.Core.Entities.Task;
 
 namespace GuestSide.Core.Entities.Staff
 {
-    [Table("Staffs")]
+    [Table("Staffs", Schema = "CSI")]
     public class Staffs:AbstractEntity
     {
         public required string FirstName { get; set; }

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuestSide.Core.Entities.Advertisements
 {
-    [Table("Advertisements")]
+    [Table("Advertisements", Schema = "CSI")]
     public class Advertisements:AbstractEntity
     {
         public required string Title { get; set; }

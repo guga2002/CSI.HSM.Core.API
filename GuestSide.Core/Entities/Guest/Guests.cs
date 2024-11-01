@@ -8,7 +8,7 @@ using GuestSide.Core.Entities.Task;
 
 namespace GuestSide.Core.Entities.Guest
 {
-    [Table("Guests")]
+    [Table("Guests", Schema = "CSI")]
     public class Guests : AbstractEntity
     {
         public required string FirstName { get; set; }

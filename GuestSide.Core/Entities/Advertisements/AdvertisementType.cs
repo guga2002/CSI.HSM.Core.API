@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuestSide.Core.Entities.Advertisments
 {
-    [Table("AdvertisementTypes")]
+    [Table("AdvertisementTypes", Schema = "CSI")]
     public class AdvertisementType:AbstractEntity
     {
         public required string Name { get; set; }

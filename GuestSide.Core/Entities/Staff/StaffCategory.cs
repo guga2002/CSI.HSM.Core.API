@@ -3,7 +3,7 @@ using GuestSide.Core.Entities.AbstractEntities;
 
 namespace GuestSide.Core.Entities.Staff
 {
-    [Table("StaffCategories")]
+    [Table("StaffCategories", Schema = "CSI")]
     public class StaffCategory:AbstractEntity
     {
         public required string CategoryName { get; set; }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuestSide.Core.Entities.Item
 {
-    [Table("ItemCategories")]
+    [Table("ItemCategories", Schema = "CSI")]
     public class ItemCategory:AbstractEntity
     {
         [Column("CategoryName")]

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuestSide.Core.Entities.Room
 {
-    [Table("QRCodes")]
+    [Table("QRCodes", Schema = "CSI")]
     public class QRCode:AbstractEntity
     {
         public required string Code { get; set; }

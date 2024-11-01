@@ -6,7 +6,7 @@ using GuestSide.Core.Entities.Item;
 
 namespace GuestSide.Core.Entities.Task
 {
-    [Table("Tasks")]
+    [Table("Tasks",Schema = "CSI")]
     public class Tasks : AbstractEntity
     {
         public required string Title { get; set; }

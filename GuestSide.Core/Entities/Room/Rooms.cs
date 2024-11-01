@@ -4,7 +4,7 @@ using GuestSide.Core.Entities.Guest;
 
 namespace GuestSide.Core.Entities.Room
 {
-    [Table("Rooms")]
+    [Table("Rooms", Schema = "CSI")]
     public class Rooms:AbstractEntity
     {
         public int RoomNumber { get; set; }

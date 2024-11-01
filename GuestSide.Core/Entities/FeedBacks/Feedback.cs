@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuestSide.Core.Entities.Feedbacks
 {
-    [Table("Feedbacks")]
+    [Table("Feedbacks", Schema = "CSI")]
     public class Feedback:AbstractEntity
     {
         //Title of the feedback

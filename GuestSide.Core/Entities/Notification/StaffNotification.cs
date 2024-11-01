@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuestSide.Core.Entities.Notification
 {
-    [Table("StaffNotifications")]
+    [Table("StaffNotifications",Schema = "CSI")]
     public class StaffNotification:AbstractEntity
     {
         [ForeignKey(nameof(Staff))]

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuestSide.Core.Entities.Item
 {
-    [Table("Carts")]
+    [Table("Carts", Schema = "CSI")]
     public class Cart:AbstractEntity
     {
         [ForeignKey(nameof(Guest))]
