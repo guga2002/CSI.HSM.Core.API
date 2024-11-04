@@ -1,9 +1,10 @@
-﻿using GuestSide.Application.DTOs.Room;
+﻿using GuestSide.Application.DTOs.Request.Room;
+using GuestSide.Application.DTOs.Response.Room;
 using GuestSide.Core.Entities.Room;
 
 namespace GuestSide.Application.Interface.Room
 {
-    public interface IRoomCategoryService:IService<RoomCategoryDto,long,RoomCategory>
+    public interface IRoomCategoryService:IService<RoomCategoryDto,RoomCategoryResponseDto,long,RoomCategory>
     {
     }
 }

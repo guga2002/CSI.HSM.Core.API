@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
-using GuestSide.Application.DTOs.Item;
+using GuestSide.Application.DTOs.Request.Item;
+using GuestSide.Application.DTOs.Response.Item;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GuestSide.Application.FluentValidation.Item
 {
-    public class ItemCategoryValidator:AbstractValidator<ItemCategoryDto>
+    public class ItemCategoryValidator:AbstractValidator<ItemCategoryResponseDto>
     {
         public ItemCategoryValidator()
         {

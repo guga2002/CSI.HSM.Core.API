@@ -1,6 +1,7 @@
 ﻿using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Notification;
+using GuestSide.Application.DTOs.Request.Notification;
+using GuestSide.Application.DTOs.Response.Notification;
 using GuestSide.Application.Interface;
 using GuestSide.Core.Entities.Notification;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,9 @@ namespace GuestSide.API.Controllers.Notification
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StaffNotificationController : CSIControllerBase<StafNotificationDto, long, StaffNotification>
+    public class StaffNotificationController : CSIControllerBase<StafNotificationResponseDto, long, StaffNotification>
     {
-        public StaffNotificationController(IService<StafNotificationDto, long, StaffNotification> service) : base(service) { }
+        public StaffNotificationController(IService<StafNotificationResponseDto, long, StaffNotification> service) : base(service) { }
 
         /// <summary>
         /// Retrieves all staff notifications.
@@ -21,9 +22,9 @@ namespace GuestSide.API.Controllers.Notification
         /// <returns>A list of all staff notifications.</returns>
         [HttpGet("GetAllStaffNotifications")]
         [SwaggerOperation(Summary = "Retrieve all staff notifications", Description = "Returns a list of all staff notifications.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved staff notifications.", typeof(Response<IEnumerable<StafNotificationDto>>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved staff notifications.", typeof(Response<IEnumerable<StafNotificationResponseDto>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "No staff notifications found.")]
-        public override Task<Response<IEnumerable<StafNotificationDto>>> GetAllAsync(CancellationToken cancellationToken = default)
+        public override Task<Response<IEnumerable<StafNotificationResponseDto>>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return base.GetAllAsync(cancellationToken);
         }
@@ -36,9 +37,9 @@ namespace GuestSide.API.Controllers.Notification
         /// <returns>The staff notification matching the specified ID.</returns>
         [HttpGet("GetStaffNotificationById/{id}")]
         [SwaggerOperation(Summary = "Retrieve staff notification by ID", Description = "Returns a specific staff notification by its ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved the staff notification.", typeof(Response<StafNotificationDto>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved the staff notification.", typeof(Response<StafNotificationResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Staff notification not found.")]
-        public override Task<Response<StafNotificationDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<StafNotificationResponseDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.GetByIdAsync(id, cancellationToken);
         }
@@ -51,9 +52,9 @@ namespace GuestSide.API.Controllers.Notification
         /// <returns>The created staff notification.</returns>
         [HttpPost("CreateStaffNotification")]
         [SwaggerOperation(Summary = "Create a new staff notification", Description = "Creates a new staff notification.")]
-        [SwaggerResponse(StatusCodes.Status201Created, "Staff notification created successfully.", typeof(Response<StafNotificationDto>))]
+        [SwaggerResponse(StatusCodes.Status201Created, "Staff notification created successfully.", typeof(Response<StafNotificationResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<StafNotificationDto>> CreateAsync([FromBody] StafNotificationDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<StafNotificationResponseDto>> CreateAsync([FromBody] StafNotificationResponseDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -67,9 +68,9 @@ namespace GuestSide.API.Controllers.Notification
         /// <returns>The updated staff notification.</returns>
         [HttpPut("UpdateStaffNotification/{id}")]
         [SwaggerOperation(Summary = "Update an existing staff notification", Description = "Updates the staff notification with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Staff notification updated successfully.", typeof(Response<StafNotificationDto>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Staff notification updated successfully.", typeof(Response<StafNotificationResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<StafNotificationDto>> UpdateAsync([FromRoute] long id, [FromBody] StafNotificationDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<StafNotificationResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] StafNotificationResponseDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }

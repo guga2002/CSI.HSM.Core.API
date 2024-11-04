@@ -1,6 +1,7 @@
 ﻿using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Advertisment;
+using GuestSide.Application.DTOs.Request.Advertisment;
+using GuestSide.Application.DTOs.Response.Advertisment;
 using GuestSide.Application.Interface;
 using GuestSide.Core.Data;
 using GuestSide.Core.Entities.Advertisements;
@@ -11,10 +12,10 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace GuestSide.API.Controllers.Advertisement
 {
     [ApiController]
-    public class AdvertisementController : CSIControllerBase<AdvertismentDto, long, Advertisements>
+    public class AdvertisementController : CSIControllerBase<AdvertismentResponseDto, long, Advertisements>
     {
         private readonly GuestSideDb _db;
-        public AdvertisementController(IService<AdvertismentDto, long, Advertisements> serviceProvider,GuestSideDb db) : base(serviceProvider)
+        public AdvertisementController(IService<AdvertismentResponseDto, long, Advertisements> serviceProvider,GuestSideDb db) : base(serviceProvider)
         {
             _db = db;
         }
@@ -35,9 +36,9 @@ namespace GuestSide.API.Controllers.Advertisement
         /// <returns>A list of all models.</returns>
         [HttpGet("GetAdvertisements")]
         [SwaggerOperation(Summary = "Retrieve all records", Description = "Returns all the records of type AdvertismentDto.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved records.", typeof(Response<IEnumerable<AdvertismentDto>>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved records.", typeof(Response<IEnumerable<AdvertismentResponseDto>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
-        public override Task<Response<IEnumerable<AdvertismentDto>>> GetAllAsync(CancellationToken cancellationToken = default)
+        public override Task<Response<IEnumerable<AdvertismentResponseDto>>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return base.GetAllAsync(cancellationToken);
         }
@@ -50,9 +51,9 @@ namespace GuestSide.API.Controllers.Advertisement
         /// <returns>The record matching the specified ID.</returns>
         [HttpGet("GetAdvertisementById/{id}")]
         [SwaggerOperation(Summary = "Retrieve a record by ID", Description = "Returns a specific record by its ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved the record.", typeof(Response<AdvertismentDto>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved the record.", typeof(Response<AdvertismentResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
-        public override Task<Response<AdvertismentDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<AdvertismentResponseDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.GetByIdAsync(id, cancellationToken);
         }
@@ -65,9 +66,9 @@ namespace GuestSide.API.Controllers.Advertisement
         /// <returns>The created record.</returns>
         [HttpPost("CreateAdvertisement")]
         [SwaggerOperation(Summary = "Create a new record", Description = "Creates a new record of type AdvertismentDto.")]
-        [SwaggerResponse(StatusCodes.Status201Created, "Record created successfully.", typeof(Response<AdvertismentDto>))]
+        [SwaggerResponse(StatusCodes.Status201Created, "Record created successfully.", typeof(Response<AdvertismentResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<AdvertismentDto>> CreateAsync([FromBody] AdvertismentDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<AdvertismentResponseDto>> CreateAsync([FromBody] AdvertismentResponseDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -82,9 +83,9 @@ namespace GuestSide.API.Controllers.Advertisement
         /// <returns>The updated record.</returns>
         [HttpPut("UpdateAdvertisement/{id}")]
         [SwaggerOperation(Summary = "Update an existing record", Description = "Updates the record with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Record updated successfully.", typeof(Response<AdvertismentDto>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Record updated successfully.", typeof(Response<AdvertismentResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<AdvertismentDto>> UpdateAsync([FromRoute] long id, [FromBody] AdvertismentDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<AdvertismentResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] AdvertismentResponseDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }

@@ -1,9 +1,10 @@
 ﻿using FluentValidation;
-using GuestSide.Application.DTOs.FeedBacks;
+using GuestSide.Application.DTOs.Request.FeedBacks;
+using GuestSide.Application.DTOs.Response.FeedBacks;
 
 namespace GuestSide.Application.FluentValidation.FeedBacks
 {
-    public class FeedbackValidator:AbstractValidator<FeedbackDto>
+    public class FeedbackValidator:AbstractValidator<FeedbackResponseDto>
     {
         public FeedbackValidator()
         {

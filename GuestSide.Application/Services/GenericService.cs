@@ -6,21 +6,21 @@ using Microsoft.Extensions.Logging;
 
 namespace GuestSide.Application.Services
 {
-    public class GenericService<TModel, TKey, TDatabaseEntity> : IService<TModel, TKey, TDatabaseEntity>
+    public class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEntity> : IService<RequestDto,ResponseDto, TKey, TDatabaseEntity>
         where TDatabaseEntity : class
     {
         private readonly IMapper _mapper;
         private readonly IGenericRepository<TDatabaseEntity> _repository;
-        private readonly ILogger<GenericService<TModel, TKey, TDatabaseEntity>> _logger;
+        private readonly ILogger<GenericService<RequestDto, ResponseDto, TKey, TDatabaseEntity>> _logger;
 
-        public GenericService(IMapper mapper, IGenericRepository<TDatabaseEntity> repository, ILogger<GenericService<TModel, TKey, TDatabaseEntity>> logger)
+        public GenericService(IMapper mapper, IGenericRepository<TDatabaseEntity> repository, ILogger<GenericService<RequestDto, ResponseDto, TKey, TDatabaseEntity>> logger)
         {
             _mapper = mapper;
             _repository = repository;
             _logger = logger;
         }
 
-        public async Task<bool> CreateAsync(TModel entityDto, CancellationToken cancellationToken = default)
+        public async Task<bool> CreateAsync(RequestDto entityDto, CancellationToken cancellationToken = default)
         {
             var mappedEntity = _mapper.Map<TDatabaseEntity>(entityDto);
             var result = await _repository.AddAsync(mappedEntity, cancellationToken);
@@ -37,23 +37,23 @@ namespace GuestSide.Application.Services
             return await _repository.DeleteAsync(entity, cancellationToken);
         }
 
-        public async Task<IEnumerable<TModel>> GetAllAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<ResponseDto>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             var entities = await _repository.GetAllAsync(cancellationToken);
-            return _mapper.Map<IEnumerable<TModel>>(entities);
+            return _mapper.Map<IEnumerable<ResponseDto>>(entities);
         }
 
-        public async Task<TModel> GetByIdAsync(TKey id, CancellationToken cancellationToken = default)
+        public async Task<ResponseDto> GetByIdAsync(TKey id, CancellationToken cancellationToken = default)
         {
             var entity = await _repository.GetByIdAsync(id, cancellationToken);
             if (entity == null)
             {
                 throw new BusinessRuleViolationException(ErrorSuccessKeys.ErrorKeys.ACCESS_DENIED);
             }
-            return _mapper.Map<TModel>(entity);
+            return _mapper.Map<ResponseDto>(entity);
         }
 
-        public async Task<bool> UpdateAsync(TKey id, TModel entityDto, CancellationToken cancellationToken = default)
+        public async Task<bool> UpdateAsync(TKey id, RequestDto entityDto, CancellationToken cancellationToken = default)
         {
             var existingEntity = await _repository.GetByIdAsync(id, cancellationToken);
             if (existingEntity == null)

@@ -1,6 +1,7 @@
 ﻿using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Item;
+using GuestSide.Application.DTOs.Request.Item;
+using GuestSide.Application.DTOs.Response.Item;
 using GuestSide.Application.Interface;
 using GuestSide.Core.Entities.Item;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,9 @@ namespace GuestSide.API.Controllers.Item
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemController : CSIControllerBase<ItemDto, long, Items>
+    public class ItemController : CSIControllerBase<ItemResponseDto, long, Items>
     {
-        public ItemController(IService<ItemDto, long, Items> service) : base(service) { }
+        public ItemController(IService<ItemResponseDto, long, Items> service) : base(service) { }
 
         /// <summary>
         /// Retrieves all item records.
@@ -21,9 +22,9 @@ namespace GuestSide.API.Controllers.Item
         /// <returns>A list of all item records.</returns>
         [HttpGet("GetItems")]
         [SwaggerOperation(Summary = "Retrieve all item records", Description = "Returns a list of all item records.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved item records.", typeof(Response<IEnumerable<ItemDto>>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved item records.", typeof(Response<IEnumerable<ItemResponseDto>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "No item records found.")]
-        public override Task<Response<IEnumerable<ItemDto>>> GetAllAsync(CancellationToken cancellationToken = default)
+        public override Task<Response<IEnumerable<ItemResponseDto>>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return base.GetAllAsync(cancellationToken);
         }
@@ -36,9 +37,9 @@ namespace GuestSide.API.Controllers.Item
         /// <returns>The item record matching the specified ID.</returns>
         [HttpGet("GetItemById/{id}")]
         [SwaggerOperation(Summary = "Retrieve item record by ID", Description = "Returns a specific item record by its ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved the item record.", typeof(Response<ItemDto>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved the item record.", typeof(Response<ItemResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Item record not found.")]
-        public override Task<Response<ItemDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<ItemResponseDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.GetByIdAsync(id, cancellationToken);
         }
@@ -51,9 +52,9 @@ namespace GuestSide.API.Controllers.Item
         /// <returns>The created item record.</returns>
         [HttpPost("CreateItem")]
         [SwaggerOperation(Summary = "Create a new item record", Description = "Creates a new item record.")]
-        [SwaggerResponse(StatusCodes.Status201Created, "Item record created successfully.", typeof(Response<ItemDto>))]
+        [SwaggerResponse(StatusCodes.Status201Created, "Item record created successfully.", typeof(Response<ItemResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<ItemDto>> CreateAsync([FromBody] ItemDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<ItemResponseDto>> CreateAsync([FromBody] ItemResponseDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -67,9 +68,9 @@ namespace GuestSide.API.Controllers.Item
         /// <returns>The updated item record.</returns>
         [HttpPut("UpdateItem/{id}")]
         [SwaggerOperation(Summary = "Update an existing item record", Description = "Updates the item record with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Item record updated successfully.", typeof(Response<ItemDto>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Item record updated successfully.", typeof(Response<ItemResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<ItemDto>> UpdateAsync([FromRoute] long id, [FromBody] ItemDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<ItemResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] ItemResponseDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }

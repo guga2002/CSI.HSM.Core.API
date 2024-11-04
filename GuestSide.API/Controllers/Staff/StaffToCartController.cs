@@ -1,6 +1,7 @@
 ﻿using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Staff;
+using GuestSide.Application.DTOs.Request.Staff;
+using GuestSide.Application.DTOs.Response.Staff;
 using GuestSide.Application.Interface;
 using GuestSide.Core.Entities.Staff;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,9 @@ namespace GuestSide.API.Controllers.Staff
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StaffToCartController : CSIControllerBase<CartToStaffDto, long, CartToStaff>
+    public class StaffToCartController : CSIControllerBase<CartToStaffResponseDto, long, CartToStaff>
     {
-        public StaffToCartController(IService<CartToStaffDto, long, CartToStaff> serviceProvider) : base(serviceProvider)
+        public StaffToCartController(IService<CartToStaffResponseDto, long, CartToStaff> serviceProvider) : base(serviceProvider)
         {
         }
 
@@ -23,9 +24,9 @@ namespace GuestSide.API.Controllers.Staff
         /// <returns>A list of all cart-to-staff records.</returns>
         [HttpGet("GetAllCartToStaff")]
         [SwaggerOperation(Summary = "Retrieve all cart-to-staff records", Description = "Returns a list of all cart-to-staff records.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved cart-to-staff records.", typeof(Response<IEnumerable<CartToStaffDto>>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved cart-to-staff records.", typeof(Response<IEnumerable<CartToStaffResponseDto>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "No cart-to-staff records found.")]
-        public override Task<Response<IEnumerable<CartToStaffDto>>> GetAllAsync(CancellationToken cancellationToken = default)
+        public override Task<Response<IEnumerable<CartToStaffResponseDto>>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return base.GetAllAsync(cancellationToken);
         }
@@ -38,9 +39,9 @@ namespace GuestSide.API.Controllers.Staff
         /// <returns>The cart-to-staff record matching the specified ID.</returns>
         [HttpGet("GetCartToStaffById/{id}")]
         [SwaggerOperation(Summary = "Retrieve cart-to-staff record by ID", Description = "Returns a specific cart-to-staff record by its ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved the cart-to-staff record.", typeof(Response<CartToStaffDto>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved the cart-to-staff record.", typeof(Response<CartToStaffResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Cart-to-staff record not found.")]
-        public override Task<Response<CartToStaffDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<CartToStaffResponseDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.GetByIdAsync(id, cancellationToken);
         }
@@ -53,9 +54,9 @@ namespace GuestSide.API.Controllers.Staff
         /// <returns>The created cart-to-staff record.</returns>
         [HttpPost("CreateCartToStaff")]
         [SwaggerOperation(Summary = "Create a new cart-to-staff record", Description = "Creates a new cart-to-staff record.")]
-        [SwaggerResponse(StatusCodes.Status201Created, "Cart-to-staff record created successfully.", typeof(Response<CartToStaffDto>))]
+        [SwaggerResponse(StatusCodes.Status201Created, "Cart-to-staff record created successfully.", typeof(Response<CartToStaffResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<CartToStaffDto>> CreateAsync([FromBody] CartToStaffDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<CartToStaffResponseDto>> CreateAsync([FromBody] CartToStaffResponseDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -69,9 +70,9 @@ namespace GuestSide.API.Controllers.Staff
         /// <returns>The updated cart-to-staff record.</returns>
         [HttpPut("UpdateCartToStaff/{id}")]
         [SwaggerOperation(Summary = "Update an existing cart-to-staff record", Description = "Updates the cart-to-staff record with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Cart-to-staff record updated successfully.", typeof(Response<CartToStaffDto>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Cart-to-staff record updated successfully.", typeof(Response<CartToStaffResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<CartToStaffDto>> UpdateAsync([FromRoute] long id, [FromBody] CartToStaffDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<CartToStaffResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] CartToStaffResponseDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }

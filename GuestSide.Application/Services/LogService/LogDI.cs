@@ -5,7 +5,8 @@ using GuestSide.Infrastructure.Repositories.LogRepo;
 using GuestSide.Core.Entities.LogEntities;
 using GuestSide.Core.Interfaces.LogInterfaces;
 using GuestSide.Application.Interface.LogInterfaces;
-using GuestSide.Application.DTOs.Log;
+using GuestSide.Application.DTOs.Request.LogModel;
+using GuestSide.Application.DTOs.Response.LogModel;
 
 namespace GuestSide.Application.Services.LogService
 {
@@ -16,7 +17,7 @@ namespace GuestSide.Application.Services.LogService
             services.AddScoped<IGenericRepository<Logs>, LogRepository>();
             services.AddScoped<ILogRepository, LogRepository>();
             services.AddScoped<ILogService, LogService>();
-            services.AddScoped<IService<LogDto, long, Logs>, LogService>();
+            services.AddScoped<IService<LogDto,LogResponseDto, long, Logs>, LogService>();
         }
     }
 }

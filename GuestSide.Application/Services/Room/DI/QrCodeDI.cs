@@ -6,7 +6,8 @@ using GuestSide.Application.Services.Room.Service;
 using GuestSide.Core.Entities.Room;
 using GuestSide.Core.Interfaces.Room;
 using GuestSide.Application.Interface.Room;
-using GuestSide.Application.DTOs.Room;
+using GuestSide.Application.DTOs.Request.Room;
+using GuestSide.Application.DTOs.Response.Room;
 
 namespace GuestSide.Application.Services.Room.DI
 {
@@ -17,7 +18,7 @@ namespace GuestSide.Application.Services.Room.DI
             services.AddScoped<IGenericRepository<QRCode>, QRCodeRepository>();
             services.AddScoped<IQRCodeRepository, QRCodeRepository>();
             services.AddScoped<IQrCodeService, QrCodeService>();
-            services.AddScoped<IService<QRCodeDto, long, QRCode>, QrCodeService>();
+            services.AddScoped<IService<QRCodeDto,QRCodeResponseDto, long, QRCode>, QrCodeService>();
         }
     }
 }

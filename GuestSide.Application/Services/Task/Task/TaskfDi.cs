@@ -5,9 +5,10 @@ using GuestSide.Core.Entities.Task;
 using GuestSide.Infrastructure.Repositories.Task;
 using GuestSide.Core.Interfaces.Task;
 using GuestSide.Application.Interface.Task.Task;
-using GuestSide.Application.DTOs.Task;
+using GuestSide.Application.DTOs.Request.Task;
+using GuestSide.Application.DTOs.Response.Task;
 
-namespace GuestSide.Application.Services.Task.Status
+namespace GuestSide.Application.Services.Task.Task
 {
     public static class TaskfDi
     {
@@ -16,7 +17,7 @@ namespace GuestSide.Application.Services.Task.Status
             services.AddScoped<IGenericRepository<Tasks>, TaskRepository>();
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<ITaskService, TasksService>();
-            services.AddScoped<IService<TaskDto, long, Tasks>, TasksService>();
+            services.AddScoped<IService<TaskDto,TaskResponseDto, long, Tasks>, TasksService>();
 
         }
     }
