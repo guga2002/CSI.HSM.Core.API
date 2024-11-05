@@ -20,21 +20,29 @@ namespace GuestSide.Application.Services
             _logger = logger;
         }
 
-        public async Task<bool> CreateAsync(RequestDto entityDto, CancellationToken cancellationToken = default)
+        public async Task<ResponseDto> CreateAsync(RequestDto entityDto, CancellationToken cancellationToken = default)
         {
             var mappedEntity = _mapper.Map<TDatabaseEntity>(entityDto);
             var result = await _repository.AddAsync(mappedEntity, cancellationToken);
-            return result;
+            var MappedResponse = _mapper.Map<ResponseDto>(result);
+            return MappedResponse;
         }
 
-        public async Task<bool> DeleteAsync(TKey id, CancellationToken cancellationToken = default)
+        public async Task<ResponseDto> DeleteAsync(TKey id, CancellationToken cancellationToken = default)
         {
+            if(id is null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
             var entity = await _repository.GetByIdAsync(id, cancellationToken);
-            if (entity == null)
+            if (entity is null)
             {
                 throw new BusinessRuleViolationException(ErrorSuccessKeys.ErrorKeys.INVALID_INPUT);
             }
-            return await _repository.DeleteAsync(entity, cancellationToken);
+            var res=await _repository.DeleteAsync(entity, cancellationToken);
+
+            var mappedResponse=_mapper.Map<ResponseDto>(res);
+            return mappedResponse;
         }
 
         public async Task<IEnumerable<ResponseDto>> GetAllAsync(CancellationToken cancellationToken = default)
@@ -45,23 +53,33 @@ namespace GuestSide.Application.Services
 
         public async Task<ResponseDto> GetByIdAsync(TKey id, CancellationToken cancellationToken = default)
         {
+            if (id is null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
             var entity = await _repository.GetByIdAsync(id, cancellationToken);
-            if (entity == null)
+            if (entity is null)
             {
                 throw new BusinessRuleViolationException(ErrorSuccessKeys.ErrorKeys.ACCESS_DENIED);
             }
             return _mapper.Map<ResponseDto>(entity);
         }
 
-        public async Task<bool> UpdateAsync(TKey id, RequestDto entityDto, CancellationToken cancellationToken = default)
+        public async Task<ResponseDto> UpdateAsync(TKey id, RequestDto entityDto, CancellationToken cancellationToken = default)
         {
+            if (id is null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
             var existingEntity = await _repository.GetByIdAsync(id, cancellationToken);
-            if (existingEntity == null)
+            if (existingEntity is null)
             {
                 throw new BusinessRuleViolationException(ErrorSuccessKeys.ErrorKeys.ACCESS_DENIED);
             }
-            var mappedEntity = _mapper.Map(entityDto, existingEntity);
-            return await _repository.UpdateAsync(mappedEntity, cancellationToken);
+            var mappedEntity = _mapper.Map<TDatabaseEntity>(existingEntity);
+            var responseFromUpdate= await _repository.UpdateAsync(mappedEntity, cancellationToken);
+            var mappedResponse = _mapper.Map<ResponseDto>(responseFromUpdate);
+            return mappedResponse;
         }
     }
 }

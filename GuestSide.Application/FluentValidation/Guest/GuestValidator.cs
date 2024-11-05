@@ -4,7 +4,7 @@ using GuestSide.Application.DTOs.Response.Guest;
 
 namespace GuestSide.Application.FluentValidation.Guest
 {
-    public class GuestValidator:AbstractValidator<GuestResponseDto>
+    public class GuestValidator:AbstractValidator<GuestDto>
     {
         public GuestValidator()
         {

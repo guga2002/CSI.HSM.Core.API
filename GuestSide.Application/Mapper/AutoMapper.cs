@@ -53,6 +53,26 @@ namespace GuestSide.Application.Mapper
             CreateMap<StaffResponseDto,Staffs>().ReverseMap();
             CreateMap<TaskCategoryResponseDto,TaskCategory>().ReverseMap();
             CreateMap<TaskResponseDto,Tasks>().ReverseMap();
+
+            CreateMap<AdvertisementTypeDto, AdvertisementType>().ReverseMap();
+            CreateMap<AdvertismentDto, Advertisements>().ReverseMap();
+            CreateMap<FeedbackDto, Feedback>().ReverseMap();
+            CreateMap<GuestDto, Guests>().ReverseMap();
+            CreateMap<CartDto, Cart>().ReverseMap();
+            CreateMap<ItemCategoryDto, ItemCategory>().ReverseMap();
+            CreateMap<ItemDto, Items>().ReverseMap();
+            CreateMap<LogDto, Logs>().ReverseMap();
+            CreateMap<GuestNotificationDto, GuestNotification>().ReverseMap();
+            CreateMap<NotificationDto, Notifications>().ReverseMap();
+            CreateMap<StafNotificationDto, StaffNotification>().ReverseMap();
+            CreateMap<QRCodeDto, QRCode>().ReverseMap();
+            CreateMap<RoomCategoryDto, RoomCategory>().ReverseMap();
+            CreateMap<RoomsDto, Rooms>().ReverseMap();
+            CreateMap<CartToStaffDto, CartToStaff>().ReverseMap();
+            CreateMap<StaffCategoryDto, StaffCategory>().ReverseMap();
+            CreateMap<StaffDto, Staffs>().ReverseMap();
+            CreateMap<TaskCategoryDto, TaskCategory>().ReverseMap();
+            CreateMap<TaskDto, Tasks>().ReverseMap();
         }
     }
 }

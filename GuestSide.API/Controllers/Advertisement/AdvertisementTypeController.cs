@@ -11,9 +11,9 @@ namespace GuestSide.API.Controllers.Advertisement
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdvertisementTypeController : CSIControllerBase<AdvertisementTypeResponseDto, long, AdvertisementType>
+    public class AdvertisementTypeController : CSIControllerBase<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, AdvertisementType>
     {
-        public AdvertisementTypeController(IService<AdvertisementTypeResponseDto, long, AdvertisementType> serviceProvider) : base(serviceProvider)
+        public AdvertisementTypeController(IService<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, AdvertisementType> serviceProvider) : base(serviceProvider)
         {
         }
 
@@ -58,7 +58,7 @@ namespace GuestSide.API.Controllers.Advertisement
         [SwaggerOperation(Summary = "Create a new advertisement type", Description = "Creates a new advertisement type.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Advertisement type created successfully.", typeof(Response<AdvertisementTypeResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override async Task<Response<AdvertisementTypeResponseDto>> CreateAsync([FromBody] AdvertisementTypeResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override async Task<Response<AdvertisementTypeResponseDto>> CreateAsync([FromBody] AdvertisementTypeDto entityDto, CancellationToken cancellationToken = default)
         {
             // Custom validation can be added here if needed
             if (entityDto == null || string.IsNullOrWhiteSpace(entityDto.Description))
@@ -79,7 +79,7 @@ namespace GuestSide.API.Controllers.Advertisement
         [SwaggerOperation(Summary = "Update an existing advertisement type", Description = "Updates the advertisement type with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Advertisement type updated successfully.", typeof(Response<AdvertisementTypeResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override async Task<Response<AdvertisementTypeResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] AdvertisementTypeResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override async Task<Response<AdvertisementTypeResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] AdvertisementTypeDto entityDto, CancellationToken cancellationToken = default)
         {
             // Custom validation can be added here if needed
             if (entityDto == null || string.IsNullOrWhiteSpace(entityDto.Description))
@@ -97,9 +97,9 @@ namespace GuestSide.API.Controllers.Advertisement
         /// <returns>A success or failure response.</returns>
         [HttpDelete("DeleteAdvertisementType/{id}")]
         [SwaggerOperation(Summary = "Delete an advertisement type", Description = "Deletes the advertisement type with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Advertisement type deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Advertisement type deleted successfully.", typeof(Response<AdvertisementTypeResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Advertisement type not found or failed to delete.")]
-        public override async Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override async Task<Response<AdvertisementTypeResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return await base.DeleteAsync(id, cancellationToken);
         }

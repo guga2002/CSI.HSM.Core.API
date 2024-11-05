@@ -11,9 +11,9 @@ namespace GuestSide.API.Controllers.Feadbacks
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FeedBackController : CSIControllerBase<FeedbackResponseDto, long, Feedback>
+    public class FeedBackController : CSIControllerBase<FeedbackDto,FeedbackResponseDto, long, Feedback>
     {
-        public FeedBackController(IService<FeedbackResponseDto, long, Feedback> serviceProvider) : base(serviceProvider)
+        public FeedBackController(IService<FeedbackDto,FeedbackResponseDto, long, Feedback> serviceProvider) : base(serviceProvider)
         {
         }
 
@@ -56,7 +56,7 @@ namespace GuestSide.API.Controllers.Feadbacks
         [SwaggerOperation(Summary = "Create a new feedback record", Description = "Creates a new feedback record.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Feedback record created successfully.", typeof(Response<FeedbackResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<FeedbackResponseDto>> CreateAsync([FromBody] FeedbackResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<FeedbackResponseDto>> CreateAsync([FromBody] FeedbackDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -72,7 +72,7 @@ namespace GuestSide.API.Controllers.Feadbacks
         [SwaggerOperation(Summary = "Update an existing feedback record", Description = "Updates the feedback record with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Feedback record updated successfully.", typeof(Response<FeedbackResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<FeedbackResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] FeedbackResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<FeedbackResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] FeedbackDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }
@@ -85,9 +85,9 @@ namespace GuestSide.API.Controllers.Feadbacks
         /// <returns>A success or failure response.</returns>
         [HttpDelete("DeleteFeedback/{id}")]
         [SwaggerOperation(Summary = "Delete a feedback record", Description = "Deletes the feedback record with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Feedback record deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Feedback record deleted successfully.", typeof(Response<FeedbackResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Feedback record not found or failed to delete.")]
-        public override Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<FeedbackResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.DeleteAsync(id, cancellationToken);
         }

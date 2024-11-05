@@ -4,7 +4,7 @@ using GuestSide.Application.DTOs.Response.Advertisment;
 
 namespace GuestSide.Application.FluentValidation.Advertisment
 {
-    public class AdventismentValidator:AbstractValidator<AdvertismentResponseDto>
+    public class AdventismentValidator:AbstractValidator<AdvertismentDto>
     {
         public AdventismentValidator()
         {

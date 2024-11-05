@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GuestSide.Application.FluentValidation.Item
 {
-    public class ItemCategoryValidator:AbstractValidator<ItemCategoryResponseDto>
+    public class ItemCategoryValidator:AbstractValidator<ItemCategoryDto>
     {
         public ItemCategoryValidator()
         {

@@ -39,7 +39,7 @@ namespace GuestSide.Infrastructure.Repositories.AbstractRepository
             return await DbSet.Where(predicate).ToListAsync(cancellationToken);
         }
 
-        public virtual async Task<bool> AddAsync(T entity, CancellationToken cancellationToken = default)
+        public virtual async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
         {
             if (entity == null)
             {
@@ -50,10 +50,15 @@ namespace GuestSide.Infrastructure.Repositories.AbstractRepository
             {
                 await DbSet.AddAsync(entity, cancellationToken);
             }
-            return await context.SaveChangesAsync(cancellationToken)>0;
+
+            if ((await Context.SaveChangesAsync(cancellationToken)) > 0)
+            {
+                return entity;
+            }
+            return null;
         }
 
-        public virtual async Task<bool> UpdateAsync(T entity, CancellationToken cancellationToken = default)
+        public virtual async Task<T> UpdateAsync(T entity, CancellationToken cancellationToken = default)
         {
             if (entity == null)
             {
@@ -62,10 +67,15 @@ namespace GuestSide.Infrastructure.Repositories.AbstractRepository
 
             DbSet.Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
-            return await Context.SaveChangesAsync(cancellationToken) > 0;
+
+            if ((await Context.SaveChangesAsync(cancellationToken)) > 0)
+            {
+                return entity;
+            }
+            return null;
         }
 
-        public virtual async Task<bool> DeleteAsync(object id, CancellationToken cancellationToken = default)
+        public virtual async Task<T> DeleteAsync(object id, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -73,16 +83,21 @@ namespace GuestSide.Infrastructure.Repositories.AbstractRepository
             }
 
             var entityToDelete = await DbSet.FindAsync(id, cancellationToken);
+ 
             if (entityToDelete == null)
             {
                 throw new KeyNotFoundException($"Entity with id {id} not found.");
             }
 
             await Delete(entityToDelete);
-            return await Context.SaveChangesAsync(cancellationToken) > 0;
+            if ((await Context.SaveChangesAsync(cancellationToken)) > 0)
+            {
+                return entityToDelete;
+            }
+            return null;
         }
 
-        public async virtual Task<bool> Delete(T entityToDelete, CancellationToken cancellationToken = default)
+        public async virtual Task<T> Delete(T entityToDelete, CancellationToken cancellationToken = default)
         {
             if (entityToDelete == null)
             {
@@ -96,7 +111,11 @@ namespace GuestSide.Infrastructure.Repositories.AbstractRepository
 
             DbSet.Remove(entityToDelete);
 
-            return await Context.SaveChangesAsync(cancellationToken) > 0;
+            if ((await Context.SaveChangesAsync(cancellationToken)) > 0)
+            {
+                return entityToDelete;
+            }
+            return null;
         }
     }
 }

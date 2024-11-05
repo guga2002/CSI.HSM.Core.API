@@ -4,7 +4,7 @@ using GuestSide.Application.DTOs.Response.Item;
 
 namespace GuestSide.Application.FluentValidation.Item
 {
-    public class CartValidator:AbstractValidator<CartResponseDto>
+    public class CartValidator:AbstractValidator<CartDto>
     {
     }
 }
