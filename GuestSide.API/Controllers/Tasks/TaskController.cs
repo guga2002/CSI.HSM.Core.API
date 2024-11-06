@@ -1,6 +1,5 @@
 ﻿using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Notification;
 using GuestSide.Application.DTOs.Request.Task;
 using GuestSide.Application.DTOs.Response.Task;
 using GuestSide.Application.Interface;
@@ -13,11 +12,11 @@ namespace GuestSide.API.Controllers.Tasks
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TaskController : CSIControllerBase<TaskResponseDto, long, GuestSide.Core.Entities.Task.Tasks>
+    public class TaskController : CSIControllerBase<TaskDto,TaskResponseDto, long, GuestSide.Core.Entities.Task.Tasks>
     {
         private readonly ITaskService _taskService;
 
-        public TaskController(IService<TaskResponseDto, long, GuestSide.Core.Entities.Task.Tasks> serviceProvider, ITaskService taskService)
+        public TaskController(IService<TaskDto,TaskResponseDto, long, GuestSide.Core.Entities.Task.Tasks> serviceProvider, ITaskService taskService)
             : base(serviceProvider)
         {
             _taskService = taskService;
@@ -86,7 +85,7 @@ namespace GuestSide.API.Controllers.Tasks
         [SwaggerOperation(Summary = "Create a new guest notification", Description = "Creates a new guest notification.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Guest notification created successfully.", typeof(Response<TaskResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override async Task<Response<TaskResponseDto>> CreateAsync([FromBody] TaskResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override async Task<Response<TaskResponseDto>> CreateAsync([FromBody] TaskDto entityDto, CancellationToken cancellationToken = default)
         {
             // Custom validation can be added here
             if (entityDto == null || string.IsNullOrWhiteSpace(entityDto.Description))
@@ -108,7 +107,7 @@ namespace GuestSide.API.Controllers.Tasks
         [SwaggerOperation(Summary = "Update an existing guest notification", Description = "Updates the guest notification with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Guest notification updated successfully.", typeof(Response<TaskResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override async Task<Response<TaskResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] TaskResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override async Task<Response<TaskResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] TaskDto entityDto, CancellationToken cancellationToken = default)
         {
             // Custom validation can be added here
             if (entityDto == null || string.IsNullOrWhiteSpace(entityDto.Title))
@@ -127,9 +126,9 @@ namespace GuestSide.API.Controllers.Tasks
         /// <returns>A success or failure response.</returns>
         [HttpDelete("DeleteTask/{id}")]
         [SwaggerOperation(Summary = "Delete a guest notification", Description = "Deletes the guest notification with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Guest notification deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Guest notification deleted successfully.", typeof(Response<TaskResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Guest notification not found or failed to delete.")]
-        public override async Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override async Task<Response<TaskResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             var response = await base.DeleteAsync(id, cancellationToken);
             return response;

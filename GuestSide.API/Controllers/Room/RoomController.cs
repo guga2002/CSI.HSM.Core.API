@@ -11,9 +11,9 @@ namespace GuestSide.API.Controllers.Room
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoomController : CSIControllerBase<RoomsResponseDto, long, Rooms>
+    public class RoomController : CSIControllerBase<RoomsDto,RoomsResponseDto, long, Rooms>
     {
-        public RoomController(IService<RoomsResponseDto, long, Rooms> service) : base(service) { }
+        public RoomController(IService<RoomsDto,RoomsResponseDto, long, Rooms> service) : base(service) { }
 
         /// <summary>
         /// Retrieves all rooms.
@@ -54,7 +54,7 @@ namespace GuestSide.API.Controllers.Room
         [SwaggerOperation(Summary = "Create a new room", Description = "Creates a new room.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Room created successfully.", typeof(Response<RoomsResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<RoomsResponseDto>> CreateAsync([FromBody] RoomsResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<RoomsResponseDto>> CreateAsync([FromBody] RoomsDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -70,7 +70,7 @@ namespace GuestSide.API.Controllers.Room
         [SwaggerOperation(Summary = "Update an existing room", Description = "Updates the room with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Room updated successfully.", typeof(Response<RoomsResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<RoomsResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] RoomsResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<RoomsResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] RoomsDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }
@@ -83,9 +83,9 @@ namespace GuestSide.API.Controllers.Room
         /// <returns>A success or failure response.</returns>
         [HttpDelete("DeleteRoom/{id}")]
         [SwaggerOperation(Summary = "Delete a room", Description = "Deletes the room with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Room deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Room deleted successfully.", typeof(Response<RoomsResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Room not found or failed to delete.")]
-        public override Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<RoomsResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.DeleteAsync(id, cancellationToken);
         }

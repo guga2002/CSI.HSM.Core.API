@@ -11,9 +11,9 @@ namespace GuestSide.API.Controllers.Staff
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StaffController : CSIControllerBase<StaffResponseDto, long, Staffs>
+    public class StaffController : CSIControllerBase<StaffDto,StaffResponseDto, long, Staffs>
     {
-        public StaffController(IService<StaffResponseDto, long, Staffs> serviceProvider) : base(serviceProvider)
+        public StaffController(IService<StaffDto,StaffResponseDto, long, Staffs> serviceProvider) : base(serviceProvider)
         {
         }
 
@@ -56,7 +56,7 @@ namespace GuestSide.API.Controllers.Staff
         [SwaggerOperation(Summary = "Create a new staff member", Description = "Creates a new staff member.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Staff member created successfully.", typeof(Response<StaffResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<StaffResponseDto>> CreateAsync([FromBody] StaffResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<StaffResponseDto>> CreateAsync([FromBody] StaffDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -72,7 +72,7 @@ namespace GuestSide.API.Controllers.Staff
         [SwaggerOperation(Summary = "Update an existing staff member", Description = "Updates the staff member with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Staff member updated successfully.", typeof(Response<StaffResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<StaffResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] StaffResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<StaffResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] StaffDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }
@@ -85,9 +85,9 @@ namespace GuestSide.API.Controllers.Staff
         /// <returns>A success or failure response.</returns>
         [HttpDelete("DeleteStaff/{id}")]
         [SwaggerOperation(Summary = "Delete a staff member", Description = "Deletes the staff member with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Staff member deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Staff member deleted successfully.", typeof(Response<StaffResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Staff member not found or failed to delete.")]
-        public override Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<StaffResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.DeleteAsync(id, cancellationToken);
         }

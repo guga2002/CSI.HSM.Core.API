@@ -11,9 +11,9 @@ namespace GuestSide.API.Controllers.Room
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoomCategoryController : CSIControllerBase<RoomCategoryResponseDto, long, RoomCategory>
+    public class RoomCategoryController : CSIControllerBase<RoomCategoryDto,RoomCategoryResponseDto, long, RoomCategory>
     {
-        public RoomCategoryController(IService<RoomCategoryResponseDto, long, RoomCategory> service) : base(service) { }
+        public RoomCategoryController(IService<RoomCategoryDto,RoomCategoryResponseDto, long, RoomCategory> service) : base(service) { }
 
         /// <summary>
         /// Retrieves all room categories.
@@ -54,7 +54,7 @@ namespace GuestSide.API.Controllers.Room
         [SwaggerOperation(Summary = "Create a new room category", Description = "Creates a new room category.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Room category created successfully.", typeof(Response<RoomCategoryResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<RoomCategoryResponseDto>> CreateAsync([FromBody] RoomCategoryResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<RoomCategoryResponseDto>> CreateAsync([FromBody] RoomCategoryDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -70,7 +70,7 @@ namespace GuestSide.API.Controllers.Room
         [SwaggerOperation(Summary = "Update an existing room category", Description = "Updates the room category with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Room category updated successfully.", typeof(Response<RoomCategoryResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<RoomCategoryResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] RoomCategoryResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<RoomCategoryResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] RoomCategoryDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }
@@ -83,9 +83,9 @@ namespace GuestSide.API.Controllers.Room
         /// <returns>A success or failure response.</returns>
         [HttpDelete("DeleteRoomCategory/{id}")]
         [SwaggerOperation(Summary = "Delete a room category", Description = "Deletes the room category with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Room category deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Room category deleted successfully.", typeof(Response<RoomCategoryResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Room category not found or failed to delete.")]
-        public override Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<RoomCategoryResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.DeleteAsync(id, cancellationToken);
         }

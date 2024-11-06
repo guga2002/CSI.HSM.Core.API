@@ -11,9 +11,9 @@ namespace GuestSide.API.Controllers.Notification
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NotificationController : CSIControllerBase<NotificationResponseDto, long, Notifications>
+    public class NotificationController : CSIControllerBase<NotificationDto,NotificationResponseDto, long, Notifications>
     {
-        public NotificationController(IService<NotificationResponseDto, long, Notifications> service) : base(service) { }
+        public NotificationController(IService<NotificationDto,NotificationResponseDto, long, Notifications> service) : base(service) { }
 
         /// <summary>
         /// Retrieves all notifications.
@@ -54,7 +54,7 @@ namespace GuestSide.API.Controllers.Notification
         [SwaggerOperation(Summary = "Create a new notification", Description = "Creates a new notification.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Notification created successfully.", typeof(Response<NotificationResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<NotificationResponseDto>> CreateAsync([FromBody] NotificationResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<NotificationResponseDto>> CreateAsync([FromBody] NotificationDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -70,7 +70,7 @@ namespace GuestSide.API.Controllers.Notification
         [SwaggerOperation(Summary = "Update an existing notification", Description = "Updates the notification with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Notification updated successfully.", typeof(Response<NotificationResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<NotificationResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] NotificationResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<NotificationResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] NotificationDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }
@@ -83,9 +83,9 @@ namespace GuestSide.API.Controllers.Notification
         /// <returns>A success or failure response.</returns>
         [HttpDelete("DeleteNotification/{id}")]
         [SwaggerOperation(Summary = "Delete a notification", Description = "Deletes the notification with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Notification deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Notification deleted successfully.", typeof(Response<NotificationResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Notification not found or failed to delete.")]
-        public override Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<NotificationResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.DeleteAsync(id, cancellationToken);
         }

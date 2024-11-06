@@ -11,9 +11,9 @@ namespace GuestSide.API.Controllers.LogController
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LogController : CSIControllerBase<LogResponseDto, long, Logs>
+    public class LogController : CSIControllerBase<LogDto,LogResponseDto, long, Logs>
     {
-        public LogController(IService<LogResponseDto, long, Logs> service) : base(service) { }
+        public LogController(IService<LogDto,LogResponseDto, long, Logs> service) : base(service) { }
 
         /// <summary>
         /// Retrieves all log records.
@@ -54,7 +54,7 @@ namespace GuestSide.API.Controllers.LogController
         [SwaggerOperation(Summary = "Create a new log record", Description = "Creates a new log record.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Log record created successfully.", typeof(Response<LogResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<LogResponseDto>> CreateAsync([FromBody] LogResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<LogResponseDto>> CreateAsync([FromBody] LogDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -70,7 +70,7 @@ namespace GuestSide.API.Controllers.LogController
         [SwaggerOperation(Summary = "Update an existing log record", Description = "Updates the log record with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Log record updated successfully.", typeof(Response<LogResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<LogResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] LogResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<LogResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] LogDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }
@@ -83,9 +83,9 @@ namespace GuestSide.API.Controllers.LogController
         /// <returns>A success or failure response.</returns>
         [HttpDelete("DeleteLog/{id}")]
         [SwaggerOperation(Summary = "Delete a log record", Description = "Deletes the log record with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Log record deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Log record deleted successfully.", typeof(Response<LogResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Log record not found or failed to delete.")]
-        public override Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<LogResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.DeleteAsync(id, cancellationToken);
         }

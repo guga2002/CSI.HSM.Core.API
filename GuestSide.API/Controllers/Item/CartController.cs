@@ -11,9 +11,9 @@ namespace GuestSide.API.Controllers.Item
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CartController : CSIControllerBase<CartResponseDto, long, Cart>
+    public class CartController : CSIControllerBase<CartDto,CartResponseDto, long, Cart>
     {
-        public CartController(IService<CartResponseDto, long, Cart> service) : base(service) { }
+        public CartController(IService<CartDto,CartResponseDto, long, Cart> service) : base(service) { }
 
         /// <summary>
         /// Retrieves all cart records.
@@ -54,7 +54,7 @@ namespace GuestSide.API.Controllers.Item
         [SwaggerOperation(Summary = "Create a new cart record", Description = "Creates a new cart record.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Cart record created successfully.", typeof(Response<CartResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<CartResponseDto>> CreateAsync([FromBody] CartResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<CartResponseDto>> CreateAsync([FromBody] CartDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -70,7 +70,7 @@ namespace GuestSide.API.Controllers.Item
         [SwaggerOperation(Summary = "Update an existing cart record", Description = "Updates the cart record with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Cart record updated successfully.", typeof(Response<CartResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<CartResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] CartResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<CartResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] CartDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }
@@ -83,9 +83,9 @@ namespace GuestSide.API.Controllers.Item
         /// <returns>A success or failure response.</returns>
         [HttpDelete("DeleteCart/{id}")]
         [SwaggerOperation(Summary = "Delete a cart record", Description = "Deletes the cart record with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Cart record deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Cart record deleted successfully.", typeof(Response<CartResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Cart record not found or failed to delete.")]
-        public override Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<CartResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.DeleteAsync(id, cancellationToken);
         }

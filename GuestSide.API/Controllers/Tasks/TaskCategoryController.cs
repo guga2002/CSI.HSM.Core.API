@@ -11,9 +11,9 @@ namespace GuestSide.API.Controllers.Tasks
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TaskCategoryController : CSIControllerBase<TaskCategoryResponseDto, long, TaskCategory>
+    public class TaskCategoryController : CSIControllerBase<TaskCategoryDto,TaskCategoryResponseDto, long, TaskCategory>
     {
-        public TaskCategoryController(IService<TaskCategoryResponseDto, long, TaskCategory> serviceProvider) : base(serviceProvider)
+        public TaskCategoryController(IService<TaskCategoryDto,TaskCategoryResponseDto, long, TaskCategory> serviceProvider) : base(serviceProvider)
         {
         }
 
@@ -56,7 +56,7 @@ namespace GuestSide.API.Controllers.Tasks
         [SwaggerOperation(Summary = "Create a new task category", Description = "Creates a new task category.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Task category created successfully.", typeof(Response<TaskCategoryResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<TaskCategoryResponseDto>> CreateAsync([FromBody] TaskCategoryResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<TaskCategoryResponseDto>> CreateAsync([FromBody] TaskCategoryDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -72,7 +72,7 @@ namespace GuestSide.API.Controllers.Tasks
         [SwaggerOperation(Summary = "Update an existing task category", Description = "Updates the task category with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Task category updated successfully.", typeof(Response<TaskCategoryResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<TaskCategoryResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] TaskCategoryResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<TaskCategoryResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] TaskCategoryDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }
@@ -85,9 +85,9 @@ namespace GuestSide.API.Controllers.Tasks
         /// <returns>A success or failure response.</returns>
         [HttpDelete("DeleteTaskCategory/{id}")]
         [SwaggerOperation(Summary = "Delete a task category", Description = "Deletes the task category with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Task category deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Task category deleted successfully.", typeof(Response<TaskCategoryResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Task category not found or failed to delete.")]
-        public override Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<TaskCategoryResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.DeleteAsync(id, cancellationToken);
         }

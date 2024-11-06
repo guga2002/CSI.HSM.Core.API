@@ -11,9 +11,9 @@ namespace GuestSide.API.Controllers.Room
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class QrCodeController : CSIControllerBase<QRCodeResponseDto, long, QRCode>
+    public class QrCodeController : CSIControllerBase<QRCodeDto,QRCodeResponseDto, long, QRCode>
     {
-        public QrCodeController(IService<QRCodeResponseDto, long, QRCode> service) : base(service) { }
+        public QrCodeController(IService<QRCodeDto,QRCodeResponseDto, long, QRCode> service) : base(service) { }
 
         /// <summary>
         /// Retrieves all QR codes.
@@ -54,7 +54,7 @@ namespace GuestSide.API.Controllers.Room
         [SwaggerOperation(Summary = "Create a new QR code", Description = "Creates a new QR code.")]
         [SwaggerResponse(StatusCodes.Status201Created, "QR code created successfully.", typeof(Response<QRCodeResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<QRCodeResponseDto>> CreateAsync([FromBody] QRCodeResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<QRCodeResponseDto>> CreateAsync([FromBody] QRCodeDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -70,7 +70,7 @@ namespace GuestSide.API.Controllers.Room
         [SwaggerOperation(Summary = "Update an existing QR code", Description = "Updates the QR code with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "QR code updated successfully.", typeof(Response<QRCodeResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<QRCodeResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] QRCodeResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<QRCodeResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] QRCodeDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }
@@ -83,9 +83,9 @@ namespace GuestSide.API.Controllers.Room
         /// <returns>A success or failure response.</returns>
         [HttpDelete("DeleteQRCode/{id}")]
         [SwaggerOperation(Summary = "Delete a QR code", Description = "Deletes the QR code with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "QR code deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "QR code deleted successfully.", typeof(Response<QRCodeResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "QR code not found or failed to delete.")]
-        public override Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<QRCodeResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.DeleteAsync(id, cancellationToken);
         }

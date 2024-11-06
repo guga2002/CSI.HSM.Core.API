@@ -11,9 +11,9 @@ namespace GuestSide.API.Controllers.Notification
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GuestNotificationController : CSIControllerBase<GuestNotificationResponseDto, long, GuestNotification>
+    public class GuestNotificationController : CSIControllerBase<GuestNotificationDto,GuestNotificationResponseDto, long, GuestNotification>
     {
-        public GuestNotificationController(IService<GuestNotificationResponseDto, long, GuestNotification> service) : base(service)
+        public GuestNotificationController(IService<GuestNotificationDto,GuestNotificationResponseDto, long, GuestNotification> service) : base(service)
         {
         }
 
@@ -56,7 +56,7 @@ namespace GuestSide.API.Controllers.Notification
         [SwaggerOperation(Summary = "Create a new guest notification", Description = "Creates a new guest notification.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Guest notification created successfully.", typeof(Response<GuestNotificationResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<GuestNotificationResponseDto>> CreateAsync([FromBody] GuestNotificationResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<GuestNotificationResponseDto>> CreateAsync([FromBody] GuestNotificationDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -72,7 +72,7 @@ namespace GuestSide.API.Controllers.Notification
         [SwaggerOperation(Summary = "Update an existing guest notification", Description = "Updates the guest notification with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Guest notification updated successfully.", typeof(Response<GuestNotificationResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<GuestNotificationResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] GuestNotificationResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<GuestNotificationResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] GuestNotificationDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }
@@ -85,9 +85,9 @@ namespace GuestSide.API.Controllers.Notification
         /// <returns>A success or failure response.</returns>
         [HttpDelete("DeleteNotification/{id}")]
         [SwaggerOperation(Summary = "Delete a guest notification", Description = "Deletes the guest notification with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Guest notification deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Guest notification deleted successfully.", typeof(Response<GuestNotificationResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Guest notification not found or failed to delete.")]
-        public override Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<GuestNotificationResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.DeleteAsync(id, cancellationToken);
         }

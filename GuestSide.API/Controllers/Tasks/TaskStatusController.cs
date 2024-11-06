@@ -15,9 +15,9 @@ namespace GuestSide.API.Controllers.Tasks
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TaskStatusController : CSIControllerBase<TaskStatusResponseDto, long, TasksStatus>
+    public class TaskStatusController : CSIControllerBase<TaskStatusDto,TaskStatusResponseDto, long, TasksStatus>
     {
-        public TaskStatusController(IService<TaskStatusResponseDto, long, TasksStatus> serviceProvider) : base(serviceProvider)
+        public TaskStatusController(IService<TaskStatusDto,TaskStatusResponseDto, long, TasksStatus> serviceProvider) : base(serviceProvider)
         {
         }
 
@@ -64,7 +64,7 @@ namespace GuestSide.API.Controllers.Tasks
         [SwaggerOperation(Summary = "Create a new task status", Description = "Creates a new task status.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Task status created successfully.", typeof(Response<TaskStatusResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override async Task<Response<TaskStatusResponseDto>> CreateAsync([FromBody] TaskStatusResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override async Task<Response<TaskStatusResponseDto>> CreateAsync([FromBody] TaskStatusDto entityDto, CancellationToken cancellationToken = default)
         {
             // Custom validation can be added here
             if (entityDto == null || string.IsNullOrWhiteSpace(entityDto.Description))
@@ -86,7 +86,7 @@ namespace GuestSide.API.Controllers.Tasks
         [SwaggerOperation(Summary = "Update an existing task status", Description = "Updates the task status with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Task status updated successfully.", typeof(Response<TaskStatusResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override async Task<Response<TaskStatusResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] TaskStatusResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override async Task<Response<TaskStatusResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] TaskStatusDto entityDto, CancellationToken cancellationToken = default)
         {
             // Custom validation can be added here
             if (entityDto == null || string.IsNullOrWhiteSpace(entityDto.Description))
@@ -107,7 +107,7 @@ namespace GuestSide.API.Controllers.Tasks
         [SwaggerOperation(Summary = "Delete a task status", Description = "Deletes the task status with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Task status deleted successfully.", typeof(Response<bool>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Task status not found or failed to delete.")]
-        public override async Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override async Task<Response<TaskStatusResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             var response = await base.DeleteAsync(id, cancellationToken);
             return response;

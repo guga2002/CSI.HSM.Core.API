@@ -11,9 +11,9 @@ namespace GuestSide.API.Controllers.Notification
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StaffNotificationController : CSIControllerBase<StafNotificationResponseDto, long, StaffNotification>
+    public class StaffNotificationController : CSIControllerBase<StafNotificationDto,StafNotificationResponseDto, long, StaffNotification>
     {
-        public StaffNotificationController(IService<StafNotificationResponseDto, long, StaffNotification> service) : base(service) { }
+        public StaffNotificationController(IService<StafNotificationDto,StafNotificationResponseDto, long, StaffNotification> service) : base(service) { }
 
         /// <summary>
         /// Retrieves all staff notifications.
@@ -54,7 +54,7 @@ namespace GuestSide.API.Controllers.Notification
         [SwaggerOperation(Summary = "Create a new staff notification", Description = "Creates a new staff notification.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Staff notification created successfully.", typeof(Response<StafNotificationResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<StafNotificationResponseDto>> CreateAsync([FromBody] StafNotificationResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<StafNotificationResponseDto>> CreateAsync([FromBody] StafNotificationDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -70,7 +70,7 @@ namespace GuestSide.API.Controllers.Notification
         [SwaggerOperation(Summary = "Update an existing staff notification", Description = "Updates the staff notification with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Staff notification updated successfully.", typeof(Response<StafNotificationResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<StafNotificationResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] StafNotificationResponseDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<StafNotificationResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] StafNotificationDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }
@@ -83,9 +83,9 @@ namespace GuestSide.API.Controllers.Notification
         /// <returns>A success or failure response.</returns>
         [HttpDelete("DeleteStaffNotification/{id}")]
         [SwaggerOperation(Summary = "Delete a staff notification", Description = "Deletes the staff notification with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Staff notification deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Staff notification deleted successfully.", typeof(Response<StafNotificationResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Staff notification not found or failed to delete.")]
-        public override Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<StafNotificationResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.DeleteAsync(id, cancellationToken);
         }
