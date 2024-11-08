@@ -20,6 +20,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using GuestSide.Application.Services.Task.Task;
 using GuestSide.Application.Services.Hotel;
+using Microsoft.Extensions.Options;
 
 
 internal class Program
@@ -134,7 +135,7 @@ internal class Program
 
 
         var app = builder.Build();
-
+        app.UseStaticFiles();
         app.UseAuthentication();
         app.UseAuthorization();
 
@@ -142,14 +143,17 @@ internal class Program
         {
             app.UseSwagger();
 
-            app.UseSwaggerUI(c =>
+            app.UseSwaggerUI(options =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Core.Api V1");
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                options.RoutePrefix = "swagger";
+                options.InjectJavascript("/swagger-voice-search.js"); // The path to your custom JS file in wwwroot
             });
         }
         app.UseMiddleware<CustomMiddlwares>();
         app.UseHttpsRedirection();
         app.MapControllers();
+ 
         app.Run();
     }
 }

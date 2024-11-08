@@ -3,6 +3,7 @@ using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Request.Hotel;
 using GuestSide.Application.DTOs.Response.Hotel;
 using GuestSide.Application.Interface;
+using GuestSide.Application.Interface.Hotel;
 using GuestSide.Core.Entities.Hotel.GeoLocation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +15,10 @@ namespace GuestSide.API.Controllers.Hotel
     [ApiController]
     public class LocationController : CSIControllerBase<LocationrequestDto, LocationResponse, long, GuestSide.Core.Entities.Hotel.GeoLocation.Location>
     {
-        public LocationController(IService<LocationrequestDto, LocationResponse, long, Location> serviceProvider) : base(serviceProvider)
+        private readonly ILocationService _locationService;
+        public LocationController(IService<LocationrequestDto, LocationResponse, long, Location> serviceProvider, ILocationService locationService) : base(serviceProvider)
         {
+            _locationService = locationService;
         }
 
         /// <summary>
@@ -91,6 +94,28 @@ namespace GuestSide.API.Controllers.Hotel
         public override Task<Response<LocationResponse>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.DeleteAsync(id, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get location by hotel ID.
+        /// </summary>
+        /// <param name="hotelId"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        ///  [HttpDelete("DeleteLocation/{id}")]
+        [SwaggerOperation(Summary = "Get a location record by hotel Id", Description = "you must pass hotel id and  this endpoint will return location of this hotel")]
+        [SwaggerResponse(StatusCodes.Status200OK, "get location  for  hotel", typeof(Response<LocationResponse>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Location record not found or failed to retrive data.")]
+        [HttpGet("GetLocationByHotelId/{hotelId:long}")]
+        public async Task<LocationResponse> GetLocationByHotelId(long hotelId, CancellationToken token = default)
+        {
+            if(hotelId <= 0)
+            {
+                throw new ArgumentException("Invalid hotel ID.");
+            }
+
+            return await _locationService.GetLocationByHotelId(hotelId, token);
         }
     }
 }

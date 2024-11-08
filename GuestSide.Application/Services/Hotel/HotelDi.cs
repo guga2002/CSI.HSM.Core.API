@@ -26,7 +26,8 @@ namespace GuestSide.Application.Services.Hotel
     {
         public static void InjectHotel(this IServiceCollection services)
         {
-            services.AddScoped<IGenericRepository<GuestSide.Core.Entities.Hotel.Hotel>, IHotelRepository>();
+            services.AddScoped<IGenericRepository<GuestSide.Core.Entities.Hotel.Hotel>, HotelRepository>();
+
             services.AddScoped<IHotelRepository, HotelRepository>();
             services.AddScoped<IHotelService, HotelService>();
             services.AddScoped<IService<HotelRequestDto, HotelResponse, long, GuestSide.Core.Entities.Hotel.Hotel>, HotelService>();

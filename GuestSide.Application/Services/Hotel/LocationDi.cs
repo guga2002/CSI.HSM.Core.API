@@ -13,7 +13,7 @@ namespace GuestSide.Application.Services.Hotel
     {
         public static void InjectLocation(this IServiceCollection services)
         {
-            services.AddScoped<IGenericRepository<GuestSide.Core.Entities.Hotel.GeoLocation.Location>, ILocationRepository>();
+            services.AddScoped<IGenericRepository<GuestSide.Core.Entities.Hotel.GeoLocation.Location>, LocationRepository>();
             services.AddScoped<ILocationRepository, LocationRepository>();
             services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<IService<LocationrequestDto, LocationResponse, long, GuestSide.Core.Entities.Hotel.GeoLocation.Location>, LocationService>();
