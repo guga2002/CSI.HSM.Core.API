@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using GuestSide.Application.Services.Task.Task;
+using GuestSide.Application.Services.Hotel;
 
 
 internal class Program
@@ -118,6 +119,10 @@ internal class Program
         builder.Services.InjectQrCode();
         builder.Services.InjectRoomCategory();
         builder.Services.InjectRoom();
+
+        builder.Services.InjectHotel();
+
+        builder.Services.InjectLocation();
 
         builder.Services.AddAutoMapper(typeof(GuestSide.Application.Mapper.AutoMapper));
 

@@ -12,5 +12,6 @@
 
         public long RoomCategoryId { get; set; }
 
+        public long HotelId { get; set; }
     }
 }
