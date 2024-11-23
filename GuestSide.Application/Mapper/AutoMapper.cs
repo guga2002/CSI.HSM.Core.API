@@ -30,7 +30,7 @@ using GuestSide.Core.Entities.Task;
 
 namespace GuestSide.Application.Mapper
 {
-    public class AutoMapper:Profile
+    public partial class AutoMapper:Profile
     {
         public AutoMapper()
         {
@@ -73,6 +73,8 @@ namespace GuestSide.Application.Mapper
             CreateMap<StaffDto, Staffs>().ReverseMap();
             CreateMap<TaskCategoryDto, TaskCategory>().ReverseMap();
             CreateMap<TaskDto, Tasks>().ReverseMap();
+
+            ConfigureExternalMappings();
         }
     }
 }

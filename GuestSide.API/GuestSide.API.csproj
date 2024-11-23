@@ -39,4 +39,12 @@
     <ProjectReference Include="..\GuestSide.Persistance\GuestSide.Persistance.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CustomJs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\swagger-voice-search.js" />
+  </ItemGroup>
+
 </Project>

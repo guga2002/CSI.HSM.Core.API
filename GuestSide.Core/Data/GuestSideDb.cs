@@ -3,6 +3,8 @@ using GuestSide.Core.Entities.Advertisments;
 using GuestSide.Core.Entities.Audio;
 using GuestSide.Core.Entities.Feedbacks;
 using GuestSide.Core.Entities.Guest;
+using GuestSide.Core.Entities.Hotel;
+using GuestSide.Core.Entities.Hotel.GeoLocation;
 using GuestSide.Core.Entities.Item;
 using GuestSide.Core.Entities.Language;
 using GuestSide.Core.Entities.LogEntities;
@@ -65,7 +67,8 @@ namespace GuestSide.Core.Data
         public virtual DbSet<BaseDictionary> BaseDictionaries { get; set; }
 
         public virtual DbSet<TranslationDictionary> TranslationDictionaries { get; set; }
-        
+        public virtual DbSet<Location> Locations { get; set; }
+        public virtual DbSet<Hotel> Hotels { get; set; }
         public async Task<Tasks> GetTaskByCartId(long CardId)
         {
             CreateProcedure();
