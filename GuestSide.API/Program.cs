@@ -40,6 +40,12 @@ internal class Program
             }
         );
 
+        builder.WebHost.ConfigureKestrel(options =>
+        {
+            options.ListenAnyIP(2044);
+            options.ListenAnyIP(2045, listenOptions => listenOptions.UseHttps());
+        });
+
         var jwtSettings = builder.Configuration.GetSection("JwtSettings");
         var secretKey = jwtSettings["SecretKey"];
 
