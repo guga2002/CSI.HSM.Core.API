@@ -19,15 +19,36 @@ namespace GuestSide.API.Controllers.Staff
         /// <summary>
         /// Retrieves all staff members.
         /// </summary>
+        /// <returns>A list of all staff members.</returns>
+        [HttpGet("CurrentStaffMember")]
+        [SwaggerOperation(Summary = "Retrieve staff member", Description = "Returns  staff members.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved staff member.", typeof(Response<StaffDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No staff member found.")]
+        public async Task<Response<StaffDto>> GetCurrentStaffMember()
+        {
+            var email = User.Claims.FirstOrDefault(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value;
+
+            var all = await base.GetAllAsync();
+
+            var user = all.Data.FirstOrDefault(io => io.Email == email) ??
+                 throw new UnauthorizedAccessException("user is not authorized");
+
+            return Response<StaffDto>.SuccessResponse(user, "Success");
+        }
+
+
+        /// <summary>
+        /// Retrieves all staff members.
+        /// </summary>
         /// <param name="cancellationToken">Token to cancel the request.</param>
         /// <returns>A list of all staff members.</returns>
         [HttpGet("GetAllStaff")]
         [SwaggerOperation(Summary = "Retrieve all staff members", Description = "Returns a list of all staff members.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved staff members.", typeof(Response<IEnumerable<StaffDto>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "No staff members found.")]
-        public override Task<Response<IEnumerable<StaffDto>>> GetAllAsync(CancellationToken cancellationToken = default)
+        public override async Task<Response<IEnumerable<StaffDto>>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return base.GetAllAsync(cancellationToken);
+            return await  base.GetAllAsync(cancellationToken);
         }
 
         /// <summary>
