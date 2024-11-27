@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
-using GuestSide.Application.DTOs.NewFolder;
+using GuestSide.Application.DTOs.Request.Guest;
+using GuestSide.Application.DTOs.Response.Guest;
 
 namespace GuestSide.Application.FluentValidation.Guest
 {

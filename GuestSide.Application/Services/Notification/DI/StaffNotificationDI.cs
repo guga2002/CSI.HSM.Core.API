@@ -1,5 +1,4 @@
-﻿using GuestSide.Application.DTOs.Notification;
-using GuestSide.Application.Interface.Notification;
+﻿using GuestSide.Application.Interface.Notification;
 using GuestSide.Application.Interface;
 using GuestSide.Application.Services.Notification.Service;
 using GuestSide.Core.Entities.Notification;
@@ -7,6 +6,8 @@ using GuestSide.Core.Interfaces.AbstractInterface;
 using GuestSide.Core.Interfaces.Notification;
 using GuestSide.Infrastructure.Repositories.Notification;
 using Microsoft.Extensions.DependencyInjection;
+using GuestSide.Application.DTOs.Request.Notification;
+using GuestSide.Application.DTOs.Response.Notification;
 
 namespace GuestSide.Application.Services.Notification.DI
 {
@@ -17,7 +18,7 @@ namespace GuestSide.Application.Services.Notification.DI
             services.AddScoped<IGenericRepository<StaffNotification>, StaffNotificationRepository>();
             services.AddScoped<IStaffNotificationRepository, StaffNotificationRepository>();
             services.AddScoped<IStaffNotificationService, StaffNotificationService>();
-            services.AddScoped<IService<StafNotificationDto, long, StaffNotification>, StaffNotificationService>();
+            services.AddScoped<IService<StafNotificationDto,StafNotificationResponseDto, long, StaffNotification>, StaffNotificationService>();
         }
     }
 }

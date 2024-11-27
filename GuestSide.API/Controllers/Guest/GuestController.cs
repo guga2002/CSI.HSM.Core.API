@@ -1,6 +1,7 @@
 ﻿using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
-using GuestSide.Application.DTOs.NewFolder; // Ensure this namespace is correct
+using GuestSide.Application.DTOs.Request.Guest;
+using GuestSide.Application.DTOs.Response.Guest;
 using GuestSide.Application.Interface;
 using GuestSide.Core.Entities.Guest;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,9 @@ namespace GuestSide.API.Controllers.Guest
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GuestController : CSIControllerBase<GuestDto, long, Guests>
+    public class GuestController : CSIControllerBase<GuestDto,GuestResponseDto, long, Guests>
     {
-        public GuestController(IService<GuestDto, long, Guests> service) : base(service)
+        public GuestController(IService<GuestDto,GuestResponseDto, long, Guests> service) : base(service)
         {
         }
 
@@ -23,9 +24,9 @@ namespace GuestSide.API.Controllers.Guest
         /// <returns>A list of all guest records.</returns>
         [HttpGet("GetGuests")]
         [SwaggerOperation(Summary = "Retrieve all guest records", Description = "Returns a list of all guest records.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved guest records.", typeof(Response<IEnumerable<GuestDto>>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved guest records.", typeof(Response<IEnumerable<GuestResponseDto>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "No guest records found.")]
-        public override Task<Response<IEnumerable<GuestDto>>> GetAllAsync(CancellationToken cancellationToken = default)
+        public override Task<Response<IEnumerable<GuestResponseDto>>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return base.GetAllAsync(cancellationToken);
         }
@@ -38,9 +39,9 @@ namespace GuestSide.API.Controllers.Guest
         /// <returns>The guest record matching the specified ID.</returns>
         [HttpGet("GetGuestById/{id}")]
         [SwaggerOperation(Summary = "Retrieve guest record by ID", Description = "Returns a specific guest record by its ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved the guest record.", typeof(Response<GuestDto>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Successfully retrieved the guest record.", typeof(Response<GuestResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Guest record not found.")]
-        public override Task<Response<GuestDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<GuestResponseDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.GetByIdAsync(id, cancellationToken);
         }
@@ -53,9 +54,9 @@ namespace GuestSide.API.Controllers.Guest
         /// <returns>The created guest record.</returns>
         [HttpPost("CreateGuest")]
         [SwaggerOperation(Summary = "Create a new guest record", Description = "Creates a new guest record.")]
-        [SwaggerResponse(StatusCodes.Status201Created, "Guest record created successfully.", typeof(Response<GuestDto>))]
+        [SwaggerResponse(StatusCodes.Status201Created, "Guest record created successfully.", typeof(Response<GuestResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<GuestDto>> CreateAsync([FromBody] GuestDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<GuestResponseDto>> CreateAsync([FromBody] GuestDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -69,9 +70,9 @@ namespace GuestSide.API.Controllers.Guest
         /// <returns>The updated guest record.</returns>
         [HttpPut("UpdateGuest/{id}")]
         [SwaggerOperation(Summary = "Update an existing guest record", Description = "Updates the guest record with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Guest record updated successfully.", typeof(Response<GuestDto>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Guest record updated successfully.", typeof(Response<GuestResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<GuestDto>> UpdateAsync([FromRoute] long id, [FromBody] GuestDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<GuestResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] GuestDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }
@@ -84,9 +85,9 @@ namespace GuestSide.API.Controllers.Guest
         /// <returns>A success or failure response.</returns>
         [HttpDelete("DeleteGuest/{id}")]
         [SwaggerOperation(Summary = "Delete a guest record", Description = "Deletes the guest record with the specified ID.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Guest record deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Guest record deleted successfully.", typeof(Response<GuestResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Guest record not found or failed to delete.")]
-        public override Task<Response<bool>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        public override Task<Response<GuestResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return base.DeleteAsync(id, cancellationToken);
         }

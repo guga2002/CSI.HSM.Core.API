@@ -1,11 +1,10 @@
-﻿using GuestSide.Application.DTOs.Advertisment;
+﻿using GuestSide.Application.DTOs.Request.Advertisment;
+using GuestSide.Application.DTOs.Response.Advertisment;
 using GuestSide.Core.Entities.Advertisements;
-using GuestSide.Core.Entities.Advertisments;
-using GuestSide.Core.Interfaces.Advertisement;
 
 namespace GuestSide.Application.Interface.Advertisment
 {
-    public interface IAdvertismentService:IService<AdvertismentDto, long,Advertisements>
+    public interface IAdvertismentService:IService<AdvertismentDto,AdvertismentResponseDto, long,Advertisements>
     {
     }
 }

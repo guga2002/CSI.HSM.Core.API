@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
-using GuestSide.Application.DTOs.Advertisment;
+using GuestSide.Application.DTOs.Request.Advertisment;
+using GuestSide.Application.DTOs.Response.Advertisment;
 
 namespace GuestSide.Application.FluentValidation.Advertisment
 {

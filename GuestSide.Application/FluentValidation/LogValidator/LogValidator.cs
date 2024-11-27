@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using GuestSide.Application.DTOs.Log;
+using GuestSide.Application.DTOs.Request.LogModel;
 
 namespace GuestSide.Application.FluentValidation.LogValidator
 {

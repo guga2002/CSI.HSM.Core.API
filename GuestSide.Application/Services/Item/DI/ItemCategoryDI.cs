@@ -6,7 +6,8 @@ using GuestSide.Infrastructure.Repositories.Item;
 using GuestSide.Core.Interfaces.Item;
 using GuestSide.Application.Services.Item.Services;
 using GuestSide.Application.Interface.Item;
-using GuestSide.Application.DTOs.Item;
+using GuestSide.Application.DTOs.Request.Item;
+using GuestSide.Application.DTOs.Response.Item;
 
 namespace GuestSide.Application.Services.Item.DI
 {
@@ -17,7 +18,7 @@ namespace GuestSide.Application.Services.Item.DI
             services.AddScoped<IGenericRepository<ItemCategory>, ItemCategoryRepository>();
             services.AddScoped<IItemCategoryRepository, ItemCategoryRepository>();
             services.AddScoped<IItemCategoryService, ItemCategoryService>();
-            services.AddScoped<IService<ItemCategoryDto, long, ItemCategory>, ItemCategoryService>();
+            services.AddScoped<IService<ItemCategoryDto,ItemCategoryResponseDto, long, ItemCategory>, ItemCategoryService>();
         }
     }
 }

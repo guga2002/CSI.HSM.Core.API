@@ -1,12 +1,11 @@
-﻿using GuestSide.Application.DTOs.Staff;
-using GuestSide.Application.DTOs.Task;
-using GuestSide.Core.Entities.Staff;
+﻿using GuestSide.Application.DTOs.Request.Task;
+using GuestSide.Application.DTOs.Response.Task;
 using GuestSide.Core.Entities.Task;
 
 namespace GuestSide.Application.Interface.Task.Task
 {
-    public interface ITaskService : IService<TaskDto, long, Tasks>
+    public interface ITaskService : IService<TaskDto,TaskResponseDto, long, Tasks>
     {
-        Task<TaskDto> GetTaskbycartId(long CartId, CancellationToken cancellationToken = default);
+        Task<TaskResponseDto> GetTaskbycartId(long CartId, CancellationToken cancellationToken = default);
     }
 }

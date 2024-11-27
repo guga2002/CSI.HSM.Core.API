@@ -1,9 +1,10 @@
-﻿using GuestSide.Application.DTOs.Item;
+﻿using GuestSide.Application.DTOs.Request.Item;
+using GuestSide.Application.DTOs.Response.Item;
 using GuestSide.Core.Entities.Item;
 
 namespace GuestSide.Application.Interface.Item
 {
-    public interface ICartService:IService<CartDto,long,Cart>
+    public interface ICartService:IService<CartDto,CartResponseDto,long,Cart>
     {
     }
 }

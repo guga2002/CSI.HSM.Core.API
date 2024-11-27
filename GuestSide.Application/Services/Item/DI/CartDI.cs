@@ -6,7 +6,8 @@ using GuestSide.Infrastructure.Repositories.Item;
 using GuestSide.Core.Interfaces.Item;
 using GuestSide.Application.Interface.Item;
 using GuestSide.Application.Services.Item.Services;
-using GuestSide.Application.DTOs.Item;
+using GuestSide.Application.DTOs.Request.Item;
+using GuestSide.Application.DTOs.Response.Item;
 
 namespace GuestSide.Application.Services.Item.DI
 {
@@ -17,7 +18,7 @@ namespace GuestSide.Application.Services.Item.DI
             services.AddScoped<IGenericRepository<Cart>, CartRepository>();
             services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<ICartService, CartService>();
-            services.AddScoped<IService<CartDto, long, Cart>, CartService>();
+            services.AddScoped<IService<CartDto,CartResponseDto, long, Cart>, CartService>();
         }
     }
 }

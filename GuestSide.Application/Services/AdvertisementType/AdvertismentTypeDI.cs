@@ -1,4 +1,5 @@
-﻿using GuestSide.Application.DTOs.Advertisment;
+﻿using GuestSide.Application.DTOs.Request.Advertisment;
+using GuestSide.Application.DTOs.Response.Advertisment;
 using GuestSide.Application.Interface;
 using GuestSide.Application.Interface.AdvertiementType;
 using GuestSide.Core.Interfaces.AbstractInterface;
@@ -16,7 +17,7 @@ namespace GuestSide.Application.Services.AdvertisementType
             collect.AddScoped<IGenericRepository<GuestSide.Core.Entities.Advertisments.AdvertisementType>,AdvertisementTypeRepository>();
             collect.AddScoped<IAdvertisementTypeRepository,AdvertisementTypeRepository>();
             collect.AddScoped<IAdvertisementTypeService,AdvertisementTypeService>();
-            collect.AddScoped<IService<AdvertisementTypeDto,long, GuestSide.Core.Entities.Advertisments.AdvertisementType>, AdvertisementTypeService>();
+            collect.AddScoped<IService<AdvertisementTypeDto,AdvertisementTypeResponseDto,long, GuestSide.Core.Entities.Advertisments.AdvertisementType>, AdvertisementTypeService>();
             // collect.AddScoped < ILogger<GenericService<AdvertisementTypeDto, long, GuestSide.Core.Entities.Advertisments.AdvertisementType>>>();
         }
     }

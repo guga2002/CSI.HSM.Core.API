@@ -57,7 +57,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasIndex("AdvertisementTypeId");
 
-                    b.ToTable("Advertisements");
+                    b.ToTable("Advertisements", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Advertisments.AdvertisementType", b =>
@@ -77,7 +77,67 @@ namespace GuestSide.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdvertisementTypes");
+                    b.ToTable("AdvertisementTypes", "CSI");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Audio.AudioResponse", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("AudioFilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("CategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time");
+
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("TextContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VoiceType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("AudioResponses", "CSI");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Audio.AudioResponseCategory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AudioResponseCategories", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Feedbacks.Feedback", b =>
@@ -109,7 +169,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasIndex("TasksId");
 
-                    b.ToTable("Feedbacks");
+                    b.ToTable("Feedbacks", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Guest.Guests", b =>
@@ -161,7 +221,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Guests");
+                    b.ToTable("Guests", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Item.Cart", b =>
@@ -179,7 +239,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasIndex("GuestId");
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Item.ItemCategory", b =>
@@ -200,7 +260,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ItemCategories");
+                    b.ToTable("ItemCategories", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Item.Items", b =>
@@ -232,7 +292,28 @@ namespace GuestSide.Core.Migrations
 
                     b.HasIndex("ItemCategoryId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", "CSI");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Language.Language", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.LogEntities.Logs", b =>
@@ -263,7 +344,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Logs");
+                    b.ToTable("Logs", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Notification.GuestNotification", b =>
@@ -286,7 +367,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasIndex("NotificationId");
 
-                    b.ToTable("GuestNotifications");
+                    b.ToTable("GuestNotifications", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Notification.Notifications", b =>
@@ -313,7 +394,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Notifications");
+                    b.ToTable("Notifications", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Notification.StaffNotification", b =>
@@ -336,7 +417,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasIndex("StaffId");
 
-                    b.ToTable("StaffNotifications");
+                    b.ToTable("StaffNotifications", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Room.QRCode", b =>
@@ -369,7 +450,7 @@ namespace GuestSide.Core.Migrations
                     b.HasIndex("RoomId")
                         .IsUnique();
 
-                    b.ToTable("QRCodes");
+                    b.ToTable("QRCodes", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Room.RoomCategory", b =>
@@ -389,7 +470,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RoomCategories");
+                    b.ToTable("RoomCategories", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Room.Rooms", b =>
@@ -416,7 +497,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasIndex("RoomCategoryId");
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Rooms", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Staff.CartToStaff", b =>
@@ -451,7 +532,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("CartToStaffs");
+                    b.ToTable("CartToStaffs", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Staff.StaffCategory", b =>
@@ -468,7 +549,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StaffCategories");
+                    b.ToTable("StaffCategories", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Staff.Staffs", b =>
@@ -508,7 +589,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasIndex("StaffCategoryId");
 
-                    b.ToTable("Staffs");
+                    b.ToTable("Staffs", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Task.TaskCategory", b =>
@@ -528,7 +609,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TaskCategories");
+                    b.ToTable("TaskCategories", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Task.Tasks", b =>
@@ -567,7 +648,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("Tasks", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Task.TasksStatus", b =>
@@ -588,7 +669,51 @@ namespace GuestSide.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TaskStatus");
+                    b.ToTable("TaskStatus", "CSI");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Translations.BaseDictionary", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("GeorgianText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BaseDictionaries", "CSI");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Translations.TranslationDictionary", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("BaseDictionaryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("TranslatedText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BaseDictionaryId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("TranslationDictionaries", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Advertisements.Advertisements", b =>
@@ -600,6 +725,25 @@ namespace GuestSide.Core.Migrations
                         .IsRequired();
 
                     b.Navigation("AdvertisementType");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Audio.AudioResponse", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Audio.AudioResponseCategory", "Categorie")
+                        .WithMany("AudioResponses")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Language.Language", "Language")
+                        .WithMany("AudioResponses")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Categorie");
+
+                    b.Navigation("Language");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Feedbacks.Feedback", b =>
@@ -771,9 +915,33 @@ namespace GuestSide.Core.Migrations
                     b.Navigation("Item");
                 });
 
+            modelBuilder.Entity("GuestSide.Core.Entities.Translations.TranslationDictionary", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Translations.BaseDictionary", "BaseDictionary")
+                        .WithMany("Translations")
+                        .HasForeignKey("BaseDictionaryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Language.Language", "Language")
+                        .WithMany("Translations")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BaseDictionary");
+
+                    b.Navigation("Language");
+                });
+
             modelBuilder.Entity("GuestSide.Core.Entities.Advertisments.AdvertisementType", b =>
                 {
                     b.Navigation("Advertisements");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Audio.AudioResponseCategory", b =>
+                {
+                    b.Navigation("AudioResponses");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Guest.Guests", b =>
@@ -799,6 +967,13 @@ namespace GuestSide.Core.Migrations
             modelBuilder.Entity("GuestSide.Core.Entities.Item.Items", b =>
                 {
                     b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Language.Language", b =>
+                {
+                    b.Navigation("AudioResponses");
+
+                    b.Navigation("Translations");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Notification.Notifications", b =>
@@ -846,6 +1021,11 @@ namespace GuestSide.Core.Migrations
             modelBuilder.Entity("GuestSide.Core.Entities.Task.TasksStatus", b =>
                 {
                     b.Navigation("CartToStaffs");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Translations.BaseDictionary", b =>
+                {
+                    b.Navigation("Translations");
                 });
 #pragma warning restore 612, 618
         }
