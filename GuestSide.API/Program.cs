@@ -145,8 +145,7 @@ internal class Program
         app.UseAuthentication();
         app.UseAuthorization();
 
-        if (app.Environment.IsDevelopment())
-        {
+     
             app.UseSwagger();
 
             app.UseSwaggerUI(options =>
@@ -155,7 +154,7 @@ internal class Program
                 options.RoutePrefix = "swagger";
                 options.InjectJavascript("/swagger-voice-search.js"); // The path to your custom JS file in wwwroot
             });
-        }
+      
         app.UseMiddleware<CustomMiddlwares>();
         app.UseHttpsRedirection();
         app.MapControllers();
