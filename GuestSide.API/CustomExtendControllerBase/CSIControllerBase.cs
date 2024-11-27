@@ -11,19 +11,19 @@ namespace GuestSide.API.CustomExtendControllerBase
     /// Base controller for handling common CRUD operations for models.
     /// </summary>
     /// <typeparam name="RequestDto"></typeparam>
-    /// <typeparam name="ResponseDto"></typeparam>
+    /// <typeparam name="RsponseDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TDatabase"></typeparam>
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class CSIControllerBase<RequestDto, ResponseDto, TKey, TDatabase> : ControllerBase
+    public class CSIControllerBase<RequestDto,RsponseDto, TKey, TDatabase> : ControllerBase
             where RequestDto : class
-            where ResponseDto : class
+            where RsponseDto : class
     {
-        private readonly IService<RequestDto, ResponseDto, TKey, TDatabase> _serviceProvider;
+        private readonly IService<RequestDto, RsponseDto, TKey, TDatabase> _serviceProvider;
 
-        public CSIControllerBase(IService<RequestDto, ResponseDto, TKey, TDatabase> serviceProvider)
+        public CSIControllerBase(IService<RequestDto, RsponseDto, TKey, TDatabase> serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }
@@ -36,14 +36,14 @@ namespace GuestSide.API.CustomExtendControllerBase
         [HttpGet("GetAll")]
         [SwaggerOperation(Summary = "Retrieve all records", Description = "Returns all the records of type TModel.")]
         [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
-        public virtual async Task<Response<IEnumerable<ResponseDto>>> GetAllAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<Response<IEnumerable<RsponseDto>>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             var result = await _serviceProvider.GetAllAsync(cancellationToken);
             if (result is not null && result.Any())
             {
-                return Response<IEnumerable<ResponseDto>>.SuccessResponse(result);
+                return Response<IEnumerable<RsponseDto>>.SuccessResponse(result);
             }
-            return Response<IEnumerable<ResponseDto>>.ErrorResponse("No records found.");
+            return Response<IEnumerable<RsponseDto>>.ErrorResponse("No records found.");
         }
 
         /// <summary>
@@ -55,14 +55,14 @@ namespace GuestSide.API.CustomExtendControllerBase
         [HttpGet("GetById/{id}")]
         [SwaggerOperation(Summary = "Retrieve a record by ID", Description = "Returns a specific record by its ID.")]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
-        public virtual async Task<Response<ResponseDto>> GetByIdAsync([FromRoute] TKey id, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<RsponseDto>> GetByIdAsync([FromRoute] TKey id, CancellationToken cancellationToken = default)
         {
             var result = await _serviceProvider.GetByIdAsync(id, cancellationToken);
             if (result is not null)
             {
-                return Response<ResponseDto>.SuccessResponse(result);
+                return Response<RsponseDto>.SuccessResponse(result);
             }
-            return Response<ResponseDto>.ErrorResponse("Record not found.", 404);
+            return Response<RsponseDto>.ErrorResponse("Record not found.", 404);
         }
 
         /// <summary>
@@ -74,21 +74,21 @@ namespace GuestSide.API.CustomExtendControllerBase
         [HttpPost("Create")]
         [SwaggerOperation(Summary = "Create a new record", Description = "Creates a new record of type TModel.")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public virtual async Task<Response<ResponseDto>> CreateAsync([FromBody] RequestDto entityDto, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<RsponseDto>> CreateAsync([FromBody] RequestDto entityDto, CancellationToken cancellationToken = default)
         {
             GuestSide.API.Extensions.ControllerBaseExtension.ValidateModel(this);
 
             if (entityDto == null)
             {
-                return Response<ResponseDto>.ErrorResponse("Invalid input data.", 400);
+                return Response<RsponseDto>.ErrorResponse("Invalid input data.", 400);
             }
 
             var createdObject = await _serviceProvider.CreateAsync(entityDto, cancellationToken);
             if (createdObject is not null)
             {
-                return Response<ResponseDto>.SuccessResponse(createdObject, "Record created successfully.");
+                return Response<RsponseDto>.SuccessResponse(createdObject, "Record created successfully.");
             }
-            return Response<ResponseDto>.ErrorResponse("Failed to create the record.");
+            return Response<RsponseDto>.ErrorResponse("Failed to create the record.");
         }
 
         /// <summary>
@@ -101,19 +101,19 @@ namespace GuestSide.API.CustomExtendControllerBase
         [HttpPut("Update/{id}")]
         [SwaggerOperation(Summary = "Update an existing record", Description = "Updates the record with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public virtual async Task<Response<ResponseDto>> UpdateAsync([FromRoute] TKey id, [FromBody] RequestDto entityDto, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<RsponseDto>> UpdateAsync([FromRoute] TKey id, [FromBody] RequestDto entityDto, CancellationToken cancellationToken = default)
         {
             if (entityDto == null)
             {
-                return Response<ResponseDto>.ErrorResponse("Invalid input data.", 400);
+                return Response<RsponseDto>.ErrorResponse("Invalid input data.", 400);
             }
 
             var updateItem = await _serviceProvider.UpdateAsync(id, entityDto, cancellationToken);
             if (updateItem is not null)
             {
-                return Response<ResponseDto>.SuccessResponse(updateItem, "Record updated successfully.");
+                return Response<RsponseDto>.SuccessResponse(updateItem, "Record updated successfully.");
             }
-            return Response<ResponseDto>.ErrorResponse("Failed to update the record.");
+            return Response<RsponseDto>.ErrorResponse("Failed to update the record.");
         }
 
         /// <summary>
@@ -125,14 +125,14 @@ namespace GuestSide.API.CustomExtendControllerBase
         [HttpDelete("Delete/{id}")]
         [SwaggerOperation(Summary = "Delete a record", Description = "Deletes the record with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found or failed to delete.")]
-        public virtual async Task<Response<ResponseDto>> DeleteAsync([FromRoute] TKey id, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<RsponseDto>> DeleteAsync([FromRoute] TKey id, CancellationToken cancellationToken = default)
         {
             var deleteItem = await _serviceProvider.DeleteAsync(id, cancellationToken);
             if (deleteItem is not null)
             {
-                return Response<ResponseDto>.SuccessResponse(deleteItem, "Record deleted successfully.");
+                return Response<RsponseDto>.SuccessResponse(deleteItem, "Record deleted successfully.");
             }
-            return Response<ResponseDto>.ErrorResponse("Failed to delete the record or record not found.", 404);
+            return Response<RsponseDto>.ErrorResponse("Failed to delete the record or record not found.", 404);
         }
     }
 }
