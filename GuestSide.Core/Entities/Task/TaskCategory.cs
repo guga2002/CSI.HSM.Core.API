@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using GuestSide.Core.Entities.AbstractEntities;
+using GuestSide.Core.Entities.Language;
 
 namespace GuestSide.Core.Entities.Task
 {
@@ -10,6 +11,9 @@ namespace GuestSide.Core.Entities.Task
 
         public string? Description {  get; set; }
 
+        [ForeignKey(nameof(languagePack))]
+        public long LanguageId { get; set; }
+        public LanguagePack languagePack { get; set; }
         public IEnumerable<Tasks> Tasks { get; set; }
     }
 }

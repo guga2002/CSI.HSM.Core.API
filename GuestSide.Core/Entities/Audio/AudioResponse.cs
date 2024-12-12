@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GuestSide.Core.Entities.Language;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuestSide.Core.Entities.Audio
@@ -10,7 +11,7 @@ namespace GuestSide.Core.Entities.Audio
         public long Id { get; set; }  
         public required string TextContent { get; set; }
 
-        [ForeignKey("Language")]
+        [ForeignKey(nameof(Language))]
         public long LanguageId { get; set; } 
         public string? VoiceType { get; set; } 
         public required string AudioFilePath { get; set; } 
@@ -21,7 +22,7 @@ namespace GuestSide.Core.Entities.Audio
         public long  CategoryId { get; set; }
         public virtual AudioResponseCategory? Categorie { get; set; }
 
-        public virtual GuestSide.Core.Entities.Language.Language? Language { get; set; }
+        public LanguagePack Language { get; set; }
     }
 
 }

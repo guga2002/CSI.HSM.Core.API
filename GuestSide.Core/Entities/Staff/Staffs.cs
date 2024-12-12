@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GuestSide.Core.Entities.AbstractEntities;
-using GuestSide.Core.Entities.Item;
 using GuestSide.Core.Entities.Notification;
-using GuestSide.Core.Entities.Task;
 
 namespace GuestSide.Core.Entities.Staff
 {
@@ -18,7 +16,6 @@ namespace GuestSide.Core.Entities.Staff
 
         public required string PhoneNumber { get; set; }
 
-
         [DataType(DataType.Date)]
         public DateTime? DateOfBirth { get; set; }
 
@@ -28,11 +25,11 @@ namespace GuestSide.Core.Entities.Staff
         [ForeignKey(nameof(StaffCategory))]
         public long StaffCategoryId {  get; set; }
 
-        public StaffCategory StaffCategory { get; set; }
+        public virtual StaffCategory? StaffCategory { get; set; }
 
-        public IEnumerable<StaffNotification>StaffNotifications { get; set; }
+        public virtual IEnumerable<StaffNotification>?StaffNotifications { get; set; }
 
-        public IEnumerable<CartToStaff> CartToStaffs { get; set; }
+        public virtual IEnumerable<TaskToStaff>? TaskToStaff { get; set; }
      
 
     }

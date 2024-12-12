@@ -1,5 +1,6 @@
 ﻿using GuestSide.Core.Entities.AbstractEntities;
 using GuestSide.Core.Entities.Advertisments;
+using GuestSide.Core.Entities.Language;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,9 +24,12 @@ namespace GuestSide.Core.Entities.Advertisements
         [DataType(DataType.Date)]
         public DateTime? EndDate { get; set;}
 
-        public bool IsActive {  get; set; }
+        [ForeignKey(nameof(languagePack))]
+        public long LanguageId { get; set; }
 
-        //URL of the photo or video
-        public required string MediaUrl {  get; set; }
+        public  LanguagePack languagePack { get; set; }
+        public bool IsActive { get; set; } = true;
+
+        public List<byte[]> Pictures { get; set; }
     }
 }

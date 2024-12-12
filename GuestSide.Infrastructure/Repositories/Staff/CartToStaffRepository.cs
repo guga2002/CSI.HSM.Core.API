@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GuestSide.Infrastructure.Repositories.Staff
 {
-    public class CartToStaffRepository : GenericRepository<CartToStaff>, ICartToStaffRepository
+    public class CartToStaffRepository : GenericRepository<TaskToStaff>, ICartToStaffRepository
     {
         public CartToStaffRepository(GuestSideDb context) : base(context)
         {

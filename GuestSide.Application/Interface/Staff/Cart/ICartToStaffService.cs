@@ -4,7 +4,7 @@ using GuestSide.Core.Entities.Staff;
 
 namespace GuestSide.Application.Interface.Staff.Cart
 {
-    public  interface ICartToStaffService : IService<CartToStaffDto,CartToStaffResponseDto,long,CartToStaff>
+    public  interface ICartToStaffService : IService<CartToStaffDto,CartToStaffResponseDto,long,TaskToStaff>
     {
     }
 }

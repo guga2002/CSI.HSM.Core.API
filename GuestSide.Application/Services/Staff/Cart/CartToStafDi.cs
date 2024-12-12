@@ -15,10 +15,10 @@ namespace GuestSide.Application.Services.Staff.Cart
     {
         public static void InjectCartToStaff(this IServiceCollection services)
         {
-            services.AddScoped<IGenericRepository<CartToStaff>, CartToStaffRepository>();
+            services.AddScoped<IGenericRepository<TaskToStaff>, CartToStaffRepository>();
             services.AddScoped<ICartToStaffRepository, CartToStaffRepository>();
             services.AddScoped<ICartToStaffService, TaskStatusService>();
-            services.AddScoped<IService<CartToStaffDto,CartToStaffResponseDto, long, CartToStaff>, TaskStatusService>();
+            services.AddScoped<IService<CartToStaffDto,CartToStaffResponseDto, long, TaskToStaff>, TaskStatusService>();
           
         }
     }

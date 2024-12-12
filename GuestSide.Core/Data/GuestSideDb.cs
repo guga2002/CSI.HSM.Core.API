@@ -12,7 +12,6 @@ using GuestSide.Core.Entities.Notification;
 using GuestSide.Core.Entities.Room;
 using GuestSide.Core.Entities.Staff;
 using GuestSide.Core.Entities.Task;
-using GuestSide.Core.Entities.Translations;
 using Microsoft.EntityFrameworkCore;
 
 namespace GuestSide.Core.Data
@@ -29,9 +28,13 @@ namespace GuestSide.Core.Data
 
         public virtual DbSet<Guests> Guests { get; set; }
 
+        public virtual DbSet<Status> GuestStatuses { get; set; }
+
         public virtual DbSet<Cart> Carts { get; set; }
 
         public virtual DbSet<Items> Items { get; set; }
+
+        public virtual DbSet<OrderableItem> OrderableItems { get; set; }
 
         public virtual DbSet<ItemCategory> ItemCategories { get; set; }
 
@@ -62,13 +65,13 @@ namespace GuestSide.Core.Data
         public virtual DbSet<AudioResponse> AudioResponses { get; set; }
 
         public virtual DbSet<AudioResponseCategory> AudioResponseCategories { get; set; }
-        public virtual DbSet<Language> Languages { get; set; }
-
-        public virtual DbSet<BaseDictionary> BaseDictionaries { get; set; }
-
-        public virtual DbSet<TranslationDictionary> TranslationDictionaries { get; set; }
+        public virtual DbSet<LanguagePack> LanguagePacks { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Hotel> Hotels { get; set; }
+
+        public virtual DbSet<TaskToStaff> TaskToStaffs { get; set; }
+
+
         public async Task<Tasks> GetTaskByCartId(long CardId)
         {
             CreateProcedure();

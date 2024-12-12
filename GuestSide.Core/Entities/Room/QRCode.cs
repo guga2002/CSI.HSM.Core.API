@@ -17,6 +17,6 @@ namespace GuestSide.Core.Entities.Room
         [ForeignKey(nameof(Room))]
         public long RoomId {  get; set; }
 
-        public Rooms Room{ get; set; }
+        public virtual Rooms? Room{ get; set; }
     }
 }
