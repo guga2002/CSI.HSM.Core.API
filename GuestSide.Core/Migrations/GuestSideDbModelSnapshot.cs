@@ -42,7 +42,10 @@ namespace GuestSide.Core.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<string>("MediaUrl")
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Pictures")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -56,6 +59,8 @@ namespace GuestSide.Core.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AdvertisementTypeId");
+
+                    b.HasIndex("LanguageId");
 
                     b.ToTable("Advertisements", "CSI");
                 });
@@ -71,11 +76,16 @@ namespace GuestSide.Core.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
 
                     b.ToTable("AdvertisementTypes", "CSI");
                 });
@@ -152,8 +162,14 @@ namespace GuestSide.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("CorrelationId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("FeedbackDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
@@ -165,7 +181,12 @@ namespace GuestSide.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("WhatWillRobotSay")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
 
                     b.HasIndex("TasksId");
 
@@ -181,6 +202,9 @@ namespace GuestSide.Core.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AdminNotes")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CheckInDate")
@@ -202,9 +226,21 @@ namespace GuestSide.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EmergencyContactName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmergencyContactPhone")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsFrequentGuest")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -214,14 +250,134 @@ namespace GuestSide.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Preferences")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("ProfilePicture")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<long>("RoomId")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("StatusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("WhatWillRobotSay")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
 
                     b.HasIndex("RoomId");
 
+                    b.HasIndex("StatusId");
+
                     b.ToTable("Guests", "CSI");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Guest.Status", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("StatusName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("Statuses", "CSI");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Hotel.GeoLocation.Location", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("HotelId")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
+                    b.Property<string>("MapUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HotelId")
+                        .IsUnique();
+
+                    b.ToTable("Locations", "CSI");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Hotel.Hotel", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Facilities")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("LanguagePackId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pictures")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Stars")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("LanguagePackId");
+
+                    b.ToTable("Hotels", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Item.Cart", b =>
@@ -235,9 +391,22 @@ namespace GuestSide.Core.Migrations
                     b.Property<long>("GuestId")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("LanguagePackId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("WhatWillRobotSay")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GuestId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("LanguagePackId");
 
                     b.ToTable("Carts", "CSI");
                 });
@@ -253,12 +422,25 @@ namespace GuestSide.Core.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("LanguagePackId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("CategoryName");
 
+                    b.Property<string>("WhatWillRobotSay")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("LanguagePackId");
 
                     b.ToTable("ItemCategories", "CSI");
                 });
@@ -274,11 +456,56 @@ namespace GuestSide.Core.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Information")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long>("ItemCategoryId")
                         .HasColumnType("bigint");
 
-                    b.Property<byte>("ItemCount")
-                        .HasColumnType("tinyint");
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("LanguagePackId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ItemName");
+
+                    b.Property<string>("WhatWillRobotSay")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemCategoryId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("LanguagePackId");
+
+                    b.ToTable("Items", "CSI");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Item.OrderableItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ItemCategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("LanguagePackId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -288,14 +515,21 @@ namespace GuestSide.Core.Migrations
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("WhatWillRobotSay")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ItemCategoryId");
 
-                    b.ToTable("Items", "CSI");
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("LanguagePackId");
+
+                    b.ToTable("OrderableItems", "CSI");
                 });
 
-            modelBuilder.Entity("GuestSide.Core.Entities.Language.Language", b =>
+            modelBuilder.Entity("GuestSide.Core.Entities.Language.LanguagePack", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -313,7 +547,7 @@ namespace GuestSide.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages", "CSI");
+                    b.ToTable("LanguagePacks", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.LogEntities.Logs", b =>
@@ -324,9 +558,15 @@ namespace GuestSide.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<Guid>("CorrelationId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Exception")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsEmergency")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LogLevel")
                         .IsRequired()
@@ -381,6 +621,9 @@ namespace GuestSide.Core.Migrations
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
 
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -392,7 +635,12 @@ namespace GuestSide.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("WhatWillRobotSay")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
 
                     b.ToTable("Notifications", "CSI");
                 });
@@ -464,11 +712,19 @@ namespace GuestSide.Core.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("WhatWillRobotSay")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
 
                     b.ToTable("RoomCategories", "CSI");
                 });
@@ -484,8 +740,17 @@ namespace GuestSide.Core.Migrations
                     b.Property<int>("Floor")
                         .HasColumnType("int");
 
+                    b.Property<long>("HotelId")
+                        .HasColumnType("bigint");
+
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
+
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Pictures")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("RoomCategoryId")
                         .HasColumnType("bigint");
@@ -493,46 +758,18 @@ namespace GuestSide.Core.Migrations
                     b.Property<int>("RoomNumber")
                         .HasColumnType("int");
 
+                    b.Property<string>("WhatWillRobotSay")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("HotelId");
+
+                    b.HasIndex("LanguageId");
 
                     b.HasIndex("RoomCategoryId");
 
                     b.ToTable("Rooms", "CSI");
-                });
-
-            modelBuilder.Entity("GuestSide.Core.Entities.Staff.CartToStaff", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("CartId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("StaffId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("StatusId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId")
-                        .IsUnique();
-
-                    b.HasIndex("StaffId");
-
-                    b.HasIndex("StatusId");
-
-                    b.ToTable("CartToStaffs", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Staff.StaffCategory", b =>
@@ -547,7 +784,12 @@ namespace GuestSide.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
 
                     b.ToTable("StaffCategories", "CSI");
                 });
@@ -592,6 +834,40 @@ namespace GuestSide.Core.Migrations
                     b.ToTable("Staffs", "CSI");
                 });
 
+            modelBuilder.Entity("GuestSide.Core.Entities.Staff.TaskToStaff", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("StaffId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("StatusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TaskId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StaffId");
+
+                    b.HasIndex("StatusId");
+
+                    b.HasIndex("TaskId");
+
+                    b.ToTable("CartToStaffs", "CSI");
+                });
+
             modelBuilder.Entity("GuestSide.Core.Entities.Task.TaskCategory", b =>
                 {
                     b.Property<long>("Id")
@@ -607,7 +883,12 @@ namespace GuestSide.Core.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
 
                     b.ToTable("TaskCategories", "CSI");
                 });
@@ -633,7 +914,10 @@ namespace GuestSide.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("ItemId")
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("OrderableItemId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Title")
@@ -646,7 +930,9 @@ namespace GuestSide.Core.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ItemId");
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("OrderableItemId");
 
                     b.ToTable("Tasks", "CSI");
                 });
@@ -662,6 +948,9 @@ namespace GuestSide.Core.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -669,51 +958,9 @@ namespace GuestSide.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TaskStatus", "CSI");
-                });
-
-            modelBuilder.Entity("GuestSide.Core.Entities.Translations.BaseDictionary", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("GeorgianText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BaseDictionaries", "CSI");
-                });
-
-            modelBuilder.Entity("GuestSide.Core.Entities.Translations.TranslationDictionary", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("BaseDictionaryId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("TranslatedText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BaseDictionaryId");
-
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("TranslationDictionaries", "CSI");
+                    b.ToTable("TaskStatus", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Advertisements.Advertisements", b =>
@@ -724,7 +971,26 @@ namespace GuestSide.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "languagePack")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("AdvertisementType");
+
+                    b.Navigation("languagePack");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Advertisments.AdvertisementType", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "languagePack")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("languagePack");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Audio.AudioResponse", b =>
@@ -735,10 +1001,10 @@ namespace GuestSide.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GuestSide.Core.Entities.Language.Language", "Language")
-                        .WithMany("AudioResponses")
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "Language")
+                        .WithMany()
                         .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Categorie");
@@ -748,6 +1014,12 @@ namespace GuestSide.Core.Migrations
 
             modelBuilder.Entity("GuestSide.Core.Entities.Feedbacks.Feedback", b =>
                 {
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "languagePack")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("GuestSide.Core.Entities.Task.Tasks", "Task")
                         .WithMany("Feedbacks")
                         .HasForeignKey("TasksId")
@@ -755,28 +1027,110 @@ namespace GuestSide.Core.Migrations
                         .IsRequired();
 
                     b.Navigation("Task");
+
+                    b.Navigation("languagePack");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Guest.Guests", b =>
                 {
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "languagePack")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("GuestSide.Core.Entities.Room.Rooms", "Room")
                         .WithMany("Guests")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GuestSide.Core.Entities.Guest.Status", "Status")
+                        .WithMany("GuestsStatues")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Room");
+
+                    b.Navigation("Status");
+
+                    b.Navigation("languagePack");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Guest.Status", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "languagePack")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("languagePack");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Hotel.GeoLocation.Location", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Hotel.Hotel", "Hotel")
+                        .WithOne("Location")
+                        .HasForeignKey("GuestSide.Core.Entities.Hotel.GeoLocation.Location", "HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hotel");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Hotel.Hotel", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "languagePack")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", null)
+                        .WithMany("Hotels")
+                        .HasForeignKey("LanguagePackId");
+
+                    b.Navigation("languagePack");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Item.Cart", b =>
                 {
-                    b.HasOne("GuestSide.Core.Entities.Guest.Guests", "Guest")
+                    b.HasOne("GuestSide.Core.Entities.Guest.Guests", "guest")
                         .WithMany("Tasks")
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Guest");
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", null)
+                        .WithMany("Carts")
+                        .HasForeignKey("LanguagePackId");
+
+                    b.Navigation("guest");
+
+                    b.Navigation("language");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Item.ItemCategory", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", null)
+                        .WithMany("ItemCategories")
+                        .HasForeignKey("LanguagePackId");
+
+                    b.Navigation("language");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Item.Items", b =>
@@ -787,7 +1141,42 @@ namespace GuestSide.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", null)
+                        .WithMany("Items")
+                        .HasForeignKey("LanguagePackId");
+
                     b.Navigation("ItemCategory");
+
+                    b.Navigation("language");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Item.OrderableItem", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Item.ItemCategory", "ItemCategory")
+                        .WithMany()
+                        .HasForeignKey("ItemCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", null)
+                        .WithMany("OrderableItems")
+                        .HasForeignKey("LanguagePackId");
+
+                    b.Navigation("ItemCategory");
+
+                    b.Navigation("language");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Notification.GuestNotification", b =>
@@ -807,6 +1196,17 @@ namespace GuestSide.Core.Migrations
                     b.Navigation("Guest");
 
                     b.Navigation("Notifications");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Notification.Notifications", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "languagePack")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("languagePack");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Notification.StaffNotification", b =>
@@ -839,42 +1239,53 @@ namespace GuestSide.Core.Migrations
                     b.Navigation("Room");
                 });
 
+            modelBuilder.Entity("GuestSide.Core.Entities.Room.RoomCategory", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "languagePack")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("languagePack");
+                });
+
             modelBuilder.Entity("GuestSide.Core.Entities.Room.Rooms", b =>
                 {
+                    b.HasOne("GuestSide.Core.Entities.Hotel.Hotel", "Hotel")
+                        .WithMany("Rooms")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "languagePack")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("GuestSide.Core.Entities.Room.RoomCategory", "RoomCategory")
                         .WithMany("Rooms")
                         .HasForeignKey("RoomCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Hotel");
+
                     b.Navigation("RoomCategory");
+
+                    b.Navigation("languagePack");
                 });
 
-            modelBuilder.Entity("GuestSide.Core.Entities.Staff.CartToStaff", b =>
+            modelBuilder.Entity("GuestSide.Core.Entities.Staff.StaffCategory", b =>
                 {
-                    b.HasOne("GuestSide.Core.Entities.Item.Cart", "Cart")
-                        .WithOne("CartToStaff")
-                        .HasForeignKey("GuestSide.Core.Entities.Staff.CartToStaff", "CartId")
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "languagePack")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GuestSide.Core.Entities.Staff.Staffs", "Staff")
-                        .WithMany("CartToStaffs")
-                        .HasForeignKey("StaffId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GuestSide.Core.Entities.Task.TasksStatus", "Status")
-                        .WithMany("CartToStaffs")
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Staff");
-
-                    b.Navigation("Status");
+                    b.Navigation("languagePack");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Staff.Staffs", b =>
@@ -886,6 +1297,44 @@ namespace GuestSide.Core.Migrations
                         .IsRequired();
 
                     b.Navigation("StaffCategory");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Staff.TaskToStaff", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Staff.Staffs", "Staff")
+                        .WithMany("TaskToStaff")
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Task.TasksStatus", "Status")
+                        .WithMany("taskToStaff")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Task.Tasks", "Task")
+                        .WithMany()
+                        .HasForeignKey("TaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Staff");
+
+                    b.Navigation("Status");
+
+                    b.Navigation("Task");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Task.TaskCategory", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "languagePack")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("languagePack");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Task.Tasks", b =>
@@ -902,36 +1351,34 @@ namespace GuestSide.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GuestSide.Core.Entities.Item.Items", "Item")
-                        .WithMany("Tasks")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "languagePack")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Item.OrderableItem", "OrderableItem")
+                        .WithMany("Tasks")
+                        .HasForeignKey("OrderableItemId");
 
                     b.Navigation("Cart");
 
                     b.Navigation("Category");
 
-                    b.Navigation("Item");
+                    b.Navigation("OrderableItem");
+
+                    b.Navigation("languagePack");
                 });
 
-            modelBuilder.Entity("GuestSide.Core.Entities.Translations.TranslationDictionary", b =>
+            modelBuilder.Entity("GuestSide.Core.Entities.Task.TasksStatus", b =>
                 {
-                    b.HasOne("GuestSide.Core.Entities.Translations.BaseDictionary", "BaseDictionary")
-                        .WithMany("Translations")
-                        .HasForeignKey("BaseDictionaryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GuestSide.Core.Entities.Language.Language", "Language")
-                        .WithMany("Translations")
+                    b.HasOne("GuestSide.Core.Entities.Language.LanguagePack", "languagePack")
+                        .WithMany()
                         .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("BaseDictionary");
-
-                    b.Navigation("Language");
+                    b.Navigation("languagePack");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Advertisments.AdvertisementType", b =>
@@ -951,11 +1398,20 @@ namespace GuestSide.Core.Migrations
                     b.Navigation("Tasks");
                 });
 
+            modelBuilder.Entity("GuestSide.Core.Entities.Guest.Status", b =>
+                {
+                    b.Navigation("GuestsStatues");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Hotel.Hotel", b =>
+                {
+                    b.Navigation("Location");
+
+                    b.Navigation("Rooms");
+                });
+
             modelBuilder.Entity("GuestSide.Core.Entities.Item.Cart", b =>
                 {
-                    b.Navigation("CartToStaff")
-                        .IsRequired();
-
                     b.Navigation("Tasks");
                 });
 
@@ -964,16 +1420,22 @@ namespace GuestSide.Core.Migrations
                     b.Navigation("Item");
                 });
 
-            modelBuilder.Entity("GuestSide.Core.Entities.Item.Items", b =>
+            modelBuilder.Entity("GuestSide.Core.Entities.Item.OrderableItem", b =>
                 {
                     b.Navigation("Tasks");
                 });
 
-            modelBuilder.Entity("GuestSide.Core.Entities.Language.Language", b =>
+            modelBuilder.Entity("GuestSide.Core.Entities.Language.LanguagePack", b =>
                 {
-                    b.Navigation("AudioResponses");
+                    b.Navigation("Carts");
 
-                    b.Navigation("Translations");
+                    b.Navigation("Hotels");
+
+                    b.Navigation("ItemCategories");
+
+                    b.Navigation("Items");
+
+                    b.Navigation("OrderableItems");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Notification.Notifications", b =>
@@ -992,8 +1454,7 @@ namespace GuestSide.Core.Migrations
                 {
                     b.Navigation("Guests");
 
-                    b.Navigation("QRCode")
-                        .IsRequired();
+                    b.Navigation("QRCode");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Staff.StaffCategory", b =>
@@ -1003,9 +1464,9 @@ namespace GuestSide.Core.Migrations
 
             modelBuilder.Entity("GuestSide.Core.Entities.Staff.Staffs", b =>
                 {
-                    b.Navigation("CartToStaffs");
-
                     b.Navigation("StaffNotifications");
+
+                    b.Navigation("TaskToStaff");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Task.TaskCategory", b =>
@@ -1020,12 +1481,7 @@ namespace GuestSide.Core.Migrations
 
             modelBuilder.Entity("GuestSide.Core.Entities.Task.TasksStatus", b =>
                 {
-                    b.Navigation("CartToStaffs");
-                });
-
-            modelBuilder.Entity("GuestSide.Core.Entities.Translations.BaseDictionary", b =>
-                {
-                    b.Navigation("Translations");
+                    b.Navigation("taskToStaff");
                 });
 #pragma warning restore 612, 618
         }

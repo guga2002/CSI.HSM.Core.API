@@ -15,9 +15,6 @@ namespace GuestSide.Core.Entities.Hotel.GeoLocation
 
         public double Longitude { get; set; }
 
-        [ForeignKey(nameof(languagePack))]
-        public long LanguageId { get; set; }
-        public LanguagePack languagePack { get; set; }
 
         [ForeignKey(nameof(Hotel))]
         public long HotelId { get; set; }

@@ -75,5 +75,9 @@ namespace GuestSide.Core.Entities.Guest
         {
             WhatWillRobotSay= string.Format(pattern, FirstName, LastName);
         }
+        public Guests()
+        {
+            
+        }
     }
 }

@@ -98,5 +98,104 @@ namespace GuestSide.Core.Data
             Database.ExecuteSqlRaw(sql);
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Hotel>()
+                .HasOne(l => l.languagePack)
+                .WithMany()
+                .HasForeignKey(l => l.LanguageId)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Advertisements>()
+                .HasOne(l => l.languagePack)
+                .WithMany()
+                .HasForeignKey(l => l.LanguageId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<AdvertisementType>()
+                .HasOne(l => l.languagePack)
+                .WithMany()
+                .HasForeignKey(l => l.LanguageId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<AudioResponse>()
+                .HasOne(l => l.Language)
+                .WithMany()
+                .HasForeignKey(l => l.LanguageId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<Guests>()
+                .HasOne(l => l.languagePack)
+                .WithMany()
+                .HasForeignKey(l => l.LanguageId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<Status>()
+                .HasOne(l => l.languagePack)
+                .WithMany()
+                .HasForeignKey(l => l.LanguageId)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Cart>()
+             .HasOne(l => l.language)
+             .WithMany()
+             .HasForeignKey(l => l.LanguageId)
+             .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ItemCategory>()
+           .HasOne(l => l.language)
+           .WithMany()
+           .HasForeignKey(l => l.LanguageId)
+           .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Items>()
+          .HasOne(l => l.language)
+          .WithMany()
+          .HasForeignKey(l => l.LanguageId)
+          .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<OrderableItem>()
+          .HasOne(l => l.language)
+          .WithMany()
+          .HasForeignKey(l => l.LanguageId)
+          .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Notifications>()
+          .HasOne(l => l.languagePack)
+          .WithMany()
+          .HasForeignKey(l => l.LanguageId)
+          .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<RoomCategory>()
+        .HasOne(l => l.languagePack)
+        .WithMany()
+        .HasForeignKey(l => l.LanguageId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Rooms>()
+          .HasOne(l => l.languagePack)
+          .WithMany()
+          .HasForeignKey(l => l.LanguageId)
+          .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TaskCategory>()
+       .HasOne(l => l.languagePack)
+       .WithMany()
+       .HasForeignKey(l => l.LanguageId)
+       .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Tasks>()
+        .HasOne(l => l.languagePack)
+        .WithMany()
+        .HasForeignKey(l => l.LanguageId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TasksStatus>()
+          .HasOne(l => l.languagePack)
+          .WithMany()
+          .HasForeignKey(l => l.LanguageId)
+          .OnDelete(DeleteBehavior.Restrict);
+        }
     }
 }

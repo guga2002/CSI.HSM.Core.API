@@ -34,5 +34,10 @@ namespace GuestSide.Core.Entities.Item
             WhatWillRobotSay = string.Format(WhatwillRobotSay,Name);
         }
 
+        public Items()
+        {
+            
+        }
+
     }
 }

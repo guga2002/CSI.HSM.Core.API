@@ -29,6 +29,10 @@ namespace GuestSide.Core.Entities.Item
         {
             WhatWillRobotSay = string.Format(PatternWhatWillwobotSay, guest?.FirstName+" "+guest?.LastName);
         }
+        public Cart()
+        {
+            
+        }
     }
 
 }

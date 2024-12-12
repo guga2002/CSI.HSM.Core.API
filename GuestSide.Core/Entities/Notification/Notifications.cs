@@ -29,5 +29,9 @@ namespace GuestSide.Core.Entities.Notification
         {
             WhatWillRobotSay= string.Format(pattern, Title, Message);
         }
+        public Notifications()
+        {
+            
+        }
     }
 }

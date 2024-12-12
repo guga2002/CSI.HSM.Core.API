@@ -7,6 +7,10 @@ namespace GuestSide.Core.Entities.AbstractEntities
         [Key]
         public long Id { get; set; }
 
+        protected  AbstractEntity()
+        {
+            
+        }
 
     }
 }

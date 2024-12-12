@@ -19,5 +19,9 @@ namespace GuestSide.Core.Entities.Item
         {
             WhatWillRobotSay = string.Format(RobbotWords,Name);
         }
+        public ItemCategory()
+        {
+            
+        }
     }
 }

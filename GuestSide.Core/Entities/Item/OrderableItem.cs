@@ -31,5 +31,10 @@ namespace GuestSide.Core.Entities.Item
         {
             WhatWillRobotSay = string.Format(WhatWillRobotSay, Name);
         }
+
+        public OrderableItem()
+        {
+                
+        }
     }
 }

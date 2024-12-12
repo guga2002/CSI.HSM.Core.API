@@ -32,5 +32,9 @@ namespace GuestSide.Core.Entities.Feedbacks
             WhatWillRobotSay=string.Format(whatwillRobotsay, Title, Content);
         }
 
+        public Feedback()
+        {
+            
+        }
     }
 }

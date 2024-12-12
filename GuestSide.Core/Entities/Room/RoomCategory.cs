@@ -22,5 +22,9 @@ namespace GuestSide.Core.Entities.Room
         {
             WhatWillRobotSay = String.Format(Pattern, Name, Description);
         }
+        public RoomCategory()
+        {
+            
+        }
     }
 }

@@ -36,5 +36,10 @@ namespace GuestSide.Core.Entities.Room
         {
             WhatWillRobotSay = string.Format(pattern, Floor, RoomNumber);
         }
+
+        public Rooms()
+        {
+            
+        }
     }
 }

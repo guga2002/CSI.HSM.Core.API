@@ -15,5 +15,6 @@ namespace GuestSide.Core.Entities.Language
         public IEnumerable<ItemCategory> ItemCategories { get; set; }
         public IEnumerable<Items> Items { get; set; }
         public IEnumerable<OrderableItem> OrderableItems { get; set; }
+        public IEnumerable<Hotel.Hotel> Hotels { get; set; }
     }
 }
