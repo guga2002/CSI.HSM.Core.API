@@ -16,12 +16,24 @@ namespace GuestSide.API.CustomExtendControllerBase
     /// <typeparam name="TDatabase"></typeparam>
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [AllowAnonymous]
     public class CSIControllerBase<RequestDto,RsponseDto, TKey, TDatabase> : ControllerBase
             where RequestDto : class
             where RsponseDto : class
     {
         private readonly IService<RequestDto, RsponseDto, TKey, TDatabase> _serviceProvider;
+        protected string HotelId => GetHotelId();
+
+        private string GetHotelId()
+        {
+            if (!HttpContext.Request.Headers.TryGetValue("X-Hotel-Id", out var hotelId) || string.IsNullOrWhiteSpace(hotelId))
+            {
+                throw new Exception("X-Hotel-Id header is required.");
+            }
+
+            return hotelId;
+        }
 
         public CSIControllerBase(IService<RequestDto, RsponseDto, TKey, TDatabase> serviceProvider)
         {

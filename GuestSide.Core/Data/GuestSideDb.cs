@@ -12,13 +12,18 @@ using GuestSide.Core.Entities.Notification;
 using GuestSide.Core.Entities.Room;
 using GuestSide.Core.Entities.Staff;
 using GuestSide.Core.Entities.Task;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace GuestSide.Core.Data
 {
     public class GuestSideDb : DbContext
     {
-        public GuestSideDb(DbContextOptions<GuestSideDb> options) : base(options) { }
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public GuestSideDb(DbContextOptions<GuestSideDb> options, IHttpContextAccessor httpContextAccessor) : base(options) {
+
+            _httpContextAccessor = httpContextAccessor;
+        }
 
         public virtual DbSet<Advertisements> Advertisements { get; set; }
 
@@ -71,6 +76,20 @@ namespace GuestSide.Core.Data
 
         public virtual DbSet<TaskToStaff> TaskToStaffs { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            var connectionString = _httpContextAccessor.HttpContext?.Items["ConnectionString"]?.ToString();
+            if (!string.IsNullOrEmpty(connectionString))
+            {
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+            else
+            {
+                throw new InvalidOperationException("Connection string not found.");
+            }
+        }
 
         public async Task<Tasks> GetTaskByCartId(long CardId)
         {

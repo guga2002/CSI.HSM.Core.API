@@ -35,12 +35,12 @@ internal class Program
 
         //builder.Services.AddAdvertisementType();
 
-        builder.Services.AddDbContext<GuestSideDb>(
-            str =>
-            {
-                str.UseSqlServer(builder.Configuration.GetConnectionString("CSICOnnect"));
-            }
-        );
+        //builder.Services.AddDbContext<GuestSideDb>(io =>
+        //{
+        //    io.UseSqlServer(builder.Configuration.GetConnectionString("Mgzavrebi"));
+        //});
+
+        builder.Services.AddDbContext<GuestSideDb>(options => { });
 
         builder.WebHost.ConfigureKestrel(options =>
         {
@@ -98,8 +98,9 @@ internal class Program
                     }
                 },
                 new string[] {}
-            }
+                }
         });
+            c.OperationFilter<AddHotelIdHeaderParameter>();
         });
 
 
@@ -133,6 +134,10 @@ internal class Program
 
         builder.Services.AddAutoMapper(typeof(GuestSide.Application.Mapper.AutoMapper));
 
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddScoped<GuestSideDb>();
+
+
         builder.Services.AddLogging(config =>
         {
             config.AddConsole();
@@ -144,21 +149,22 @@ internal class Program
         app.UseStaticFiles();
         app.UseAuthentication();
         app.UseAuthorization();
+        app.UseMiddleware<TenantMiddleware>();
 
-     
-            app.UseSwagger();
 
-            app.UseSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-                options.RoutePrefix = "swagger";
-                options.InjectJavascript("/swagger-voice-search.js"); // The path to your custom JS file in wwwroot
-            });
-      
+        app.UseSwagger();
+
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            options.RoutePrefix = "swagger";
+            options.InjectJavascript("/swagger-voice-search.js"); // The path to your custom JS file in wwwroot
+        });
+
         app.UseMiddleware<CustomMiddlwares>();
         app.UseHttpsRedirection();
         app.MapControllers();
- 
+
         app.Run();
     }
 }
