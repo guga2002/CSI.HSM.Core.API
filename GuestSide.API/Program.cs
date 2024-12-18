@@ -146,9 +146,10 @@ var app = builder.Build();
         options.InjectJavascript("/swagger-voice-search.js");
     });
 
+app.UseMiddleware<TenantMiddleware>();
 //app.UseMiddleware<RequestLoggerMiddleware>();
 app.UseMiddleware<CashingMiddlwares>();
-app.UseMiddleware<TenantMiddleware>();
+
  
     app.UseHttpsRedirection();
     app.MapControllers();

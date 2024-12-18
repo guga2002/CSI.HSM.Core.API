@@ -85,13 +85,14 @@ namespace GuestSide.Core.Data
             var connectionString = _httpContextAccessor.HttpContext?.Items["ConnectionString"]?.ToString();
             if (!string.IsNullOrEmpty(connectionString))
             {
-                Console.WriteLine("connection String changed");
+                Console.WriteLine($"connection String changed:{connectionString}");
+
                 optionsBuilder.UseSqlServer(connectionString);
             }
             else
             {
                 Console.WriteLine("Default case");
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-JT3FIU7\\SQLEXPRESS;Initial Catalog=CSILopota;Integrated Security=True;TrustServerCertificate=True;");//default case
+                // optionsBuilder.UseSqlServer("Data Source=DESKTOP-JT3FIU7\\SQLEXPRESS;Initial Catalog=CSILopota;Integrated Security=True;TrustServerCertificate=True;");//default case
             }
         }
 

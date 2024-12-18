@@ -30,7 +30,7 @@
 
             if (string.IsNullOrEmpty(connectionString))
             {
-                context.Response.StatusCode = 404;
+                context.Response.StatusCode = 400;
                 await context.Response.WriteAsync("Connection string for the hotel not found.");
                 return;
             }
