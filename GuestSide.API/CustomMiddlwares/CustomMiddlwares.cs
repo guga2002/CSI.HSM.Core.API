@@ -8,7 +8,7 @@ namespace GuestSide.API.CustomMiddlwares
         private readonly ILogger<CustomMiddlwares> _logger;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExceptionMiddleware"/> class.
+        /// Initializes a new instance of the class.
         /// </summary>
         /// <param name="next">The next middleware in the pipeline.</param>
         /// <param name="logger">The logger instance for logging errors.</param>
