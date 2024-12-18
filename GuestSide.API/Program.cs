@@ -20,58 +20,60 @@ using System.Text;
 using GuestSide.Application.Services.Task.Task;
 using GuestSide.Application.Services.Hotel;
 using Core.Persistance.Cashing.Inject;
+using Core.Persistance.LoggingConfigs;
+using GuestSide.Core.Interfaces.LogInterfaces;
+using Core.API.CustomMiddlwares;
+    var builder = WebApplication.CreateBuilder(args);
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+    builder.Services.AddDbContext<GuestSideDb>(options => { });
 
-var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<GuestSideDb>(options => { });
+    builder.WebHost.ConfigureKestrel(options =>
+    {
+        options.ListenAnyIP(2044);
+        options.ListenAnyIP(2045, listenOptions => listenOptions.UseHttps());
+    });
 
-        builder.WebHost.ConfigureKestrel(options =>
+    var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+    var secretKey = jwtSettings["SecretKey"];
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
         {
-            options.ListenAnyIP(2044);
-            options.ListenAnyIP(2045, listenOptions => listenOptions.UseHttps());
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSettings["Issuer"],
+            ValidAudience = jwtSettings["Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey ?? throw new ArgumentNullException("define secret key"))),
+            ClockSkew = TimeSpan.Zero,
+        };
+    });
+
+
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Core.Api", Version = "v1" });
+
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            In = ParameterLocation.Header,
+            Description = "Please enter a valid token",
+            Name = "Authorization",
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT"
         });
 
-        var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-        var secretKey = jwtSettings["SecretKey"];
-        builder.Services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = jwtSettings["Issuer"],
-                ValidAudience = jwtSettings["Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey ?? throw new ArgumentNullException("define secret key"))),
-                ClockSkew = TimeSpan.Zero,
-            };
-        });
-
-
-        builder.Services.AddSwaggerGen(c =>
-        {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Core.Api", Version = "v1" });
-
-            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-            {
-                In = ParameterLocation.Header,
-                Description = "Please enter a valid token",
-                Name = "Authorization",
-                Type = SecuritySchemeType.Http,
-                Scheme = "bearer",
-                BearerFormat = "JWT"
-            });
-
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement
-        {
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
             {
                 new OpenApiSecurityScheme
                 {
@@ -83,71 +85,65 @@ builder.Services.AddDbContext<GuestSideDb>(options => { });
                 },
                 new string[] {}
                 }
-        });
-            c.OperationFilter<AddHotelIdHeaderParameter>();
-        });
+    });
+        c.OperationFilter<AddHotelIdHeaderParameter>();
+    });
 
 
-        builder.Services.AddRedisCash(builder.Configuration.GetSection("RedisUrl").Value ?? throw new ArgumentNullException("Redis Key Is not defined"));
+    builder.Services.AddRedisCash(builder.Configuration.GetSection("RedisUrl").Value ?? throw new ArgumentNullException("Redis Key Is not defined"));
 
-        builder.Services.InjectAdvertisment();
-        builder.Services.AddAdvertisementType();
-        builder.Services.InjectFeadbacks();
+    builder.Services.InjectAdvertisment();
+    builder.Services.AddAdvertisementType();
+    builder.Services.InjectFeadbacks();
 
-        builder.Services.InjectStaffCategory();
-        builder.Services.InjectCartToStaff();
-        builder.Services.InjectStaffs();
+    builder.Services.InjectStaffCategory();
+    builder.Services.InjectCartToStaff();
+    builder.Services.InjectStaffs();
 
-        builder.Services.InjectTaskCategory();
-        builder.Services.InjectTasks();
-        builder.Services.InjectTaskStatus();
-        builder.Services.InjectGuest();
-        builder.Services.InjectCart();
-        builder.Services.InjectItemCategory();
-        builder.Services.InjectItem();
-        builder.Services.InjectLog();
-        builder.Services.InjectGuestNotification();
-        builder.Services.InjectNotification();
-        builder.Services.InjectStaffNotification();
-        builder.Services.InjectQrCode();
-        builder.Services.InjectRoomCategory();
-        builder.Services.InjectRoom();
+    builder.Services.InjectTaskCategory();
+    builder.Services.InjectTasks();
+    builder.Services.InjectTaskStatus();
+    builder.Services.InjectGuest();
+    builder.Services.InjectCart();
+    builder.Services.InjectItemCategory();
+    builder.Services.InjectItem();
+    builder.Services.InjectLog();
+    builder.Services.InjectGuestNotification();
+    builder.Services.InjectNotification();
+    builder.Services.InjectStaffNotification();
+    builder.Services.InjectQrCode();
+    builder.Services.InjectRoomCategory();
+    builder.Services.InjectRoom();
 
-        builder.Services.InjectHotel();
+    builder.Services.InjectHotel();
 
-        builder.Services.InjectLocation();
+    builder.Services.InjectLocation();
 
-        builder.Services.AddAutoMapper(typeof(GuestSide.Application.Mapper.AutoMapper));
+    builder.Services.AddAutoMapper(typeof(GuestSide.Application.Mapper.AutoMapper));
 
-        builder.Services.AddHttpContextAccessor();
-        builder.Services.AddScoped<GuestSideDb>();
+    builder.Services.AddHttpContextAccessor();
 
+    builder.Logging.ClearProviders();
+    var loggerRepository = builder.Services.BuildServiceProvider().GetService<ILogRepository>();
+    builder.Logging.AddProvider(new LoggerProvider(loggerRepository ?? throw new ArgumentNullException("logger provider is not configure")));
 
-        builder.Services.AddLogging(config =>
-        {
-            config.AddConsole();
-            config.AddDebug();
-        });
+    var app = builder.Build();
+    app.UseStaticFiles();
+    app.UseAuthentication();
+    app.UseAuthorization();
 
+    app.UseSwagger();
 
-        var app = builder.Build();
-        app.UseStaticFiles();
-        app.UseAuthentication();
-        app.UseAuthorization();
- 
-        app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api V1");
+        options.RoutePrefix = "swagger";
+        options.InjectJavascript("/swagger-voice-search.js");
+    });
 
-        app.UseSwaggerUI(options =>
-        {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api V1");
-            options.RoutePrefix = "swagger";
-            options.InjectJavascript("/swagger-voice-search.js");
-        });
-
-        app.UseMiddleware<CashingMiddlwares>();
-        app.UseMiddleware<TenantMiddleware>();
-        app.UseHttpsRedirection();
-        app.MapControllers();
-
-       await app.RunAsync();
-   
+    app.UseMiddleware<CashingMiddlwares>();
+    app.UseMiddleware<TenantMiddleware>();
+    app.UseMiddleware<RequestLoggerMiddleware>();
+    app.UseHttpsRedirection();
+    app.MapControllers();
+    await app.RunAsync();

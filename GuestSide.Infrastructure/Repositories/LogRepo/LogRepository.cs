@@ -11,5 +11,10 @@ namespace GuestSide.Infrastructure.Repositories.LogRepo
         public LogRepository(GuestSideDb context, IRedisCash redisCache) : base(context, redisCache)
         {
         }
+
+        public void Dispose()
+        {
+            Context.Dispose();
+        }
     }
 }

@@ -48,7 +48,7 @@ namespace GuestSide.API.CustomMiddlwares
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError($"Something went wrong: {ex}");
+                    _logger.LogCritical($"Something went wrong: {ex}");
                     await HandleError(context, ex);
                 }
 

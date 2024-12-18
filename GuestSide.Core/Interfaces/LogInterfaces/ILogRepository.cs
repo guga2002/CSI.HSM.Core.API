@@ -3,7 +3,7 @@ using GuestSide.Core.Interfaces.AbstractInterface;
 
 namespace GuestSide.Core.Interfaces.LogInterfaces
 {
-    public interface ILogRepository:IGenericRepository<Logs>
+    public interface ILogRepository:IGenericRepository<Logs>,IDisposable
     {
         //add another method
     }
