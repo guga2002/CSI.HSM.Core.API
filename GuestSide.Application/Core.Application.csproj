@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.9.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
       <PrivateAssets>all</PrivateAssets>
@@ -25,11 +27,32 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GuestSide.Core\GuestSide.Core.csproj" />
+    <ProjectReference Include="..\GuestSide.Core\Core.Core.csproj" />
+    <ProjectReference Include="..\GuestSide.Infrastructure\Core.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GuestSide.Core\GuestSide.Core.csproj" />
+    <Compile Update="ErrorSuccessKeys\ErrorKeys.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ErrorKeys.resx</DependentUpon>
+    </Compile>
+    <Compile Update="ErrorSuccessKeys\StandartTexts.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StandartTexts.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="ErrorSuccessKeys\ErrorKeys.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorKeys.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="ErrorSuccessKeys\StandartTexts.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>StandartTexts.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

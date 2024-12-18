@@ -3,7 +3,6 @@ using GuestSide.Application.Services.Advertismenet;
 using GuestSide.Application.Services.Feadback;
 using GuestSide.Application.Services.Staff.Cart;
 using GuestSide.Core.Data;
-using Microsoft.EntityFrameworkCore;
 using GuestSide.Application.Services.Staff.Category;
 using GuestSide.Application.Services.Task.Category;
 using GuestSide.Application.Services.Task.Status;
@@ -20,74 +19,65 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using GuestSide.Application.Services.Task.Task;
 using GuestSide.Application.Services.Hotel;
-using Microsoft.Extensions.Options;
+using Core.Persistance.Cashing.Inject;
+using Core.Persistance.LoggingConfigs;
+using GuestSide.Core.Interfaces.LogInterfaces;
+using Core.API.CustomMiddlwares;
+using Microsoft.EntityFrameworkCore;
+var builder = WebApplication.CreateBuilder(args);
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 
+    builder.Services.AddDbContext<GuestSideDb>(options => {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("Lopota"));
+    });
 
-internal class Program
-{
-    private static void Main(string[] args)
+    builder.WebHost.ConfigureKestrel(options =>
     {
-        var builder = WebApplication.CreateBuilder(args);
-        builder.Services.AddControllers();
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-        //builder.Services.AddAdvertisementType();
+        options.ListenAnyIP(2044);
+        options.ListenAnyIP(2045, listenOptions => listenOptions.UseHttps());
+    });
 
-        //builder.Services.AddAdvertisementType();
-
-        //builder.Services.AddDbContext<GuestSideDb>(io =>
-        //{
-        //    io.UseSqlServer(builder.Configuration.GetConnectionString("Mgzavrebi"));
-        //});
-
-        builder.Services.AddDbContext<GuestSideDb>(options => { });
-
-        builder.WebHost.ConfigureKestrel(options =>
+    var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+    var secretKey = jwtSettings["SecretKey"];
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
         {
-            options.ListenAnyIP(2044);
-            options.ListenAnyIP(2045, listenOptions => listenOptions.UseHttps());
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSettings["Issuer"],
+            ValidAudience = jwtSettings["Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey ?? throw new ArgumentNullException("define secret key"))),
+            ClockSkew = TimeSpan.Zero,
+        };
+    });
+
+
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Core.Api", Version = "v1" });
+
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            In = ParameterLocation.Header,
+            Description = "Please enter a valid token",
+            Name = "Authorization",
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT"
         });
 
-        var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-        var secretKey = jwtSettings["SecretKey"];
-
-        builder.Services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = jwtSettings["Issuer"],
-                ValidAudience = jwtSettings["Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey ?? throw new ArgumentNullException("define secret key"))),
-                ClockSkew = TimeSpan.Zero,
-            };
-        });
-
-
-        builder.Services.AddSwaggerGen(c =>
-        {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Core.Api", Version = "v1" });
-
-            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-            {
-                In = ParameterLocation.Header,
-                Description = "Please enter a valid token",
-                Name = "Authorization",
-                Type = SecuritySchemeType.Http,
-                Scheme = "bearer",
-                BearerFormat = "JWT"
-            });
-
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement
-        {
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
             {
                 new OpenApiSecurityScheme
                 {
@@ -99,72 +89,68 @@ internal class Program
                 },
                 new string[] {}
                 }
-        });
-            c.OperationFilter<AddHotelIdHeaderParameter>();
-        });
+    });
+        c.OperationFilter<AddHotelIdHeaderParameter>();
+    });
 
 
+    builder.Services.AddRedisCash(builder.Configuration.GetSection("RedisUrl").Value ?? throw new ArgumentNullException("Redis Key Is not defined"));
 
-        builder.Services.InjectAdvertisment();
-        builder.Services.AddAdvertisementType();
-        builder.Services.InjectFeadbacks();
+    builder.Services.InjectAdvertisment();
+    builder.Services.AddAdvertisementType();
+    builder.Services.InjectFeadbacks();
 
-        builder.Services.InjectStaffCategory();
-        builder.Services.InjectCartToStaff();
-        builder.Services.InjectStaffs();
+    builder.Services.InjectStaffCategory();
+    builder.Services.InjectCartToStaff();
+    builder.Services.InjectStaffs();
 
-        builder.Services.InjectTaskCategory();
-        builder.Services.InjectTasks();
-        builder.Services.InjectTaskStatus();
-        builder.Services.InjectGuest();
-        builder.Services.InjectCart();
-        builder.Services.InjectItemCategory();
-        builder.Services.InjectItem();
-        builder.Services.InjectLog();
-        builder.Services.InjectGuestNotification();
-        builder.Services.InjectNotification();
-        builder.Services.InjectStaffNotification();
-        builder.Services.InjectQrCode();
-        builder.Services.InjectRoomCategory();
-        builder.Services.InjectRoom();
+    builder.Services.InjectTaskCategory();
+    builder.Services.InjectTasks();
+    builder.Services.InjectTaskStatus();
+    builder.Services.InjectGuest();
+    builder.Services.InjectCart();
+    builder.Services.InjectItemCategory();
+    builder.Services.InjectItem();
+    builder.Services.InjectLog();
+    builder.Services.InjectGuestNotification();
+    builder.Services.InjectNotification();
+    builder.Services.InjectStaffNotification();
+    builder.Services.InjectQrCode();
+    builder.Services.InjectRoomCategory();
+    builder.Services.InjectRoom();
 
-        builder.Services.InjectHotel();
+    builder.Services.InjectHotel();
 
-        builder.Services.InjectLocation();
+    builder.Services.InjectLocation();
 
-        builder.Services.AddAutoMapper(typeof(GuestSide.Application.Mapper.AutoMapper));
+    builder.Services.AddAutoMapper(typeof(GuestSide.Application.Mapper.AutoMapper));
 
-        builder.Services.AddHttpContextAccessor();
-        builder.Services.AddScoped<GuestSideDb>();
+    builder.Services.AddHttpContextAccessor();
 
+    builder.Logging.ClearProviders();
 
-        builder.Services.AddLogging(config =>
-        {
-            config.AddConsole();
-            config.AddDebug();
-        });
+builder.Services.InjectSeriLog();
 
 
-        var app = builder.Build();
-        app.UseStaticFiles();
-        app.UseAuthentication();
-        app.UseAuthorization();
-        app.UseMiddleware<TenantMiddleware>();
+var app = builder.Build();
+    app.UseStaticFiles();
+    app.UseAuthentication();
+    app.UseAuthorization();
 
+    app.UseSwagger();
 
-        app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api V1");
+        options.RoutePrefix = "swagger";
+        options.InjectJavascript("/swagger-voice-search.js");
+    });
 
-        app.UseSwaggerUI(options =>
-        {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            options.RoutePrefix = "swagger";
-            options.InjectJavascript("/swagger-voice-search.js"); // The path to your custom JS file in wwwroot
-        });
+app.UseMiddleware<TenantMiddleware>();
+//app.UseMiddleware<RequestLoggerMiddleware>();
+app.UseMiddleware<CashingMiddlwares>();
 
-        app.UseMiddleware<CustomMiddlwares>();
-        app.UseHttpsRedirection();
-        app.MapControllers();
-
-        app.Run();
-    }
-}
+ 
+    app.UseHttpsRedirection();
+    app.MapControllers();
+    await app.RunAsync();

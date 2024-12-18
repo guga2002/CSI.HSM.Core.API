@@ -24,4 +24,9 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GuestSide.Core\Core.Core.csproj" />
+    <ProjectReference Include="..\GuestSide.Persistance\Core.Persistance.csproj" />
+  </ItemGroup>
+
 </Project>

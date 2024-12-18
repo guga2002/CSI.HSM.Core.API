@@ -1,16 +1,20 @@
-﻿using GuestSide.Core.Data;
+﻿using Core.Persistance.Cashing;
+using GuestSide.Core.Data;
 using GuestSide.Core.Entities.Notification;
 using GuestSide.Core.Interfaces.Notification;
 using GuestSide.Infrastructure.Repositories.AbstractRepository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace GuestSide.Infrastructure.Repositories.Notification
 {
     public class StaffNotificationRepository : GenericRepository<StaffNotification>, IStaffNotificationRepository
     {
-        public StaffNotificationRepository(GuestSideDb context) : base(context)
+        public StaffNotificationRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<StaffNotification> logger) : base(context, redisCache, httpContextAccessor, logger)
         {
         }
+
         public async override Task<StaffNotification> GetByIdAsync(object id, CancellationToken cancellationToken = default)
         {
             return await Context.StaffNotifications.Include(io=>io.Notifications).Where(io=>io.Id==(long)id).FirstOrDefaultAsync()??

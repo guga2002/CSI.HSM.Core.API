@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Core.Core.Entities.Guest;
 using GuestSide.Core.Entities.AbstractEntities;
 using GuestSide.Core.Entities.Item;
 using GuestSide.Core.Entities.Language;
@@ -66,6 +67,8 @@ namespace GuestSide.Core.Entities.Guest
         public virtual Rooms? Room{ get; set; }
 
         public virtual Status? Status { get; set; }
+
+        public GuestActiveLanguage ActiveLanguage { get; set; }
 
         public virtual  IEnumerable<Cart>?Tasks { get; set; }
 
