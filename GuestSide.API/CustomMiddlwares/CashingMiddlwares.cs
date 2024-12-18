@@ -28,7 +28,7 @@ namespace GuestSide.API.CustomMiddlwares
 
             var cachedResponse = await _redisCache.GetCache<string>(cacheKey);
 
-            if (!string.IsNullOrEmpty(cachedResponse)) 
+            if (!string.IsNullOrEmpty(cachedResponse))
             {
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)HttpStatusCode.OK;
@@ -50,6 +50,7 @@ namespace GuestSide.API.CustomMiddlwares
                 {
                     _logger.LogCritical($"Something went wrong: {ex}");
                     await HandleError(context, ex);
+                    return;
                 }
 
                 if (context.Response.StatusCode == 404)
@@ -63,6 +64,7 @@ namespace GuestSide.API.CustomMiddlwares
 
                 await _redisCache.SetCache(cacheKey, responseBodyString, TimeSpan.FromMinutes(5));
 
+                responseBody.Seek(0, SeekOrigin.Begin);
                 await responseBody.CopyToAsync(originalBodyStream);
             }
         }

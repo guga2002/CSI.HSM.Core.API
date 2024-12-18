@@ -12,14 +12,14 @@
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            _logger.LogTrace("Request {Method} {Path} started at {Timestamp}",
+            _logger.LogDebug("Request {Method} {Path} started at {Timestamp}",
                 context.Request.Method,
                 context.Request.Path,
                 DateTime.UtcNow);
 
             await next(context);
 
-            _logger.LogTrace("Request {Method} {Path} completed at {Timestamp}",
+            _logger.LogDebug("Request {Method} {Path} completed at {Timestamp}",
                 context.Request.Method,
                 context.Request.Path,
                 DateTime.UtcNow);
