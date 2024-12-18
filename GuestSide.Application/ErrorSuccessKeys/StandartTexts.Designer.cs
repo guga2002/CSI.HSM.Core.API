@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GuestSide.Application.ErrorSuccessKeys {
+namespace Core.Application.ErrorSuccessKeys {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace GuestSide.Application.ErrorSuccessKeys {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GuestSide.Application.ErrorSuccessKeys.StandartTexts", typeof(StandartTexts).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Core.Application.ErrorSuccessKeys.StandartTexts", typeof(StandartTexts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -30,9 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GuestSide.Application\GuestSide.Application.csproj" />
-    <ProjectReference Include="..\GuestSide.Core\GuestSide.Core.csproj" />
-    <ProjectReference Include="..\GuestSide.Persistance\GuestSide.Persistance.csproj" />
+    <ProjectReference Include="..\GuestSide.Application\Core.Application.csproj" />
+    <ProjectReference Include="..\GuestSide.Core\Core.Core.csproj" />
+    <ProjectReference Include="..\GuestSide.Persistance\Core.Persistance.csproj" />
   </ItemGroup>
 
   <ItemGroup>
