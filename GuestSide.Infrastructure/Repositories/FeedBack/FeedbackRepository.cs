@@ -1,4 +1,5 @@
-﻿using GuestSide.Core.Data;
+﻿using Core.Persistance.Cashing;
+using GuestSide.Core.Data;
 using GuestSide.Core.Entities.Feedbacks;
 using GuestSide.Core.Interfaces.FeedBack;
 using GuestSide.Infrastructure.Repositories.AbstractRepository;
@@ -8,7 +9,7 @@ namespace GuestSide.Infrastructure.Repositories.FeedBack
 {
     public class FeedbackRepository : GenericRepository<Feedback>, IFeedbackRepository
     {
-        public FeedbackRepository(GuestSideDb context) : base(context)
+        public FeedbackRepository(GuestSideDb context, IRedisCash redisCache) : base(context, redisCache)
         {
         }
     }

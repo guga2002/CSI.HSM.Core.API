@@ -3,6 +3,7 @@ using GuestSide.Application.CustomExceptions;
 using GuestSide.Application.Interface;
 using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.Logging;
+using Core.Application.ErrorSuccessKeys;
 
 namespace GuestSide.Application.Services
 {
@@ -37,7 +38,7 @@ namespace GuestSide.Application.Services
             var entity = await _repository.GetByIdAsync(id, cancellationToken);
             if (entity is null)
             {
-                throw new BusinessRuleViolationException(ErrorSuccessKeys.ErrorKeys.INVALID_INPUT);
+                throw new BusinessRuleViolationException(ErrorKeys.INVALID_INPUT);
             }
             var res=await _repository.DeleteAsync(entity, cancellationToken);
 
@@ -60,7 +61,7 @@ namespace GuestSide.Application.Services
             var entity = await _repository.GetByIdAsync(id, cancellationToken);
             if (entity is null)
             {
-                throw new BusinessRuleViolationException(ErrorSuccessKeys.ErrorKeys.ACCESS_DENIED);
+                throw new BusinessRuleViolationException(ErrorKeys.ACCESS_DENIED);
             }
             return _mapper.Map<ResponseDto>(entity);
         }
@@ -74,7 +75,7 @@ namespace GuestSide.Application.Services
             var existingEntity = await _repository.GetByIdAsync(id, cancellationToken);
             if (existingEntity is null)
             {
-                throw new BusinessRuleViolationException(ErrorSuccessKeys.ErrorKeys.ACCESS_DENIED);
+                throw new BusinessRuleViolationException(ErrorKeys.ACCESS_DENIED);
             }
             var mappedEntity = _mapper.Map<TDatabaseEntity>(existingEntity);
             var responseFromUpdate= await _repository.UpdateAsync(mappedEntity, cancellationToken);

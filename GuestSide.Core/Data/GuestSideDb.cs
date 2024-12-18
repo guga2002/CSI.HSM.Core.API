@@ -1,4 +1,5 @@
-﻿using GuestSide.Core.Entities.Advertisements;
+﻿using Core.Core.Entities.Guest;
+using GuestSide.Core.Entities.Advertisements;
 using GuestSide.Core.Entities.Advertisments;
 using GuestSide.Core.Entities.Audio;
 using GuestSide.Core.Entities.Feedbacks;
@@ -73,6 +74,7 @@ namespace GuestSide.Core.Data
         public virtual DbSet<LanguagePack> LanguagePacks { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Hotel> Hotels { get; set; }
+        public virtual DbSet<GuestActiveLanguage> GuestActiveLanguage { get; set; }
 
         public virtual DbSet<TaskToStaff> TaskToStaffs { get; set; }
 

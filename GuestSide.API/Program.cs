@@ -3,7 +3,6 @@ using GuestSide.Application.Services.Advertismenet;
 using GuestSide.Application.Services.Feadback;
 using GuestSide.Application.Services.Staff.Cart;
 using GuestSide.Core.Data;
-using Microsoft.EntityFrameworkCore;
 using GuestSide.Application.Services.Staff.Category;
 using GuestSide.Application.Services.Task.Category;
 using GuestSide.Application.Services.Task.Status;
@@ -20,27 +19,13 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using GuestSide.Application.Services.Task.Task;
 using GuestSide.Application.Services.Hotel;
-using Microsoft.Extensions.Options;
+using Core.Persistance.Cashing.Inject;
 
-
-internal class Program
-{
-    private static void Main(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
-        builder.Services.AddControllers();
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-        //builder.Services.AddAdvertisementType();
-
-        //builder.Services.AddAdvertisementType();
-
-        //builder.Services.AddDbContext<GuestSideDb>(io =>
-        //{
-        //    io.UseSqlServer(builder.Configuration.GetConnectionString("Mgzavrebi"));
-        //});
-
-        builder.Services.AddDbContext<GuestSideDb>(options => { });
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<GuestSideDb>(options => { });
 
         builder.WebHost.ConfigureKestrel(options =>
         {
@@ -50,7 +35,6 @@ internal class Program
 
         var jwtSettings = builder.Configuration.GetSection("JwtSettings");
         var secretKey = jwtSettings["SecretKey"];
-
         builder.Services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -104,6 +88,7 @@ internal class Program
         });
 
 
+        builder.Services.AddRedisCash(builder.Configuration.GetSection("RedisUrl").Value ?? throw new ArgumentNullException("Redis Key Is not defined"));
 
         builder.Services.InjectAdvertisment();
         builder.Services.AddAdvertisementType();
@@ -149,22 +134,20 @@ internal class Program
         app.UseStaticFiles();
         app.UseAuthentication();
         app.UseAuthorization();
-        app.UseMiddleware<TenantMiddleware>();
-
-
+ 
         app.UseSwagger();
 
         app.UseSwaggerUI(options =>
         {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api V1");
             options.RoutePrefix = "swagger";
-            options.InjectJavascript("/swagger-voice-search.js"); // The path to your custom JS file in wwwroot
+            options.InjectJavascript("/swagger-voice-search.js");
         });
 
-        app.UseMiddleware<CustomMiddlwares>();
+        app.UseMiddleware<CashingMiddlwares>();
+        app.UseMiddleware<TenantMiddleware>();
         app.UseHttpsRedirection();
         app.MapControllers();
 
-        app.Run();
-    }
-}
+       await app.RunAsync();
+   

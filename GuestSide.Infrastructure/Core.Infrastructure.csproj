@@ -26,10 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GuestSide.Core\Core.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\GuestSide.Core\GuestSide.Core.csproj" />
+    <ProjectReference Include="..\GuestSide.Persistance\Core.Persistance.csproj" />
   </ItemGroup>
 
 </Project>

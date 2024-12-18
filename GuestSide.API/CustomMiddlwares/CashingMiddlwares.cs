@@ -1,30 +1,41 @@
 ﻿using System.Net;
+using System.Text.Json;
+using Core.Persistance.Cashing;
 
 namespace GuestSide.API.CustomMiddlwares
 {
-    public class CustomMiddlwares
+    public class CashingMiddlwares
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<CustomMiddlwares> _logger;
+        private readonly ILogger<CashingMiddlwares> _logger;
+        private readonly IRedisCash _redisCache;
 
-        /// <summary>
-        /// Initializes a new instance of the class.
-        /// </summary>
-        /// <param name="next">The next middleware in the pipeline.</param>
-        /// <param name="logger">The logger instance for logging errors.</param>
-        public CustomMiddlwares(RequestDelegate next, ILogger<CustomMiddlwares> logger)
+        public CashingMiddlwares(RequestDelegate next, ILogger<CashingMiddlwares> logger, IRedisCash redisCache)
         {
             _next = next;
             _logger = logger;
+            _redisCache = redisCache;
         }
 
-        /// <summary>
-        /// Invokes the middleware asynchronously.
-        /// </summary>
-        /// <param name="context">The HTTP context for the current request.</param>
-        /// <returns>A task that represents the completion of request processing.</returns>
         public async Task InvokeAsync(HttpContext context)
         {
+            var path = context.Request.Path.Value;
+            var query = context.Request.QueryString.Value;
+            var userId = context.User?.Identity?.Name ?? "anonymous";
+            var language = context.Request.Headers["X-Hotel-Id"].ToString();
+
+            var cacheKey = $"{path}{query}|User:{userId}|Lang:{language}";
+
+            var cachedResponse = await _redisCache.GetCache<string>(cacheKey);
+
+            if (!string.IsNullOrEmpty(cachedResponse)) 
+            {
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = (int)HttpStatusCode.OK;
+                await context.Response.WriteAsync(cachedResponse);
+                return;
+            }
+
             var originalBodyStream = context.Response.Body;
 
             using (var responseBody = new MemoryStream())
@@ -48,16 +59,14 @@ namespace GuestSide.API.CustomMiddlwares
                 }
 
                 responseBody.Seek(0, SeekOrigin.Begin);
+                var responseBodyString = new StreamReader(responseBody).ReadToEnd();
+
+                await _redisCache.SetCache(cacheKey, responseBodyString, TimeSpan.FromMinutes(5));
+
                 await responseBody.CopyToAsync(originalBodyStream);
             }
         }
 
-        /// <summary>
-        /// Handles the error by writing an error response.
-        /// </summary>
-        /// <param name="context">The HTTP context for the current request.</param>
-        /// <param name="ex">The exception that occurred.</param>
-        /// <returns>A task that represents the completion of error handling.</returns>
         private Task HandleError(HttpContext context, Exception ex)
         {
             context.Response.ContentType = "application/json";
@@ -70,7 +79,7 @@ namespace GuestSide.API.CustomMiddlwares
                 Detailed = ex.Source
             };
 
-            return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
+            return context.Response.WriteAsync(JsonSerializer.Serialize(response));
         }
     }
 }

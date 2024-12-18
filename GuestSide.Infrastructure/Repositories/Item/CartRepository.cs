@@ -1,4 +1,5 @@
-﻿using GuestSide.Core.Data;
+﻿using Core.Persistance.Cashing;
+using GuestSide.Core.Data;
 using GuestSide.Core.Entities.Item;
 using GuestSide.Core.Interfaces.Item;
 using GuestSide.Infrastructure.Repositories.AbstractRepository;
@@ -8,7 +9,7 @@ namespace GuestSide.Infrastructure.Repositories.Item
 {
     public class CartRepository : GenericRepository<Cart>, ICartRepository
     {
-        public CartRepository(GuestSideDb context) : base(context)
+        public CartRepository(GuestSideDb context, IRedisCash redisCache) : base(context, redisCache)
         {
         }
 

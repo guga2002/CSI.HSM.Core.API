@@ -1,4 +1,5 @@
-﻿using GuestSide.Core.Data;
+﻿using Core.Persistance.Cashing;
+using GuestSide.Core.Data;
 using GuestSide.Core.Entities.Room;
 using GuestSide.Core.Interfaces.Room;
 using GuestSide.Infrastructure.Repositories.AbstractRepository;
@@ -8,7 +9,7 @@ namespace GuestSide.Infrastructure.Repositories.Room
 {
     public class QRCodeRepository : GenericRepository<QRCode>, IQRCodeRepository
     {
-        public QRCodeRepository(GuestSideDb context) : base(context)
+        public QRCodeRepository(GuestSideDb context, IRedisCash redisCache) : base(context, redisCache)
         {
         }
     }
