@@ -34,7 +34,10 @@ namespace Core.Persistance.Cashing
 
         public async Task RemoveCache(string key)
         {
-            await database.KeyDeleteAsync(key);
+            if (await database.KeyExistsAsync(key))
+            {
+                await database.KeyDeleteAsync(key);
+            }
         }
     }
 }

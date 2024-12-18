@@ -23,16 +23,21 @@ namespace Core.Persistance.LoggingConfigs
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
         {
-            var res=_log.AddAsync(new GuestSide.Core.Entities.LogEntities.Logs
+      
+            if (logLevel is not LogLevel.Warning&&logLevel is not LogLevel.Information)
             {
-                LogLevel = logLevel.ToString(),
-                Message = formatter(state, exception),
-                Exception = exception?.Message,
-                CorrelationId = Guid.NewGuid(),
-                Source = exception.StackTrace,
-                Timestamp = DateTime.Now,
-                IsEmergency = logLevel == LogLevel.Critical || logLevel == LogLevel.Error
-            }).Result;
+                Console.WriteLine(exception?.Message);
+                var res = _log.AddAsync(new GuestSide.Core.Entities.LogEntities.Logs
+                {
+                    LogLevel = logLevel.ToString(),
+                    Message = formatter(state, exception),
+                    Exception = exception?.Message,
+                    CorrelationId = Guid.NewGuid(),
+                    Source = exception?.StackTrace,
+                    Timestamp = DateTime.Now,
+                    IsEmergency = logLevel == LogLevel.Critical || logLevel == LogLevel.Error
+                }).Result;
+            }
         }
     }
 }

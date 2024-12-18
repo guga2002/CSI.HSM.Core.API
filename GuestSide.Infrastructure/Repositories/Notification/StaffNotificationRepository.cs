@@ -3,13 +3,15 @@ using GuestSide.Core.Data;
 using GuestSide.Core.Entities.Notification;
 using GuestSide.Core.Interfaces.Notification;
 using GuestSide.Infrastructure.Repositories.AbstractRepository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace GuestSide.Infrastructure.Repositories.Notification
 {
     public class StaffNotificationRepository : GenericRepository<StaffNotification>, IStaffNotificationRepository
     {
-        public StaffNotificationRepository(GuestSideDb context, IRedisCash redisCache) : base(context, redisCache)
+        public StaffNotificationRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<StaffNotification> logger) : base(context, redisCache, httpContextAccessor, logger)
         {
         }
 

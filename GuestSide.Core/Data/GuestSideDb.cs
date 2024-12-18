@@ -85,11 +85,13 @@ namespace GuestSide.Core.Data
             var connectionString = _httpContextAccessor.HttpContext?.Items["ConnectionString"]?.ToString();
             if (!string.IsNullOrEmpty(connectionString))
             {
+                Console.WriteLine("connection String changed");
                 optionsBuilder.UseSqlServer(connectionString);
             }
             else
             {
-                throw new InvalidOperationException("Connection string not found.");
+                Console.WriteLine("Default case");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-JT3FIU7\\SQLEXPRESS;Initial Catalog=CSILopota;Integrated Security=True;TrustServerCertificate=True;");//default case
             }
         }
 

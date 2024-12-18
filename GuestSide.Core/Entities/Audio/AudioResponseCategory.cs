@@ -10,6 +10,6 @@ namespace GuestSide.Core.Entities.Audio
         public long Id { get; set; } 
         public required string CategoryName { get; set; } 
         public string? Description { get; set; } 
-        public virtual IEnumerable<AudioResponse> AudioResponses { get; set; }=new List<AudioResponse>();
+        public virtual IEnumerable<AudioResponse> AudioResponses { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Core.Persistance.LoggingConfigs
 {
-    public class LoggerProvider : ILoggerProvider,IDisposable
+    public class LoggerProvider : ILoggerProvider
     {
         private readonly ILogRepository log;
 
@@ -18,7 +18,7 @@ namespace Core.Persistance.LoggingConfigs
 
         public void Dispose()
         {
-            log.Dispose();
+            throw new NotImplementedException();
         }
     }
 }

@@ -23,11 +23,15 @@ using Core.Persistance.Cashing.Inject;
 using Core.Persistance.LoggingConfigs;
 using GuestSide.Core.Interfaces.LogInterfaces;
 using Core.API.CustomMiddlwares;
-    var builder = WebApplication.CreateBuilder(args);
+using Microsoft.EntityFrameworkCore;
+var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
-    builder.Services.AddDbContext<GuestSideDb>(options => { });
+
+    builder.Services.AddDbContext<GuestSideDb>(options => {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("Lopota"));
+    });
 
     builder.WebHost.ConfigureKestrel(options =>
     {
@@ -124,10 +128,11 @@ using Core.API.CustomMiddlwares;
     builder.Services.AddHttpContextAccessor();
 
     builder.Logging.ClearProviders();
-    var loggerRepository = builder.Services.BuildServiceProvider().GetService<ILogRepository>();
-    builder.Logging.AddProvider(new LoggerProvider(loggerRepository ?? throw new ArgumentNullException("logger provider is not configure")));
 
-    var app = builder.Build();
+builder.Services.InjectSeriLog();
+
+
+var app = builder.Build();
     app.UseStaticFiles();
     app.UseAuthentication();
     app.UseAuthorization();
@@ -141,9 +146,10 @@ using Core.API.CustomMiddlwares;
         options.InjectJavascript("/swagger-voice-search.js");
     });
 
-    app.UseMiddleware<CashingMiddlwares>();
-    app.UseMiddleware<TenantMiddleware>();
-    app.UseMiddleware<RequestLoggerMiddleware>();
+//app.UseMiddleware<RequestLoggerMiddleware>();
+app.UseMiddleware<CashingMiddlwares>();
+app.UseMiddleware<TenantMiddleware>();
+ 
     app.UseHttpsRedirection();
     app.MapControllers();
     await app.RunAsync();
