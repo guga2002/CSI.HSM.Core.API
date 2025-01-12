@@ -29,6 +29,5 @@ public class RestaunrantItem:AbstractEntity
 
     public virtual RestaurantItemCategory? restaurantItemCategory { get; set; }
     public virtual Restaurants? Restaurants { get; set; }
-    public virtual IEnumerable<RestaurantCart>? RestaurantCart { get; set; }
     public virtual IEnumerable<RestaurantItemToCart>? RestaurantItemToCarts { get; set; }
 }

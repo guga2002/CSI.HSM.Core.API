@@ -4,6 +4,7 @@ using GuestSide.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Core.Migrations
 {
     [DbContext(typeof(GuestSideDb))]
-    partial class GuestSideDbModelSnapshot : ModelSnapshot
+    [Migration("20250112152846_rest")]
+    partial class rest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -841,12 +844,17 @@ namespace Core.Core.Migrations
                     b.Property<long>("GuestId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("RestaunrantItemId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("WhatWillRobotSay")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GuestId");
+
+                    b.HasIndex("RestaunrantItemId");
 
                     b.ToTable("RestaurantCarts", "CSI");
                 });
@@ -1527,6 +1535,10 @@ namespace Core.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GuestSide.Core.Entities.Restaurant.RestaunrantItem", null)
+                        .WithMany("RestaurantCart")
+                        .HasForeignKey("RestaunrantItemId");
+
                     b.Navigation("Guests");
                 });
 
@@ -1759,6 +1771,8 @@ namespace Core.Core.Migrations
 
             modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.RestaunrantItem", b =>
                 {
+                    b.Navigation("RestaurantCart");
+
                     b.Navigation("RestaurantItemToCarts");
                 });
 
