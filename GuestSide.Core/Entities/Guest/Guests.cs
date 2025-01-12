@@ -5,6 +5,7 @@ using GuestSide.Core.Entities.AbstractEntities;
 using GuestSide.Core.Entities.Item;
 using GuestSide.Core.Entities.Language;
 using GuestSide.Core.Entities.Notification;
+using GuestSide.Core.Entities.Restaurant;
 using GuestSide.Core.Entities.Room;
 
 namespace GuestSide.Core.Entities.Guest
@@ -73,6 +74,8 @@ namespace GuestSide.Core.Entities.Guest
         public virtual  IEnumerable<Cart>?Tasks { get; set; }
 
         public virtual IEnumerable<GuestNotification>? GuestNotifications { get; set; }
+
+        public virtual IEnumerable<RestaurantCart> RestaurantCart { get; set; }
 
         public Guests(string pattern= "Hi {0} {1}, welcome to our hotel, we are glad to see you here")
         {

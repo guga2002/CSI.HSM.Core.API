@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace GuestSide.Core.Migrations
+namespace Core.Core.Migrations
 {
     [DbContext(typeof(GuestSideDb))]
-    [Migration("20241215160140_createDatabase")]
-    partial class createDatabase
+    [Migration("20241218191619_addRestaurant")]
+    partial class addRestaurant
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,32 @@ namespace GuestSide.Core.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Core.Core.Entities.Guest.GuestActiveLanguage", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("GuestID")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LanguageCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SetDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GuestID")
+                        .IsUnique();
+
+                    b.ToTable("GuestLanguages", "CSI");
+                });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Advertisements.Advertisements", b =>
                 {
@@ -671,6 +697,129 @@ namespace GuestSide.Core.Migrations
                     b.ToTable("StaffNotifications", "CSI");
                 });
 
+            modelBuilder.Entity("GuestSide.Core.Entities.Payment.PaymentMethod", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Method")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentMethods", "CSI");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.RestaunrantItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Allergens")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("RestaurantId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("RestaurantItemCategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RestaurantId");
+
+                    b.HasIndex("RestaurantItemCategoryId");
+
+                    b.ToTable("RestaunrantItems", "CSI");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.RestaurantCart", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("GuestId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("PaymentMethodId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("RestaunrantItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("WhatWillRobotSay")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GuestId");
+
+                    b.HasIndex("PaymentMethodId");
+
+                    b.ToTable("RestaurantCarts", "CSI");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.RestaurantItemCategory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RestaurantItemCategories", "CSI");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.Restaurants", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RestaunrantCategory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Restaurants", "CSI");
+                });
+
             modelBuilder.Entity("GuestSide.Core.Entities.Room.QRCode", b =>
                 {
                     b.Property<long>("Id")
@@ -966,6 +1115,32 @@ namespace GuestSide.Core.Migrations
                     b.ToTable("TaskStatus", "CSI");
                 });
 
+            modelBuilder.Entity("RestaunrantItemRestaurantCart", b =>
+                {
+                    b.Property<long>("RestaunrantItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("RestaurantCartId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("RestaunrantItemId", "RestaurantCartId");
+
+                    b.HasIndex("RestaurantCartId");
+
+                    b.ToTable("RestaunrantItemRestaurantCart", "CSI");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Guest.GuestActiveLanguage", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Guest.Guests", "Guest")
+                        .WithOne("ActiveLanguage")
+                        .HasForeignKey("Core.Core.Entities.Guest.GuestActiveLanguage", "GuestID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Guest");
+                });
+
             modelBuilder.Entity("GuestSide.Core.Entities.Advertisements.Advertisements", b =>
                 {
                     b.HasOne("GuestSide.Core.Entities.Advertisments.AdvertisementType", "AdvertisementType")
@@ -1231,6 +1406,44 @@ namespace GuestSide.Core.Migrations
                     b.Navigation("Staff");
                 });
 
+            modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.RestaunrantItem", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Restaurant.Restaurants", "Restaurants")
+                        .WithMany("Items")
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Restaurant.RestaurantItemCategory", "restaurantItemCategory")
+                        .WithMany("restaunrantItems")
+                        .HasForeignKey("RestaurantItemCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restaurants");
+
+                    b.Navigation("restaurantItemCategory");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.RestaurantCart", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Guest.Guests", "Guests")
+                        .WithMany("RestaurantCart")
+                        .HasForeignKey("GuestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Payment.PaymentMethod", "PaymentMethod")
+                        .WithMany("RestaurantCarts")
+                        .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Guests");
+
+                    b.Navigation("PaymentMethod");
+                });
+
             modelBuilder.Entity("GuestSide.Core.Entities.Room.QRCode", b =>
                 {
                     b.HasOne("GuestSide.Core.Entities.Room.Rooms", "Room")
@@ -1384,6 +1597,21 @@ namespace GuestSide.Core.Migrations
                     b.Navigation("languagePack");
                 });
 
+            modelBuilder.Entity("RestaunrantItemRestaurantCart", b =>
+                {
+                    b.HasOne("GuestSide.Core.Entities.Restaurant.RestaunrantItem", null)
+                        .WithMany()
+                        .HasForeignKey("RestaunrantItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Restaurant.RestaurantCart", null)
+                        .WithMany()
+                        .HasForeignKey("RestaurantCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("GuestSide.Core.Entities.Advertisments.AdvertisementType", b =>
                 {
                     b.Navigation("Advertisements");
@@ -1396,7 +1624,12 @@ namespace GuestSide.Core.Migrations
 
             modelBuilder.Entity("GuestSide.Core.Entities.Guest.Guests", b =>
                 {
+                    b.Navigation("ActiveLanguage")
+                        .IsRequired();
+
                     b.Navigation("GuestNotifications");
+
+                    b.Navigation("RestaurantCart");
 
                     b.Navigation("Tasks");
                 });
@@ -1446,6 +1679,21 @@ namespace GuestSide.Core.Migrations
                     b.Navigation("GuestNotifications");
 
                     b.Navigation("StaffNotifications");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Payment.PaymentMethod", b =>
+                {
+                    b.Navigation("RestaurantCarts");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.RestaurantItemCategory", b =>
+                {
+                    b.Navigation("restaunrantItems");
+                });
+
+            modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.Restaurants", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Room.RoomCategory", b =>

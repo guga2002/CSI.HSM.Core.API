@@ -14,7 +14,7 @@ public class AddHotelIdHeaderParameter : IOperationFilter
         {
             Name = "X-Hotel-Id",
             In = ParameterLocation.Header,
-            Required = true,
+            Required = false,
             Description = "Hotel identifier (unique per tenant)",
             Schema = new OpenApiSchema
             {

@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace GuestSide.Core.Migrations
+namespace Core.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class mirate : Migration
+    public partial class addRestaurant : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -62,6 +62,50 @@ namespace GuestSide.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Logs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PaymentMethods",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Method = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentMethods", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RestaurantItemCategories",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RestaurantItemCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Restaurants",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RestaunrantCategory = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Restaurants", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -327,6 +371,39 @@ namespace GuestSide.Core.Migrations
                         principalTable: "LanguagePacks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RestaunrantItems",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhotoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Allergens = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RestaurantItemCategoryId = table.Column<long>(type: "bigint", nullable: false),
+                    RestaurantId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RestaunrantItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RestaunrantItems_RestaurantItemCategories_RestaurantItemCategoryId",
+                        column: x => x.RestaurantItemCategoryId,
+                        principalSchema: "CSI",
+                        principalTable: "RestaurantItemCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RestaunrantItems_Restaurants_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalSchema: "CSI",
+                        principalTable: "Restaurants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -684,6 +761,29 @@ namespace GuestSide.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GuestLanguages",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GuestID = table.Column<long>(type: "bigint", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SetDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GuestLanguages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GuestLanguages_Guests_GuestID",
+                        column: x => x.GuestID,
+                        principalSchema: "CSI",
+                        principalTable: "Guests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GuestNotifications",
                 schema: "CSI",
                 columns: table => new
@@ -708,6 +808,37 @@ namespace GuestSide.Core.Migrations
                         column: x => x.NotificationId,
                         principalSchema: "CSI",
                         principalTable: "Notifications",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RestaurantCarts",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GuestId = table.Column<long>(type: "bigint", nullable: false),
+                    WhatWillRobotSay = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RestaunrantItemId = table.Column<long>(type: "bigint", nullable: false),
+                    PaymentMethodId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RestaurantCarts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RestaurantCarts_Guests_GuestId",
+                        column: x => x.GuestId,
+                        principalSchema: "CSI",
+                        principalTable: "Guests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RestaurantCarts_PaymentMethods_PaymentMethodId",
+                        column: x => x.PaymentMethodId,
+                        principalSchema: "CSI",
+                        principalTable: "PaymentMethods",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -755,6 +886,33 @@ namespace GuestSide.Core.Migrations
                         column: x => x.CategoryId,
                         principalSchema: "CSI",
                         principalTable: "TaskCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RestaunrantItemRestaurantCart",
+                schema: "CSI",
+                columns: table => new
+                {
+                    RestaunrantItemId = table.Column<long>(type: "bigint", nullable: false),
+                    RestaurantCartId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RestaunrantItemRestaurantCart", x => new { x.RestaunrantItemId, x.RestaurantCartId });
+                    table.ForeignKey(
+                        name: "FK_RestaunrantItemRestaurantCart_RestaunrantItems_RestaunrantItemId",
+                        column: x => x.RestaunrantItemId,
+                        principalSchema: "CSI",
+                        principalTable: "RestaunrantItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RestaunrantItemRestaurantCart_RestaurantCarts_RestaurantCartId",
+                        column: x => x.RestaurantCartId,
+                        principalSchema: "CSI",
+                        principalTable: "RestaurantCarts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -912,6 +1070,13 @@ namespace GuestSide.Core.Migrations
                 column: "TasksId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GuestLanguages_GuestID",
+                schema: "CSI",
+                table: "GuestLanguages",
+                column: "GuestID",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GuestNotifications_GuestId",
                 schema: "CSI",
                 table: "GuestNotifications",
@@ -1020,6 +1185,36 @@ namespace GuestSide.Core.Migrations
                 table: "QRCodes",
                 column: "RoomId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaunrantItemRestaurantCart_RestaurantCartId",
+                schema: "CSI",
+                table: "RestaunrantItemRestaurantCart",
+                column: "RestaurantCartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaunrantItems_RestaurantId",
+                schema: "CSI",
+                table: "RestaunrantItems",
+                column: "RestaurantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaunrantItems_RestaurantItemCategoryId",
+                schema: "CSI",
+                table: "RestaunrantItems",
+                column: "RestaurantItemCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantCarts_GuestId",
+                schema: "CSI",
+                table: "RestaurantCarts",
+                column: "GuestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantCarts_PaymentMethodId",
+                schema: "CSI",
+                table: "RestaurantCarts",
+                column: "PaymentMethodId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoomCategories_LanguageId",
@@ -1132,6 +1327,10 @@ namespace GuestSide.Core.Migrations
                 schema: "CSI");
 
             migrationBuilder.DropTable(
+                name: "GuestLanguages",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
                 name: "GuestNotifications",
                 schema: "CSI");
 
@@ -1149,6 +1348,10 @@ namespace GuestSide.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "QRCodes",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
+                name: "RestaunrantItemRestaurantCart",
                 schema: "CSI");
 
             migrationBuilder.DropTable(
@@ -1172,6 +1375,14 @@ namespace GuestSide.Core.Migrations
                 schema: "CSI");
 
             migrationBuilder.DropTable(
+                name: "RestaunrantItems",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
+                name: "RestaurantCarts",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
                 name: "Notifications",
                 schema: "CSI");
 
@@ -1189,6 +1400,18 @@ namespace GuestSide.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "TaskCategories",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
+                name: "RestaurantItemCategories",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
+                name: "Restaurants",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
+                name: "PaymentMethods",
                 schema: "CSI");
 
             migrationBuilder.DropTable(

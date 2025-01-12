@@ -21,8 +21,6 @@ using GuestSide.Application.Services.Task.Task;
 using GuestSide.Application.Services.Hotel;
 using Core.Persistance.Cashing.Inject;
 using Core.Persistance.LoggingConfigs;
-using GuestSide.Core.Interfaces.LogInterfaces;
-using Core.API.CustomMiddlwares;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddControllers();
@@ -30,7 +28,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddSwaggerGen();
 
     builder.Services.AddDbContext<GuestSideDb>(options => {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("Lopota"));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("CSICOnnect"));
     });
 
     builder.WebHost.ConfigureKestrel(options =>
