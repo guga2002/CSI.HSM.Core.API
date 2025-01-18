@@ -11,9 +11,9 @@ namespace GuestSide.API.Controllers.Staff
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StaffToCartController : CSIControllerBase<CartToStaffDto,CartToStaffResponseDto, long, TaskToStaff>
+    public class StaffToCartController : CSIControllerBase<TaskToStaffDto,CartToStaffResponseDto, long, TaskToStaff>
     {
-        public StaffToCartController(IService<CartToStaffDto,CartToStaffResponseDto, long, TaskToStaff> serviceProvider) : base(serviceProvider)
+        public StaffToCartController(IService<TaskToStaffDto,CartToStaffResponseDto, long, TaskToStaff> serviceProvider) : base(serviceProvider)
         {
         }
 
@@ -56,7 +56,7 @@ namespace GuestSide.API.Controllers.Staff
         [SwaggerOperation(Summary = "Create a new cart-to-staff record", Description = "Creates a new cart-to-staff record.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Cart-to-staff record created successfully.", typeof(Response<CartToStaffResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<CartToStaffResponseDto>> CreateAsync([FromBody] CartToStaffDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<CartToStaffResponseDto>> CreateAsync([FromBody] TaskToStaffDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
         }
@@ -72,7 +72,7 @@ namespace GuestSide.API.Controllers.Staff
         [SwaggerOperation(Summary = "Update an existing cart-to-staff record", Description = "Updates the cart-to-staff record with the specified ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Cart-to-staff record updated successfully.", typeof(Response<CartToStaffResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-        public override Task<Response<CartToStaffResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] CartToStaffDto entityDto, CancellationToken cancellationToken = default)
+        public override Task<Response<CartToStaffResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] TaskToStaffDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.UpdateAsync(id, entityDto, cancellationToken);
         }

@@ -1,4 +1,5 @@
-﻿using GuestSide.Application.DTOs.Request.Advertisment;
+﻿using Core.Application.Services.Advertismenet.Mapper;
+using GuestSide.Application.DTOs.Request.Advertisment;
 using GuestSide.Application.DTOs.Response.Advertisment;
 using GuestSide.Application.Interface;
 using GuestSide.Application.Interface.Advertisment;
@@ -18,7 +19,7 @@ namespace GuestSide.Application.Services.Advertismenet
             serviceProvider.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
             serviceProvider.AddScoped<IAdvertismentService, AdvertisementService>();
             serviceProvider.AddScoped<IService<AdvertismentDto,AdvertismentResponseDto, long, Advertisements>, AdvertisementService>();
-            //serviceProvider.AddScoped<ILogger<GenericService<AdvertismentDto, long, Advertisements>>>();
+            serviceProvider.AddAutoMapper(typeof(AdvertisementMapper));
         }
     }
 }

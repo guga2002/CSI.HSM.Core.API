@@ -6,8 +6,11 @@
 
         public required string Message { get; set; }
 
+
         public DateTime NotificationDate { get; set; }
 
-        public bool IsRead { get; set; }
+        public bool IsRead { get; set; } = false;
+
+        public long LanguageId { get; set; }
     }
 }

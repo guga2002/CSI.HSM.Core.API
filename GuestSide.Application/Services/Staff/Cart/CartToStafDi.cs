@@ -18,7 +18,7 @@ namespace GuestSide.Application.Services.Staff.Cart
             services.AddScoped<IGenericRepository<TaskToStaff>, CartToStaffRepository>();
             services.AddScoped<ICartToStaffRepository, CartToStaffRepository>();
             services.AddScoped<ICartToStaffService, TaskStatusService>();
-            services.AddScoped<IService<CartToStaffDto,CartToStaffResponseDto, long, TaskToStaff>, TaskStatusService>();
+            services.AddScoped<IService<TaskToStaffDto,CartToStaffResponseDto, long, TaskToStaff>, TaskStatusService>();
           
         }
     }

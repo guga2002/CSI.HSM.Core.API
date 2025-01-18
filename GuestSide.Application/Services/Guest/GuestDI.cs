@@ -1,4 +1,5 @@
-﻿using GuestSide.Application.DTOs.Request.Guest;
+﻿using Core.Application.Services.Guest.Mapper;
+using GuestSide.Application.DTOs.Request.Guest;
 using GuestSide.Application.DTOs.Response.Guest;
 using GuestSide.Application.Interface;
 using GuestSide.Application.Interface.Guest;
@@ -18,6 +19,7 @@ namespace GuestSide.Application.Services.Guest
             services.AddScoped<IGuestRepository,GuestRepository>();
             services.AddScoped<IGuestService,GuestService>();
             services.AddScoped<IService<GuestDto,GuestResponseDto,long,Guests>,GuestService>();
+            services.AddAutoMapper(typeof(GuestMapper));
             //services.AddScoped<ILogger<GenericService<GuestDto, long, Guests>>>();
         }
     }

@@ -1,15 +1,16 @@
-﻿namespace GuestSide.Application.DTOs.Request.Item
+﻿namespace GuestSide.Application.DTOs.Request.Item;
+
+public class ItemDto
 {
-    public class ItemDto
-    {
-        public required string Name { get; set; }
+    public required string Name { get; set; }
 
-        public string? Description { get; set; }
+    public string? Description { get; set; }
 
-        public decimal? Price { get; set; } = 0;
+    public string? Information { get; set; }
 
-        public long ItemCategoryId { get; set; }
+    public string? WhatWillRobotSay { get; set; }
 
-        public byte ItemCount { get; set; }
-    }
+    public long ItemCategoryId { get; set; }
+
+    public long LanguageId { get; set; }
 }
