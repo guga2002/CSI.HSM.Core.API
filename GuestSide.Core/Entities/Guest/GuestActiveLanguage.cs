@@ -3,15 +3,14 @@ using GuestSide.Core.Entities.Guest;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Core.Entities.Guest
+namespace Core.Core.Entities.Guest;
+
+[Table("GuestLanguages", Schema = "CSI")]
+public class GuestActiveLanguage : AbstractEntity
 {
-    [Table("GuestLanguages", Schema = "CSI")]
-    public class GuestActiveLanguage : AbstractEntity
-    {
-        [ForeignKey("Guest")]
-        public long GuestID { get; set; }
-        public string LanguageCode { get; set; }
-        public DateTime SetDate { get; set; }
-        public Guests Guest { get; set; }
-    }
+    [ForeignKey("Guest")]
+    public long GuestID { get; set; }
+    public string LanguageCode { get; set; }
+    public DateTime SetDate { get; set; }
+    public Guests Guest { get; set; }
 }

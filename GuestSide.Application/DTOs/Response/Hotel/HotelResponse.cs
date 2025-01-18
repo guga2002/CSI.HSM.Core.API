@@ -1,15 +1,26 @@
-﻿namespace GuestSide.Application.DTOs.Response.Hotel
+﻿namespace GuestSide.Application.DTOs.Response.Hotel;
+
+public class HotelResponse
 {
-    public class HotelResponse
-    {
-        public long Id { get; set; }
+    public long Id { get; set; }
 
-        public required string Name { get; set; }
+    public required string Name { get; set; }
 
-        public DateTime RegistrationDate { get; set; }
+    public string? City { get; set; }
 
-        public int Stars { get; set; }
+    public string? Address { get; set; }
 
-        public string? Description { get; set; }
-    }
+    public DateTime RegistrationDate { get; set; }
+
+    public int Stars { get; set; }
+
+    public string? Description { get; set; }
+
+    public bool IsActive { get; set; } = true;
+
+    public List<byte[]>? Pictures { get; set; }
+
+    public IEnumerable<string>? Facilities { get; set; }
+
+    public long LanguageId { get; set; }
 }

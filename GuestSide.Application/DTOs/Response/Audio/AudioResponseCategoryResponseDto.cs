@@ -1,9 +1,9 @@
-﻿namespace GuestSide.Application.DTOs.Response.Task;
+﻿namespace Core.Application.DTOs.Response.Audio;
 
-public class TaskCategoryResponseDto
+public class AudioResponseCategoryResponseDto
 {
     public long Id { get; set; }
     public required string CategoryName { get; set; }
     public string? Description { get; set; }
-    public long LanguageId { get; set; }
 }
+

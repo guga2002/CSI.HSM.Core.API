@@ -2,18 +2,17 @@
 using GuestSide.Core.Entities.Guest;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuestSide.Core.Entities.Notification
+namespace GuestSide.Core.Entities.Notification;
+
+[Table("GuestNotifications", Schema = "CSI")]
+public class GuestNotification:AbstractEntity
 {
-    [Table("GuestNotifications", Schema = "CSI")]
-    public class GuestNotification:AbstractEntity
-    {
 
-        [ForeignKey(nameof(Guest))]
-        public long GuestId { get; set; }
-        public Guests Guest { get; set; }
+    [ForeignKey(nameof(Guest))]
+    public long GuestId { get; set; }
+    public Guests Guest { get; set; }
 
-        [ForeignKey(nameof(Notifications))]
-        public long NotificationId { get; set; }
-        public Notifications Notifications { get; set; }
-    }
+    [ForeignKey(nameof(Notifications))]
+    public long NotificationId { get; set; }
+    public Notifications Notifications { get; set; }
 }

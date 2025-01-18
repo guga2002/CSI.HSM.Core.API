@@ -1,21 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GuestSide.Application.DTOs.Response.Room
+namespace GuestSide.Application.DTOs.Response.Room;
+
+public class QRCodeResponseDto
 {
-    public class QRCodeResponseDto
-    {
-        public long Id { get; set; }
+    public long Id { get; set; }
 
-        public required string Code { get; set; }
+    public required string Code { get; set; }
 
-        public string? Text { get; set; }
+    public string? Text { get; set; }
 
-        public required byte[] QrCodeImage { get; set; }
+    public required byte[] QrCodeImage { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime GeneratedDate { get; set; }
+    [DataType(DataType.Date)]
+    public DateTime GeneratedDate { get; set; }
 
-        public long RoomId { get; set; }
+    public long RoomId { get; set; }
 
-    }
 }
