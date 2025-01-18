@@ -104,9 +104,22 @@ public abstract class AdditioalFeatures<T> : IAdditioalFeatures<T> where T : cla
             throw new ArgumentException("Entities collection cannot be null or empty.", nameof(entities));
         }
 
-        await DbSet.AddRangeAsync(entities, cancellationToken);
-        await _context.SaveChangesAsync(cancellationToken);
+        await using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
+
+        try
+        {
+            await DbSet.AddRangeAsync(entities, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            await transaction.CommitAsync(cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync(cancellationToken);
+            throw new InvalidOperationException("An error occurred while performing bulk addition.", ex);
+        }
     }
+
     #endregion
 
     #region BulkUpdate
@@ -117,9 +130,23 @@ public abstract class AdditioalFeatures<T> : IAdditioalFeatures<T> where T : cla
             throw new ArgumentException("Entities collection cannot be null or empty.", nameof(entities));
         }
 
-        DbSet.UpdateRange(entities);
-        await _context.SaveChangesAsync(cancellationToken);
+        await using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
+
+        try
+        {
+            DbSet.UpdateRange(entities);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            await transaction.CommitAsync(cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync(cancellationToken);
+
+            throw new InvalidOperationException("An error occurred while performing bulk update.", ex);
+        }
     }
+
     #endregion
 
     #region BulkDelete
@@ -130,8 +157,20 @@ public abstract class AdditioalFeatures<T> : IAdditioalFeatures<T> where T : cla
             throw new ArgumentException("Entities collection cannot be null or empty.", nameof(entities));
         }
 
-        DbSet.RemoveRange(entities);
-        await _context.SaveChangesAsync(cancellationToken);
+        await using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
+
+        try
+        {
+            DbSet.RemoveRange(entities);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            await transaction.CommitAsync(cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync(cancellationToken);
+            throw new InvalidOperationException("An error occurred while performing bulk deletion.", ex);
+        }
     }
     #endregion
 
