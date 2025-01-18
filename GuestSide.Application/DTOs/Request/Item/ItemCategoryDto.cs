@@ -1,8 +1,8 @@
-﻿namespace GuestSide.Application.DTOs.Request.Item
+﻿namespace GuestSide.Application.DTOs.Request.Item;
+
+public class ItemCategoryDto
 {
-    public class ItemCategoryDto
-    {
-        public required string Name { get; set; }
-        public string? Description { get; set; }
-    }
+    public required string Name { get; set; }
+    public string? Description { get; set; }
+    public long LanguageId { get; set; }
 }

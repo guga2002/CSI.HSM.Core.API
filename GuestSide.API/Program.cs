@@ -14,53 +14,60 @@ using GuestSide.Application.Services.LogService;
 using GuestSide.Application.Services.Notification.DI;
 using GuestSide.Application.Services.Room.DI;
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using GuestSide.Application.Services.Task.Task;
 using GuestSide.Application.Services.Hotel;
 using Core.Persistance.Cashing.Inject;
 using Core.Persistance.LoggingConfigs;
 using Microsoft.EntityFrameworkCore;
+using AuthorizationHelper.Injection.CommonServices;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 var builder = WebApplication.CreateBuilder(args);
-    builder.Services.AddControllers();
-    builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddControllers()
+ .AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.AuthorizationController).Assembly)
+ .AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.UsersController).Assembly)
+ .AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.RolesController).Assembly)
+ .AddControllersAsServices();
+builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
-    builder.Services.AddDbContext<GuestSideDb>(options => {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("CSICOnnect"));
-    });
+builder.Services.AddDbContext<GuestSideDb>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CSICOnnect"));
+});
 
-    builder.WebHost.ConfigureKestrel(options =>
+builder.WebHost.ConfigureKestrel(options =>
     {
         options.ListenAnyIP(2044);
         options.ListenAnyIP(2045, listenOptions => listenOptions.UseHttps());
     });
 
-    var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-    var secretKey = jwtSettings["SecretKey"];
-    builder.Services.AddAuthentication(options =>
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var secretKey = jwtSettings["SecretKey"];
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings["Issuer"],
-            ValidAudience = jwtSettings["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey ?? throw new ArgumentNullException("define secret key"))),
-            ClockSkew = TimeSpan.Zero,
-        };
-    });
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey ?? throw new ArgumentNullException("define secret key"))),
+        ClockSkew = TimeSpan.Zero,
+    };
+});
 
 
-    builder.Services.AddSwaggerGen(c =>
+builder.Services.AddSwaggerGen(c =>
     {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Core.Api", Version = "v1" });
 
@@ -92,7 +99,7 @@ var builder = WebApplication.CreateBuilder(args);
     });
 
 
-    builder.Services.AddRedisCash(builder.Configuration.GetSection("RedisUrl").Value ?? throw new ArgumentNullException("Redis Key Is not defined"));
+    builder.Services.AddRedisCash("192.168.0.28"?? throw new ArgumentNullException("Redis Key Is not defined"));
 
     builder.Services.InjectAdvertisment();
     builder.Services.AddAdvertisementType();
@@ -117,17 +124,19 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.InjectRoomCategory();
     builder.Services.InjectRoom();
 
+builder.Services.InjectCommonServices(builder.Configuration);
+
     builder.Services.InjectHotel();
 
     builder.Services.InjectLocation();
-
-    builder.Services.AddAutoMapper(typeof(GuestSide.Application.Mapper.AutoMapper));
 
     builder.Services.AddHttpContextAccessor();
 
     builder.Logging.ClearProviders();
 
 builder.Services.InjectSeriLog();
+
+builder.Services.InjectFeadbacks();
 
 
 var app = builder.Build();
@@ -141,7 +150,7 @@ var app = builder.Build();
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api V1");
         options.RoutePrefix = "swagger";
-        options.InjectJavascript("/swagger-voice-search.js");
+        //options.InjectJavascript("/swagger-voice-search.js");
     });
 
 app.UseMiddleware<TenantMiddleware>();

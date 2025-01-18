@@ -1,12 +1,12 @@
-﻿using GuestSide.Application.DTOs.Request.Task;
-using GuestSide.Application.DTOs.Response.Task;
+﻿using GuestSide.Core.Entities.Task;
 
-namespace GuestSide.Application.DTOs.Request.Item
+namespace GuestSide.Application.DTOs.Request.Item;
+
+public class CartDto
 {
-    public class CartDto
-    {
-        public long GuestId { get; set; }
+    public long GuestId { get; set; }
 
-        public IEnumerable<TaskDto> Tasks { get; set; }
-    }
+    public virtual IEnumerable<Tasks>? Tasks { get; set; }
+
+    public long LanguageId { get; set; }
 }

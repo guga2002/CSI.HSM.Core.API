@@ -1,5 +1,4 @@
-﻿using Core.Core.Interfaces.AbstractInterface;
-using Core.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Application.Services.Feadback.Mapper;
 using GuestSide.Application.DTOs.Request.FeedBacks;
 using GuestSide.Application.DTOs.Response.FeedBacks;
 using GuestSide.Application.Interface;
@@ -20,7 +19,7 @@ namespace GuestSide.Application.Services.Feadback
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.AddScoped<IFeadbackService,feadbackService>();
             services.AddScoped<IService<FeedbackDto,FeedbackResponseDto, long, Feedback>, feadbackService>();
-            services.AddScoped<IAdditioalFeatures<Feedback>, AdditioalFeatures<Feedback>>();
+            services.AddAutoMapper(typeof(FeadbackMapper));
             /// services.AddScoped<ILogger<GenericService<FeedbackDto, long, Feedback>>>();
         }
     }

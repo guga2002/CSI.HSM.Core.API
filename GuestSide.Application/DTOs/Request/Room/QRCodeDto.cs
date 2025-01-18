@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace GuestSide.Application.DTOs.Request.Room
+﻿namespace GuestSide.Application.DTOs.Request.Room
 {
     public class QRCodeDto
     {
@@ -10,7 +8,6 @@ namespace GuestSide.Application.DTOs.Request.Room
 
         public required byte[] QrCodeImage { get; set; }
 
-        [DataType(DataType.Date)]
         public DateTime GeneratedDate { get; set; }
 
         public long RoomId { get; set; }

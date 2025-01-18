@@ -33,4 +33,5 @@ public class TaskToStaff:AbstractEntity
     public long TaskId { get; set; }
 
     public Task.Tasks Task { get; set; }
+
 }

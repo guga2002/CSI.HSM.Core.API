@@ -17,13 +17,6 @@ namespace GuestSide.Application.FluentValidation.FeedBacks
                 .NotNull().WithMessage("Content is required.")
                 .MaximumLength(500).WithMessage("Content cannot exceed 500 characters.")
                 .MinimumLength(3).WithMessage("Content must be at least 3 characters long.");
-
-            RuleFor(x => x.FeedbackDate)
-                .NotEmpty().WithMessage("FeedbackDate is required.");
-
-            RuleFor(x => x.Rating)
-                .NotEmpty().WithMessage("Rating is required.")
-                .InclusiveBetween(0,10);
         }
     }
 }
