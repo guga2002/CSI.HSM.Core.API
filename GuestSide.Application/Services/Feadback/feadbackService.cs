@@ -7,29 +7,27 @@ using GuestSide.Core.Entities.Feedbacks;
 using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.Logging;
 
-namespace GuestSide.Application.Services.Feadback
+namespace GuestSide.Application.Services.Feadback;
+public class feadbackService : GenericService<FeedbackDto, FeedbackResponseDto, long, Feedback>, IFeadbackService
 {
-    public class feadbackService : GenericService<FeedbackDto,FeedbackResponseDto, long, Feedback>, IFeadbackService
+    private readonly IAdditioalFeatures<Feedback> _features;
+    private readonly IGenericRepository<Feedback> _servic;
+    private readonly IMapper _map;
+    public feadbackService(IGenericRepository<Feedback> servic, IMapper Map, ILogger<GenericService<FeedbackDto, FeedbackResponseDto, long, Feedback>> log, IAdditioalFeatures<Feedback> features) : base(Map, servic, log)
     {
-        private readonly IAdditioalFeatures<Feedback> _features;
-        private readonly IGenericRepository<Feedback> _servic;
-        private readonly IMapper _map;
-        public feadbackService(IGenericRepository<Feedback> servic,  IMapper Map, ILogger<GenericService<FeedbackDto,FeedbackResponseDto, long, Feedback>> log, IAdditioalFeatures<Feedback> features) : base(Map, servic, log)
-        {
-            _features=features;
-            _servic = servic;
-            _map = Map;
-        }
+        _features = features;
+        _servic = servic;
+        _map = Map;
+    }
 
-        public async System.Threading.Tasks.Task InsertFewFeadback(List<FeedbackDto> feedbacks)
+    public async System.Threading.Tasks.Task InsertFewFeadback(List<FeedbackDto> feedbacks)
+    {
+        await _features.ExecuteInTransaction(async () =>
         {
-            await _features.ExecuteInTransaction(async () =>
+            foreach (var feedback in feedbacks)
             {
-                foreach (var feedback in feedbacks)
-                {
-                    await _servic.AddAsync(_map.Map<Feedback>(feedback));
-                }
-            });
-        }
+                await _servic.AddAsync(_map.Map<Feedback>(feedback));
+            }
+        });
     }
 }
