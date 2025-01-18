@@ -9,9 +9,9 @@ using Microsoft.Extensions.Logging;
 
 namespace GuestSide.Application.Services.Staff.Cart
 {
-    public class TaskStatusService : GenericService<TaskToStaffDto,CartToStaffResponseDto, long, TaskToStaff>, ICartToStaffService
+    public class TaskStatusService : GenericService<TaskToStaffDto,TaskToStaffResponseDto, long, TaskToStaff>, ICartToStaffService
     {
-        public TaskStatusService(IMapper mapper, IGenericRepository<TaskToStaff> repository, ILogger<GenericService<TaskToStaffDto,CartToStaffResponseDto, long, TaskToStaff>> logger) : base(mapper, repository, logger)
+        public TaskStatusService(IMapper mapper, IGenericRepository<TaskToStaff> repository, ILogger<GenericService<TaskToStaffDto,TaskToStaffResponseDto, long, TaskToStaff>> logger) : base(mapper, repository, logger)
         {
         }
     }
