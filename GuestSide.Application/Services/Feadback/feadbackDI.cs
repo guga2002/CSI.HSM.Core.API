@@ -20,7 +20,6 @@ namespace GuestSide.Application.Services.Feadback
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.AddScoped<IFeadbackService,feadbackService>();
             services.AddScoped<IService<FeedbackDto,FeedbackResponseDto, long, Feedback>, feadbackService>();
-            services.AddScoped<IAdditioalFeatures<Feedback>, AdditioalFeatures<Feedback>>();
             /// services.AddScoped<ILogger<GenericService<FeedbackDto, long, Feedback>>>();
         }
     }
