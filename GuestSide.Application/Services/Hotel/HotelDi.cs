@@ -8,17 +8,16 @@ using GuestSide.Application.DTOs.Request.Hotel;
 using GuestSide.Application.DTOs.Response.Hotel;
 using Core.Application.Services.Hotel.Mapper;
 
-namespace GuestSide.Application.Services.Hotel
+namespace GuestSide.Application.Services.Hotel;
+
+public static  class HotelDi
 {
-    public static  class HotelDi
+    public static void InjectHotel(this IServiceCollection services)
     {
-        public static void InjectHotel(this IServiceCollection services)
-        {
-            services.AddScoped<IGenericRepository<GuestSide.Core.Entities.Hotel.Hotel>, HotelRepository>();
-            services.AddAutoMapper(typeof(HotelMapper));
-            services.AddScoped<IHotelRepository, HotelRepository>();
-            services.AddScoped<IHotelService, HotelService>();
-            services.AddScoped<IService<HotelRequestDto, HotelResponse, long, GuestSide.Core.Entities.Hotel.Hotel>, HotelService>();
-        }
+        services.AddScoped<IGenericRepository<GuestSide.Core.Entities.Hotel.Hotel>, HotelRepository>();
+        services.AddAutoMapper(typeof(HotelMapper));
+        services.AddScoped<IHotelRepository, HotelRepository>();
+        services.AddScoped<IHotelService, HotelService>();
+        services.AddScoped<IService<HotelRequestDto, HotelResponse, long, GuestSide.Core.Entities.Hotel.Hotel>, HotelService>();
     }
 }

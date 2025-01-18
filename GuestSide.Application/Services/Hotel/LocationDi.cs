@@ -8,17 +8,16 @@ using GuestSide.Infrastructure.Repositories.Hotel;
 using Microsoft.Extensions.DependencyInjection;
 using Core.Application.Services.Hotel.Mapper;
 
-namespace GuestSide.Application.Services.Hotel
+namespace GuestSide.Application.Services.Hotel;
+
+public static class LocationDi
 {
-    public static class LocationDi
+    public static void InjectLocation(this IServiceCollection services)
     {
-        public static void InjectLocation(this IServiceCollection services)
-        {
-            services.AddScoped<IGenericRepository<GuestSide.Core.Entities.Hotel.GeoLocation.Location>, LocationRepository>();
-            services.AddScoped<ILocationRepository, LocationRepository>();
-            services.AddScoped<ILocationService, LocationService>();
-            services.AddAutoMapper(typeof(LocationMapper));
-            services.AddScoped<IService<LocationrequestDto, LocationResponse, long, GuestSide.Core.Entities.Hotel.GeoLocation.Location>, LocationService>();
-        }
+        services.AddScoped<IGenericRepository<GuestSide.Core.Entities.Hotel.GeoLocation.Location>, LocationRepository>();
+        services.AddScoped<ILocationRepository, LocationRepository>();
+        services.AddScoped<ILocationService, LocationService>();
+        services.AddAutoMapper(typeof(LocationMapper));
+        services.AddScoped<IService<LocationrequestDto, LocationResponse, long, GuestSide.Core.Entities.Hotel.GeoLocation.Location>, LocationService>();
     }
 }

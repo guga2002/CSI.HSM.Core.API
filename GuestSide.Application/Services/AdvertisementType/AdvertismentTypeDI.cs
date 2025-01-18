@@ -8,18 +8,17 @@ using GuestSide.Core.Interfaces.Advertisement;
 using GuestSide.Infrastructure.Repositories.Advertisement;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GuestSide.Application.Services.AdvertisementType
+namespace GuestSide.Application.Services.AdvertisementType;
+
+public static class AdvertismentTypeDI
 {
-    public static class AdvertismentTypeDI
+    public static void  AddAdvertisementType(this IServiceCollection collect)
     {
-        public static void  AddAdvertisementType(this IServiceCollection collect)
-        {
-            collect.AddScoped<IGenericRepository<GuestSide.Core.Entities.Advertisments.AdvertisementType>,AdvertisementTypeRepository>();
-            collect.AddScoped<IAdvertisementTypeRepository,AdvertisementTypeRepository>();
-            collect.AddScoped<IAdvertisementTypeService,AdvertisementTypeService>();
-            collect.AddScoped<IService<AdvertisementTypeDto,AdvertisementTypeResponseDto,long, GuestSide.Core.Entities.Advertisments.AdvertisementType>, AdvertisementTypeService>();
-            collect.AddAutoMapper(typeof(AdvertisementTypeMapper));
-            // collect.AddScoped < ILogger<GenericService<AdvertisementTypeDto, long, GuestSide.Core.Entities.Advertisments.AdvertisementType>>>();
-        }
+        collect.AddScoped<IGenericRepository<GuestSide.Core.Entities.Advertisments.AdvertisementType>,AdvertisementTypeRepository>();
+        collect.AddScoped<IAdvertisementTypeRepository,AdvertisementTypeRepository>();
+        collect.AddScoped<IAdvertisementTypeService,AdvertisementTypeService>();
+        collect.AddScoped<IService<AdvertisementTypeDto,AdvertisementTypeResponseDto,long, GuestSide.Core.Entities.Advertisments.AdvertisementType>, AdvertisementTypeService>();
+        collect.AddAutoMapper(typeof(AdvertisementTypeMapper));
+        // collect.AddScoped < ILogger<GenericService<AdvertisementTypeDto, long, GuestSide.Core.Entities.Advertisments.AdvertisementType>>>();
     }
 }

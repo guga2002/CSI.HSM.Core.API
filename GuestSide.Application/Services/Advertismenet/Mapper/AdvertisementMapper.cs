@@ -3,14 +3,13 @@ using GuestSide.Application.DTOs.Request.Advertisment;
 using GuestSide.Application.DTOs.Response.Advertisment;
 using GuestSide.Core.Entities.Advertisements;
 
-namespace Core.Application.Services.Advertismenet.Mapper
+namespace Core.Application.Services.Advertismenet.Mapper;
+
+public class AdvertisementMapper:Profile
 {
-    public class AdvertisementMapper:Profile
+    public AdvertisementMapper()
     {
-        public AdvertisementMapper()
-        {
-            CreateMap<Advertisements, AdvertismentDto>();
-            CreateMap<AdvertismentResponseDto, Advertisements>();
-        }
+        CreateMap<Advertisements, AdvertismentDto>();
+        CreateMap<AdvertismentResponseDto, Advertisements>();
     }
 }

@@ -9,18 +9,17 @@ using GuestSide.Core.Interfaces.Guest;
 using GuestSide.Infrastructure.Repositories.Guest;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GuestSide.Application.Services.Guest
+namespace GuestSide.Application.Services.Guest;
+
+public static class GuestDI
 {
-    public static class GuestDI
+    public static void InjectGuest(this IServiceCollection services)
     {
-        public static void InjectGuest(this IServiceCollection services)
-        {
-            services.AddScoped<IGenericRepository<Guests>,GuestRepository>();
-            services.AddScoped<IGuestRepository,GuestRepository>();
-            services.AddScoped<IGuestService,GuestService>();
-            services.AddScoped<IService<GuestDto,GuestResponseDto,long,Guests>,GuestService>();
-            services.AddAutoMapper(typeof(GuestMapper));
-            //services.AddScoped<ILogger<GenericService<GuestDto, long, Guests>>>();
-        }
+        services.AddScoped<IGenericRepository<Guests>,GuestRepository>();
+        services.AddScoped<IGuestRepository,GuestRepository>();
+        services.AddScoped<IGuestService,GuestService>();
+        services.AddScoped<IService<GuestDto,GuestResponseDto,long,Guests>,GuestService>();
+        services.AddAutoMapper(typeof(GuestMapper));
+        //services.AddScoped<ILogger<GenericService<GuestDto, long, Guests>>>();
     }
 }

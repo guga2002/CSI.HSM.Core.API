@@ -9,17 +9,16 @@ using GuestSide.Core.Interfaces.Advertisement;
 using GuestSide.Infrastructure.Repositories.Advertisement;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GuestSide.Application.Services.Advertismenet
+namespace GuestSide.Application.Services.Advertismenet;
+
+public static class AdvertisementDI
 {
-    public static class AdvertisementDI
+    public static void InjectAdvertisment(this IServiceCollection serviceProvider)
     {
-        public static void InjectAdvertisment(this IServiceCollection serviceProvider)
-        {
-            serviceProvider.AddScoped<IGenericRepository<Advertisements>,AdvertisementRepository>();
-            serviceProvider.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
-            serviceProvider.AddScoped<IAdvertismentService, AdvertisementService>();
-            serviceProvider.AddScoped<IService<AdvertismentDto,AdvertismentResponseDto, long, Advertisements>, AdvertisementService>();
-            serviceProvider.AddAutoMapper(typeof(AdvertisementMapper));
-        }
+        serviceProvider.AddScoped<IGenericRepository<Advertisements>,AdvertisementRepository>();
+        serviceProvider.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
+        serviceProvider.AddScoped<IAdvertismentService, AdvertisementService>();
+        serviceProvider.AddScoped<IService<AdvertismentDto,AdvertismentResponseDto, long, Advertisements>, AdvertisementService>();
+        serviceProvider.AddAutoMapper(typeof(AdvertisementMapper));
     }
 }
