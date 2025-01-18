@@ -130,8 +130,6 @@ builder.Services.InjectCommonServices(builder.Configuration);
 
     builder.Services.InjectLocation();
 
-    builder.Services.AddAutoMapper(typeof(GuestSide.Application.Mapper.AutoMapper));
-
     builder.Services.AddHttpContextAccessor();
 
     builder.Logging.ClearProviders();
