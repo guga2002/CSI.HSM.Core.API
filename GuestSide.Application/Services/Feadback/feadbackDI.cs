@@ -1,4 +1,6 @@
-﻿using GuestSide.Application.DTOs.Request.FeedBacks;
+﻿using Core.Core.Interfaces.AbstractInterface;
+using Core.Infrastructure.Repositories.AbstractRepository;
+using GuestSide.Application.DTOs.Request.FeedBacks;
 using GuestSide.Application.DTOs.Response.FeedBacks;
 using GuestSide.Application.Interface;
 using GuestSide.Application.Interface.Feadback;
@@ -18,6 +20,7 @@ namespace GuestSide.Application.Services.Feadback
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.AddScoped<IFeadbackService,feadbackService>();
             services.AddScoped<IService<FeedbackDto,FeedbackResponseDto, long, Feedback>, feadbackService>();
+            services.AddScoped<IAdditioalFeatures<Feedback>, AdditioalFeatures<Feedback>>();
             /// services.AddScoped<ILogger<GenericService<FeedbackDto, long, Feedback>>>();
         }
     }

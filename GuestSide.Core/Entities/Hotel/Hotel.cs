@@ -19,8 +19,6 @@ namespace GuestSide.Core.Entities.Hotel
 
         public int Stars { get; set; }
 
-        public bool IsActive { get; set; } = true;
-
         public List<byte[]>? Pictures { get; set; }//optional if need hotel pictures
 
         public string? Description { get; set; }

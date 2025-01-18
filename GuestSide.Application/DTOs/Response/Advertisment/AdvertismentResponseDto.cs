@@ -17,8 +17,6 @@ namespace GuestSide.Application.DTOs.Response.Advertisment
         [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
 
-        public bool IsActive { get; set; }
-
         public required string MediaUrl { get; set; }
     }
 }

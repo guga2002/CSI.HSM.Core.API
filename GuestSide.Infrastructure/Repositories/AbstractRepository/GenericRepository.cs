@@ -6,223 +6,305 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
 
-namespace GuestSide.Infrastructure.Repositories.AbstractRepository
+namespace GuestSide.Infrastructure.Repositories.AbstractRepository;
+/// <summary>
+/// Generic Repository for CRUD operations
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
 {
-    public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
+    #region Constructor
+    protected readonly GuestSideDb Context;
+    protected readonly DbSet<T> DbSet;
+    private readonly IRedisCash _redisCache;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly ILogger<T> _logger;
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="redisCache"></param>
+    /// <param name="httpContextAccessor"></param>
+    /// <param name="logger"></param>
+    /// <exception cref="ArgumentNullException"></exception>
+    protected GenericRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<T> logger)
     {
-        protected readonly GuestSideDb Context;
-        protected readonly DbSet<T> DbSet;
-        private readonly IRedisCash _redisCache;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ILogger<T> _logger;
+        Context = context ?? throw new ArgumentNullException(nameof(context));
+        DbSet = context.Set<T>();
+        _redisCache = redisCache ?? throw new ArgumentNullException(nameof(redisCache));
+        _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+        _logger = logger;
+    }
+    #endregion
 
-        protected GenericRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<T> logger)
+    #region Get
+    /// <summary>
+    /// Get all entities
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public virtual async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        var regionName = GetHotelRegion();
+        var cacheKey = $"{typeof(T).Name}_GetAll_{regionName}";
+        var cachedData = await _redisCache.GetCache<IEnumerable<T>>(cacheKey);
+
+        if (cachedData is not null)
         {
-            Context = context ?? throw new ArgumentNullException(nameof(context));
-            DbSet = context.Set<T>();
-            _redisCache = redisCache ?? throw new ArgumentNullException(nameof(redisCache));
-            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
-            _logger = logger;
+            return cachedData;
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
+        var data = await DbSet.Where(e => EF.Property<bool>(e, "IsActive")).ToListAsync(cancellationToken);
+
+        try
         {
-            var regionName = GetHotelRegion();
-            var cacheKey = $"{typeof(T).Name}_GetAll_{regionName}";
-            var cachedData = await _redisCache.GetCache<IEnumerable<T>>(cacheKey);
-
-            if (cachedData != null)
-            {
-                return cachedData;
-            }
-
-            var data = await DbSet.ToListAsync(cancellationToken);
-
-            try
-            {
-                await _redisCache.SetCache(cacheKey, data, TimeSpan.FromMinutes(10));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error caching data for key {CacheKey}", cacheKey);
-            }
-
-            return data.AsEnumerable();
+            await _redisCache.SetCache(cacheKey, data, TimeSpan.FromMinutes(10));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error caching data for key {CacheKey}", cacheKey);
         }
 
-        public virtual async Task<T> GetByIdAsync(object id, CancellationToken cancellationToken = default)
+        return data.AsEnumerable();
+    }
+
+    /// <summary>
+    /// Get entity by id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    /// <exception cref="KeyNotFoundException"></exception>
+    public virtual async Task<T> GetByIdAsync(object id, CancellationToken cancellationToken = default)
+    {
+        var regionName = GetHotelRegion();
+        var cacheKey = $"{typeof(T).Name}_GetById_{id}_{regionName}";
+        var cachedData = await _redisCache.GetCache<T>(cacheKey);
+
+        if (cachedData is not null)
         {
-            var regionName = GetHotelRegion();
-            var cacheKey = $"{typeof(T).Name}_GetById_{id}_{regionName}";
-            var cachedData = await _redisCache.GetCache<T>(cacheKey);
-
-            if (cachedData != null)
-            {
-                return cachedData;
-            }
-
-            var entity = await DbSet.FindAsync(new object[] { id }, cancellationToken);
-
-            if (entity == null)
-            {
-                throw new KeyNotFoundException($"Entity with id {id} not found.");
-            }
-
-            try
-            {
-                await _redisCache.SetCache(cacheKey, entity, TimeSpan.FromMinutes(10));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error caching data for key {CacheKey}", cacheKey);
-            }
-
-            return entity;
+            return cachedData;
         }
 
-        public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
+        var entity = await DbSet.Where(e => EF.Property<bool>(e, "IsActive"))
+                            .FirstOrDefaultAsync(e => EF.Property<object>(e, "Id").Equals(id), cancellationToken);
+
+        if (entity is null)
         {
-            var regionName = GetHotelRegion();
-            var cacheKey = $"{typeof(T).Name}_Find_{Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(predicate.ToString()))}_{regionName}";
-            var cachedData = await _redisCache.GetCache<IEnumerable<T>>(cacheKey);
-
-            if (cachedData != null)
-            {
-                return cachedData;
-            }
-
-            var data = await DbSet.Where(predicate).ToListAsync(cancellationToken);
-
-            try
-            {
-                await _redisCache.SetCache(cacheKey, data, TimeSpan.FromMinutes(10));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error caching data for key {CacheKey}", cacheKey);
-            }
-
-            return data;
+            throw new KeyNotFoundException($"Entity with id {id} not found.");
         }
 
-        public virtual async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
+        try
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            var regionName = GetHotelRegion();
-
-            await DbSet.AddAsync(entity, cancellationToken);
-            await Context.SaveChangesAsync(cancellationToken);
-
-            try
-            {
-                await InvalidateCache($"{typeof(T).Name}_GetAll_{regionName}");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error invalidating cache for key {CacheKey}", $"{typeof(T).Name}_GetAll_{regionName}");
-            }
-
-            return entity;
+            await _redisCache.SetCache(cacheKey, entity, TimeSpan.FromMinutes(10));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error caching data for key {CacheKey}", cacheKey);
         }
 
-        public virtual async Task<T> UpdateAsync(T entity, CancellationToken cancellationToken = default)
+        return entity;
+    }
+    #endregion
+
+    #region Find
+    /// <summary>
+    /// Find entity by predicate
+    /// </summary>
+    /// <param name="predicate"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
+    {
+        var regionName = GetHotelRegion();
+        var cacheKey = $"{typeof(T).Name}_Find_{Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(predicate.ToString()))}_{regionName}";
+        var cachedData = await _redisCache.GetCache<IEnumerable<T>>(cacheKey);
+
+        if (cachedData != null)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            var regionName = GetHotelRegion();
-            DbSet.Attach(entity);
-            Context.Entry(entity).State = EntityState.Modified;
-            await Context.SaveChangesAsync(cancellationToken);
-
-            try
-            {
-                await InvalidateCache($"{typeof(T).Name}_GetAll_{regionName}");
-                await InvalidateCache($"{typeof(T).Name}_GetById_{entity.GetHashCode()}__{regionName}");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error invalidating cache for key(s) {CacheKey}", $"{typeof(T).Name}_GetAll_{regionName}");
-            }
-            return entity;
+            return cachedData;
         }
 
-        public virtual async Task<T> DeleteAsync(object id, CancellationToken cancellationToken = default)
+        var data = await DbSet.Where(predicate).ToListAsync(cancellationToken);
+
+        try
         {
-            if (id == null)
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
-
-            var regionName = GetHotelRegion();
-            var entityToDelete = await DbSet.FindAsync(new object[] { id }, cancellationToken);
-
-            if (entityToDelete == null)
-            {
-                throw new KeyNotFoundException($"Entity with id {id} not found.");
-            }
-
-            DbSet.Remove(entityToDelete);
-            await Context.SaveChangesAsync(cancellationToken);
-            try
-            {
-                await InvalidateCache($"{typeof(T).Name}_GetAll_{regionName}");
-                await InvalidateCache($"{typeof(T).Name}_GetById_{id}_{regionName}");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error invalidating cache for key(s) {CacheKey}", $"{typeof(T).Name}_GetAll_{regionName}");
-            }
-
-            return entityToDelete;
+            await _redisCache.SetCache(cacheKey, data, TimeSpan.FromMinutes(10));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error caching data for key {CacheKey}", cacheKey);
         }
 
-        public async Task<T> Delete(T entityToDelete, CancellationToken cancellationToken = default)
+        return data;
+    }
+    #endregion
+
+    #region Add
+    /// <summary>
+    /// Add entity
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public virtual async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
+    {
+        if (entity is null)
         {
-            if (entityToDelete == null)
-            {
-                throw new KeyNotFoundException("Entity is null.");
-            }
-
-            var regionName = GetHotelRegion();
-            DbSet.Remove(entityToDelete);
-            await Context.SaveChangesAsync(cancellationToken);
-            try
-            {
-                await InvalidateCache($"{typeof(T).Name}_GetAll_{regionName}");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error invalidating cache for key(s) {CacheKey}", $"{typeof(T).Name}_GetAll_{regionName}");
-            }
-
-            return entityToDelete;
+            throw new ArgumentNullException(nameof(entity));
         }
 
-        private async Task<bool> InvalidateCache(string cacheKey)
+        var regionName = GetHotelRegion();
+
+        await DbSet.AddAsync(entity, cancellationToken);
+        await Context.SaveChangesAsync(cancellationToken);
+
+        try
         {
-            try
-            {
-                await _redisCache.RemoveCache(cacheKey);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error invalidating cache for key {CacheKey}", cacheKey);
-                return false;
-            }
+            await InvalidateCache($"{typeof(T).Name}_GetAll_{regionName}");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error invalidating cache for key {CacheKey}", $"{typeof(T).Name}_GetAll_{regionName}");
         }
 
-        private string GetHotelRegion()
+        return entity;
+    }
+    #endregion
+
+    #region Update
+    /// <summary>
+    /// Update entity
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public virtual async Task<T> UpdateAsync(T entity, CancellationToken cancellationToken = default)
+    {
+        if (entity is null)
         {
-            _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("X-Hotel-Id", out var regionName);
-            return regionName.ToString();
+            throw new ArgumentNullException(nameof(entity));
+        }
+
+        var regionName = GetHotelRegion();
+        DbSet.Attach(entity);
+        Context.Entry(entity).State = EntityState.Modified;
+        await Context.SaveChangesAsync(cancellationToken);
+
+        try
+        {
+            await InvalidateCache($"{typeof(T).Name}_GetAll_{regionName}");
+            await InvalidateCache($"{typeof(T).Name}_GetById_{entity.GetHashCode()}__{regionName}");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error invalidating cache for key(s) {CacheKey}", $"{typeof(T).Name}_GetAll_{regionName}");
+        }
+        return entity;
+    }
+    #endregion
+
+    #region Delete
+    /// <summary>
+    /// Delete entity by id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="KeyNotFoundException"></exception>
+    public virtual async Task<T> DeleteAsync(object id, CancellationToken cancellationToken = default)
+    {
+        if (id == null)
+        {
+            throw new ArgumentNullException(nameof(id));
+        }
+
+        var regionName = GetHotelRegion();
+        var entityToDelete = await DbSet.FindAsync(id, cancellationToken);
+
+        if (entityToDelete is null)
+        {
+            throw new KeyNotFoundException($"Entity with id {id} not found.");
+        }
+
+        DbSet.Remove(entityToDelete);
+        await Context.SaveChangesAsync(cancellationToken);
+        try
+        {
+            await InvalidateCache($"{typeof(T).Name}_GetAll_{regionName}");
+            await InvalidateCache($"{typeof(T).Name}_GetById_{id}_{regionName}");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error invalidating cache for key(s) {CacheKey}", $"{typeof(T).Name}_GetAll_{regionName}");
+        }
+
+        return entityToDelete;
+    }
+
+    /// <summary>
+    /// Delete entity by entity
+    /// </summary>
+    /// <param name="entityToDelete"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    /// <exception cref="KeyNotFoundException"></exception>
+    public async Task<T> Delete(T entityToDelete, CancellationToken cancellationToken = default)
+    {
+        if (entityToDelete is null)
+        {
+            throw new KeyNotFoundException("Entity is null.");
+        }
+
+        var regionName = GetHotelRegion();
+        DbSet.Remove(entityToDelete);
+        await Context.SaveChangesAsync(cancellationToken);
+        try
+        {
+            await InvalidateCache($"{typeof(T).Name}_GetAll_{regionName}");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error invalidating cache for key(s) {CacheKey}", $"{typeof(T).Name}_GetAll_{regionName}");
+        }
+
+        return entityToDelete;
+    }
+
+    #endregion
+
+    #region Helper Methods
+    /// <summary>
+    /// Invalidate cache for a given key
+    /// </summary>
+    /// <param name="cacheKey"></param>
+    /// <returns></returns>
+    private async Task<bool> InvalidateCache(string cacheKey)
+    {
+        try
+        {
+            await _redisCache.RemoveCache(cacheKey);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error invalidating cache for key {CacheKey}", cacheKey);
+            return false;
         }
     }
+
+    /// <summary>
+    /// Get hotel region from request header
+    /// </summary>
+    /// <returns></returns>
+    private string GetHotelRegion()
+    {
+        _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("X-Hotel-Id", out var regionName);
+        return regionName.ToString();
+    }
+    #endregion
 }

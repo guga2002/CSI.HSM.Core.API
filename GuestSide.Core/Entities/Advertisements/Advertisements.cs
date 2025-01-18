@@ -28,7 +28,6 @@ namespace GuestSide.Core.Entities.Advertisements
         public long LanguageId { get; set; }
 
         public  LanguagePack languagePack { get; set; }
-        public bool IsActive { get; set; } = true;
 
         public List<byte[]> Pictures { get; set; }
     }

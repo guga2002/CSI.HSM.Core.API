@@ -6,5 +6,6 @@ namespace GuestSide.Application.Interface.Feadback
 {
     public interface IFeadbackService:IService<FeedbackDto, FeedbackResponseDto, long, Feedback>
     {
+        System.Threading.Tasks.Task InsertFewFeadback(List<FeedbackDto> feedbacks);
     }
 }
