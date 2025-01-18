@@ -1,5 +1,6 @@
 ﻿using Core.Core.Interfaces.AbstractInterface;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Core.Infrastructure.Repositories.AbstractRepository;
 
@@ -92,6 +93,83 @@ public abstract class AdditioalFeatures<T> : IAdditioalFeatures<T> where T : cla
 
             throw new InvalidOperationException("Entity does not support soft deletion.");
         }
+    }
+    #endregion
+
+    #region BulkInsert
+    public async Task BulkAddAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+    {
+        if (entities == null || !entities.Any())
+        {
+            throw new ArgumentException("Entities collection cannot be null or empty.", nameof(entities));
+        }
+
+        await DbSet.AddRangeAsync(entities, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+    #endregion
+
+    #region BulkUpdate
+    public async Task BulkUpdateAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+    {
+        if (entities == null || !entities.Any())
+        {
+            throw new ArgumentException("Entities collection cannot be null or empty.", nameof(entities));
+        }
+
+        DbSet.UpdateRange(entities);
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+    #endregion
+
+    #region BulkDelete
+    public async Task BulkDeleteAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+    {
+        if (entities == null || !entities.Any())
+        {
+            throw new ArgumentException("Entities collection cannot be null or empty.", nameof(entities));
+        }
+
+        DbSet.RemoveRange(entities);
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+    #endregion
+
+    #region Paggination
+    public virtual async Task<(IEnumerable<T>, int)> GetPagedAsync(
+    Expression<Func<T, bool>> predicate,
+    int pageNumber,
+    int pageSize,
+    Expression<Func<T, object>> orderBy,
+    bool isAscending = true,
+    CancellationToken cancellationToken = default)
+    {
+        var query = DbSet.Where(predicate);
+
+        var totalCount = await query.CountAsync(cancellationToken);
+
+        query = isAscending
+            ? query.OrderBy(orderBy)
+            : query.OrderByDescending(orderBy);
+
+        var data = await query.Skip((pageNumber - 1) * pageSize)
+                              .Take(pageSize)
+                              .ToListAsync(cancellationToken);
+
+        return (data, totalCount);
+    }
+    #endregion
+
+    #region Exist
+    /// <summary>
+    /// check if  record exist
+    /// </summary>
+    /// <param name="predicate"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public virtual async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
+    {
+        return await DbSet.AnyAsync(predicate, cancellationToken);
     }
     #endregion
 }
