@@ -48,7 +48,7 @@ namespace GuestSide.Application.Mapper
             CreateMap<QRCodeResponseDto,QRCode>().ReverseMap();
             CreateMap<RoomCategoryResponseDto,RoomCategory>().ReverseMap(); 
             CreateMap<RoomsResponseDto,Rooms>().ReverseMap();
-            CreateMap<CartToStaffResponseDto,TaskToStaff>().ReverseMap();
+            CreateMap<TaskToStaffResponseDto,TaskToStaff>().ReverseMap();
             CreateMap<StaffCategoryResponseDto,StaffCategory>().ReverseMap();
             CreateMap<StaffResponseDto,Staffs>().ReverseMap();
             CreateMap<TaskCategoryResponseDto,TaskCategory>().ReverseMap();
