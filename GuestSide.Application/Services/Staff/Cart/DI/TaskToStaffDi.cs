@@ -8,6 +8,9 @@ using GuestSide.Application.Interface.Task.Task;
 using GuestSide.Application.DTOs.Request.Staff;
 using GuestSide.Application.DTOs.Response.Staff;
 using Core.Application.Interface.GenericContracts;
+using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Core.Interfaces.AbstractInterface;
+using Core.Application.Services.Task.Status.Services;
 
 namespace Core.Application.Services.Staff.Cart.DI
 {
@@ -16,6 +19,7 @@ namespace Core.Application.Services.Staff.Cart.DI
         public static void InjectCartToStaff(this IServiceCollection services)
         {
             services.AddScoped<IGenericRepository<TaskToStaff>, TaskToStaffRepository>();
+            services.AddScoped<IAdditioalFeatures<TaskToStaff>, AdditioalFeatures<TaskToStaff>>();
             services.AddScoped<ITaskToStaffRepository, TaskToStaffRepository>();
             services.AddScoped<ICartToStaffService, TaskStatusService>();
             services.AddScoped<IService<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>, TaskStatusService>();
