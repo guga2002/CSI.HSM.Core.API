@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using GuestSide.Application.DTOs.Request.Item;
+using GuestSide.Application.DTOs.Response.Item;
+using GuestSide.Core.Entities.Item;
 
-namespace Core.Application.Services.Item.Mapper
+namespace Core.Application.Services.Item.Mapper;
+
+public class ItemCategoryMapper:Profile
 {
-    internal class ItemCategoryMapper
+    public ItemCategoryMapper()
     {
+        CreateMap<ItemCategoryDto,ItemCategory>().ReverseMap();
+        CreateMap<ItemCategory,ItemCategoryResponseDto>().ReverseMap();
     }
 }

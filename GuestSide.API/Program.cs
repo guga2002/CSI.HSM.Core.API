@@ -1,20 +1,13 @@
 using GuestSide.Application.Services.AdvertisementType;
 using GuestSide.Application.Services.Advertismenet;
 using GuestSide.Application.Services.Feadback;
-using GuestSide.Application.Services.Staff.Cart;
 using GuestSide.Core.Data;
-using GuestSide.Application.Services.Staff.Category;
-using GuestSide.Application.Services.Task.Category;
-using GuestSide.Application.Services.Task.Status;
-using GuestSide.Application.Services.Staff.Staf;
 using GuestSide.API.CustomMiddlwares;
 using GuestSide.Application.Services.Guest;
 using GuestSide.Application.Services.Item.DI;
-using GuestSide.Application.Services.LogService;
 using GuestSide.Application.Services.Notification.DI;
 using GuestSide.Application.Services.Room.DI;
 using Microsoft.OpenApi.Models;
-using GuestSide.Application.Services.Task.Task;
 using GuestSide.Application.Services.Hotel;
 using Core.Persistance.Cashing.Inject;
 using Core.Persistance.LoggingConfigs;
@@ -23,6 +16,13 @@ using AuthorizationHelper.Injection.CommonServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Core.Application.Services.LogService.DI;
+using Core.Application.Services.Staff.Cart.DI;
+using Core.Application.Services.Staff.Category.DI;
+using Core.Application.Services.Staff.Staff.DI;
+using Core.Application.Services.Task.Category.DI;
+using Core.Application.Services.Task.Status.DI;
+using Core.Application.Services.Task.Task.DI;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
