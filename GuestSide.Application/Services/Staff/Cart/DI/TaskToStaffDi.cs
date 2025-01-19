@@ -15,8 +15,8 @@ namespace Core.Application.Services.Staff.Cart.DI
     {
         public static void InjectCartToStaff(this IServiceCollection services)
         {
-            services.AddScoped<IGenericRepository<TaskToStaff>, CartToStaffRepository>();
-            services.AddScoped<ICartToStaffRepository, CartToStaffRepository>();
+            services.AddScoped<IGenericRepository<TaskToStaff>, TaskToStaffRepository>();
+            services.AddScoped<ITaskToStaffRepository, TaskToStaffRepository>();
             services.AddScoped<ICartToStaffService, TaskStatusService>();
             services.AddScoped<IService<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>, TaskStatusService>();
 
