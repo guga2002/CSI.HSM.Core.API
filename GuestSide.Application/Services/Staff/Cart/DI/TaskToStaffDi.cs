@@ -1,5 +1,4 @@
-﻿using GuestSide.Application.Interface;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.DependencyInjection;
 using GuestSide.Core.Entities.Staff;
 using GuestSide.Infrastructure.Repositories.Staff;
@@ -8,6 +7,7 @@ using GuestSide.Application.Interface.Staff.Cart;
 using GuestSide.Application.Interface.Task.Task;
 using GuestSide.Application.DTOs.Request.Staff;
 using GuestSide.Application.DTOs.Response.Staff;
+using Core.Application.Interface.GenericContracts;
 
 namespace Core.Application.Services.Staff.Cart.DI
 {

@@ -1,4 +1,4 @@
-﻿namespace GuestSide.Application.Interface
+﻿namespace Core.Application.Interface.GenericContracts
 {
     public interface IService<RequestDto, ResponseDto, TKey, DatabaseEntity>
     {

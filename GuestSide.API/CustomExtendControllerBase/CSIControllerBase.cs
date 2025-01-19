@@ -1,9 +1,9 @@
 ﻿using GuestSide.API.Response;
-using GuestSide.Application.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Swashbuckle.AspNetCore.Annotations;
+using Core.Application.Interface.GenericContracts;
 
 namespace GuestSide.API.CustomExtendControllerBase
 {

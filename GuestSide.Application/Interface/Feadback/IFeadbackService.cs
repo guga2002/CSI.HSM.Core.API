@@ -1,4 +1,5 @@
-﻿using GuestSide.Application.DTOs.Request.FeedBacks;
+﻿using Core.Application.Interface.GenericContracts;
+using GuestSide.Application.DTOs.Request.FeedBacks;
 using GuestSide.Application.DTOs.Response.FeedBacks;
 using GuestSide.Core.Entities.Feedbacks;
 

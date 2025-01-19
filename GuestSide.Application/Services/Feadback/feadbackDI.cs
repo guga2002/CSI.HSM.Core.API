@@ -1,7 +1,7 @@
-﻿using Core.Application.Services.Feadback.Mapper;
+﻿using Core.Application.Interface.GenericContracts;
+using Core.Application.Services.Feadback.Mapper;
 using GuestSide.Application.DTOs.Request.FeedBacks;
 using GuestSide.Application.DTOs.Response.FeedBacks;
-using GuestSide.Application.Interface;
 using GuestSide.Application.Interface.Feadback;
 using GuestSide.Core.Entities.Feedbacks;
 using GuestSide.Core.Interfaces.AbstractInterface;

@@ -1,8 +1,8 @@
-﻿using GuestSide.API.CustomExtendControllerBase;
+﻿using Core.Application.Interface.GenericContracts;
+using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Request.FeedBacks;
 using GuestSide.Application.DTOs.Response.FeedBacks;
-using GuestSide.Application.Interface;
 using GuestSide.Core.Entities.Feedbacks;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

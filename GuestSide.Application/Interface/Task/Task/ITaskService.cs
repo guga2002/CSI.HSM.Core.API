@@ -1,4 +1,5 @@
-﻿using GuestSide.Application.DTOs.Request.Task;
+﻿using Core.Application.Interface.GenericContracts;
+using GuestSide.Application.DTOs.Request.Task;
 using GuestSide.Application.DTOs.Response.Item;
 using GuestSide.Application.DTOs.Response.Task;
 using GuestSide.Core.Entities.Item;

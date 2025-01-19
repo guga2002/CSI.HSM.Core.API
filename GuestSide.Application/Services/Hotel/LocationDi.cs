@@ -1,12 +1,12 @@
 ﻿using GuestSide.Application.DTOs.Request.Hotel;
 using GuestSide.Application.DTOs.Response.Hotel;
 using GuestSide.Application.Interface.Hotel;
-using GuestSide.Application.Interface;
 using GuestSide.Core.Interfaces.AbstractInterface;
 using GuestSide.Core.Interfaces.Hotel;
 using GuestSide.Infrastructure.Repositories.Hotel;
 using Microsoft.Extensions.DependencyInjection;
 using Core.Application.Services.Hotel.Mapper;
+using Core.Application.Interface.GenericContracts;
 
 namespace GuestSide.Application.Services.Hotel;
 

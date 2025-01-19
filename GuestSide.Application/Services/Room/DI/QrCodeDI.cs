@@ -1,5 +1,4 @@
-﻿using GuestSide.Application.Interface;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.DependencyInjection;
 using GuestSide.Infrastructure.Repositories.Room;
 using GuestSide.Application.Services.Room.Service;
@@ -8,6 +7,7 @@ using GuestSide.Core.Interfaces.Room;
 using GuestSide.Application.Interface.Room;
 using GuestSide.Application.DTOs.Request.Room;
 using GuestSide.Application.DTOs.Response.Room;
+using Core.Application.Interface.GenericContracts;
 
 namespace GuestSide.Application.Services.Room.DI
 {

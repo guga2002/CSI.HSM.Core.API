@@ -1,7 +1,7 @@
-﻿using Core.Application.Services.Guest.Mapper;
+﻿using Core.Application.Interface.GenericContracts;
+using Core.Application.Services.Guest.Mapper;
 using GuestSide.Application.DTOs.Request.Guest;
 using GuestSide.Application.DTOs.Response.Guest;
-using GuestSide.Application.Interface;
 using GuestSide.Application.Interface.Guest;
 using GuestSide.Core.Entities.Guest;
 using GuestSide.Core.Interfaces.AbstractInterface;

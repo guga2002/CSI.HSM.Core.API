@@ -1,5 +1,4 @@
-﻿using GuestSide.Application.Interface;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.DependencyInjection;
 using GuestSide.Infrastructure.Repositories.Notification;
 using GuestSide.Core.Entities.Notification;
@@ -8,6 +7,7 @@ using GuestSide.Application.Interface.Notification;
 using GuestSide.Application.Services.Notification.Service;
 using GuestSide.Application.DTOs.Request.Notification;
 using GuestSide.Application.DTOs.Response.Notification;
+using Core.Application.Interface.GenericContracts;
 
 namespace GuestSide.Application.Services.Notification.DI
 {

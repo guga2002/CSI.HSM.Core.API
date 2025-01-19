@@ -1,7 +1,7 @@
-﻿using Core.Application.Services.AdvertisementType.Mapper;
+﻿using Core.Application.Interface.GenericContracts;
+using Core.Application.Services.AdvertisementType.Mapper;
 using GuestSide.Application.DTOs.Request.Advertisment;
 using GuestSide.Application.DTOs.Response.Advertisment;
-using GuestSide.Application.Interface;
 using GuestSide.Application.Interface.AdvertiementType;
 using GuestSide.Core.Interfaces.AbstractInterface;
 using GuestSide.Core.Interfaces.Advertisement;

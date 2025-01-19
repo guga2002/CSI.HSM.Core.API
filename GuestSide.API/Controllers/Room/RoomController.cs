@@ -1,8 +1,8 @@
-﻿using GuestSide.API.CustomExtendControllerBase;
+﻿using Core.Application.Interface.GenericContracts;
+using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Request.Room;
 using GuestSide.Application.DTOs.Response.Room;
-using GuestSide.Application.Interface;
 using GuestSide.Core.Entities.Room;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

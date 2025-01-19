@@ -1,8 +1,8 @@
-﻿using GuestSide.API.CustomExtendControllerBase;
+﻿using Core.Application.Interface.GenericContracts;
+using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Request.Notification;
 using GuestSide.Application.DTOs.Response.Notification;
-using GuestSide.Application.Interface;
 using GuestSide.Core.Entities.Notification;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

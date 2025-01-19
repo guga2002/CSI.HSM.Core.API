@@ -1,4 +1,5 @@
-﻿using GuestSide.Application.DTOs.Request.Hotel;
+﻿using Core.Application.Interface.GenericContracts;
+using GuestSide.Application.DTOs.Request.Hotel;
 using GuestSide.Application.DTOs.Response.Hotel;
 using GuestSide.Core.Entities.Hotel.GeoLocation;
 

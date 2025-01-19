@@ -1,5 +1,4 @@
 ﻿using GuestSide.Application.Interface.Item;
-using GuestSide.Application.Interface;
 using GuestSide.Application.Services.Item.Services;
 using GuestSide.Core.Entities.Item;
 using GuestSide.Core.Interfaces.AbstractInterface;
@@ -8,6 +7,7 @@ using GuestSide.Infrastructure.Repositories.Item;
 using Microsoft.Extensions.DependencyInjection;
 using GuestSide.Application.DTOs.Request.Item;
 using GuestSide.Application.DTOs.Response.Item;
+using Core.Application.Interface.GenericContracts;
 
 namespace GuestSide.Application.Services.Item.DI
 {

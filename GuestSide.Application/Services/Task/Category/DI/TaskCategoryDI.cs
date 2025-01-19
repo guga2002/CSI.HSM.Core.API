@@ -1,5 +1,4 @@
-﻿using GuestSide.Application.Interface;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.DependencyInjection;
 using GuestSide.Core.Entities.Task;
 using GuestSide.Infrastructure.Repositories.Task;
@@ -8,6 +7,7 @@ using GuestSide.Application.DTOs.Request.Task;
 using GuestSide.Application.Interface.Task.Category;
 using GuestSide.Application.DTOs.Response.Task;
 using Core.Application.Services.Task.Category.Services;
+using Core.Application.Interface.GenericContracts;
 
 namespace Core.Application.Services.Task.Category.DI
 {

@@ -1,8 +1,8 @@
-﻿using GuestSide.API.CustomExtendControllerBase;
+﻿using Core.Application.Interface.GenericContracts;
+using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Request.Advertisment;
 using GuestSide.Application.DTOs.Response.Advertisment;
-using GuestSide.Application.Interface;
 using GuestSide.Core.Entities.Advertisments;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

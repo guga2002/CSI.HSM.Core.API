@@ -1,8 +1,8 @@
-﻿using GuestSide.API.CustomExtendControllerBase;
+﻿using Core.Application.Interface.GenericContracts;
+using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Request.Task;
 using GuestSide.Application.DTOs.Response.Task;
-using GuestSide.Application.Interface;
 using GuestSide.Application.Interface.Task.Task;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

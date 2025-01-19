@@ -1,4 +1,5 @@
-﻿using GuestSide.Application.DTOs.Request.Guest;
+﻿using Core.Application.Interface.GenericContracts;
+using GuestSide.Application.DTOs.Request.Guest;
 using GuestSide.Application.DTOs.Response.Guest;
 using GuestSide.Core.Entities.Guest;
 

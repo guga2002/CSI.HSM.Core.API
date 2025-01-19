@@ -1,4 +1,5 @@
-﻿using GuestSide.Application.DTOs.Request.Room;
+﻿using Core.Application.Interface.GenericContracts;
+using GuestSide.Application.DTOs.Request.Room;
 using GuestSide.Application.DTOs.Response.Room;
 using GuestSide.Core.Entities.Room;
 
