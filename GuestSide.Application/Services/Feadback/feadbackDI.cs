@@ -19,6 +19,7 @@ public static class feadbackDI
         services.AddScoped<IFeedbackRepository, FeedbackRepository>();
         services.AddScoped<IFeadbackService,feadbackService>();
         services.AddScoped<IService<FeedbackDto,FeedbackResponseDto, long, Feedback>, feadbackService>();
+        services.AddScoped<IAdditionalFeatures<FeedbackDto, FeedbackResponseDto, long, Feedback>, feadbackService>();
         services.AddAutoMapper(typeof(FeadbackMapper));
         /// services.AddScoped<ILogger<GenericService<FeedbackDto, long, Feedback>>>();
     }

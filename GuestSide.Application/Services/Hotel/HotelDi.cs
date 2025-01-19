@@ -19,5 +19,6 @@ public static  class HotelDi
         services.AddScoped<IHotelRepository, HotelRepository>();
         services.AddScoped<IHotelService, HotelService>();
         services.AddScoped<IService<HotelRequestDto, HotelResponse, long, GuestSide.Core.Entities.Hotel.Hotel>, HotelService>();
+        services.AddScoped<IAdditionalFeatures<HotelRequestDto, HotelResponse, long, GuestSide.Core.Entities.Hotel.Hotel>, HotelService>();
     }
 }

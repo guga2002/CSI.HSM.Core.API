@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Core.Interfaces.AbstractInterface;
 using GuestSide.Application.DTOs.Request.Task;
 using GuestSide.Application.DTOs.Response.Task;
 using GuestSide.Application.Interface.Task.Task;
@@ -14,10 +15,9 @@ namespace Core.Application.Services.Task.Task.Services
     {
         private readonly ITaskRepository tasks;
         private readonly IMapper map;
-        public TasksService(ITaskRepository tasks, IMapper mapper, IGenericRepository<Tasks> repository, ILogger<GenericService<TaskDto, TaskResponseDto, long, Tasks>> logger) : base(mapper, repository, logger)
+
+        public TasksService(IMapper mapper, IGenericRepository<Tasks> repository, ILogger<GenericService<TaskDto, TaskResponseDto, long, Tasks>> logger, IAdditioalFeatures<Tasks> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
         {
-            this.tasks = tasks;
-            map = mapper;
         }
 
         public async Task<TaskResponseDto> GetTaskbycartId(long CartId, CancellationToken cancellationToken = default)

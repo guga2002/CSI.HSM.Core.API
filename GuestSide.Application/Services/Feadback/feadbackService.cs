@@ -10,10 +10,11 @@ using Microsoft.Extensions.Logging;
 namespace GuestSide.Application.Services.Feadback;
 public class feadbackService : GenericService<FeedbackDto, FeedbackResponseDto, long, Feedback>, IFeadbackService
 {
-
-    private readonly IMapper _map;
-    public feadbackService(IGenericRepository<Feedback> servic, IMapper Map, ILogger<GenericService<FeedbackDto, FeedbackResponseDto, long, Feedback>> log) : base(Map, servic, log)
+    public feadbackService(IMapper mapper,
+        IGenericRepository<Feedback> repository, 
+        ILogger<GenericService<FeedbackDto, FeedbackResponseDto, long, Feedback>> logger, 
+        IAdditioalFeatures<Feedback> additioalFeatures) 
+        : base(mapper, repository, logger, additioalFeatures)
     {
-        _map = Map;
     }
 }

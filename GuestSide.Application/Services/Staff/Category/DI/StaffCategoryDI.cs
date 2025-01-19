@@ -8,18 +8,19 @@ using GuestSide.Application.DTOs.Request.Staff;
 using GuestSide.Application.DTOs.Response.Staff;
 using Core.Application.Services.Staff.Category.Services;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Services.Staff.Category.Mapper;
 
-namespace Core.Application.Services.Staff.Category.DI
+namespace Core.Application.Services.Staff.Category.DI;
+
+public static class StaffCategoryDI
 {
-    public static class StaffCategoryDI
+    public static void InjectStaffCategory(this IServiceCollection services)
     {
-        public static void InjectStaffCategory(this IServiceCollection services)
-        {
-            services.AddScoped<IGenericRepository<StaffCategory>, StaffCategoryRepository>();
-            services.AddScoped<IStaffCategoryRepository, StaffCategoryRepository>();
-            services.AddScoped<IStaffCategoryService, StaffCategoryService>();
-            services.AddScoped<IService<StaffCategoryDto, StaffCategoryResponseDto, long, StaffCategory>, StaffCategoryService>();
-
-        }
+        services.AddScoped<IGenericRepository<StaffCategory>, StaffCategoryRepository>();
+        services.AddScoped<IStaffCategoryRepository, StaffCategoryRepository>();
+        services.AddScoped<IStaffCategoryService, StaffCategoryService>();
+        services.AddScoped<IService<StaffCategoryDto, StaffCategoryResponseDto, long, StaffCategory>, StaffCategoryService>();
+        services.AddScoped<IAdditionalFeatures<StaffCategoryDto, StaffCategoryResponseDto, long, StaffCategory>, StaffCategoryService>();
+        services.AddAutoMapper(typeof(StaffCategoryMapper));
     }
 }

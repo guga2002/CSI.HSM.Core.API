@@ -19,6 +19,7 @@ public static class GuestDI
         services.AddScoped<IGuestRepository,GuestRepository>();
         services.AddScoped<IGuestService,GuestService>();
         services.AddScoped<IService<GuestDto,GuestResponseDto,long,Guests>,GuestService>();
+        services.AddScoped<IAdditionalFeatures<GuestDto, GuestResponseDto, long, Guests>, GuestService>();
         services.AddAutoMapper(typeof(GuestMapper));
         //services.AddScoped<ILogger<GenericService<GuestDto, long, Guests>>>();
     }

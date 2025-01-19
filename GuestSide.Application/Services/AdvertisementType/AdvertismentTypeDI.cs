@@ -18,6 +18,7 @@ public static class AdvertismentTypeDI
         collect.AddScoped<IAdvertisementTypeRepository,AdvertisementTypeRepository>();
         collect.AddScoped<IAdvertisementTypeService,AdvertisementTypeService>();
         collect.AddScoped<IService<AdvertisementTypeDto,AdvertisementTypeResponseDto,long, GuestSide.Core.Entities.Advertisments.AdvertisementType>, AdvertisementTypeService>();
+        collect.AddScoped<IAdditionalFeatures<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, GuestSide.Core.Entities.Advertisments.AdvertisementType>, AdvertisementTypeService>();
         collect.AddAutoMapper(typeof(AdvertisementTypeMapper));
         // collect.AddScoped < ILogger<GenericService<AdvertisementTypeDto, long, GuestSide.Core.Entities.Advertisments.AdvertisementType>>>();
     }

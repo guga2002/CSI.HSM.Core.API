@@ -8,18 +8,20 @@ using GuestSide.Application.DTOs.Request.Task;
 using GuestSide.Application.DTOs.Response.Task;
 using Core.Application.Services.Task.Task.Services;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Services.Task.Task.Mapper;
 
-namespace Core.Application.Services.Task.Task.DI
+namespace Core.Application.Services.Task.Task.DI;
+
+public static class TaskfDi
 {
-    public static class TaskfDi
+    public static void InjectTasks(this IServiceCollection services)
     {
-        public static void InjectTasks(this IServiceCollection services)
-        {
-            services.AddScoped<IGenericRepository<Tasks>, TaskRepository>();
-            services.AddScoped<ITaskRepository, TaskRepository>();
-            services.AddScoped<ITaskService, TasksService>();
-            services.AddScoped<IService<TaskDto, TaskResponseDto, long, Tasks>, TasksService>();
+        services.AddScoped<IGenericRepository<Tasks>, TaskRepository>();
+        services.AddScoped<ITaskRepository, TaskRepository>();
+        services.AddScoped<ITaskService, TasksService>();
+        services.AddScoped<IService<TaskDto, TaskResponseDto, long, Tasks>, TasksService>();
+        services.AddScoped<IAdditionalFeatures<TaskDto, TaskResponseDto, long, Tasks>, TasksService>();
+        services.AddAutoMapper(typeof(TaskMapper));
 
-        }
     }
 }

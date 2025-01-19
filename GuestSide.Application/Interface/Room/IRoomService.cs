@@ -3,9 +3,9 @@ using GuestSide.Application.DTOs.Request.Room;
 using GuestSide.Application.DTOs.Response.Room;
 using GuestSide.Core.Entities.Room;
 
-namespace GuestSide.Application.Interface.Room
+namespace GuestSide.Application.Interface.Room;
+
+public interface IRoomService:IService<RoomsDto,RoomsResponseDto,long,Rooms>,
+    IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Rooms>
 {
-    public interface IRoomService:IService<RoomsDto,RoomsResponseDto,long,Rooms>
-    {
-    }
 }

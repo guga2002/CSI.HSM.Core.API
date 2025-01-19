@@ -19,5 +19,6 @@ public static class LocationDi
         services.AddScoped<ILocationService, LocationService>();
         services.AddAutoMapper(typeof(LocationMapper));
         services.AddScoped<IService<LocationrequestDto, LocationResponse, long, GuestSide.Core.Entities.Hotel.GeoLocation.Location>, LocationService>();
+        services.AddScoped<IAdditionalFeatures<LocationrequestDto, LocationResponse, long, GuestSide.Core.Entities.Hotel.GeoLocation.Location>, LocationService>();
     }
 }

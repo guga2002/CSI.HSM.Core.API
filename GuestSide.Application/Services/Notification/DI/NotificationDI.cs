@@ -8,17 +8,19 @@ using Microsoft.Extensions.DependencyInjection;
 using GuestSide.Application.DTOs.Request.Notification;
 using GuestSide.Application.DTOs.Response.Notification;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Services.Notification.Mapper;
 
-namespace GuestSide.Application.Services.Notification.DI
+namespace GuestSide.Application.Services.Notification.DI;
+
+public static class NotificationDI
 {
-    public static class NotificationDI
+    public static void InjectNotification(this IServiceCollection services)
     {
-        public static void InjectNotification(this IServiceCollection services)
-        {
-            services.AddScoped<IGenericRepository<Notifications>, NotificationRepository>();
-            services.AddScoped<INotificationRepository, NotificationRepository>();
-            services.AddScoped<INotificationService, NotificationService>();
-            services.AddScoped<IService<NotificationDto,NotificationResponseDto, long, Notifications>, NotificationService>();
-        }
+        services.AddScoped<IGenericRepository<Notifications>, NotificationRepository>();
+        services.AddScoped<INotificationRepository, NotificationRepository>();
+        services.AddScoped<INotificationService, NotificationService>();
+        services.AddScoped<IService<NotificationDto,NotificationResponseDto, long, Notifications>, NotificationService>();
+        services.AddScoped<IAdditionalFeatures<NotificationDto, NotificationResponseDto, long, Notifications>, NotificationService>();
+        services.AddAutoMapper(typeof(NotificationMapper));
     }
 }

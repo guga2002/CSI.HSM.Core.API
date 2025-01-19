@@ -8,18 +8,19 @@ using GuestSide.Application.DTOs.Request.Task;
 using GuestSide.Application.DTOs.Response.Task;
 using Core.Application.Services.Task.Status.Services;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Services.Task.Status.Mapper;
 
-namespace Core.Application.Services.Task.Status.DI
+namespace Core.Application.Services.Task.Status.DI;
+
+public static class TaskStatusDi
 {
-    public static class TaskStatusDi
+    public static void InjectTaskStatus(this IServiceCollection services)
     {
-        public static void InjectTaskStatus(this IServiceCollection services)
-        {
-            services.AddScoped<IGenericRepository<TasksStatus>, TaskStatusRepository>();
-            services.AddScoped<ITaskStatusRepository, TaskStatusRepository>();
-            services.AddScoped<ITaskStatusService, TaskStatusService>();
-            services.AddScoped<IService<TaskStatusDto, TaskStatusResponseDto, long, Core.Entities.Task.TasksStatus>, TaskStatusService>();
-
-        }
+        services.AddScoped<IGenericRepository<TasksStatus>, TaskStatusRepository>();
+        services.AddScoped<ITaskStatusRepository, TaskStatusRepository>();
+        services.AddScoped<ITaskStatusService, TaskStatusService>();
+        services.AddScoped<IService<TaskStatusDto, TaskStatusResponseDto, long, TasksStatus>, TaskStatusService>();
+        services.AddScoped<IAdditionalFeatures<TaskStatusDto, TaskStatusResponseDto, long, TasksStatus>, TaskStatusService>();
+        services.AddAutoMapper(typeof(TaskStatusMapper));
     }
 }

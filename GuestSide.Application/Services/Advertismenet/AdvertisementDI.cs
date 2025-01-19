@@ -19,6 +19,7 @@ public static class AdvertisementDI
         serviceProvider.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
         serviceProvider.AddScoped<IAdvertismentService, AdvertisementService>();
         serviceProvider.AddScoped<IService<AdvertismentDto,AdvertismentResponseDto, long, Advertisements>, AdvertisementService>();
+        serviceProvider.AddScoped<IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Advertisements>, AdvertisementService>();
         serviceProvider.AddAutoMapper(typeof(AdvertisementMapper));
     }
 }

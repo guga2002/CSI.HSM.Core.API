@@ -8,17 +8,19 @@ using GuestSide.Application.Services.Item.Services;
 using GuestSide.Application.DTOs.Request.Item;
 using GuestSide.Application.DTOs.Response.Item;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Services.Item.Mapper;
 
-namespace GuestSide.Application.Services.Item.DI
+namespace GuestSide.Application.Services.Item.DI;
+
+public static class CartDI
 {
-    public static class CartDI
+    public static void InjectCart(this IServiceCollection services)
     {
-        public static void InjectCart(this IServiceCollection services)
-        {
-            services.AddScoped<IGenericRepository<Cart>, CartRepository>();
-            services.AddScoped<ICartRepository, CartRepository>();
-            services.AddScoped<ICartService, CartService>();
-            services.AddScoped<IService<CartDto,CartResponseDto, long, Cart>, CartService>();
-        }
+        services.AddScoped<IGenericRepository<Cart>, CartRepository>();
+        services.AddScoped<ICartRepository, CartRepository>();
+        services.AddScoped<ICartService, CartService>();
+        services.AddScoped<IService<CartDto,CartResponseDto, long, Cart>, CartService>();
+        services.AddScoped<IAdditionalFeatures<CartDto, CartResponseDto, long, Cart>, CartService>();
+        services.AddAutoMapper(typeof(CartMapper));
     }
 }

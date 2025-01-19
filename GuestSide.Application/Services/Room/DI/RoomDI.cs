@@ -8,17 +8,19 @@ using Microsoft.Extensions.DependencyInjection;
 using GuestSide.Application.DTOs.Request.Room;
 using GuestSide.Application.DTOs.Response.Room;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Services.Room.Mapper;
 
-namespace GuestSide.Application.Services.Room.DI
+namespace GuestSide.Application.Services.Room.DI;
+
+public static class RoomDI
 {
-    public static class RoomDI
+    public static void InjectRoom(this IServiceCollection services)
     {
-        public static void InjectRoom(this IServiceCollection services)
-        {
-            services.AddScoped<IGenericRepository<Rooms>, RoomRepository>();
-            services.AddScoped<IRoomRepository, RoomRepository>();
-            services.AddScoped<IRoomService, RoomService>();
-            services.AddScoped<IService<RoomsDto,RoomsResponseDto, long, Rooms>, RoomService>();
-        }
+        services.AddScoped<IGenericRepository<Rooms>, RoomRepository>();
+        services.AddScoped<IRoomRepository, RoomRepository>();
+        services.AddScoped<IRoomService, RoomService>();
+        services.AddScoped<IService<RoomsDto,RoomsResponseDto, long, Rooms>, RoomService>();
+        services.AddScoped<IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Rooms>, RoomService>();
+        services.AddAutoMapper(typeof(RoomMapper));
     }
 }

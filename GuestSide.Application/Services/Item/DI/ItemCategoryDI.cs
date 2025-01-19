@@ -8,17 +8,19 @@ using GuestSide.Application.Interface.Item;
 using GuestSide.Application.DTOs.Request.Item;
 using GuestSide.Application.DTOs.Response.Item;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Services.Item.Mapper;
 
-namespace GuestSide.Application.Services.Item.DI
+namespace GuestSide.Application.Services.Item.DI;
+
+public static class ItemCategoryDI
 {
-    public static class ItemCategoryDI
+    public static void InjectItemCategory(this IServiceCollection services)
     {
-        public static void InjectItemCategory(this IServiceCollection services)
-        {
-            services.AddScoped<IGenericRepository<ItemCategory>, ItemCategoryRepository>();
-            services.AddScoped<IItemCategoryRepository, ItemCategoryRepository>();
-            services.AddScoped<IItemCategoryService, ItemCategoryService>();
-            services.AddScoped<IService<ItemCategoryDto,ItemCategoryResponseDto, long, ItemCategory>, ItemCategoryService>();
-        }
+        services.AddScoped<IGenericRepository<ItemCategory>, ItemCategoryRepository>();
+        services.AddScoped<IItemCategoryRepository, ItemCategoryRepository>();
+        services.AddScoped<IItemCategoryService, ItemCategoryService>();
+        services.AddScoped<IService<ItemCategoryDto,ItemCategoryResponseDto, long, ItemCategory>, ItemCategoryService>();
+        services.AddScoped<IAdditionalFeatures<ItemCategoryDto, ItemCategoryResponseDto, long, ItemCategory>, ItemCategoryService>();
+        services.AddAutoMapper(typeof(ItemCategoryMapper));
     }
 }
