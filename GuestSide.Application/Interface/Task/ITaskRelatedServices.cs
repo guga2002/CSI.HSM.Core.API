@@ -7,7 +7,8 @@ using GuestSide.Core.Entities.Task;
 
 namespace Core.Application.Interface.Task;
 
-public interface ITaskRelatedServices : IService<TaskDto, TaskResponseDto, long, Tasks>,IService<TaskCategoryDto, TaskCategoryResponseDto, long, TaskCategory>, IService<TaskStatusDto, TaskStatusResponseDto, long, TaskStatus>,
+public interface ITaskRelatedServices : IService<TaskDto, TaskResponseDto, long, Tasks>,
+    IService<TaskCategoryDto, TaskCategoryResponseDto, long, TaskCategory>, 
     IService<TaskStatusDto, TaskStatusResponseDto, long, TasksStatus>
 {
     Task<TaskCategoryResponseDto>GetTaskCategoryByTaskId(long TaskId, CancellationToken cancellationToken = default);
