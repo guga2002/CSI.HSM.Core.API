@@ -7,7 +7,7 @@ using Core.Application.ErrorSuccessKeys;
 
 namespace GuestSide.Application.Services
 {
-    public class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEntity> :IService<RequestDto,ResponseDto, TKey, TDatabaseEntity>
+    public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEntity> :IService<RequestDto,ResponseDto, TKey, TDatabaseEntity>
         where TDatabaseEntity : class
     {
         private readonly IMapper _mapper;
