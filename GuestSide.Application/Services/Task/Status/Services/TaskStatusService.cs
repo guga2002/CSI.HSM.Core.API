@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Task.Status.Services
 {
-    public class TaskStatusService : GenericService<TaskStatusDto, TaskStatusResponseDto, long, Core.Entities.Task.TasksStatus>, ITaskStatusService
+    public class TaskStatusService : GenericService<TaskStatusDto, TaskStatusResponseDto, long, TasksStatus>, ITaskStatusService
     {
         public TaskStatusService(IMapper mapper, IGenericRepository<TasksStatus> repository, ILogger<GenericService<TaskStatusDto, TaskStatusResponseDto, long, TasksStatus>> logger) : base(mapper, repository, logger)
         {
