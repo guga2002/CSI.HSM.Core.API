@@ -11,6 +11,7 @@ using Core.Application.Interface.GenericContracts;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Core.Interfaces.AbstractInterface;
 using Core.Application.Services.Task.Status.Services;
+using Core.Application.Services.Staff.Cart.Services;
 
 namespace Core.Application.Services.Staff.Cart.DI
 {
@@ -21,8 +22,8 @@ namespace Core.Application.Services.Staff.Cart.DI
             services.AddScoped<IGenericRepository<TaskToStaff>, TaskToStaffRepository>();
             services.AddScoped<IAdditioalFeatures<TaskToStaff>, AdditioalFeatures<TaskToStaff>>();
             services.AddScoped<ITaskToStaffRepository, TaskToStaffRepository>();
-            services.AddScoped<ICartToStaffService, TaskStatusService>();
-            services.AddScoped<IService<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>, TaskStatusService>();
+            services.AddScoped<ITaskToStaffService, TaskToStaffService>();
+            services.AddScoped<IService<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>, TaskToStaffService>();
 
         }
     }

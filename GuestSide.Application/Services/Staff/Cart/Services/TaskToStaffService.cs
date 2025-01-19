@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Staff.Cart.Services
 {
-    public class TaskToStaffService : GenericService<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>, ICartToStaffService
+    public class TaskToStaffService : GenericService<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>, ITaskToStaffService
     {
         public TaskToStaffService(IMapper mapper, IGenericRepository<TaskToStaff> repository, ILogger<GenericService<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>> logger) : base(mapper, repository, logger)
         {
