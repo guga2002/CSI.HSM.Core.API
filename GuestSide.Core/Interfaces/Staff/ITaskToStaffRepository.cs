@@ -3,7 +3,7 @@ using GuestSide.Core.Interfaces.AbstractInterface;
 
 namespace GuestSide.Core.Interfaces.Staff
 {
-    public interface ICartToStaffRepository:IGenericRepository<TaskToStaff>
+    public interface ITaskToStaffRepository:IGenericRepository<TaskToStaff>
     {
     }
 }
