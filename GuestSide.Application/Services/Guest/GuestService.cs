@@ -14,7 +14,7 @@ public class GuestService : GenericService<GuestDto, GuestResponseDto, long, Gue
     public GuestService(IMapper mapper, 
         IGenericRepository<Guests> repository, 
         ILogger<GenericService<GuestDto, GuestResponseDto, long, Guests>> logger, 
-        IAdditioalFeatures<Guests> additioalFeatures) 
+        IAdditionalFeaturesRepository<Guests> additioalFeatures) 
         : base(mapper, repository, logger, additioalFeatures)
     {
     }

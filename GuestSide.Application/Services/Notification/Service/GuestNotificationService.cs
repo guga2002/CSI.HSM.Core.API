@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Core.Interfaces.AbstractInterface;
+using Core.Infrastructure.Repositories.AbstractRepository;
 using GuestSide.Application.DTOs.Request.Notification;
 using GuestSide.Application.DTOs.Response.Notification;
 using GuestSide.Application.Interface.Notification;
@@ -14,7 +15,7 @@ public class GuestNotificationService : GenericService<GuestNotificationDto, Gue
     public GuestNotificationService(IMapper mapper, 
         IGenericRepository<GuestNotification> repository,
         ILogger<GenericService<GuestNotificationDto, GuestNotificationResponseDto, long, GuestNotification>> logger, 
-        IAdditioalFeatures<GuestNotification> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
+        IAdditionalFeaturesRepository<GuestNotification> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
     {
     }
 }

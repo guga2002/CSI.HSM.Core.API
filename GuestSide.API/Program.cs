@@ -124,6 +124,9 @@ builder.Services.AddSwaggerGen(c =>
     builder.Services.InjectRoomCategory();
     builder.Services.InjectRoom();
 
+builder.Services.InjectAdvertisment();
+builder.Services.AddAdvertisementType();
+
 builder.Services.InjectCommonServices(builder.Configuration);
 
     builder.Services.InjectHotel();

@@ -9,6 +9,8 @@ using GuestSide.Application.DTOs.Request.Item;
 using GuestSide.Application.DTOs.Response.Item;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.Item.Mapper;
+using Core.Core.Interfaces.AbstractInterface;
+using Core.Infrastructure.Repositories.AbstractRepository;
 
 namespace GuestSide.Application.Services.Item.DI;
 
@@ -22,5 +24,6 @@ public static class ItemDI
         services.AddScoped<IService<ItemDto,ItemResponseDto, long, Items>, ItemService>();
         services.AddScoped<IAdditionalFeatures<ItemDto, ItemResponseDto, long, Items>, ItemService>();
         services.AddAutoMapper(typeof(ItemMapper));
+        services.AddScoped<IAdditionalFeaturesRepository<Items>, AdditionalFeaturesRepository<Items>>();
     }
 }

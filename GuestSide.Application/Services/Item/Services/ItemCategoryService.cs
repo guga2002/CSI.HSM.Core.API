@@ -14,7 +14,7 @@ public class ItemCategoryService : GenericService<ItemCategoryDto, ItemCategoryR
     public ItemCategoryService(IMapper mapper, 
         IGenericRepository<ItemCategory> repository, 
         ILogger<GenericService<ItemCategoryDto, ItemCategoryResponseDto, long, ItemCategory>> logger, 
-        IAdditioalFeatures<ItemCategory> additioalFeatures) 
+        IAdditionalFeaturesRepository<ItemCategory> additioalFeatures) 
         : base(mapper, repository, logger, additioalFeatures)
     {
     }

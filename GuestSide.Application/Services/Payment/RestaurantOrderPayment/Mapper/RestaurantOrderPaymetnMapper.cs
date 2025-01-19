@@ -8,7 +8,7 @@ public class RestaurantOrderPaymetnMapper:Profile
 {
     public RestaurantOrderPaymetnMapper()
     {
-        CreateMap<RestaurantOrderPaymentDto, GuestSide.Core.Entities.Payment.RestaurantOrderPayment>().ReverseMap();
-        CreateMap<GuestSide.Core.Entities.Payment.RestaurantOrderPayment, RestaurantOrderPaymentResponseDto>().ReverseMap();
+        CreateMap<RestaurantOrderPaymentDto, Core.Entities.Payment.RestaurantOrderPayment>().ReverseMap();
+        CreateMap<Core.Entities.Payment.RestaurantOrderPayment, RestaurantOrderPaymentResponseDto>().ReverseMap();
     }
 }

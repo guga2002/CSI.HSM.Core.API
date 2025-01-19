@@ -15,7 +15,7 @@ public class TaskToStaffService : GenericService<TaskToStaffDto, TaskToStaffResp
     public TaskToStaffService(IMapper mapper,
         IGenericRepository<TaskToStaff> repository, 
         ILogger<GenericService<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>> logger,
-        IAdditioalFeatures<TaskToStaff> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
+        IAdditionalFeaturesRepository<TaskToStaff> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
     {
     }
 }

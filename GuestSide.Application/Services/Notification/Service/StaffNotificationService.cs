@@ -14,7 +14,7 @@ public class StaffNotificationService : GenericService<StafNotificationDto, Staf
     public StaffNotificationService(IMapper mapper,
         IGenericRepository<StaffNotification> repository,
         ILogger<GenericService<StafNotificationDto, StafNotificationResponseDto, long, StaffNotification>> logger,
-        IAdditioalFeatures<StaffNotification> additioalFeatures) 
+        IAdditionalFeaturesRepository<StaffNotification> additioalFeatures) 
         : base(mapper, repository, logger, additioalFeatures)
     {
     }

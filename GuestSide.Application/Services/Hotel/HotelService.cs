@@ -13,7 +13,7 @@ public class HotelService : GenericService<HotelRequestDto, HotelResponse, long,
     public HotelService(IMapper mapper, 
         IGenericRepository<Core.Entities.Hotel.Hotel> repository, 
         ILogger<GenericService<HotelRequestDto, HotelResponse, long, Core.Entities.Hotel.Hotel>> logger,
-        IAdditioalFeatures<Core.Entities.Hotel.Hotel> additioalFeatures) 
+        IAdditionalFeaturesRepository<Core.Entities.Hotel.Hotel> additioalFeatures) 
         : base(mapper, repository, logger, additioalFeatures)
     {
     }

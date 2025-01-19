@@ -14,7 +14,7 @@ public class PaymentOptionService : GenericService<PaymentOptionDto, PaymentOpti
     public PaymentOptionService(IMapper mapper,
         IGenericRepository<Core.Entities.Payment.PaymentOption> repository, 
         ILogger<GenericService<PaymentOptionDto, PaymentOptionResponseDto, long, Core.Entities.Payment.PaymentOption>> logger,
-        IAdditioalFeatures<Core.Entities.Payment.PaymentOption> additioalFeatures)
+        IAdditionalFeaturesRepository<Core.Entities.Payment.PaymentOption> additioalFeatures)
         : base(mapper, repository, logger, additioalFeatures)
     {
     }

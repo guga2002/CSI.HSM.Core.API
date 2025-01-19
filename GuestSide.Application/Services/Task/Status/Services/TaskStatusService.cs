@@ -15,7 +15,7 @@ public class TaskStatusService : GenericService<TaskStatusDto, TaskStatusRespons
     public TaskStatusService(IMapper mapper, 
         IGenericRepository<TasksStatus> repository, 
         ILogger<GenericService<TaskStatusDto, TaskStatusResponseDto, long, TasksStatus>> logger, 
-        IAdditioalFeatures<TasksStatus> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
+        IAdditionalFeaturesRepository<TasksStatus> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
     {
     }
 }

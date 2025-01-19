@@ -14,7 +14,7 @@ public class RoomService : GenericService<RoomsDto, RoomsResponseDto, long, Room
     public RoomService(IMapper mapper, 
         IGenericRepository<Rooms> repository, 
         ILogger<GenericService<RoomsDto, RoomsResponseDto, long, Rooms>> logger, 
-        IAdditioalFeatures<Rooms> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
+        IAdditionalFeaturesRepository<Rooms> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
     {
     }
 }

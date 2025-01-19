@@ -1,5 +1,7 @@
 ﻿using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.AdvertisementType.Mapper;
+using Core.Core.Interfaces.AbstractInterface;
+using Core.Infrastructure.Repositories.AbstractRepository;
 using GuestSide.Application.DTOs.Request.Advertisment;
 using GuestSide.Application.DTOs.Response.Advertisment;
 using GuestSide.Application.Interface.AdvertiementType;
@@ -19,6 +21,7 @@ public static class AdvertismentTypeDI
         collect.AddScoped<IAdvertisementTypeService,AdvertisementTypeService>();
         collect.AddScoped<IService<AdvertisementTypeDto,AdvertisementTypeResponseDto,long, GuestSide.Core.Entities.Advertisments.AdvertisementType>, AdvertisementTypeService>();
         collect.AddScoped<IAdditionalFeatures<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, GuestSide.Core.Entities.Advertisments.AdvertisementType>, AdvertisementTypeService>();
+        collect.AddScoped<IAdditionalFeaturesRepository<GuestSide.Core.Entities.Advertisments.AdvertisementType>, AdditionalFeaturesRepository<GuestSide.Core.Entities.Advertisments.AdvertisementType>>();
         collect.AddAutoMapper(typeof(AdvertisementTypeMapper));
         // collect.AddScoped < ILogger<GenericService<AdvertisementTypeDto, long, GuestSide.Core.Entities.Advertisments.AdvertisementType>>>();
     }

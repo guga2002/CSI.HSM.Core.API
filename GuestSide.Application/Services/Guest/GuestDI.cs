@@ -1,5 +1,7 @@
 ﻿using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.Guest.Mapper;
+using Core.Core.Interfaces.AbstractInterface;
+using Core.Infrastructure.Repositories.AbstractRepository;
 using GuestSide.Application.DTOs.Request.Guest;
 using GuestSide.Application.DTOs.Response.Guest;
 using GuestSide.Application.Interface.Guest;
@@ -20,6 +22,7 @@ public static class GuestDI
         services.AddScoped<IGuestService,GuestService>();
         services.AddScoped<IService<GuestDto,GuestResponseDto,long,Guests>,GuestService>();
         services.AddScoped<IAdditionalFeatures<GuestDto, GuestResponseDto, long, Guests>, GuestService>();
+        services.AddScoped<IAdditionalFeaturesRepository<Guests>, AdditionalFeaturesRepository<Guests>>();
         services.AddAutoMapper(typeof(GuestMapper));
         //services.AddScoped<ILogger<GenericService<GuestDto, long, Guests>>>();
     }

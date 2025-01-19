@@ -8,7 +8,7 @@ namespace Core.Infrastructure.Repositories.AbstractRepository;
 /// Additional features for generic Repository
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public abstract class AdditioalFeatures<T> : IAdditioalFeatures<T> where T : class
+public abstract class AdditionalFeaturesRepository<T> : IAdditionalFeaturesRepository<T> where T : class
 {
     #region Constructor
     private readonly DbContext _context;
@@ -18,7 +18,7 @@ public abstract class AdditioalFeatures<T> : IAdditioalFeatures<T> where T : cla
     /// Constructor
     /// </summary>
     /// <param name="Context"></param>
-    public AdditioalFeatures(DbContext Context)
+    public AdditionalFeaturesRepository(DbContext Context)
     {
         _context = Context;
         DbSet = _context.Set<T>();

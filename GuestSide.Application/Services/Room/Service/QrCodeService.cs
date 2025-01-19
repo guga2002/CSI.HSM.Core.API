@@ -14,7 +14,7 @@ public class QrCodeService : GenericService<QRCodeDto, QRCodeResponseDto, long, 
     public QrCodeService(IMapper mapper, 
         IGenericRepository<QRCode> repository,
         ILogger<GenericService<QRCodeDto, QRCodeResponseDto, long, QRCode>> logger, 
-        IAdditioalFeatures<QRCode> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
+        IAdditionalFeaturesRepository<QRCode> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
     {
     }
 }

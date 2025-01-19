@@ -9,6 +9,8 @@ using GuestSide.Application.DTOs.Request.Item;
 using GuestSide.Application.DTOs.Response.Item;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.Item.Mapper;
+using Core.Core.Interfaces.AbstractInterface;
+using Core.Infrastructure.Repositories.AbstractRepository;
 
 namespace GuestSide.Application.Services.Item.DI;
 
@@ -21,6 +23,7 @@ public static class CartDI
         services.AddScoped<ICartService, CartService>();
         services.AddScoped<IService<CartDto,CartResponseDto, long, Cart>, CartService>();
         services.AddScoped<IAdditionalFeatures<CartDto, CartResponseDto, long, Cart>, CartService>();
+        services.AddScoped<IAdditionalFeaturesRepository<Cart>, AdditionalFeaturesRepository<Cart>>();
         services.AddAutoMapper(typeof(CartMapper));
     }
 }

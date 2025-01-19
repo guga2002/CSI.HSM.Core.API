@@ -10,20 +10,19 @@ using Core.Application.Interface.GenericContracts;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Core.Interfaces.AbstractInterface;
 using Core.Application.Services.Staff.Cart.Services;
-using Core.Application.Services.Staff.Cart.Mappper;
 
-namespace Core.Application.Services.Staff.Cart.DI;
-
-public static class TaskToStaffDi
+namespace Core.Application.Services.Staff.Cart.DI
 {
-    public static void InjectCartToStaff(this IServiceCollection services)
+    public static class TaskToStaffDi
     {
-        services.AddScoped<IGenericRepository<TaskToStaff>, TaskToStaffRepository>();
-        services.AddScoped<IAdditioalFeatures<TaskToStaff>, AdditioalFeatures<TaskToStaff>>();
-        services.AddScoped<ITaskToStaffRepository, TaskToStaffRepository>();
-        services.AddScoped<ITaskToStaffService, TaskToStaffService>();
-        services.AddScoped<IService<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>, TaskToStaffService>();
-        services.AddScoped<IAdditionalFeatures<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>, TaskToStaffService>();
-        services.AddAutoMapper(typeof(TaskToStaffMapper));
+        public static void InjectCartToStaff(this IServiceCollection services)
+        {
+            services.AddScoped<IGenericRepository<TaskToStaff>, TaskToStaffRepository>();
+            services.AddScoped<IAdditionalFeaturesRepository<TaskToStaff>, AdditionalFeaturesRepository<TaskToStaff>>();
+            services.AddScoped<ITaskToStaffRepository, TaskToStaffRepository>();
+            services.AddScoped<ITaskToStaffService, TaskToStaffService>();
+            services.AddScoped<IService<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>, TaskToStaffService>();
+            services.AddScoped<IAdditionalFeatures<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>, TaskToStaffService>();
+        }
     }
 }

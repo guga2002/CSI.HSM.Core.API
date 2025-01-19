@@ -9,6 +9,8 @@ using GuestSide.Application.DTOs.Request.Room;
 using GuestSide.Application.DTOs.Response.Room;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.Room.Mapper;
+using Core.Core.Interfaces.AbstractInterface;
+using Core.Infrastructure.Repositories.AbstractRepository;
 
 namespace GuestSide.Application.Services.Room.DI;
 
@@ -21,6 +23,7 @@ public static class QrCodeDI
         services.AddScoped<IQrCodeService, QrCodeService>();
         services.AddScoped<IService<QRCodeDto,QRCodeResponseDto, long, QRCode>, QrCodeService>();
         services.AddScoped<IAdditionalFeatures<QRCodeDto, QRCodeResponseDto, long, QRCode>, QrCodeService>();
+        services.AddScoped<IAdditionalFeaturesRepository<QRCode>, AdditionalFeaturesRepository<QRCode>>();
         services.AddAutoMapper(typeof(QrCodeMapper));
     }
 }

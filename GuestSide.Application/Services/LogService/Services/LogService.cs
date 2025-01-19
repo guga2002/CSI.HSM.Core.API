@@ -15,7 +15,7 @@ public class LogService : GenericService<LogDto, LogResponseDto, long, Logs>, IL
     public LogService(IMapper mapper, 
         IGenericRepository<Logs> repository, 
         ILogger<GenericService<LogDto, LogResponseDto, long, Logs>> logger, 
-        IAdditioalFeatures<Logs> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
+        IAdditionalFeaturesRepository<Logs> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
     {
     }
 }

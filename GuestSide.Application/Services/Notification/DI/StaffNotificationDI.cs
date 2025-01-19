@@ -9,6 +9,9 @@ using GuestSide.Application.DTOs.Request.Notification;
 using GuestSide.Application.DTOs.Response.Notification;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.Notification.Mapper;
+using Core.Core.Interfaces.AbstractInterface;
+using Core.Infrastructure.Repositories.AbstractRepository;
+using GuestSide.Core.Entities.LogEntities;
 
 namespace GuestSide.Application.Services.Notification.DI;
 
@@ -22,5 +25,6 @@ public static class StaffNotificationDI
         services.AddScoped<IService<StafNotificationDto,StafNotificationResponseDto, long, StaffNotification>, StaffNotificationService>();
         services.AddScoped<IAdditionalFeatures<StafNotificationDto, StafNotificationResponseDto, long, StaffNotification>, StaffNotificationService>();
         services.AddAutoMapper(typeof(StaffNotificationMapper));
+        services.AddScoped<IAdditionalFeaturesRepository<StaffNotification>, AdditionalFeaturesRepository<StaffNotification>>();
     }
 }

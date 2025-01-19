@@ -16,7 +16,7 @@ public class LocationService : GenericService<LocationrequestDto, LocationRespon
     private readonly IMapper map;
 
     public LocationService(IMapper mapper, 
-        IGenericRepository<Location> repository, ILogger<GenericService<LocationrequestDto, LocationResponse, long, Location>> logger, IAdditioalFeatures<Location> additioalFeatures, IUniteOfWork uniteOfWork, IMapper map) : base(mapper, repository, logger, additioalFeatures)
+        IGenericRepository<Location> repository, ILogger<GenericService<LocationrequestDto, LocationResponse, long, Location>> logger, IAdditionalFeaturesRepository<Location> additioalFeatures, IUniteOfWork uniteOfWork, IMapper map) : base(mapper, repository, logger, additioalFeatures)
     {
         _uniteOfWork = uniteOfWork;
         this.map = map;

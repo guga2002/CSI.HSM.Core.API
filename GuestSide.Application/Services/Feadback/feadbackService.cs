@@ -13,7 +13,7 @@ public class feadbackService : GenericService<FeedbackDto, FeedbackResponseDto, 
     public feadbackService(IMapper mapper,
         IGenericRepository<Feedback> repository, 
         ILogger<GenericService<FeedbackDto, FeedbackResponseDto, long, Feedback>> logger, 
-        IAdditioalFeatures<Feedback> additioalFeatures) 
+        IAdditionalFeaturesRepository<Feedback> additioalFeatures) 
         : base(mapper, repository, logger, additioalFeatures)
     {
     }

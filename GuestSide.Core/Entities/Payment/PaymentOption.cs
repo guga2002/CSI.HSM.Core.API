@@ -1,5 +1,4 @@
 ﻿using GuestSide.Core.Entities.AbstractEntities;
-using GuestSide.Core.Entities.Payment;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Core.Entities.Payment;

@@ -14,7 +14,7 @@ public class AdvertisementTypeService : GenericService<AdvertisementTypeDto, Adv
         IMapper mapper, 
         IGenericRepository<Core.Entities.Advertisments.AdvertisementType> repository, 
         ILogger<GenericService<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, Core.Entities.Advertisments.AdvertisementType>> logger, 
-        IAdditioalFeatures<Core.Entities.Advertisments.AdvertisementType> additioalFeatures) 
+        IAdditionalFeaturesRepository<Core.Entities.Advertisments.AdvertisementType> additioalFeatures) 
         : base(mapper, repository, logger, additioalFeatures)
     {
     }

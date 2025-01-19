@@ -9,6 +9,8 @@ using GuestSide.Application.DTOs.Response.Task;
 using Core.Application.Services.Task.Task.Services;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.Task.Task.Mapper;
+using Core.Core.Interfaces.AbstractInterface;
+using Core.Infrastructure.Repositories.AbstractRepository;
 
 namespace Core.Application.Services.Task.Task.DI;
 
@@ -21,6 +23,7 @@ public static class TaskfDi
         services.AddScoped<ITaskService, TasksService>();
         services.AddScoped<IService<TaskDto, TaskResponseDto, long, Tasks>, TasksService>();
         services.AddScoped<IAdditionalFeatures<TaskDto, TaskResponseDto, long, Tasks>, TasksService>();
+        services.AddScoped<IAdditionalFeaturesRepository<Tasks>, AdditionalFeaturesRepository<Tasks>>();
         services.AddAutoMapper(typeof(TaskMapper));
 
     }

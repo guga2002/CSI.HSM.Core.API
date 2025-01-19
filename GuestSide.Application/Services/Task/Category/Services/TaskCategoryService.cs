@@ -15,7 +15,7 @@ public class TaskCategoryService : GenericService<TaskCategoryDto, TaskCategoryR
     public TaskCategoryService(IMapper mapper, 
         IGenericRepository<TaskCategory> repository, 
         ILogger<GenericService<TaskCategoryDto, TaskCategoryResponseDto, long, TaskCategory>> logger, 
-        IAdditioalFeatures<TaskCategory> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
+        IAdditionalFeaturesRepository<TaskCategory> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
     {
     }
 }

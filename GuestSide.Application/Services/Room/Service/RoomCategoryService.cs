@@ -14,7 +14,7 @@ public class RoomCategoryService : GenericService<RoomCategoryDto, RoomCategoryR
     public RoomCategoryService(IMapper mapper, 
         IGenericRepository<RoomCategory> repository,
         ILogger<GenericService<RoomCategoryDto, RoomCategoryResponseDto, long, RoomCategory>> logger, 
-        IAdditioalFeatures<RoomCategory> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
+        IAdditionalFeaturesRepository<RoomCategory> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
     {
     }
 }

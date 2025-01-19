@@ -14,7 +14,7 @@ public class CartService : GenericService<CartDto, CartResponseDto, long, Cart>,
     public CartService(IMapper mapper, 
         IGenericRepository<Cart> repository, 
         ILogger<GenericService<CartDto, CartResponseDto, long, Cart>> logger,
-        IAdditioalFeatures<Cart> additioalFeatures) 
+        IAdditionalFeaturesRepository<Cart> additioalFeatures) 
         : base(mapper, repository, logger, additioalFeatures)
     {
     }

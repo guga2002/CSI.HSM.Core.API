@@ -1,5 +1,7 @@
 ﻿using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.Feadback.Mapper;
+using Core.Core.Interfaces.AbstractInterface;
+using Core.Infrastructure.Repositories.AbstractRepository;
 using GuestSide.Application.DTOs.Request.FeedBacks;
 using GuestSide.Application.DTOs.Response.FeedBacks;
 using GuestSide.Application.Interface.Feadback;
@@ -20,6 +22,7 @@ public static class feadbackDI
         services.AddScoped<IFeadbackService,feadbackService>();
         services.AddScoped<IService<FeedbackDto,FeedbackResponseDto, long, Feedback>, feadbackService>();
         services.AddScoped<IAdditionalFeatures<FeedbackDto, FeedbackResponseDto, long, Feedback>, feadbackService>();
+        services.AddScoped<IAdditionalFeaturesRepository<Feedback>, AdditionalFeaturesRepository<Feedback>>();
         services.AddAutoMapper(typeof(FeadbackMapper));
         /// services.AddScoped<ILogger<GenericService<FeedbackDto, long, Feedback>>>();
     }

@@ -33,7 +33,7 @@ namespace GuestSide.API.Controllers.Tasks
         [SwaggerResponse(StatusCodes.Status404NotFound, "No notifications found.")]
         public  async Task<Response<TaskResponseDto>> GetTaskByCartId([FromQuery] long CardId)
         {
-            var result = await _taskService.GetTaskbycartId(CardId);
+            var result = await _taskService.GetByIdAsync(CardId);
 
             if (result != null)
             {

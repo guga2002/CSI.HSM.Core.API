@@ -1,5 +1,7 @@
 ﻿using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.Advertismenet.Mapper;
+using Core.Core.Interfaces.AbstractInterface;
+using Core.Infrastructure.Repositories.AbstractRepository;
 using GuestSide.Application.DTOs.Request.Advertisment;
 using GuestSide.Application.DTOs.Response.Advertisment;
 using GuestSide.Application.Interface.Advertisment;
@@ -20,6 +22,7 @@ public static class AdvertisementDI
         serviceProvider.AddScoped<IAdvertismentService, AdvertisementService>();
         serviceProvider.AddScoped<IService<AdvertismentDto,AdvertismentResponseDto, long, Advertisements>, AdvertisementService>();
         serviceProvider.AddScoped<IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Advertisements>, AdvertisementService>();
+        serviceProvider.AddScoped<IAdditionalFeaturesRepository<Advertisements>, AdditionalFeaturesRepository<Advertisements>>();
         serviceProvider.AddAutoMapper(typeof(AdvertisementMapper));
     }
 }

@@ -15,7 +15,7 @@ public class StaffCategoryService : GenericService<StaffCategoryDto, StaffCatego
     public StaffCategoryService(IMapper mapper,
         IGenericRepository<StaffCategory> repository, 
         ILogger<GenericService<StaffCategoryDto, StaffCategoryResponseDto, long, StaffCategory>> logger,
-        IAdditioalFeatures<StaffCategory> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
+        IAdditionalFeaturesRepository<StaffCategory> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
     {
     }
 }

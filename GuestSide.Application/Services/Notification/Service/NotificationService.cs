@@ -14,7 +14,7 @@ public class NotificationService : GenericService<NotificationDto, NotificationR
     public NotificationService(IMapper mapper,
         IGenericRepository<Notifications> repository,
         ILogger<GenericService<NotificationDto, NotificationResponseDto, long, Notifications>> logger,
-        IAdditioalFeatures<Notifications> additioalFeatures) 
+        IAdditionalFeaturesRepository<Notifications> additioalFeatures) 
         : base(mapper, repository, logger, additioalFeatures)
     {
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Core.Core.Interfaces.AbstractInterface;
-public interface IAdditioalFeatures<T> where T : class
+public interface IAdditionalFeaturesRepository<T> where T : class
 {
 
 

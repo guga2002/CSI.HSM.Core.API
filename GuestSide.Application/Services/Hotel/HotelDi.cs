@@ -7,6 +7,8 @@ using GuestSide.Application.DTOs.Request.Hotel;
 using GuestSide.Application.DTOs.Response.Hotel;
 using Core.Application.Services.Hotel.Mapper;
 using Core.Application.Interface.GenericContracts;
+using Core.Core.Interfaces.AbstractInterface;
+using Core.Infrastructure.Repositories.AbstractRepository;
 
 namespace GuestSide.Application.Services.Hotel;
 
@@ -20,5 +22,6 @@ public static  class HotelDi
         services.AddScoped<IHotelService, HotelService>();
         services.AddScoped<IService<HotelRequestDto, HotelResponse, long, GuestSide.Core.Entities.Hotel.Hotel>, HotelService>();
         services.AddScoped<IAdditionalFeatures<HotelRequestDto, HotelResponse, long, GuestSide.Core.Entities.Hotel.Hotel>, HotelService>();
+        services.AddScoped<IAdditionalFeaturesRepository<GuestSide.Core.Entities.Hotel.Hotel>, AdditionalFeaturesRepository<GuestSide.Core.Entities.Hotel.Hotel>>();
     }
 }
