@@ -8,8 +8,5 @@ namespace GuestSide.Application.Interface.Task.Task
 {
     public interface ITaskService : IService<TaskDto,TaskResponseDto, long, Tasks>
     {
-        Task<TaskCategoryResponseDto> GetTaskCategoryByTaskId(long TaskID, CancellationToken cancellationToken = default);
-
-        Task<CartResponseDto> GetCardByTaskId(long TaskID, CancellationToken cancellationToken = default);
     }
 }
