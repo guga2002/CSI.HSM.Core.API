@@ -1,10 +1,10 @@
 ﻿using GuestSide.Core.Entities.AbstractEntities;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuestSide.Core.Entities.Restaurant;
+namespace Core.Core.Entities.Restaurant;
 
 [Table("RestaurantItemCategories", Schema = "CSI")]
-public class RestaurantItemCategory:AbstractEntity
+public class RestaurantItemCategory : AbstractEntity
 {
     public required string CategoryName { get; set; }
     public string? Description { get; set; }

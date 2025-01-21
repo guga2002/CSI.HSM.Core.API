@@ -1,5 +1,4 @@
-﻿using GuestSide.Application.Interface;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.DependencyInjection;
 using GuestSide.Core.Entities.Item;
 using GuestSide.Infrastructure.Repositories.Item;
@@ -8,17 +7,23 @@ using GuestSide.Application.Interface.Item;
 using GuestSide.Application.Services.Item.Services;
 using GuestSide.Application.DTOs.Request.Item;
 using GuestSide.Application.DTOs.Response.Item;
+using Core.Application.Interface.GenericContracts;
+using Core.Application.Services.Item.Mapper;
+using Core.Core.Interfaces.AbstractInterface;
+using Core.Infrastructure.Repositories.AbstractRepository;
 
-namespace GuestSide.Application.Services.Item.DI
+namespace GuestSide.Application.Services.Item.DI;
+
+public static class CartDI
 {
-    public static class CartDI
+    public static void InjectCart(this IServiceCollection services)
     {
-        public static void InjectCart(this IServiceCollection services)
-        {
-            services.AddScoped<IGenericRepository<Cart>, CartRepository>();
-            services.AddScoped<ICartRepository, CartRepository>();
-            services.AddScoped<ICartService, CartService>();
-            services.AddScoped<IService<CartDto,CartResponseDto, long, Cart>, CartService>();
-        }
+        services.AddScoped<IGenericRepository<Cart>, CartRepository>();
+        services.AddScoped<ICartRepository, CartRepository>();
+        services.AddScoped<ICartService, CartService>();
+        services.AddScoped<IService<CartDto,CartResponseDto, long, Cart>, CartService>();
+        services.AddScoped<IAdditionalFeatures<CartDto, CartResponseDto, long, Cart>, CartService>();
+        services.AddScoped<IAdditionalFeaturesRepository<Cart>, AdditionalFeaturesRepository<Cart>>();
+        services.AddAutoMapper(typeof(CartMapper));
     }
 }

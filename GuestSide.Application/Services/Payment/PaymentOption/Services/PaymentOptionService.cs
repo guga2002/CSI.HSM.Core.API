@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Core.Application.DTOs.Request.Payment;
+using Core.Application.DTOs.Response.Payment;
+using Core.Application.Interface.PaymentOption;
+using Core.Core.Interfaces.AbstractInterface;
+using GuestSide.Application.Services;
+using GuestSide.Core.Interfaces.AbstractInterface;
+using Microsoft.Extensions.Logging;
 
-namespace Core.Application.Services.Payment.PaymentOption.Services
+namespace Core.Application.Services.Payment.PaymentOption.Services;
+
+public class PaymentOptionService : GenericService<PaymentOptionDto, PaymentOptionResponseDto, long, Core.Entities.Payment.PaymentOption>, IPaymentOption
 {
-    internal class PaymentOptionService
+    public PaymentOptionService(IMapper mapper,
+        IGenericRepository<Core.Entities.Payment.PaymentOption> repository, 
+        ILogger<GenericService<PaymentOptionDto, PaymentOptionResponseDto, long, Core.Entities.Payment.PaymentOption>> logger,
+        IAdditionalFeaturesRepository<Core.Entities.Payment.PaymentOption> additioalFeatures)
+        : base(mapper, repository, logger, additioalFeatures)
     {
     }
 }

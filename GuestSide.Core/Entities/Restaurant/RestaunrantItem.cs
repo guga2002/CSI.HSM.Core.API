@@ -1,28 +1,27 @@
-﻿using Core.Core.Entities.Restaurant;
-using GuestSide.Core.Entities.AbstractEntities;
+﻿using GuestSide.Core.Entities.AbstractEntities;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuestSide.Core.Entities.Restaurant;
+namespace Core.Core.Entities.Restaurant;
 
-[Table("RestaunrantItems",Schema ="CSI")]
-public class RestaunrantItem:AbstractEntity
+[Table("RestaunrantItems", Schema = "CSI")]
+public class RestaunrantItem : AbstractEntity
 {
     public required string Title { get; set; }
 
     public required List<string> PhotoUrl { get; set; }
 
-    public string? Description {  get; set; }
+    public string? Description { get; set; }
 
-    public string? Allergens {  get; set; }
+    public string? Allergens { get; set; }
 
-    public decimal? Price {  get; set; }
+    public decimal? Price { get; set; }
 
-    public bool IsAvaliable {  get; set; }
+    public bool IsAvaliable { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
     [ForeignKey(nameof(restaurantItemCategory))]
-    public long RestaurantItemCategoryId {  get; set; }
+    public long RestaurantItemCategoryId { get; set; }
 
     [ForeignKey(nameof(Restaurants))]
     public long RestaurantId { get; set; }

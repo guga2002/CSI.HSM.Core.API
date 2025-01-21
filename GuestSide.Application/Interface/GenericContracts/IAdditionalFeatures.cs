@@ -1,12 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
-namespace Core.Core.Interfaces.AbstractInterface;
-public interface IAdditioalFeatures<T> where T : class
+namespace Core.Application.Interface.GenericContracts;
+
+public interface IAdditionalFeatures<RequestDto, ResponseDto, TKey, DatabaseEntity>
 {
-
-
     #region Raw SQL
     /// <summary>
     /// Execute raw SQL query
@@ -16,21 +13,13 @@ public interface IAdditioalFeatures<T> where T : class
     /// <param name="parameters"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<IEnumerable<T>> ExecuteRawSql<TResult>(string query, object[] parameters, CancellationToken cancellationToken = default);
+    Task<IEnumerable<ResponseDto>> ExecuteRawSql<TResult>(string query, object[] parameters, CancellationToken cancellationToken = default);
     #endregion
 
     #region Soft Delete
-    Task<T> SoftDelete(object id, CancellationToken cancellationToken = default);
+    Task<ResponseDto> SoftDelete(TKey id, CancellationToken cancellationToken = default);
     #endregion
 
-    #region Transactions
-    /// <summary>
-    /// Execute few function use in services if  you wantinsert  few  records in one transaction
-    /// </summary>
-    /// <param name="action"></param>
-    /// <returns></returns>
-    System.Threading.Tasks.Task ExecuteInTransaction(Func<System.Threading.Tasks.Task> action);
-    #endregion
 
     /// <summary>
     /// check if record exist
@@ -38,7 +27,7 @@ public interface IAdditioalFeatures<T> where T : class
     /// <param name="predicate"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default);
+    Task<bool> ExistsAsync(Expression<Func<RequestDto, bool>> predicate, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Paggination
@@ -50,11 +39,11 @@ public interface IAdditioalFeatures<T> where T : class
     /// <param name="isAscending"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<(IEnumerable<T>, int)> GetPagedAsync(
-    Expression<Func<T, bool>> predicate,
+    Task<(IEnumerable<ResponseDto>, int)> GetPagedAsync(
+    Expression<Func<DatabaseEntity, bool>> predicate,
     int pageNumber,
     int pageSize,
-    Expression<Func<T, object>> orderBy,
+    Expression<Func<DatabaseEntity, object>> orderBy,
     bool isAscending = true,
     CancellationToken cancellationToken = default);
 
@@ -64,7 +53,7 @@ public interface IAdditioalFeatures<T> where T : class
     /// <param name="entities"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task BulkDeleteAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+    Task BulkDeleteAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Bulk Update
@@ -72,7 +61,7 @@ public interface IAdditioalFeatures<T> where T : class
     /// <param name="entities"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task BulkUpdateAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+    Task BulkUpdateAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Bulk Add
@@ -80,5 +69,5 @@ public interface IAdditioalFeatures<T> where T : class
     /// <param name="entities"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task BulkAddAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+    Task BulkAddAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default);
 }

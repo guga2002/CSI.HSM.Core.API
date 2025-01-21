@@ -33,6 +33,9 @@ namespace Core.Core.Migrations
                     b.Property<long>("GuestID")
                         .HasColumnType("bigint");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LanguageCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -72,6 +75,118 @@ namespace Core.Core.Migrations
                     b.ToTable("PaymentOptions", "CSI");
                 });
 
+            modelBuilder.Entity("Core.Core.Entities.Payment.RestaurantOrderPayment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Time_Of_Payment");
+
+                    b.Property<decimal?>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("PaymentOptionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("RestaurantCartId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("Subtotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PaymentOptionId");
+
+                    b.HasIndex("RestaurantCartId")
+                        .IsUnique();
+
+                    b.ToTable("RestaurantOrderPayments", "CSI");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaunrantItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Allergens")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsAvaliable")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PhotoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long>("RestaurantId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("RestaurantItemCategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RestaurantId");
+
+                    b.HasIndex("RestaurantItemCategoryId");
+
+                    b.ToTable("RestaunrantItems", "CSI");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItemCategory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RestaurantItemCategories", "CSI");
+                });
+
             modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItemToCart", b =>
                 {
                     b.Property<long>("Id")
@@ -82,6 +197,9 @@ namespace Core.Core.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -99,6 +217,29 @@ namespace Core.Core.Migrations
                     b.HasIndex("RestaurantCartId");
 
                     b.ToTable("RestaurantItemToCarts", "CSI");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Restaurant.Restaurants", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RestaunrantCategory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Restaurants", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Advertisements.Advertisements", b =>
@@ -154,6 +295,9 @@ namespace Core.Core.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<long>("LanguageId")
                         .HasColumnType("bigint");
@@ -247,6 +391,9 @@ namespace Core.Core.Migrations
                     b.Property<DateTime>("FeedbackDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<long>("LanguageId")
                         .HasColumnType("bigint");
 
@@ -315,6 +462,9 @@ namespace Core.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsFrequentGuest")
                         .HasColumnType("bit");
 
@@ -363,6 +513,9 @@ namespace Core.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<long>("LanguageId")
                         .HasColumnType("bigint");
 
@@ -390,6 +543,9 @@ namespace Core.Core.Migrations
 
                     b.Property<long>("HotelId")
                         .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<double>("Latitude")
                         .HasColumnType("float");
@@ -470,6 +626,9 @@ namespace Core.Core.Migrations
                     b.Property<long>("GuestId")
                         .HasColumnType("bigint");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<long>("LanguageId")
                         .HasColumnType("bigint");
 
@@ -500,6 +659,9 @@ namespace Core.Core.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<long>("LanguageId")
                         .HasColumnType("bigint");
@@ -537,6 +699,9 @@ namespace Core.Core.Migrations
 
                     b.Property<string>("Information")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<long>("ItemCategoryId")
                         .HasColumnType("bigint");
@@ -576,6 +741,9 @@ namespace Core.Core.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<long>("ItemCategoryId")
                         .HasColumnType("bigint");
@@ -644,6 +812,9 @@ namespace Core.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsEmergency")
                         .HasColumnType("bit");
 
@@ -677,6 +848,9 @@ namespace Core.Core.Migrations
                     b.Property<long>("GuestId")
                         .HasColumnType("bigint");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<long>("NotificationId")
                         .HasColumnType("bigint");
 
@@ -696,6 +870,9 @@ namespace Core.Core.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
@@ -732,6 +909,9 @@ namespace Core.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<long>("NotificationId")
                         .HasColumnType("bigint");
 
@@ -747,89 +927,6 @@ namespace Core.Core.Migrations
                     b.ToTable("StaffNotifications", "CSI");
                 });
 
-            modelBuilder.Entity("GuestSide.Core.Entities.Payment.RestaurantOrderPayment", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime?>("Date")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Time_Of_Payment");
-
-                    b.Property<decimal?>("Discount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<long>("PaymentOptionId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("RestaurantCartId")
-                        .HasColumnType("bigint");
-
-                    b.Property<decimal?>("Subtotal")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PaymentOptionId");
-
-                    b.HasIndex("RestaurantCartId")
-                        .IsUnique();
-
-                    b.ToTable("RestaurantOrderPayments", "CSI");
-                });
-
-            modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.RestaunrantItem", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Allergens")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsAvaliable")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("PhotoUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<long>("RestaurantId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("RestaurantItemCategoryId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RestaurantId");
-
-                    b.HasIndex("RestaurantItemCategoryId");
-
-                    b.ToTable("RestaunrantItems", "CSI");
-                });
-
             modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.RestaurantCart", b =>
                 {
                     b.Property<long>("Id")
@@ -841,6 +938,9 @@ namespace Core.Core.Migrations
                     b.Property<long>("GuestId")
                         .HasColumnType("bigint");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("WhatWillRobotSay")
                         .HasColumnType("nvarchar(max)");
 
@@ -849,46 +949,6 @@ namespace Core.Core.Migrations
                     b.HasIndex("GuestId");
 
                     b.ToTable("RestaurantCarts", "CSI");
-                });
-
-            modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.RestaurantItemCategory", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RestaurantItemCategories", "CSI");
-                });
-
-            modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.Restaurants", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RestaunrantCategory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Restaurants", "CSI");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Room.QRCode", b =>
@@ -905,6 +965,9 @@ namespace Core.Core.Migrations
 
                     b.Property<DateTime>("GeneratedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<byte[]>("QrCodeImage")
                         .IsRequired()
@@ -934,6 +997,9 @@ namespace Core.Core.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<long>("LanguageId")
                         .HasColumnType("bigint");
@@ -965,6 +1031,9 @@ namespace Core.Core.Migrations
 
                     b.Property<long>("HotelId")
                         .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
@@ -1007,6 +1076,9 @@ namespace Core.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<long>("LanguageId")
                         .HasColumnType("bigint");
 
@@ -1039,6 +1111,9 @@ namespace Core.Core.Migrations
                     b.Property<DateTime?>("HireDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1067,6 +1142,9 @@ namespace Core.Core.Migrations
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<long>("StaffId")
                         .HasColumnType("bigint");
@@ -1106,6 +1184,9 @@ namespace Core.Core.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<long>("LanguageId")
                         .HasColumnType("bigint");
 
@@ -1136,6 +1217,9 @@ namespace Core.Core.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<long>("LanguageId")
                         .HasColumnType("bigint");
@@ -1171,6 +1255,9 @@ namespace Core.Core.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<long>("LanguageId")
                         .HasColumnType("bigint");
 
@@ -1197,9 +1284,47 @@ namespace Core.Core.Migrations
                     b.Navigation("Guest");
                 });
 
+            modelBuilder.Entity("Core.Core.Entities.Payment.RestaurantOrderPayment", b =>
+                {
+                    b.HasOne("Core.Core.Entities.Payment.PaymentOption", "PaymentOption")
+                        .WithMany("RestaurantOrderPayments")
+                        .HasForeignKey("PaymentOptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GuestSide.Core.Entities.Restaurant.RestaurantCart", "RestaurantCart")
+                        .WithOne("RestaurantOrderPayment")
+                        .HasForeignKey("Core.Core.Entities.Payment.RestaurantOrderPayment", "RestaurantCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PaymentOption");
+
+                    b.Navigation("RestaurantCart");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaunrantItem", b =>
+                {
+                    b.HasOne("Core.Core.Entities.Restaurant.Restaurants", "Restaurants")
+                        .WithMany("Items")
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Core.Entities.Restaurant.RestaurantItemCategory", "restaurantItemCategory")
+                        .WithMany("restaunrantItems")
+                        .HasForeignKey("RestaurantItemCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restaurants");
+
+                    b.Navigation("restaurantItemCategory");
+                });
+
             modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItemToCart", b =>
                 {
-                    b.HasOne("GuestSide.Core.Entities.Restaurant.RestaunrantItem", "RestaunrantItem")
+                    b.HasOne("Core.Core.Entities.Restaurant.RestaunrantItem", "RestaunrantItem")
                         .WithMany("RestaurantItemToCarts")
                         .HasForeignKey("RestaunrantItemId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1481,44 +1606,6 @@ namespace Core.Core.Migrations
                     b.Navigation("Staff");
                 });
 
-            modelBuilder.Entity("GuestSide.Core.Entities.Payment.RestaurantOrderPayment", b =>
-                {
-                    b.HasOne("Core.Core.Entities.Payment.PaymentOption", "PaymentOption")
-                        .WithMany("RestaurantOrderPayments")
-                        .HasForeignKey("PaymentOptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GuestSide.Core.Entities.Restaurant.RestaurantCart", "RestaurantCart")
-                        .WithOne("RestaurantOrderPayment")
-                        .HasForeignKey("GuestSide.Core.Entities.Payment.RestaurantOrderPayment", "RestaurantCartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PaymentOption");
-
-                    b.Navigation("RestaurantCart");
-                });
-
-            modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.RestaunrantItem", b =>
-                {
-                    b.HasOne("GuestSide.Core.Entities.Restaurant.Restaurants", "Restaurants")
-                        .WithMany("Items")
-                        .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GuestSide.Core.Entities.Restaurant.RestaurantItemCategory", "restaurantItemCategory")
-                        .WithMany("restaunrantItems")
-                        .HasForeignKey("RestaurantItemCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Restaurants");
-
-                    b.Navigation("restaurantItemCategory");
-                });
-
             modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.RestaurantCart", b =>
                 {
                     b.HasOne("GuestSide.Core.Entities.Guest.Guests", "Guests")
@@ -1688,6 +1775,21 @@ namespace Core.Core.Migrations
                     b.Navigation("RestaurantOrderPayments");
                 });
 
+            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaunrantItem", b =>
+                {
+                    b.Navigation("RestaurantItemToCarts");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItemCategory", b =>
+                {
+                    b.Navigation("restaunrantItems");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Restaurant.Restaurants", b =>
+                {
+                    b.Navigation("Items");
+                });
+
             modelBuilder.Entity("GuestSide.Core.Entities.Advertisments.AdvertisementType", b =>
                 {
                     b.Navigation("Advertisements");
@@ -1757,26 +1859,11 @@ namespace Core.Core.Migrations
                     b.Navigation("StaffNotifications");
                 });
 
-            modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.RestaunrantItem", b =>
-                {
-                    b.Navigation("RestaurantItemToCarts");
-                });
-
             modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.RestaurantCart", b =>
                 {
                     b.Navigation("RestaurantItemToCarts");
 
                     b.Navigation("RestaurantOrderPayment");
-                });
-
-            modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.RestaurantItemCategory", b =>
-                {
-                    b.Navigation("restaunrantItems");
-                });
-
-            modelBuilder.Entity("GuestSide.Core.Entities.Restaurant.Restaurants", b =>
-                {
-                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("GuestSide.Core.Entities.Room.RoomCategory", b =>

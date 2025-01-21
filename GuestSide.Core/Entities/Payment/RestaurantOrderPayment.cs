@@ -1,9 +1,8 @@
-﻿using Core.Core.Entities.Payment;
-using GuestSide.Core.Entities.AbstractEntities;
+﻿using GuestSide.Core.Entities.AbstractEntities;
 using GuestSide.Core.Entities.Restaurant;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuestSide.Core.Entities.Payment;
+namespace Core.Core.Entities.Payment;
 
 [Table("RestaurantOrderPayments", Schema = "CSI")]
 public class RestaurantOrderPayment : AbstractEntity
@@ -18,7 +17,7 @@ public class RestaurantOrderPayment : AbstractEntity
     public DateTime? Date { get; set; }
 
     [ForeignKey(nameof(PaymentOption))]
-    public long PaymentOptionId {  get; set; }
+    public long PaymentOptionId { get; set; }
 
     [ForeignKey(nameof(RestaurantCart))]
     public long RestaurantCartId { get; set; }

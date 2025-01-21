@@ -2,6 +2,6 @@
 
 namespace Core.Core.Interfaces.Restaurant;
 
-public interface IRestaurantItemCategoryRepository:IGenericRepository<GuestSide.Core.Entities.Restaurant.RestaurantItemCategory>
+public interface IRestaurantItemCategoryRepository:IGenericRepository<Core.Entities.Restaurant.RestaurantItemCategory>
 {
 }

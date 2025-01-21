@@ -1,8 +1,8 @@
-﻿using GuestSide.API.CustomExtendControllerBase;
+﻿using Core.Application.Interface.GenericContracts;
+using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Request.Task;
 using GuestSide.Application.DTOs.Response.Task;
-using GuestSide.Application.Interface;
 using GuestSide.Application.Interface.Task.Task;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -33,7 +33,7 @@ namespace GuestSide.API.Controllers.Tasks
         [SwaggerResponse(StatusCodes.Status404NotFound, "No notifications found.")]
         public  async Task<Response<TaskResponseDto>> GetTaskByCartId([FromQuery] long CardId)
         {
-            var result = await _taskService.GetTaskbycartId(CardId);
+            var result = await _taskService.GetByIdAsync(CardId);
 
             if (result != null)
             {

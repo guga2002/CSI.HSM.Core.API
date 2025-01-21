@@ -12,7 +12,6 @@ using GuestSide.Core.Entities.Item;
 using GuestSide.Core.Entities.Language;
 using GuestSide.Core.Entities.LogEntities;
 using GuestSide.Core.Entities.Notification;
-using GuestSide.Core.Entities.Payment;
 using GuestSide.Core.Entities.Restaurant;
 using GuestSide.Core.Entities.Room;
 using GuestSide.Core.Entities.Staff;
