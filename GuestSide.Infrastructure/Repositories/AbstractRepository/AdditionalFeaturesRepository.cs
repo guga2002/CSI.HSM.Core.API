@@ -1,4 +1,5 @@
 ﻿using Core.Core.Interfaces.AbstractInterface;
+using GuestSide.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -8,17 +9,17 @@ namespace Core.Infrastructure.Repositories.AbstractRepository;
 /// Additional features for generic Repository
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public abstract class AdditionalFeaturesRepository<T> : IAdditionalFeaturesRepository<T> where T : class
+public class AdditionalFeaturesRepository<T> : IAdditionalFeaturesRepository<T> where T : class
 {
     #region Constructor
-    private readonly DbContext _context;
+    private readonly GuestSideDb _context;
     private readonly DbSet<T> DbSet;
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="Context"></param>
-    public AdditionalFeaturesRepository(DbContext Context)
+    public AdditionalFeaturesRepository(GuestSideDb Context)
     {
         _context = Context;
         DbSet = _context.Set<T>();
