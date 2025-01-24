@@ -28,12 +28,6 @@ using Core.Core.Interfaces.AbstractInterface;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Core.Interfaces.UniteOfWork;
 using Core.Infrastructure.Repositories.UniteOfWork;
-using Core.Core.Interfaces.Audio;
-using Core.Infrastructure.Repositories.Audio;
-using Core.Core.Interfaces.Guest;
-using Core.Infrastructure.Repositories.Guest;
-using Core.Core.Interfaces.Item;
-using Core.Infrastructure.Repositories.Item;
 using Core.Application.Services.Item.DI;
 using Core.Application.Services.Guest.Injection;
 using Core.Persistance.LoggingConfigs;
@@ -42,11 +36,11 @@ using Core.Application.Services.Audio.Injection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
- //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.AuthorizationController).Assembly)
- //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.UsersController).Assembly)
- //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.RolesController).Assembly)
- //.AddControllersAsServices();
+builder.Services.AddControllers()
+ .AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.AuthorizationController).Assembly)
+ .AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.UsersController).Assembly)
+ .AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.RolesController).Assembly)
+ .AddControllersAsServices();
 builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
