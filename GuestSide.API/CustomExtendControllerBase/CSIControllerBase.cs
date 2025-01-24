@@ -57,9 +57,6 @@ public class CSIControllerBase<RequestDto, RsponseDto, TKey, TDatabase> : Contro
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A list of all records.</returns>
     [HttpGet]
-    [SwaggerOperation(Summary = "Retrieve all records", Description = "Returns all records of the specified type.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.")]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
     public virtual async Task<Response<IEnumerable<RsponseDto>>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         var result = await _serviceProvider.GetAllAsync(cancellationToken);
@@ -77,9 +74,6 @@ public class CSIControllerBase<RequestDto, RsponseDto, TKey, TDatabase> : Contro
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>The record matching the specified ID.</returns>
     [HttpGet("{id:int}")]
-    [SwaggerOperation(Summary = "Retrieve a record by ID", Description = "Fetches a specific record using its unique identifier.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Record retrieved successfully.")]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
     public virtual async Task<Response<RsponseDto>> GetByIdAsync([FromRoute] TKey id, CancellationToken cancellationToken = default)
     {
         var result = await _serviceProvider.GetByIdAsync(id, cancellationToken);
@@ -97,9 +91,6 @@ public class CSIControllerBase<RequestDto, RsponseDto, TKey, TDatabase> : Contro
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>The created record.</returns>
     [HttpPost]
-    [SwaggerOperation(Summary = "Create a new record", Description = "Adds a new record to the system.")]
-    [SwaggerResponse(StatusCodes.Status201Created, "Record created successfully.")]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
     public virtual async Task<Response<RsponseDto>> CreateAsync([FromBody] RequestDto entityDto, CancellationToken cancellationToken = default)
     {
         GuestSide.API.Extensions.ControllerBaseExtension.ValidateModel(this);
@@ -125,9 +116,6 @@ public class CSIControllerBase<RequestDto, RsponseDto, TKey, TDatabase> : Contro
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>The updated record.</returns>
     [HttpPut("{id:int}")]
-    [SwaggerOperation(Summary = "Update an existing record", Description = "Modifies the data of an existing record using its ID.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Record updated successfully.")]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
     public virtual async Task<Response<RsponseDto>> UpdateAsync([FromRoute] TKey id, [FromBody] RequestDto entityDto, CancellationToken cancellationToken = default)
     {
         if (entityDto == null)
@@ -150,9 +138,6 @@ public class CSIControllerBase<RequestDto, RsponseDto, TKey, TDatabase> : Contro
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A success or failure response.</returns>
     [HttpDelete("{id:int}")]
-    [SwaggerOperation(Summary = "Delete a record", Description = "Removes a record from the system using its unique identifier.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Record deleted successfully.")]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found or failed to delete.")]
     public virtual async Task<Response<RsponseDto>> DeleteAsync([FromRoute] TKey id, CancellationToken cancellationToken = default)
     {
         var deleteItem = await _serviceProvider.DeleteAsync(id, cancellationToken);
@@ -170,9 +155,6 @@ public class CSIControllerBase<RequestDto, RsponseDto, TKey, TDatabase> : Contro
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A success or failure response for bulk deletion.</returns>
     [HttpDelete("bulk")]
-    [SwaggerOperation(Summary = "Bulk delete records", Description = "Deletes multiple records in a single operation.")]
-    [SwaggerResponse(StatusCodes.Status204NoContent, "Entities deleted successfully.")]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data. Collection is empty or null.")]
     public virtual async Task<IActionResult> BulkDeleteAsync([FromBody] IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
     {
         GuestSide.API.Extensions.ControllerBaseExtension.ValidateModel(this);
@@ -194,9 +176,6 @@ public class CSIControllerBase<RequestDto, RsponseDto, TKey, TDatabase> : Contro
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A success or failure response for bulk update.</returns>
     [HttpPut("bulk")]
-    [SwaggerOperation(Summary = "Bulk update records", Description = "Updates multiple records in a single operation.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Entities updated successfully.")]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data. Collection is empty or null.")]
     public virtual async Task<IActionResult> BulkUpdateAsync([FromBody] IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
     {
         GuestSide.API.Extensions.ControllerBaseExtension.ValidateModel(this);
@@ -222,9 +201,6 @@ public class CSIControllerBase<RequestDto, RsponseDto, TKey, TDatabase> : Contro
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A success or failure response for bulk add.</returns>
     [HttpPost("bulk")]
-    [SwaggerOperation(Summary = "Bulk add records", Description = "Adds multiple records in a single operation.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Entities added successfully.")]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data. Collection is empty or null.")]
     public virtual async Task<IActionResult> BulkAddAsync([FromBody] IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
     {
         GuestSide.API.Extensions.ControllerBaseExtension.ValidateModel(this);
@@ -250,9 +226,6 @@ public class CSIControllerBase<RequestDto, RsponseDto, TKey, TDatabase> : Contro
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A success or failure response for soft deletion.</returns>
     [HttpPatch("soft-delete/{id:int}")]
-    [SwaggerOperation(Summary = "Soft delete a record", Description = "Marks a record as deleted without removing it from the database.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Record soft deleted successfully.")]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
     public virtual async Task<Response<RsponseDto>> SoftDeleteAsync([FromRoute] TKey id, CancellationToken cancellationToken = default)
     {
         var result = await _additionalFeatures.SoftDelete(id, cancellationToken);

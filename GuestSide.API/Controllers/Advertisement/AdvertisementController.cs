@@ -25,8 +25,8 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto,Adverti
    /// <returns></returns>
     [HttpGet]
     [SwaggerOperation(Summary = "Retrieve all records", Description = "Returns all records of the specified type.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.",typeof(Response<IEnumerable<AdvertismentResponseDto>>))]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+    [ProducesResponseType(typeof(Response<IEnumerable<AdvertismentResponseDto>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Response<string>), StatusCodes.Status404NotFound)]
     public override async Task<Response<IEnumerable<AdvertismentResponseDto>>> GetAllAsync(CancellationToken cancellationToken = default)
     {
        return await base.GetAllAsync(cancellationToken);
@@ -146,8 +146,8 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto,Adverti
     /// <returns>A success or failure response for soft deletion.</returns>
     [HttpPatch("soft-delete/{id:int}")]
     [SwaggerOperation(Summary = "Soft delete a record", Description = "Marks a record as deleted without removing it from the database.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Entities added successfully.", typeof(Response<AdvertismentResponseDto>))]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
+    [ProducesResponseType(typeof(Response<AdvertismentResponseDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Response<string>), StatusCodes.Status404NotFound)]
     public override async Task<Response<AdvertismentResponseDto>> SoftDeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
     {
        return await this.SoftDeleteAsync(id, cancellationToken);
