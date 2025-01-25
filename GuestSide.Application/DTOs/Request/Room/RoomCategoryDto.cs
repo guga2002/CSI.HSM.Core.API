@@ -7,6 +7,5 @@ namespace GuestSide.Application.DTOs.Request.Room
         public required string Name { get; set; }
         public string? Description { get; set; }
         public long LanguageId { get; set; }
-        public virtual LanguagePack? languagePack { get; set; }
     }
 }
