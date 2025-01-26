@@ -18,4 +18,6 @@ public class TaskDto
     public long CartId { get; set; }
 
     public long? OrderableItemId { get; set; }
+
+    public int Quantity { get; set; }
 }

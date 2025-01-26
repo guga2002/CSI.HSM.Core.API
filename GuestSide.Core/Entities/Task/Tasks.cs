@@ -36,5 +36,7 @@ public class Tasks : AbstractEntity
     [ForeignKey(nameof(OrderableItem))]
     public long? OrderableItemId { get; set; }
 
+    public int Quantity { get; set; }
+
     public virtual OrderableItem? OrderableItem { get; set; }
 }
