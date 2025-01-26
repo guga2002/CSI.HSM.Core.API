@@ -1,4 +1,5 @@
-﻿using GuestSide.Core.Entities.AbstractEntities;
+﻿using Core.Core.Entities.Item;
+using GuestSide.Core.Entities.AbstractEntities;
 using GuestSide.Core.Entities.Language;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,7 +15,8 @@ public class ItemCategory:AbstractEntity
     [ForeignKey(nameof(language))]
     public long LanguageId { get; set; }
     public virtual LanguagePack? language { get; set; }
-    public IEnumerable<Items>? Item { get; set; }
+    public virtual IEnumerable<Items>? Item { get; set; }
+    public virtual ItemCategoryToStaffCategory? ItemCategoryToStaffCategory { get; set; }
     public ItemCategory(string RobbotWords= "you choice is {0}, explore products, se  details, if  you would  like also  order  items")
     {
         WhatWillRobotSay = string.Format(RobbotWords,Name);

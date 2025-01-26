@@ -1,6 +1,5 @@
 ﻿using Core.Core.Interfaces.Audio;
 using Core.Core.Interfaces.Guest;
-using Core.Core.Interfaces.Item;
 using Core.Core.Interfaces.Language;
 using Core.Core.Interfaces.Restaurant;
 using Core.Core.Interfaces.Restaurant.Payment;
@@ -33,7 +32,6 @@ public interface IUniteOfWork
     public ICartRepository CartRepository { get; }
     public IItemCategoryRepository ItemCategoryRepository { get; }
     public IItemRepository ItemRepository { get; }
-    public IOrderableItemRepository OrderableItemRepository { get; }
     public ILanguagePackRepository LanguagePackRepository { get; }
 
     public ILogRepository LogRepository { get; }
@@ -56,7 +54,6 @@ public interface IUniteOfWork
     public IStaffCategoryRepository StaffCategoryRepository { get; }
     public IStaffRepository StaffRepository { get; }
     public ITaskToStaffRepository TaskToStaffRepository { get; }
-    public ITaskCategoryRepository TaskCategoryRepository { get; }
 
     public ITaskRepository TaskRepository { get; }
     public ITaskStatusRepository TaskStatusRepository { get; }

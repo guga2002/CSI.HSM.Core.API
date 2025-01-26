@@ -21,14 +21,12 @@ using Core.Application.Services.Restaurant.DI;
 using Core.Application.Services.Staff.Cart.DI;
 using Core.Application.Services.Staff.Category.DI;
 using Core.Application.Services.Staff.Staff.DI;
-using Core.Application.Services.Task.Category.DI;
 using Core.Application.Services.Task.Status.DI;
 using Core.Application.Services.Task.Task.DI;
 using Core.Core.Interfaces.AbstractInterface;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Core.Interfaces.UniteOfWork;
 using Core.Infrastructure.Repositories.UniteOfWork;
-using Core.Application.Services.Item.DI;
 using Core.Application.Services.Guest.Injection;
 using Core.Persistance.LoggingConfigs;
 using AuthorizationHelper.Injection.CommonServices;
@@ -156,13 +154,11 @@ builder.Services.InjectCartToStaff();
 builder.Services.InjectStaffCategory();
 builder.Services.InjectStaffs();
 
-builder.Services.InjectTaskCategory();
 builder.Services.InjectTaskStatus();
 builder.Services.InjectTasks();
 builder.Services.AddScoped<IUniteOfWork, UniteOfWorkRepository>();
 
 builder.Services.AddGuestActiveLanguage();
-builder.Services.InjectOrderableItem();
 
 builder.Services.InjectGuestStatus();
 

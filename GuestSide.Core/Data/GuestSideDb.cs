@@ -1,4 +1,5 @@
 ﻿using Core.Core.Entities.Guest;
+using Core.Core.Entities.Item;
 using Core.Core.Entities.Payment;
 using Core.Core.Entities.Restaurant;
 using GuestSide.Core.Entities.Advertisements;
@@ -37,7 +38,6 @@ public class GuestSideDb : DbContext
     public virtual DbSet<Status> GuestStatuses { get; set; }
     public virtual DbSet<Cart> Carts { get; set; }
     public virtual DbSet<Items> Items { get; set; }
-    public virtual DbSet<OrderableItem> OrderableItems { get; set; }
     public virtual DbSet<ItemCategory> ItemCategories { get; set; }
     public virtual DbSet<Logs> Logs { get; set; }
     public virtual DbSet<GuestNotification> GuestNotifications { get; set; }
@@ -48,7 +48,6 @@ public class GuestSideDb : DbContext
     public virtual DbSet<Rooms> Rooms { get; set; }
     public virtual DbSet<StaffCategory> StaffCategories { get; set; }
     public virtual DbSet<Staffs> Staffs { get; set; }
-    public virtual DbSet<TaskCategory> TaskCategories { get; set; }
     public virtual DbSet<Tasks> Tasks { get; set; }
     public virtual DbSet<TasksStatus> TaskStatuses { get; set; }
     public virtual DbSet<AudioResponse> AudioResponses { get; set; }
@@ -65,6 +64,8 @@ public class GuestSideDb : DbContext
     public virtual DbSet<RestaurantItemCategory> RestaurantItemCategories {  get; set; }
     public virtual DbSet<PaymentOption> PaymentOptions { get; set; }
     public virtual DbSet<RestaurantItemToCart> RestaurantItemToCarts { get; set; }
+    public virtual DbSet<TaskItem> TaskItems { get; set; }
+    public virtual DbSet<ItemCategoryToStaffCategory> ItemCategoryToStaffCategories { get; set; }
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -163,13 +164,7 @@ public class GuestSideDb : DbContext
        .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Items>()
-      .HasOne(l => l.language)
-      .WithMany()
-      .HasForeignKey(l => l.LanguageId)
-      .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<OrderableItem>()
-      .HasOne(l => l.language)
+      .HasOne(l => l.LanguagePack)
       .WithMany()
       .HasForeignKey(l => l.LanguageId)
       .OnDelete(DeleteBehavior.Restrict);
@@ -192,14 +187,8 @@ public class GuestSideDb : DbContext
       .HasForeignKey(l => l.LanguageId)
       .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<TaskCategory>()
-   .HasOne(l => l.languagePack)
-   .WithMany()
-   .HasForeignKey(l => l.LanguageId)
-   .OnDelete(DeleteBehavior.Restrict);
-
         modelBuilder.Entity<Tasks>()
-    .HasOne(l => l.languagePack)
+    .HasOne(l => l.LanguagePack)
     .WithMany()
     .HasForeignKey(l => l.LanguageId)
     .OnDelete(DeleteBehavior.Restrict);

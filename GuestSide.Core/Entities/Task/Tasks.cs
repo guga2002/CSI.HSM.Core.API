@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Core.Core.Entities.Item;
 using GuestSide.Core.Entities.AbstractEntities;
 using GuestSide.Core.Entities.Feedbacks;
 using GuestSide.Core.Entities.Item;
@@ -7,7 +8,7 @@ using GuestSide.Core.Entities.Language;
 
 namespace GuestSide.Core.Entities.Task;
 
-[Table("Tasks",Schema = "CSI")]
+[Table("Tasks", Schema = "CSI")]
 public class Tasks : AbstractEntity
 {
     public required string Title { get; set; }
@@ -15,28 +16,19 @@ public class Tasks : AbstractEntity
     public required string Description { get; set; }
 
     [DataType(DataType.Date)]
-    public DateTime CreatedDate { get; set; }
+    public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
-    [ForeignKey(nameof(languagePack))]
+    [ForeignKey(nameof(LanguagePack))]
     public long LanguageId { get; set; }
-    public virtual LanguagePack? languagePack { get; set; }
-
-    [ForeignKey(nameof(Category))]
-    public long CategoryId { get; set; }
-
-    public virtual TaskCategory? Category { get; set; }
+    public virtual LanguagePack? LanguagePack { get; set; }
 
     public virtual IEnumerable<Feedback>? Feedbacks { get; set; }
 
     [ForeignKey(nameof(Cart))]
     public long CartId { get; set; }
-
     public virtual Cart? Cart { get; set; }
 
-    [ForeignKey(nameof(OrderableItem))]
-    public long? OrderableItemId { get; set; }
+    public virtual ICollection<TaskItem> TaskItems { get; set; } = new List<TaskItem>();
 
-    public int Quantity { get; set; }
-
-    public virtual OrderableItem? OrderableItem { get; set; }
+    public string? Note { get; set; }
 }

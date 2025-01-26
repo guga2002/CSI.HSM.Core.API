@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GuestSide.Core.Entities.Staff;
 
 [Table("TaskToStaffs", Schema = "CSI")]
-public class TaskToStaff:AbstractEntity
+public class TaskToStaff : AbstractEntity
 {
     //date when the task is assigned to staff
     [DataType(DataType.Date)]
@@ -17,9 +17,9 @@ public class TaskToStaff:AbstractEntity
     public DateTime? EndDate { get; set; }
 
     [ForeignKey(nameof(Staff))]
-    public long StaffCategoryId {  get; set; }
+    public long StaffId { get; set; }
 
-    public StaffCategory Staff { get; set; }
+    public virtual Staffs Staff { get; set; }
 
     //carts status
 
@@ -33,5 +33,4 @@ public class TaskToStaff:AbstractEntity
     public long TaskId { get; set; }
 
     public Task.Tasks Task { get; set; }
-
 }

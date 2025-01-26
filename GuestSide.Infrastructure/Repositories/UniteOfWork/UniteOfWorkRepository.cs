@@ -1,6 +1,5 @@
 ﻿using Core.Core.Interfaces.Audio;
 using Core.Core.Interfaces.Guest;
-using Core.Core.Interfaces.Item;
 using Core.Core.Interfaces.Language;
 using Core.Core.Interfaces.Restaurant;
 using Core.Core.Interfaces.Restaurant.Payment;
@@ -47,8 +46,6 @@ public class UniteOfWorkRepository : IUniteOfWork
 
     public IItemRepository ItemRepository { get; }
 
-    public IOrderableItemRepository OrderableItemRepository { get; }
-
     public ILanguagePackRepository LanguagePackRepository { get; }
 
     public ILogRepository LogRepository { get; }
@@ -85,8 +82,6 @@ public class UniteOfWorkRepository : IUniteOfWork
 
     public ITaskToStaffRepository TaskToStaffRepository { get; }
 
-    public ITaskCategoryRepository TaskCategoryRepository { get; }
-
     public ITaskRepository TaskRepository { get; }
 
     public ITaskStatusRepository TaskStatusRepository { get; }
@@ -107,7 +102,6 @@ public class UniteOfWorkRepository : IUniteOfWork
      ICartRepository cartRepository,
      IItemCategoryRepository itemCategoryRepository,
      IItemRepository itemRepository,
-     IOrderableItemRepository orderableItemRepository,
      ILanguagePackRepository languagePackRepository,
      ILogRepository logRepository,
      IGuestNotificationRepository guestNotificationRepository,
@@ -126,7 +120,6 @@ public class UniteOfWorkRepository : IUniteOfWork
      IStaffCategoryRepository staffCategoryRepository,
      IStaffRepository staffRepository,
      ITaskToStaffRepository taskToStaffRepository,
-     ITaskCategoryRepository taskCategoryRepository,
      ITaskRepository taskRepository,
      ITaskStatusRepository taskStatusRepository,
      GuestSideDb Context
@@ -145,7 +138,6 @@ public class UniteOfWorkRepository : IUniteOfWork
         CartRepository = cartRepository;
         ItemCategoryRepository = itemCategoryRepository;
         ItemRepository = itemRepository;
-        OrderableItemRepository = orderableItemRepository;
         LanguagePackRepository = languagePackRepository;
         LogRepository = logRepository;
         GuestNotificationRepository = guestNotificationRepository;
@@ -164,7 +156,6 @@ public class UniteOfWorkRepository : IUniteOfWork
         StaffCategoryRepository = staffCategoryRepository;
         StaffRepository = staffRepository;
         TaskToStaffRepository = taskToStaffRepository;
-        TaskCategoryRepository = taskCategoryRepository;
         TaskRepository = taskRepository;
         TaskStatusRepository = taskStatusRepository;
         _context = Context;

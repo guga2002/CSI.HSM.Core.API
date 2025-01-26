@@ -55,4 +55,11 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interface\Task\Category\" />
+    <Folder Include="Services\Task\Category\DI\" />
+    <Folder Include="Services\Task\Category\Mapper\" />
+    <Folder Include="Services\Task\Category\Services\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Core.Core.Entities.Item;
 using GuestSide.Core.Entities.AbstractEntities;
 using GuestSide.Core.Entities.Language;
 
@@ -15,4 +16,6 @@ public class StaffCategory:AbstractEntity
     public virtual IEnumerable<Staffs>?Staff { get; set; }
 
     public virtual IEnumerable<TaskToStaff>? TaskToStaff { get; set; }
+
+    public virtual IEnumerable<ItemCategoryToStaffCategory> ItemCategoryToStaff { get; set;}
 }
