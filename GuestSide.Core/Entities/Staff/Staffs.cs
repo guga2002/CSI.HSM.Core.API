@@ -29,7 +29,7 @@ public class Staffs:AbstractEntity
 
     public virtual IEnumerable<StaffNotification>?StaffNotifications { get; set; }
 
-    public virtual IEnumerable<TaskToStaff>? TaskToStaff { get; set; }
+
  
 
 }

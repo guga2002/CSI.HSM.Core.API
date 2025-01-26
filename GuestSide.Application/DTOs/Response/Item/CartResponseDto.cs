@@ -1,4 +1,6 @@
-﻿namespace GuestSide.Application.DTOs.Response.Item;
+﻿using GuestSide.Application.DTOs.Request.Task;
+
+namespace GuestSide.Application.DTOs.Response.Item;
 
 public class CartResponseDto
 {
@@ -7,4 +9,6 @@ public class CartResponseDto
     public long GuestId { get; set; }
 
     public long LanguageId { get; set; }
+
+    public IEnumerable<TaskDto>
 }

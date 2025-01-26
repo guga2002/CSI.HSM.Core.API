@@ -13,4 +13,6 @@ public class StaffCategory:AbstractEntity
     public long LanguageId { get; set; }
     public virtual LanguagePack? languagePack { get; set; }
     public virtual IEnumerable<Staffs>?Staff { get; set; }
+
+    public virtual IEnumerable<TaskToStaff>? TaskToStaff { get; set; }
 }

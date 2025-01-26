@@ -17,9 +17,9 @@ public class TaskToStaff:AbstractEntity
     public DateTime? EndDate { get; set; }
 
     [ForeignKey(nameof(Staff))]
-    public long StaffId {  get; set; }
+    public long StaffCategoryId {  get; set; }
 
-    public Staffs Staff { get; set; }
+    public StaffCategory Staff { get; set; }
 
     //carts status
 

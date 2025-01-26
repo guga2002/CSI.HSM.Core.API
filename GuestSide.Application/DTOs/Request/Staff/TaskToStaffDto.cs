@@ -13,8 +13,7 @@ public class TaskToStaffDto
     [DataType(DataType.Date)]
     public DateTime? EndDate { get; set; }
 
-    [ForeignKey(nameof(Staff))]
-    public long StaffId { get; set; }
+    public long StaffCategoryId { get; set; }
 
     public long StatusId { get; set; }
 
