@@ -1,5 +1,6 @@
 ﻿using Core.Core.Interfaces.Audio;
 using Core.Core.Interfaces.Guest;
+using Core.Core.Interfaces.Item;
 using Core.Core.Interfaces.Language;
 using Core.Core.Interfaces.Restaurant;
 using Core.Core.Interfaces.Restaurant.Payment;
@@ -86,6 +87,10 @@ public class UniteOfWorkRepository : IUniteOfWork
 
     public ITaskStatusRepository TaskStatusRepository { get; }
 
+    public ITaskItem TaskItem { get; }
+
+    public IItemCategoryToStaffCategory ItemCategoryToStaffCategory { get; }
+
     private readonly GuestSideDb _context;
 
     public UniteOfWorkRepository(
@@ -122,6 +127,8 @@ public class UniteOfWorkRepository : IUniteOfWork
      ITaskToStaffRepository taskToStaffRepository,
      ITaskRepository taskRepository,
      ITaskStatusRepository taskStatusRepository,
+     ITaskItem taskItem,
+     IItemCategoryToStaffCategory itemCategoryToStaffCategory,
      GuestSideDb Context
  )
     {
@@ -158,6 +165,8 @@ public class UniteOfWorkRepository : IUniteOfWork
         TaskToStaffRepository = taskToStaffRepository;
         TaskRepository = taskRepository;
         TaskStatusRepository = taskStatusRepository;
+        TaskItem = taskItem;
+        ItemCategoryToStaffCategory = itemCategoryToStaffCategory;
         _context = Context;
     }
 
