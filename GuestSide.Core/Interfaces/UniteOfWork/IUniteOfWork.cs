@@ -1,5 +1,6 @@
 ﻿using Core.Core.Interfaces.Audio;
 using Core.Core.Interfaces.Guest;
+using Core.Core.Interfaces.Item;
 using Core.Core.Interfaces.Language;
 using Core.Core.Interfaces.Restaurant;
 using Core.Core.Interfaces.Restaurant.Payment;
@@ -18,7 +19,7 @@ namespace Core.Core.Interfaces.UniteOfWork;
 
 public interface IUniteOfWork
 {
-    public IAdvertisementRepository AdvertisementRepository{ get;}
+    public IAdvertisementRepository AdvertisementRepository { get; }
     public IAdvertisementTypeRepository AdvertisementTypeRepository { get; }
     public IAudioResponseCategoryRepository AudioResponseCategoryRepository { get; }
     public IAudioResponseRepository AudioResponseRepository { get; }
@@ -57,6 +58,10 @@ public interface IUniteOfWork
 
     public ITaskRepository TaskRepository { get; }
     public ITaskStatusRepository TaskStatusRepository { get; }
+
+    public ITaskItem TaskItem { get; }
+
+    public IItemCategoryToStaffCategory ItemCategoryToStaffCategory { get; }
 
     Task Savechanges(bool Track = false);
 
