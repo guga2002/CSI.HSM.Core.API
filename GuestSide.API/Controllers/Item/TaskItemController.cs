@@ -27,7 +27,11 @@ public class TaskItemController : CSIControllerBase<TaskItemDto, TaskItemRespons
         _serviceProvider = service;
     }
 
-    public async Task<Response<IEnumerable<TaskItemResponseDto>>> GetTaskItemsByCartId(long CartId)
+    [HttpGet(nameof(GetTaskItemsByCartId))]
+    [SwaggerOperation(Summary = "Retrieve all TaskItem by cartId", Description = "Returns all TaskItem records.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<TaskItemResponseDto>>))]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+    public async Task<Response<IEnumerable<TaskItemResponseDto>>> GetTaskItemsByCartId([FromQuery]long CartId)
     {
         var res=await _serviceProvider.GetTaskItemsByCartId(CartId);
         
