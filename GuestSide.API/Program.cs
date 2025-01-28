@@ -31,6 +31,7 @@ using Core.Application.Services.Guest.Injection;
 using Core.Persistance.LoggingConfigs;
 using AuthorizationHelper.Injection.CommonServices;
 using Core.Application.Services.Audio.Injection;
+using Core.Application.Services.Item.DI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -122,7 +123,6 @@ builder.Services.AddSwaggerGen(c =>
     builder.Services.InjectHotel();
     builder.Services.InjectLocation();
 
-    builder.Services.InjectCart();
     builder.Services.InjectItemCategory();
     builder.Services.InjectItem();
 
@@ -133,6 +133,8 @@ builder.Services.AddSwaggerGen(c =>
     builder.Services.InjectNotification();
     builder.Services.InjectGuestNotification();
     builder.Services.InjectStaffNotification();
+
+builder.Services.InjectItemCategoryToStaffCategory();
 
     builder.Services.InjectPaymentOption();
 
@@ -153,6 +155,10 @@ builder.Services.InjectCartToStaff();
 
 builder.Services.InjectStaffCategory();
 builder.Services.InjectStaffs();
+
+builder.Services.InjectTaskItem();
+
+builder.Services.InjectCart();
 
 builder.Services.InjectTaskStatus();
 builder.Services.InjectTasks();

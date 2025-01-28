@@ -16,7 +16,7 @@ namespace Core.Application.Services.Item.DI;
 
 public static class TaskItemDI
 {
-    public static void InjectCart(this IServiceCollection services)
+    public static void InjectTaskItem(this IServiceCollection services)
     {
         services.AddScoped<IGenericRepository<TaskItem>, TaskItemRepository>();
         services.AddScoped<ITaskItem, TaskItemRepository>();

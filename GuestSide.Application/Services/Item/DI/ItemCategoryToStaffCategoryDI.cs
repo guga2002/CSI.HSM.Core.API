@@ -16,7 +16,7 @@ namespace Core.Application.Services.Item.DI;
 
 public static class ItemCategoryToStaffCategoryDI
 {
-    public static void InjectCart(this IServiceCollection services)
+    public static void InjectItemCategoryToStaffCategory(this IServiceCollection services)
     {
         services.AddScoped<IGenericRepository<ItemCategoryToStaffCategory>, ItemCategoryToStaffCategoryRepository>();
         services.AddScoped<IItemCategoryToStaffCategory, ItemCategoryToStaffCategoryRepository>();
