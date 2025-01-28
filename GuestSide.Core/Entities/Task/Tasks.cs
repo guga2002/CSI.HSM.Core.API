@@ -31,4 +31,6 @@ public class Tasks : AbstractEntity
     public virtual ICollection<TaskItem> TaskItems { get; set; } = new List<TaskItem>();
 
     public string? Note { get; set; }
+
+    public decimal Total => TaskItems.Sum(io => io.Item.Price * io.Quantity) ?? 0;
 }

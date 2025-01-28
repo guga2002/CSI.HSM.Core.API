@@ -24,6 +24,8 @@ public class Cart : AbstractEntity
     public long LanguageId { get; set; }
     public virtual LanguagePack? language { get; set; }
 
+    public decimal SubTotal=>Tasks?.Sum(x=>x.Total)??0;
+
     public Cart(string PatternWhatWillwobotSay = "HI {0}, you inicialize card,  happy  shopping")
     {
         WhatWillRobotSay = string.Format(PatternWhatWillwobotSay, guest?.FirstName+" "+guest?.LastName);

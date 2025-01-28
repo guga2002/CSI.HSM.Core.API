@@ -9,6 +9,8 @@ public class CartResponseDto
     public long GuestId { get; set; }
 
     public long LanguageId { get; set; }
+
+    public decimal SubTotal { get; set; }
     public IEnumerable<TaskDto> Tasks { get; set; }
 }
 

@@ -8,7 +8,9 @@ public class ItemDto
 
     public string? Information { get; set; }
 
-    public string? WhatWillRobotSay { get; set; }
+    public bool IsOrderable { get; set; }
+
+    public decimal? Price { get; set; }
 
     public long ItemCategoryId { get; set; }
 

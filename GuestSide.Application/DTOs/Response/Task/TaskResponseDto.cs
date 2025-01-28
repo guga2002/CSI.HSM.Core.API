@@ -22,4 +22,6 @@ public class TaskResponseDto
     public long? OrderableItemId { get; set; }
 
     public int Quantity { get; set; }
+
+    public decimal Total { get; set; }
 }
