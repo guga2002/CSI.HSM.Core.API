@@ -10,9 +10,6 @@ public class TaskToStaffDto
     [DataType(DataType.Date)]
     public DateTime? StartDate { get; set; }
 
-    [DataType(DataType.Date)]
-    public DateTime? EndDate { get; set; }
-
     public long StaffCategoryId { get; set; }
 
     public long StatusId { get; set; }

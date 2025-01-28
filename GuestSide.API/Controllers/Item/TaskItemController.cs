@@ -2,9 +2,11 @@
 using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Response.Item;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.Item;
 using Core.Core.Entities.Item;
 using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
+using GuestSide.Application.Interface.Task.Task;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -14,12 +16,29 @@ namespace Core.API.Controllers.Item;
 [ApiController]
 public class TaskItemController : CSIControllerBase<TaskItemDto, TaskItemResponseDto, long, TaskItem>
 {
+
+    private readonly ITaskItemService _serviceProvider;
     public TaskItemController(IService<TaskItemDto,
         TaskItemResponseDto, long, TaskItem> serviceProvider,
-        IAdditionalFeatures<TaskItemDto, TaskItemResponseDto, long, TaskItem> additionalFeatures) 
+        IAdditionalFeatures<TaskItemDto, TaskItemResponseDto, long, TaskItem> additionalFeatures,
+        ITaskItemService service) 
         : base(serviceProvider, additionalFeatures)
     {
+        _serviceProvider = service;
     }
+
+    public async Task<Response<IEnumerable<TaskItemResponseDto>>> GetTaskItemsByCartId(long CartId)
+    {
+        var res=await _serviceProvider.GetTaskItemsByCartId(CartId);
+        
+        if(res.Count() > 0)
+        {
+            Response<IEnumerable<TaskItemResponseDto>>.SuccessResponse(res, "Successfullly  retrieved");
+        }
+
+        return Response<IEnumerable<TaskItemResponseDto>>.ErrorResponse("No data found");
+    }
+
 
     [HttpGet]
     [SwaggerOperation(Summary = "Retrieve all TaskItem records", Description = "Returns all TaskItem records.")]

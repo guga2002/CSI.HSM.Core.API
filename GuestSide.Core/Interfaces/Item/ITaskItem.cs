@@ -5,5 +5,5 @@ namespace Core.Core.Interfaces.Item;
 
 public interface ITaskItem:IGenericRepository<TaskItem>
 {
-
+    Task<IEnumerable<TaskItem>> GetTaskItemsByCartId(long CartId);
 }

@@ -11,9 +11,9 @@ namespace GuestSide.API.Controllers.Staff
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TaskToCartController : CSIControllerBase<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>
+    public class TaskToStaffController : CSIControllerBase<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>
     {
-        public TaskToCartController(
+        public TaskToStaffController(
             IService<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff> serviceProvider,
             IAdditionalFeatures<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff> additionalFeatures)
             : base(serviceProvider, additionalFeatures)
