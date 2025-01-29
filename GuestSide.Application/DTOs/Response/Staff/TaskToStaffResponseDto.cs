@@ -4,8 +4,6 @@ namespace GuestSide.Application.DTOs.Response.Staff;
 
 public class TaskToStaffResponseDto
 {
-    public long Id { get; set; }
-
     //date when the task is assigned to staff
     [DataType(DataType.Date)]
     public DateTime? StartDate { get; set; }
@@ -14,8 +12,9 @@ public class TaskToStaffResponseDto
     [DataType(DataType.Date)]
     public DateTime? EndDate { get; set; }
 
-    public long StaffCategoryId { get; set; }
+    public long StaffId { get; set; }
 
+    //carts status
     public long StatusId { get; set; }
 
     public long TaskId { get; set; }
