@@ -21,5 +21,7 @@ public class ItemResponseDto
 
     public long ItemCategoryId { get; set; }
 
+    public virtual ItemCategoryResponseDto? ItemCategory { get; set; }
+
     public long LanguageId { get; set; }
 }
