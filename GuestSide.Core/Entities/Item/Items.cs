@@ -22,6 +22,8 @@ public class Items : AbstractEntity
 
     public decimal? Price { get; set; }
 
+    public int Quantity { get; set; } //refer to  quantity of item in stock
+
     public string? WhatWillRobotSay { get; set; }
 
     [ForeignKey(nameof(ItemCategory))]

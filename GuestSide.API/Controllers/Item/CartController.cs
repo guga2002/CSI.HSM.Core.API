@@ -3,6 +3,8 @@ using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Request.Item;
 using GuestSide.Application.DTOs.Response.Item;
+using GuestSide.Application.Interface.Item;
+using GuestSide.Application.Services.Item.DI;
 using GuestSide.Core.Entities.Item;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,12 +15,97 @@ namespace GuestSide.API.Controllers.Item;
 [ApiController]
 public class CartController : CSIControllerBase<CartDto, CartResponseDto, long, Cart>
 {
+
+    private readonly ICartService _cartService;
+
     public CartController(
         IService<CartDto, CartResponseDto, long, Cart> serviceProvider,
-        IAdditionalFeatures<CartDto, CartResponseDto, long, Cart> additionalFeatures)
+        IAdditionalFeatures<CartDto, CartResponseDto, long, Cart> additionalFeatures,
+        ICartService cartService)
         : base(serviceProvider, additionalFeatures)
     {
+        _cartService = cartService;
     }
+
+    [HttpDelete("clearCart/{cartId:long}")]
+    [SwaggerOperation(Summary = "Clear current cart", Description = "return boolean if  cart clear")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(bool))]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+    public async Task<Response<bool>> ClearCart(long cartId)
+    {
+        var res=await _cartService.ClearCart(cartId);
+
+        if(res)
+        {
+            return Response<bool>.SuccessResponse(true);
+        }
+
+        return Response<bool>.ErrorResponse("Error while clear  cart");
+    }
+
+    [HttpGet("cartsummary/{cartId:long}")]
+    [SwaggerOperation(Summary = "Get cart Summary", Description = "Return  cart which is cleared!")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<CartResponseDto>))]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+    public async Task<Response<CartResponseDto>> CartSymmary(long cartId)
+    {
+        var res = await _cartService.CartSymmary(cartId);
+
+        if (res is not null)
+        {
+            return Response<CartResponseDto>.SuccessResponse(res);
+        }
+
+        return Response<CartResponseDto>.ErrorResponse("No data found");
+    }
+
+
+
+    [HttpDelete("RemoveItemFromCart/{cartId:long}/{itemId:long}")]
+    [SwaggerOperation(Summary = "Remove item from cart", Description = "return updated cart")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<CartResponseDto>))]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+    public async Task<Response<CartResponseDto>> RemoveItemFromCart(long cartId, long itemId)
+    {
+        var res = await _cartService.RemoveItemFromCart(cartId,itemId);
+
+        if (res is not null)
+        {
+            return Response<CartResponseDto>.SuccessResponse(res);
+        }
+
+        return Response<CartResponseDto>.ErrorResponse("No data found");
+    }
+
+    [HttpGet("ValidateCartItemsAvailability/{cartId:long}")]
+    [SwaggerOperation(Summary = "Validate  cart items avalibility", Description = "return items which is exceptional, if any")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<List<ItemResponseDto>>))]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+    public async Task<Response<List<ItemResponseDto>>> ValidateCartItemsAvailability(long cartId)
+    {
+        var res = await _cartService.ValidateCartItemsAvailability(cartId);
+
+        if (res is not null)
+        {
+            return Response<List<ItemResponseDto>>.SuccessResponse(res);
+        }
+
+        return Response<List<ItemResponseDto>>.ErrorResponse("No data found");
+    }
+
+    [HttpGet("ValidateCartItemsAvailability/{cartId:long}/{itemId:long}/{newQuantity:int}")]
+    public async Task<Response<CartResponseDto>> UpdateItemQuantityInCart(long cartId, long itemId, int newQuantity)
+    {
+        var res = await _cartService.UpdateItemQuantityInCart(cartId,itemId,newQuantity);
+
+        if (res is not null)
+        {
+            return Response<CartResponseDto>.SuccessResponse(res);
+        }
+
+        return Response<CartResponseDto>.ErrorResponse("No data found");
+    }
+
 
     [HttpGet]
     [SwaggerOperation(Summary = "Retrieve all Cart records", Description = "Returns all cart records.")]

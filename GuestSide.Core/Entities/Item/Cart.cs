@@ -18,7 +18,7 @@ public class Cart : AbstractEntity
 
     public virtual Guests? guest { get; set; }
 
-    public virtual IEnumerable<Tasks>? Tasks { get; set; }
+    public virtual IEnumerable<Tasks> Tasks { get; set; }
 
     [ForeignKey(nameof(language))]
     public long LanguageId { get; set; }

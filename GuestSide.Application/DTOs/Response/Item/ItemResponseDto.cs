@@ -17,6 +17,8 @@ public class ItemResponseDto
 
     public decimal? Price { get; set; }
 
+    public int? Quantity { get; set; }
+
     public long ItemCategoryId { get; set; }
 
     public long LanguageId { get; set; }
