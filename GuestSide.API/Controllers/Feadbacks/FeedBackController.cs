@@ -3,6 +3,7 @@ using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Request.FeedBacks;
 using GuestSide.Application.DTOs.Response.FeedBacks;
+using GuestSide.Application.Interface.Feadback;
 using GuestSide.Core.Entities.Feedbacks;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +14,28 @@ namespace GuestSide.API.Controllers.Feadbacks
     [Route("api/[controller]")]
     public class FeedBackController : CSIControllerBase<FeedbackDto, FeedbackResponseDto, long, Feedback>
     {
+        private readonly IFeadbackService _feadbackService;
         public FeedBackController(
             IService<FeedbackDto, FeedbackResponseDto, long, Feedback> serviceProvider,
-            IAdditionalFeatures<FeedbackDto, FeedbackResponseDto, long, Feedback> additionalFeatures)
+            IAdditionalFeatures<FeedbackDto, FeedbackResponseDto, long, Feedback> additionalFeatures,
+            IFeadbackService feadbackService)
             : base(serviceProvider, additionalFeatures)
         {
+            _feadbackService = feadbackService;
+        }
+
+        [HttpGet("GuestAllFeedback/{guestId:long}")]
+        [SwaggerOperation(Summary = "retrieve guest feedbacks", Description = "Returns all feedbacks related to guest records.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<List<FeedbackResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+        public async Task<Response<List<FeedbackResponseDto>>> GetallFeadbackForguest(long guestId)
+        {
+            var res=await _feadbackService.GetallFeadbackForguest(guestId);
+            if (res is not null)
+            {
+                return Response<List<FeedbackResponseDto>>.SuccessResponse(res);
+            }
+            return Response<List<FeedbackResponseDto>>.ErrorResponse("no data found");
         }
 
         [HttpGet]

@@ -8,5 +8,5 @@ namespace GuestSide.Application.Interface.Feadback;
 public interface IFeadbackService:IService<FeedbackDto, FeedbackResponseDto, long, Feedback>,
     IAdditionalFeatures<FeedbackDto, FeedbackResponseDto, long, Feedback>
 {
-  
+    Task<List<FeedbackResponseDto>> GetallFeadbackForguest(long guestId);
 }
