@@ -1,8 +1,11 @@
-﻿using Core.Application.Interface.GenericContracts;
+﻿using System.Threading;
+using Core.Application.Interface.GenericContracts;
 using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Request.Notification;
 using GuestSide.Application.DTOs.Response.Notification;
+using GuestSide.Application.Interface.Notification;
+using GuestSide.Application.Services.Notification.DI;
 using GuestSide.Core.Entities.Notification;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +16,45 @@ namespace GuestSide.API.Controllers.Notification
     [ApiController]
     public class GuestNotificationController : CSIControllerBase<GuestNotificationDto, GuestNotificationResponseDto, long, GuestNotification>
     {
+        private readonly IGuestNotificationService _guestNotificationService;
+
         public GuestNotificationController(
             IService<GuestNotificationDto, GuestNotificationResponseDto, long, GuestNotification> serviceProvider,
-            IAdditionalFeatures<GuestNotificationDto, GuestNotificationResponseDto, long, GuestNotification> additionalFeatures)
+            IAdditionalFeatures<GuestNotificationDto, GuestNotificationResponseDto, long, GuestNotification> additionalFeatures,
+            IGuestNotificationService guestNotificationService)
             : base(serviceProvider, additionalFeatures)
         {
+            _guestNotificationService = guestNotificationService;
+        }
+
+        [HttpGet("MarkGuestNotificationAsRead/{GuestId:long}/{NotificationId:long}")]
+        [SwaggerOperation(Summary = "Mark notification as read", Description = "return  update notification")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<GuestNotificationResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+        public async Task<Response<GuestNotificationResponseDto>> MarkGuestNotificationAsRead(long GuestId, long NotificationId, [FromQuery]bool unread = false)
+        {
+          var res=await _guestNotificationService.MarkGuestNotificationAsRead(GuestId, NotificationId, unread);
+            if(res is not null)
+            {
+                return Response< GuestNotificationResponseDto>.SuccessResponse(res);
+            }
+
+            return Response<GuestNotificationResponseDto>.ErrorResponse("error while prioccessing mark notification as unread/Read");
+        }
+
+        [HttpGet("GetNotificationsByGuestId/{GuestId:long}")]
+        [SwaggerOperation(Summary = "Get nortifications", Description = "by guest Id")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<GuestNotificationResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+        public async Task<Response<IEnumerable<GuestNotificationResponseDto>>> GetNotificationsByGuestId(long GuestId)
+        {
+            var res = await _guestNotificationService.GetNotificationsByGuestId(GuestId);
+            if (res is not null)
+            {
+                return Response<IEnumerable<GuestNotificationResponseDto>>.SuccessResponse(res);
+            }
+
+            return Response<IEnumerable<GuestNotificationResponseDto>>.ErrorResponse("error while fetch Notitfcations");
         }
 
         [HttpGet]

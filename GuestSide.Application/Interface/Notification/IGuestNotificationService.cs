@@ -8,4 +8,6 @@ namespace GuestSide.Application.Interface.Notification;
 public interface IGuestNotificationService:IService<GuestNotificationDto,GuestNotificationResponseDto,long,GuestNotification>,
     IAdditionalFeatures<GuestNotificationDto, GuestNotificationResponseDto, long, GuestNotification>
 {
+    Task<GuestNotificationResponseDto> MarkGuestNotificationAsRead(long GuestId, long NotificationId, bool unread = false);
+    Task<IEnumerable<GuestNotificationResponseDto>> GetNotificationsByGuestId(long GuestId);
 }

@@ -15,7 +15,7 @@ public class Notifications:AbstractEntity
 
     public DateTime NotificationDate { get; set; }
 
-    public bool IsRead { get; set; } = false;//will change after sent//do not give a fuck,  reciever  get it or not
+    public bool IsSent { get; set; } = false;
 
     [ForeignKey(nameof(languagePack))]
     public long LanguageId { get; set; }

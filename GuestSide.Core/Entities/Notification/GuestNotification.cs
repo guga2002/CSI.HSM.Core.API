@@ -15,4 +15,8 @@ public class GuestNotification:AbstractEntity
     [ForeignKey(nameof(Notifications))]
     public long NotificationId { get; set; }
     public Notifications Notifications { get; set; }
+
+    public bool IsRead { get; set; } = false;
+
+    public DateTime SentTime { get; set; }
 }
