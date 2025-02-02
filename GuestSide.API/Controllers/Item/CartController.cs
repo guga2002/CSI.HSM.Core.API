@@ -93,6 +93,23 @@ public class CartController : CSIControllerBase<CartDto, CartResponseDto, long, 
         return Response<List<ItemResponseDto>>.ErrorResponse("No data found");
     }
 
+   
+    [HttpGet("GetCartByGuestId/{guestId:long}")]
+    [SwaggerOperation(Summary = "Get Carts For Guest Id", Description = "return carts for guest by status")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<CartResponseDto>>))]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+    public async Task<Response<IEnumerable<CartResponseDto>>> GetCartsByGuestId(long guestId, bool status)
+    {
+        var res = await _cartService.GetCartsByGuestId(guestId,status);
+
+        if (res is not null)
+        {
+            return Response<IEnumerable<CartResponseDto>>.SuccessResponse(res);
+        }
+
+        return Response<IEnumerable<CartResponseDto>>.ErrorResponse("No data found");
+    }
+
     [HttpGet("UpdateItemQuantityInCart/{cartId:long}/{itemId:long}/{newQuantity:int}")]
     [SwaggerOperation(Summary = "Update Item Quantity In Cart", Description = "return Cart Response Dto")]
     [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<CartResponseDto>))]

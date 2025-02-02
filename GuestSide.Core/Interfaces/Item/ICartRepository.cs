@@ -10,6 +10,7 @@ namespace GuestSide.Core.Interfaces.Item
         Task<Cart> RemoveItemFromCart(long cartId, long itemId);
         Task<List<Items>> ValidateCartItemsAvailability(long cartId);
         Task<Cart> UpdateItemQuantityInCart(long cartId, long itemId, int newQuantity);
+        Task<IEnumerable<Cart>> GetCartByGuestId(long guestId, bool status);
         //add another method
     }
 }

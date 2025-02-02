@@ -151,6 +151,11 @@ namespace GuestSide.Infrastructure.Repositories.Item
             return exceptionalItems;
         }
 
-
+        public async Task<IEnumerable<Cart>> GetCartByGuestId(long guestId, bool status)
+        {
+            var carts = await DbSet.Include(c => c.Tasks)
+                .ThenInclude(c => c.TaskItems).Where(guest => guest.GuestId == guestId && guest.IsActive == status).ToListAsync();
+            return carts ?? new List<Cart>();
+        }
     }
 }

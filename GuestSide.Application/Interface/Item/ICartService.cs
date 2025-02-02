@@ -14,4 +14,5 @@ public interface ICartService:IService<CartDto,CartResponseDto,long,Cart>,
     Task<CartResponseDto> RemoveItemFromCart(long cartId, long itemId);
     Task<List<ItemResponseDto>> ValidateCartItemsAvailability(long cartId);
     Task<CartResponseDto> UpdateItemQuantityInCart(long cartId, long itemId, int newQuantity);
+    Task<IEnumerable<CartResponseDto>> GetCartsByGuestId(long guestId, bool status);
 }

@@ -42,6 +42,16 @@ public class CartService : GenericService<CartDto, CartResponseDto, long, Cart>,
        return await _cartRepository.ClearCart(cartId);
     }
 
+    public async Task<IEnumerable<CartResponseDto>> GetCartsByGuestId(long guestId, bool status)
+    {
+        var res = await _cartRepository.GetCartByGuestId(guestId, status);
+        if (res is not null)
+        {
+            return _map.Map<IEnumerable<CartResponseDto>>(res);
+        }
+        throw new NotFoundException("Data not found for that guestId");
+    }
+
     public async Task<CartResponseDto> RemoveItemFromCart(long cartId, long itemId)//todo:add validation
     {
         var res = await _cartRepository.RemoveItemFromCart(cartId, itemId);
