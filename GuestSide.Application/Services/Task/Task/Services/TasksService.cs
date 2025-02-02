@@ -21,10 +21,10 @@ namespace Core.Application.Services.Task.Task.Services
             map = mapper;
         }
 
-        public async Task<TaskResponseDto> GetTaskbycartId(long CartId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<TaskResponseDto>> GetTasksbycartId(long CartId, CancellationToken cancellationToken = default)
         {
             var result = await tasks.GetByIdAsync(CartId, cancellationToken);
-            var mapped = map.Map<TaskResponseDto>(result);
+            var mapped = map.Map<IEnumerable<TaskResponseDto>>(result);
             return mapped;
         }
     }

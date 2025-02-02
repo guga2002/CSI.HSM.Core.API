@@ -8,5 +8,5 @@ namespace GuestSide.Application.Interface.Task.Task;
 public interface ITaskService : IService<TaskDto,TaskResponseDto, long, Tasks>,
     IAdditionalFeatures<TaskDto, TaskResponseDto, long, Tasks>
 {
-    Task<TaskResponseDto> GetTaskbycartId(long CartId, CancellationToken cancellationToken = default);
+    Task<IEnumerable<TaskResponseDto>> GetTasksbycartId(long CartId, CancellationToken cancellationToken = default);
 }

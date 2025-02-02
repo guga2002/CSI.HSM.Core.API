@@ -5,6 +5,6 @@ namespace GuestSide.Core.Interfaces.Task
 {
     public interface ITaskRepository:IGenericRepository<Tasks>
     {
-        Task<Tasks> GetTaskbycartId(long CartId,CancellationToken cancellationToken = default);
+        Task<IEnumerable<Tasks>> GetTasksbycartId(long CartId,CancellationToken cancellationToken = default);
     }
 }

@@ -15,9 +15,10 @@ namespace GuestSide.Infrastructure.Repositories.Task
         {
         }
 
-        public async Task<Tasks> GetTaskbycartId(long CartId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Tasks>> GetTasksbycartId(long CartId, CancellationToken cancellationToken = default)
         {
-            return await Context.Tasks.Where(io => io.CartId == CartId).FirstOrDefaultAsync()??throw new ArgumentException("No  item found on  this card");
+            return await Context.Tasks.Where(io => io.CartId == CartId).ToListAsync() 
+                ?? throw new ArgumentException("No  item found on  this card");
         }
     }
 }
