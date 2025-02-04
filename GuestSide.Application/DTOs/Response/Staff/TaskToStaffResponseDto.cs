@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GuestSide.Application.DTOs.Response.Task;
+using System.ComponentModel.DataAnnotations;
 
 namespace GuestSide.Application.DTOs.Response.Staff;
 
@@ -18,4 +19,6 @@ public class TaskToStaffResponseDto
     public long StatusId { get; set; }
 
     public long TaskId { get; set; }
+
+    public TaskStatusResponseDto Status { get; set; }
 }

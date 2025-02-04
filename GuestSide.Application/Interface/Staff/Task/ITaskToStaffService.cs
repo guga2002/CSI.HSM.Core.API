@@ -8,4 +8,5 @@ namespace GuestSide.Application.Interface.Staff.Cart;
 public  interface ITaskToStaffService : IService<TaskToStaffDto,TaskToStaffResponseDto,long,TaskToStaff>,
     IAdditionalFeatures<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>
 {
+    Task<TaskToStaffResponseDto> GetByTaskId(long taskId);
 }

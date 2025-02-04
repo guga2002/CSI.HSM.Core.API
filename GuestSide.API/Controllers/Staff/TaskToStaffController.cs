@@ -3,6 +3,7 @@ using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Request.Staff;
 using GuestSide.Application.DTOs.Response.Staff;
+using GuestSide.Application.Interface.Staff.Cart;
 using GuestSide.Core.Entities.Staff;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +14,14 @@ namespace GuestSide.API.Controllers.Staff
     [ApiController]
     public class TaskToStaffController : CSIControllerBase<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>
     {
+        private readonly ITaskToStaffService _taskToStaffService;
+
         public TaskToStaffController(
             IService<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff> serviceProvider,
-            IAdditionalFeatures<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff> additionalFeatures)
+            IAdditionalFeatures<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff> additionalFeatures, ITaskToStaffService taskToStaffService)
             : base(serviceProvider, additionalFeatures)
         {
+            _taskToStaffService = taskToStaffService;
         }
 
         [HttpGet]
@@ -36,6 +40,18 @@ namespace GuestSide.API.Controllers.Staff
         public override async Task<Response<TaskToStaffResponseDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return await base.GetByIdAsync(id, cancellationToken);
+        }
+
+        [HttpGet("{taskId: long}")]
+        [SwaggerOperation(Summary = "Retrieve a Task assigned to Staff by taskId", Description = "Fetches a specific task-to-staff record by task ID.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Record retrieved successfully.", typeof(Response<TaskToStaffResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
+        public async Task<Response<TaskToStaffResponseDto>> GetByTaskId(long taskId)
+        {
+            var res =  await _taskToStaffService.GetByTaskId(taskId);
+            if (res == null) return Response<TaskToStaffResponseDto>.ErrorResponse("No data found");
+            
+            return Response<TaskToStaffResponseDto>.SuccessResponse(res);
         }
 
         [HttpPost]
