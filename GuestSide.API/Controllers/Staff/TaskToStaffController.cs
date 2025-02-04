@@ -42,11 +42,11 @@ namespace GuestSide.API.Controllers.Staff
             return await base.GetByIdAsync(id, cancellationToken);
         }
 
-        [HttpGet("{taskId: long}")]
+        [HttpGet("{taskId:long}")]
         [SwaggerOperation(Summary = "Retrieve a Task assigned to Staff by taskId", Description = "Fetches a specific task-to-staff record by task ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Record retrieved successfully.", typeof(Response<TaskToStaffResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
-        public async Task<Response<TaskToStaffResponseDto>> GetByTaskId(long taskId)
+        public async Task<Response<TaskToStaffResponseDto>> GetByTaskId([FromRoute]long taskId)
         {
             var res =  await _taskToStaffService.GetByTaskId(taskId);
             if (res == null) return Response<TaskToStaffResponseDto>.ErrorResponse("No data found");
