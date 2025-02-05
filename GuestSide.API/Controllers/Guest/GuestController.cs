@@ -3,6 +3,8 @@ using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Request.Guest;
 using GuestSide.Application.DTOs.Response.Guest;
+using GuestSide.Application.DTOs.Response.Room;
+using GuestSide.Application.Interface.Guest;
 using GuestSide.Core.Entities.Guest;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,9 +15,27 @@ namespace GuestSide.API.Controllers.Guest
     [Route("api/[controller]")]
     public class GuestController : CSIControllerBase<GuestDto, GuestResponseDto, long, Guests>
     {
-        public GuestController(IService<GuestDto, GuestResponseDto, long, Guests> serviceProvider, IAdditionalFeatures<GuestDto, GuestResponseDto, long, Guests> additionalFeatures)
+        private readonly IGuestService _guestService;
+        public GuestController(IService<GuestDto, GuestResponseDto, long, Guests> serviceProvider, IAdditionalFeatures<GuestDto, GuestResponseDto, long, Guests> additionalFeatures,
+            IGuestService ser)
             : base(serviceProvider, additionalFeatures)
         {
+            _guestService = ser;
+        }
+
+        [HttpGet("RoomByGuestId/{GuestId:long}")]
+        [SwaggerOperation(Summary = "retrive guest room", Description = "Returns guest room")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<RoomsResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+        public async Task<Response<RoomsResponseDto>> GetRoomByGuestId(long GuestId)
+        {
+            var res = await _guestService.GetRoomByGuestId(GuestId);
+
+            if (res is not null)
+            {
+                return Response<RoomsResponseDto>.SuccessResponse(res);
+            }
+            return Response<RoomsResponseDto>.ErrorResponse("no data exist!");
         }
 
         [HttpGet]

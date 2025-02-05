@@ -28,5 +28,6 @@ namespace GuestSide.Infrastructure.Repositories.Room
 
             return res;
         }
+
     }
 }
