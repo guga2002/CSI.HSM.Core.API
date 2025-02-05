@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using GuestSide.Application.DTOs.Response.Room;
+using GuestSide.Core.Entities.Room;
 
 namespace GuestSide.Application.DTOs.Response.Guest;
 
@@ -45,4 +47,6 @@ public class GuestResponseDto
     public string? Preferences { get; set; }
 
     public long LanguageId { get; set; }
+
+    public virtual RoomsResponseDto? Room { get; set; }
 }

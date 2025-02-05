@@ -1,4 +1,6 @@
-﻿namespace GuestSide.Application.DTOs.Response.Hotel;
+﻿using GuestSide.Core.Entities.Hotel.GeoLocation;
+
+namespace GuestSide.Application.DTOs.Response.Hotel;
 
 public class HotelResponse
 {
@@ -23,4 +25,6 @@ public class HotelResponse
     public IEnumerable<string>? Facilities { get; set; }
 
     public long LanguageId { get; set; }
+
+    public virtual LocationResponse? Location { get; set; }
 }

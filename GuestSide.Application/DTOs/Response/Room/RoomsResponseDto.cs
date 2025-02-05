@@ -23,10 +23,8 @@ namespace GuestSide.Application.DTOs.Response.Room
 
         public long LanguageId { get; set; }
 
-        public virtual RoomCategory? RoomCategory { get; set; }
+        public virtual RoomCategoryResponseDto? RoomCategory { get; set; }
 
-        public virtual IEnumerable<Guests>? Guests { get; set; }
-
-        public virtual QRCode? QRCode { get; set; }
+        public virtual QRCodeResponseDto? QRCode { get; set; }
     }
 }
