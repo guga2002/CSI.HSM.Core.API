@@ -1,4 +1,5 @@
-﻿using Core.Application.Interface.GenericContracts;
+﻿using Core.Application.DTOs.Response.Staff;
+using Core.Application.Interface.GenericContracts;
 using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Request.Staff;
@@ -6,6 +7,7 @@ using GuestSide.Application.DTOs.Response.Staff;
 using GuestSide.Application.Interface.Staff.Cart;
 using GuestSide.Core.Entities.Staff;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace GuestSide.API.Controllers.Staff
@@ -40,6 +42,21 @@ namespace GuestSide.API.Controllers.Staff
         public override async Task<Response<TaskToStaffResponseDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             return await base.GetByIdAsync(id, cancellationToken);
+        }
+
+        [HttpGet("GroupedTasksByStatus/{cardId:long}")]
+        [SwaggerOperation(Summary = "retrieve  tasks  by status  for cart", Description = "fetcha  grouped tasks by statuses")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Record retrieved successfully.", typeof(Response<IEnumerable<GroupTasksStatusByCardDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
+        public async Task<Response<IEnumerable<GroupTasksStatusByCardDto>>> GetTasksStatusByCard(long cardId)
+        {
+            var result=await _taskToStaffService.GetTasksStatusByCard(cardId);
+            if(result is not null)
+            {
+                return Response < IEnumerable<GroupTasksStatusByCardDto>>.SuccessResponse(result);
+            }
+
+            return Response<IEnumerable<GroupTasksStatusByCardDto>>.ErrorResponse("Data not found");
         }
 
         [HttpGet("{taskId:long}")]

@@ -1,4 +1,5 @@
-﻿using Core.Application.Interface.GenericContracts;
+﻿using Core.Application.DTOs.Response.Staff;
+using Core.Application.Interface.GenericContracts;
 using GuestSide.Application.DTOs.Request.Staff;
 using GuestSide.Application.DTOs.Response.Staff;
 using GuestSide.Core.Entities.Staff;
@@ -9,4 +10,5 @@ public  interface ITaskToStaffService : IService<TaskToStaffDto,TaskToStaffRespo
     IAdditionalFeatures<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff>
 {
     Task<TaskToStaffResponseDto> GetByTaskId(long taskId);
+    Task<IEnumerable<GroupTasksStatusByCardDto>> GetTasksStatusByCard(long cardId);
 }
