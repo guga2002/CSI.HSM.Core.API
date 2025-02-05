@@ -10,7 +10,7 @@ public class HotelRequestDto
 
     public int Stars { get; set; }
 
-    public List<byte[]>? Pictures { get; set; }
+    public List<string>? Pictures { get; set; }
 
     public string? Description { get; set; }
 

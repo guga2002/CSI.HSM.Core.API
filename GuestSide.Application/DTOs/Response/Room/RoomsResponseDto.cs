@@ -15,7 +15,7 @@ namespace GuestSide.Application.DTOs.Response.Room
 
         public bool IsAvailable { get; set; } = true;
 
-        public List<byte[]>? Pictures { get; set; }
+        public List<string>? Pictures { get; set; }
 
         public long RoomCategoryId { get; set; }
 

@@ -5,7 +5,7 @@
         public int RoomNumber { get; set; }
         public int Floor { get; set; }
         public bool IsAvailable { get; set; } = true;
-        public List<byte[]>? Pictures { get; set; }
+        public List<string>? Pictures { get; set; }
         public long RoomCategoryId { get; set; }
         public long HotelId { get; set; }
         public long LanguageId { get; set; }
