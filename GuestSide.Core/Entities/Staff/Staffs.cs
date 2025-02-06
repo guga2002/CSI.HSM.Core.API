@@ -28,8 +28,4 @@ public class Staffs:AbstractEntity
     public virtual StaffCategory? StaffCategory { get; set; }
 
     public virtual IEnumerable<StaffNotification>?StaffNotifications { get; set; }
-
-
- 
-
 }

@@ -22,7 +22,10 @@ public class Cart : AbstractEntity
 
     [ForeignKey(nameof(language))]
     public long LanguageId { get; set; }
+
     public virtual LanguagePack? language { get; set; }
+
+    public bool IsComplete { get; set; }
 
     public decimal SubTotal=>Tasks?.Sum(x=>x.Total)??0;
 
@@ -30,8 +33,10 @@ public class Cart : AbstractEntity
     {
         WhatWillRobotSay = string.Format(PatternWhatWillwobotSay, guest?.FirstName+" "+guest?.LastName);
     }
+
     public Cart()
     {
         
     }
+
 }
