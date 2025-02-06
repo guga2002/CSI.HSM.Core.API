@@ -21,7 +21,7 @@ public class Hotel:AbstractEntity
 
     public bool IsActive { get; set; } = true;
 
-    public List<byte[]>? Pictures { get; set; }//optional if need hotel pictures
+    public List<string>? Pictures { get; set; }//linkebi
 
     public string? Description { get; set; }
 

@@ -20,7 +20,7 @@ public class HotelResponse
 
     public bool IsActive { get; set; } = true;
 
-    public List<byte[]>? Pictures { get; set; }
+    public List<string>? Pictures { get; set; }
 
     public IEnumerable<string>? Facilities { get; set; }
 

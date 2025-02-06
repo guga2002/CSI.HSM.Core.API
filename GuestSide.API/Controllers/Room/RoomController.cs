@@ -2,7 +2,9 @@
 using GuestSide.API.CustomExtendControllerBase;
 using GuestSide.API.Response;
 using GuestSide.Application.DTOs.Request.Room;
+using GuestSide.Application.DTOs.Response.Hotel;
 using GuestSide.Application.DTOs.Response.Room;
+using GuestSide.Application.Interface.Room;
 using GuestSide.Core.Entities.Room;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +15,45 @@ namespace GuestSide.API.Controllers.Room
     [ApiController]
     public class RoomController : CSIControllerBase<RoomsDto, RoomsResponseDto, long, Rooms>
     {
+        private readonly IRoomService _roomService;
         public RoomController(
+            IRoomService roomService,
             IService<RoomsDto, RoomsResponseDto, long, Rooms> serviceProvider,
             IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Rooms> additionalFeatures)
             : base(serviceProvider, additionalFeatures)
         {
+            _roomService = roomService;
+        }
+
+        [HttpGet("RoomDetails/{roomId:long}")]
+        [SwaggerOperation(Summary = "Retrieve room details", Description = "Returns room details")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<RoomsResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+        public async Task<Response<RoomsResponseDto>> GetRoomDetails(long roomId)
+        {
+            var res=await _roomService.GetRoomDetails(roomId);
+            if(res is not null)
+            {
+                return Response<RoomsResponseDto>.SuccessResponse(res);
+            }
+
+            return Response<RoomsResponseDto>.ErrorResponse("no data exist");
+        }
+
+        [HttpGet("HotelForRoom/{roomId:long}")]
+        [SwaggerOperation(Summary = "Get hotel for room", Description = "retrieve hotel")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<HotelResponse>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+        public async Task<Response<HotelResponse>> GetHotelForRoom(long roomId)
+        {
+            var res = await _roomService.GetHotelForRoom(roomId);
+            if (res is not null)
+            {
+                return Response<HotelResponse>.SuccessResponse(res);
+            }
+
+            return Response<HotelResponse>.ErrorResponse("no data exist");
+
         }
 
         [HttpGet]

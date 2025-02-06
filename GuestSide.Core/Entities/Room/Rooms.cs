@@ -12,7 +12,7 @@ public class Rooms:AbstractEntity
     public int Floor { get; set; }
     public string? WhatWillRobotSay { get; set; }
     public bool IsAvailable { get; set; }=true;
-    public List<byte[]>? Pictures { get; set; }//optional if staff upload pictures it  will be  showed  there
+    public List<string>? Pictures { get; set; }//linki
 
     [ForeignKey(nameof(RoomCategory))]
     public long RoomCategoryId { get; set; }
