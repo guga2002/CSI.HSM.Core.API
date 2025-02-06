@@ -10,4 +10,6 @@ public class CartDto
     public virtual IEnumerable<TaskDto>? Tasks { get; set; }
 
     public long LanguageId { get; set; }
+
+    public bool IsCompleted { get; set; }
 }
