@@ -13,7 +13,7 @@ public class CartResponseDto
 
     public decimal SubTotal { get; set; }
 
-    public decimal IsComplete {  get; set; }
+    public bool IsComplete {  get; set; }
 
     public IEnumerable<TaskResponseDto> Tasks { get; set; }
 }
