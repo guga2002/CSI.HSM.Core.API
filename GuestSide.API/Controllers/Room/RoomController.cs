@@ -13,13 +13,13 @@ namespace Core.API.Controllers.Room
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoomController : CSIControllerBase<RoomsDto, RoomsResponseDto, long, Rooms>
+    public class RoomController : CSIControllerBase<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room>
     {
         private readonly IRoomService _roomService;
         public RoomController(
             IRoomService roomService,
-            IService<RoomsDto, RoomsResponseDto, long, Rooms> serviceProvider,
-            IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Rooms> additionalFeatures)
+            IService<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room> serviceProvider,
+            IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room> additionalFeatures)
             : base(serviceProvider, additionalFeatures)
         {
             _roomService = roomService;

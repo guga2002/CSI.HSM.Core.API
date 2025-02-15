@@ -6,95 +6,100 @@ using Core.Core.Entities.Language;
 using Core.Core.Entities.Notification;
 using Core.Core.Entities.Restaurant;
 using Core.Core.Entities.Room;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Core.Entities.Guest
 {
     [Table("Guests", Schema = "CSI")]
-    public class Guests : AbstractEntity//Status  use  this field for deactivate user, do not delete user info  for 3 year if  user re 
-                                        //enter to hotel make it active and keep  he's  settings alive. ask him/het update profile preferences or just keep it up
+    [Index(nameof(Email), IsUnique = true)] // Unique index for quick lookups
+    [Index(nameof(PhoneNumber))] // Helps search guests by phone
+    [Index(nameof(CheckInDate))] // Optimized for date-range queries
+    [Index(nameof(CheckOutDate))] // Optimized for departures filtering
+    [Index(nameof(StatusId))] // Index for status-based lookups
+    [Index(nameof(RoomId))] // Optimized for guest-room assignments
+    [Index(nameof(LanguageId))] // Optimized for multi-language support
+    public class Guests : AbstractEntity
     {
         [StringLength(100)]
-        public required string FirstName { get; set; } = "Guest";//optional or will take default
+        public required string FirstName { get; set; } = "Guest"; // Default value if not provided
 
         [StringLength(100)]
-        public required string LastName { get; set; } = "Gustiashvili";//optional or will take default
+        public required string LastName { get; set; } = "Gustiashvili"; // Default
 
         [StringLength(100)]
         [EmailAddress]
-        public required string Email { get; set; } = "Guest@csi.com";//optional or will take default
+        public required string Email { get; set; } = "Guest@csi.com"; // Unique email required
 
         [StringLength(100)]
-        public required string PhoneNumber { get; set; } = "555555555";//optional or will take default
+        public required string PhoneNumber { get; set; } = "555555555"; // Default phone
 
-        [StringLength(100)]
+        [StringLength(255)]
         public string? WhatWillRobotSay { get; set; }
 
-        public byte[]? ProfilePicture { get; set; }//optional
+        public byte[]? ProfilePicture { get; set; } // Optional guest profile picture
 
         [DataType(DataType.Date)]
-        public DateTime? DateOfBirth { get; set; } = new DateTime(2002, 02, 20);//optional or will take default
+        public DateTime? DateOfBirth { get; set; } = new DateTime(2002, 02, 20); // Default value
 
         [StringLength(100)]
-        public string? Country { get; set; } = "Georgia";//optional or will take default
+        public string? Country { get; set; } = "Georgia"; // Default country
 
         [StringLength(100)]
-        public string? City { get; set; } = "Tbilisi";//optional or will take default
+        public string? City { get; set; } = "Tbilisi"; // Default city
 
-        [StringLength(100)]
-        public string? Address { get; set; } = "Marjanishvilis Avenue N56";//optional or will take default
+        [StringLength(255)]
+        public string? Address { get; set; } = "Marjanishvilis Avenue N56"; // Default address
 
         [DataType(DataType.Date)]
-        public DateTime CheckInDate { get; set; } = DateTime.Now;/// <summary>
-                                                                 /// optional  or will get default value
-                                                                 /// </summary>
-        [DataType(DataType.Date)]
-        public DateTime? CheckOutDate { get; set; }
+        public DateTime CheckInDate { get; set; } = DateTime.UtcNow; // Consistent timestamps
 
-        [StringLength(100)]
+        [DataType(DataType.Date)]
+        public DateTime? CheckOutDate { get; set; } // Nullable checkout date
+
+        [StringLength(255)]
         public string? AdminNotes { get; set; }
 
-        [ForeignKey("Status")]
-        public long StatusId { get; set; } //update  this  record when user status change
+        [ForeignKey(nameof(Status))]
+        public long StatusId { get; set; } // Updates when guest status changes
 
-        public bool IsFrequentGuest { get; set; } = false;//before retrive update this value from history  if the guest  was here before
-
-        [NotMapped]
-        public int TotalStayDuration => CheckOutDate.HasValue ? (CheckOutDate.Value - CheckInDate).Days : 0;
+        public bool IsFrequentGuest { get; set; } = false; // Updated based on history tracking
 
         [StringLength(100)]
-        public string? EmergencyContactName { get; set; }//optional if clients want to in order to safety
+        public string? EmergencyContactName { get; set; } // Optional emergency contact
 
         [StringLength(100)]
-        public string? EmergencyContactPhone { get; set; }
+        public string? EmergencyContactPhone { get; set; } // Optional
 
-        [StringLength(100)]
-        public string? Preferences { get; set; } // habbbits  that  guest have
+        [StringLength(255)]
+        public string? Preferences { get; set; } // Guest habits/preferences
 
         [ForeignKey(nameof(Room))]
         public long RoomId { get; set; }
+
         [ForeignKey(nameof(LanguagePack))]
         public long LanguageId { get; set; }
-        public virtual LanguagePack? LanguagePack { get; set; }
 
-        public virtual Rooms? Room { get; set; }
+        public virtual LanguagePack? LanguagePack { get; set; } // Virtual for lazy loading
 
-        public virtual Status? Status { get; set; }
+        public virtual Room.Room? Room { get; set; } // Virtual navigation
 
-        public GuestActiveLanguage ActiveLanguage { get; set; }
+        public virtual Status? Status { get; set; } // Virtual navigation
 
-        public virtual IEnumerable<Cart>? Tasks { get; set; }
+        public virtual GuestActiveLanguage ActiveLanguage { get; set; } // Virtual navigation
 
-        public virtual IEnumerable<GuestNotification>? GuestNotifications { get; set; }
+        public virtual List<Cart>? Tasks { get; set; } 
 
-        public virtual IEnumerable<RestaurantCart> RestaurantCart { get; set; }
+        public virtual List<GuestNotification> GuestNotifications { get; set; } = new(); // Optimized
+
+        public virtual List<RestaurantCart> RestaurantCart { get; set; } = new(); // ORM optimization
 
         public Guests(string pattern = "Hi {0} {1}, welcome to our hotel, we are glad to see you here")
         {
+            FirstName = "Guest"; // Ensures constructor initialization
+            LastName = "Gustiashvili";
             WhatWillRobotSay = string.Format(pattern, FirstName, LastName);
         }
-        public Guests()
-        {
 
-        }
+        public Guests() { }
     }
 }

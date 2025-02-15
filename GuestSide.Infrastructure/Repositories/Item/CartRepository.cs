@@ -32,7 +32,7 @@ namespace Core.Infrastructure.Repositories.Item
 
         public async Task<Cart?> CartSymmary(long cartId)
         {
-            var cart = await DbSet.Include(c => c.Tasks).Include(io => io.guest).FirstOrDefaultAsync(
+            var cart = await DbSet.Include(c => c.Tasks).Include(io => io.Guest).FirstOrDefaultAsync(
                 io => io.Id == cartId && io.IsActive);
 
             return cart;

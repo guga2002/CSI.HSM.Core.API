@@ -10,8 +10,6 @@ public class CartResponseDto
 
     public long LanguageId { get; set; }
 
-    public decimal SubTotal { get; set; }
-
     public bool IsComplete { get; set; }
 
     public IEnumerable<TaskResponseDto> Tasks { get; set; }

@@ -5,7 +5,7 @@ using Core.Core.Entities.Advertisements;
 
 namespace Core.Application.Interface.Advertisment;
 
-public interface IAdvertismentService : IService<AdvertismentDto, AdvertismentResponseDto, long, Advertisements>,
-    IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Advertisements>
+public interface IAdvertismentService : IService<AdvertismentDto, AdvertismentResponseDto, long, Advertisement>,
+    IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Advertisement>
 {
 }

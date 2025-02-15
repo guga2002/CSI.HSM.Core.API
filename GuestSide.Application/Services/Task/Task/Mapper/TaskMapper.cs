@@ -11,7 +11,6 @@ public class TaskMapper:Profile
     {
         CreateMap<TaskDto, Tasks>().ReverseMap();
 
-        CreateMap<Tasks, TaskResponseDto>()
-        .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Total));
+        CreateMap<Tasks, TaskResponseDto>();
     }
 }

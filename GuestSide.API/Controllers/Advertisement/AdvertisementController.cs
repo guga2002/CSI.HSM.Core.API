@@ -12,9 +12,9 @@ namespace Core.API.Controllers.Advertisement;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AdvertisementController : CSIControllerBase<AdvertismentDto, AdvertismentResponseDto, long, Advertisements>
+public class AdvertisementController : CSIControllerBase<AdvertismentDto, AdvertismentResponseDto, long, Core.Entities.Advertisements.Advertisement>
 {
-    public AdvertisementController(IService<AdvertismentDto, AdvertismentResponseDto, long, Advertisements> serviceProvider, GuestSideDb db, IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Advertisements> feat) : base(serviceProvider, feat)
+    public AdvertisementController(IService<AdvertismentDto, AdvertismentResponseDto, long, Core.Entities.Advertisements.Advertisement> serviceProvider, GuestSideDb db, IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Core.Entities.Advertisements.Advertisement> feat) : base(serviceProvider, feat)
     {
     }
 

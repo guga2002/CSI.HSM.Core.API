@@ -9,13 +9,13 @@ using Microsoft.Extensions.Logging;
 
 namespace Core.Infrastructure.Repositories.Room
 {
-    public class RoomRepository : GenericRepository<Rooms>, IRoomRepository
+    public class RoomRepository : GenericRepository<Core.Entities.Room.Room>, IRoomRepository
     {
-        public RoomRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Rooms> logger) : base(context, redisCache, httpContextAccessor, logger)
+        public RoomRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Core.Entities.Room.Room> logger) : base(context, redisCache, httpContextAccessor, logger)
         {
         }
 
-        public async Task<Rooms> GetRoomDetails(long roomId)
+        public async Task<Core.Entities.Room.Room> GetRoomDetails(long roomId)
         {
             var res = await DbSet.Where(io => io.Id == roomId).Include(io => io.RoomCategory).FirstOrDefaultAsync();
 

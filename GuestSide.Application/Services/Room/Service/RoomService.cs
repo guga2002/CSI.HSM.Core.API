@@ -10,14 +10,14 @@ using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Room.Service;
 
-public class RoomService : GenericService<RoomsDto, RoomsResponseDto, long, Rooms>, IRoomService
+public class RoomService : GenericService<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room>, IRoomService
 {
     private readonly IRoomRepository _roomRepository;
     private readonly IMapper _mapper;
     public RoomService(IRoomRepository roomRepository, IMapper mapper,
-        IGenericRepository<Rooms> repository,
-        ILogger<GenericService<RoomsDto, RoomsResponseDto, long, Rooms>> logger,
-        IAdditionalFeaturesRepository<Rooms> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
+        IGenericRepository<Core.Entities.Room.Room> repository,
+        ILogger<GenericService<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room>> logger,
+        IAdditionalFeaturesRepository<Core.Entities.Room.Room> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
     {
         _mapper = mapper;
         _roomRepository = roomRepository;

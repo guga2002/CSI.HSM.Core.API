@@ -8,12 +8,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Advertismenet;
 
-public class AdvertisementService : GenericService<AdvertismentDto, AdvertismentResponseDto, long, Advertisements>, IAdvertismentService
+public class AdvertisementService : GenericService<AdvertismentDto, AdvertismentResponseDto, long, Advertisement>, IAdvertismentService
 {
     public AdvertisementService(IMapper mapper,
-        IGenericRepository<Advertisements> repository,
-        ILogger<GenericService<AdvertismentDto, AdvertismentResponseDto, long, Advertisements>> logger,
-        IAdditionalFeaturesRepository<Advertisements> additioalFeatures)
+        IGenericRepository<Advertisement> repository,
+        ILogger<GenericService<AdvertismentDto, AdvertismentResponseDto, long, Advertisement>> logger,
+        IAdditionalFeaturesRepository<Advertisement> additioalFeatures)
         : base(mapper, repository, logger, additioalFeatures)
     {
     }

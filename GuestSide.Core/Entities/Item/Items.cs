@@ -3,46 +3,54 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Core.Core.Entities.AbstractEntities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Item;
-
-[Table("Items", Schema = "CSI")]
-[Index(nameof(LanguageCode))]
-public class Items : AbstractEntity
+namespace Core.Core.Entities.Item
 {
-    [Column("ItemName")]
-    [StringLength(100)]
-    public required string Name { get; set; }
-
-    [StringLength(100)]
-    public string? Description { get; set; }
-
-    [StringLength(100)]
-    public string? Information { get; set; }
-
-    public bool IsOrderAble { get; set; }
-
-    public decimal? Price { get; set; }
-
-    public int Quantity { get; set; } //refer to  quantity of item in stock
-
-    [StringLength(100)]
-    public string? WhatWillRobotSay { get; set; }
-
-    [ForeignKey(nameof(ItemCategory))]
-    public long ItemCategoryId { get; set; }
-    public virtual ItemCategory? ItemCategory { get; set; }
-
-    [StringLength(100)]
-    public string? LanguageCode { get; set; }
-
-    public virtual IEnumerable<TaskItem>? TaskItems { get; set; }
-
-    public virtual IEnumerable<StaffReserveItem>? ReservedItems { get; set; }
-
-    public Items(string whatWillRobotSay = "Your choice is {0}. See details and more information about this item. Happy weekends!")
+    [Table("Items", Schema = "CSI")]
+    [Index(nameof(ItemCategoryId))]
+    [Index(nameof(LanguageCode))] 
+    [Index(nameof(IsOrderAble))] 
+    public class Items : AbstractEntity
     {
-        WhatWillRobotSay = string.Format(whatWillRobotSay, Name);
-    }
+        [Column("ItemName")]
+        [StringLength(100)]
+        public required string Name { get; set; }
 
-    public Items() { }
+        [StringLength(255)] // Increased for better descriptions
+        public string? Description { get; set; }
+
+        [StringLength(255)]
+        public string? Information { get; set; }
+
+        public bool IsOrderAble { get; set; }
+
+        [Precision(18, 2)] // Ensuring consistent decimal precision
+        public decimal? Price { get; set; }
+
+        public int Quantity { get; set; } // Refers to quantity of item in stock
+
+        [StringLength(255)]
+        public string? WhatWillRobotSay { get; set; } = "See details and more information about this item!";
+
+        [ForeignKey(nameof(ItemCategory))]
+        public long ItemCategoryId { get; set; }
+
+        public virtual ItemCategory? ItemCategory { get; set; } // Virtual for lazy loading
+
+        [StringLength(10)] // Optimized for storing language codes
+        public string? LanguageCode { get; set; }
+
+        public virtual List<TaskItem> TaskItems { get; set; } = new(); // Proper ORM handling
+
+        public virtual List<StaffReserveItem> ReservedItems { get; set; } = new(); // Proper ORM handling
+
+        public DateTime AddedDate { get; set; } = DateTime.UtcNow; // Default timestamp for item creation
+
+
+        public Items() { }
+
+        public Items(string whatWillRobotSay = "Your choice is {0}. See details and more information about this item.")
+        {
+            WhatWillRobotSay = whatWillRobotSay;
+        }
+    }
 }

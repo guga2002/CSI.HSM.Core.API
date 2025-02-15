@@ -9,7 +9,7 @@ public class RoomMapper:Profile
 {
     public RoomMapper()
     {
-        CreateMap<RoomsDto, Rooms>().ReverseMap();
-        CreateMap<Rooms, RoomCategoryResponseDto>().ReverseMap();
+        CreateMap<RoomsDto, Core.Entities.Room.Room>().ReverseMap();
+        CreateMap<Core.Entities.Room.Room, RoomCategoryResponseDto>().ReverseMap();
     }
 }

@@ -2,30 +2,37 @@
 using Core.Core.Entities.Language;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Item;
-
-[Table("ItemCategories", Schema = "CSI")]
-public class ItemCategory : AbstractEntity
+namespace Core.Core.Entities.Item
 {
-    [Column("CategoryName")]
-    [StringLength(100)]
-    public required string Name { get; set; }
-    [StringLength(100)]
-    public string? WhatWillRobotSay { get; set; }
-    [StringLength(100)]
-    public string? Description { get; set; }
-
-    [StringLength(100)]
-    public string? LanguageCode { get; set; }
-    public virtual IEnumerable<Items>? Item { get; set; }
-    public virtual ItemCategoryToStaffCategory? ItemCategoryToStaffCategory { get; set; }
-    public ItemCategory(string robotWords = "you choice is {0}, explore products, se  details, if  you would  like also  order  items")
+    [Table("ItemCategories", Schema = "CSI")]
+    [Index(nameof(Name))] // Optimized for fast lookups
+    [Index(nameof(LanguageCode))] // Optimized for multi-language filtering
+    public class ItemCategory : AbstractEntity
     {
-        WhatWillRobotSay = string.Format(robotWords, Name);
-    }
-    public ItemCategory()
-    {
+        [Column("CategoryName")]
+        [StringLength(100)]
+        public required string Name { get; set; }
 
+        [StringLength(255)] // Increased length for better text storage
+        public string? WhatWillRobotSay { get; set; } = "Explore products, see details, and order items!";
+
+        [StringLength(255)]
+        public string? Description { get; set; }
+
+        [StringLength(10)] // Optimized for language code storage
+        public string? LanguageCode { get; set; }
+
+        public virtual List<Items> Items { get; set; } = new(); // Proper ORM handling
+
+        public virtual ItemCategoryToStaffCategory? ItemCategoryToStaffCategory { get; set; } // Virtual for lazy loading
+
+        public ItemCategory() { }
+
+        public ItemCategory(string robotWords = "Your choice is {0}. Explore products, see details, and order items!")
+        {
+            WhatWillRobotSay = robotWords;
+        }
     }
 }

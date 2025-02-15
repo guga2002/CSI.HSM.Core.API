@@ -4,6 +4,7 @@ using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Restaurant;
 using Core.Application.Services.Restaurant.Mapper;
 using Core.Application.Services.Restaurant.Services;
+using Core.Core.Entities.Restaurant;
 using Core.Core.Interfaces.AbstractInterface;
 using Core.Core.Interfaces.Restaurant;
 using Core.Infrastructure.Repositories.AbstractRepository;
@@ -17,12 +18,12 @@ public static class RestaurantItemDi
 
     public static void AddRestaurantItem(this IServiceCollection services)
     {
-        services.AddScoped<IGenericRepository<Core.Entities.Restaurant.RestaunrantItem>, RestaunrantItemRepository>();
+        services.AddScoped<IGenericRepository<RestaurantItem>, RestaunrantItemRepository>();
         services.AddScoped<IRestaunrantItemRepository, RestaunrantItemRepository>();
         services.AddScoped<IRestaurantItemService, RestaurantItemService>();
-        services.AddScoped<IService<RestaunrantItemDto, RestaurantItemResponseDto, long, Core.Entities.Restaurant.RestaunrantItem>, RestaurantItemService>();
-        services.AddScoped<IAdditionalFeatures<RestaunrantItemDto, RestaurantItemResponseDto, long, Core.Entities.Restaurant.RestaunrantItem>, RestaurantItemService>();
+        services.AddScoped<IService<RestaunrantItemDto, RestaurantItemResponseDto, long, RestaurantItem>, RestaurantItemService>();
+        services.AddScoped<IAdditionalFeatures<RestaunrantItemDto, RestaurantItemResponseDto, long, RestaurantItem>, RestaurantItemService>();
         services.AddAutoMapper(typeof(RestaurantItemMapper));
-        services.AddScoped<IAdditionalFeaturesRepository<Core.Entities.Restaurant.RestaunrantItem>, AdditionalFeaturesRepository<Core.Entities.Restaurant.RestaunrantItem>>();
+        services.AddScoped<IAdditionalFeaturesRepository<RestaurantItem>, AdditionalFeaturesRepository<RestaurantItem>>();
     }
 }

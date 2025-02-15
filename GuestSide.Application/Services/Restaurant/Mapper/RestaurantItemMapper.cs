@@ -9,7 +9,7 @@ public class RestaurantItemMapper:Profile
 {
     public RestaurantItemMapper()
     {
-        CreateMap<RestaunrantItemDto, RestaunrantItem>().ReverseMap();
-        CreateMap<RestaunrantItem, RestaurantItemResponseDto>().ReverseMap();
+        CreateMap<RestaunrantItemDto, RestaurantItem>().ReverseMap();
+        CreateMap<RestaurantItem, RestaurantItemResponseDto>().ReverseMap();
     }
 }

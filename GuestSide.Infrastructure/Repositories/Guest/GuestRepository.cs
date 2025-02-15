@@ -16,7 +16,7 @@ namespace Core.Infrastructure.Repositories.Guest
         {
         }
 
-        public async Task<Rooms> GetRoomByGuestId(long GuestId)
+        public async Task<Core.Entities.Room.Room> GetRoomByGuestId(long GuestId)
         {
             var res = await DbSet.Where(io => io.Id == GuestId).Include(io => io.Room).ThenInclude(io => io.QRCode).Select(io => io.Room).FirstOrDefaultAsync();
             return res;

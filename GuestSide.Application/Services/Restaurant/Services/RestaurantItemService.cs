@@ -8,9 +8,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Restaurant.Services;
 
-public class RestaurantItemService : GenericService<RestaunrantItemDto, RestaurantItemResponseDto, long, Core.Entities.Restaurant.RestaunrantItem>, IRestaurantItemService
+public class RestaurantItemService : GenericService<RestaunrantItemDto, RestaurantItemResponseDto, long, RestaurantItem>, IRestaurantItemService
 {
-    public RestaurantItemService(IMapper mapper, IGenericRepository<RestaunrantItem> repository, ILogger<GenericService<RestaunrantItemDto, RestaurantItemResponseDto, long, RestaunrantItem>> logger, IAdditionalFeaturesRepository<RestaunrantItem> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
+    public RestaurantItemService(IMapper mapper, IGenericRepository<RestaurantItem> repository, ILogger<GenericService<RestaunrantItemDto, RestaurantItemResponseDto, long, RestaurantItem>> logger, IAdditionalFeaturesRepository<RestaurantItem> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
     {
     }
 }

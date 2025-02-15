@@ -2,19 +2,30 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Core.Core.Entities.AbstractEntities;
 using Core.Core.Entities.Item;
-using Core.Core.Entities.Language;
+using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Staff;
-
-[Table("StaffCategories", Schema = "CSI")]
-public class StaffCategory : AbstractEntity
+namespace Core.Core.Entities.Staff
 {
-    [StringLength(100)]
-    public required string CategoryName { get; set; }
+    [Table("StaffCategories", Schema = "CSI")]
+    [Index(nameof(CategoryName), IsUnique = true)] 
+    [Index(nameof(IsActive))] 
+    [Index(nameof(CreatedAt))] 
+    public class StaffCategory : AbstractEntity
+    {
+        [StringLength(100)]
+        public required string CategoryName { get; set; }
 
-    public virtual IEnumerable<Staffs>? Staff { get; set; }
+        [StringLength(255)]
+        public string? Description { get; set; } 
 
-    public virtual IEnumerable<TaskToStaff>? TaskToStaff { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    public virtual IEnumerable<ItemCategoryToStaffCategory> ItemCategoryToStaff { get; set; }
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+        public virtual List<Staffs>? Staff { get; set; }
+
+        public virtual List<TaskToStaff>? TaskToStaff { get; set; }
+
+        public virtual List<ItemCategoryToStaffCategory>? ItemCategoryToStaff { get; set; }
+    }
 }

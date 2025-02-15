@@ -27,7 +27,7 @@ public class GuestSideDb : DbContext
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public virtual DbSet<Advertisements> Advertisements { get; set; }
+    public virtual DbSet<Advertisement> Advertisements { get; set; }
     public virtual DbSet<AdvertisementType> AdvertisementTypes { get; set; }
     public virtual DbSet<Feedback> Feedbacks { get; set; }
     public virtual DbSet<Guests> Guests { get; set; }
@@ -41,7 +41,7 @@ public class GuestSideDb : DbContext
     public virtual DbSet<Notifications> Notifications { get; set; }
     public virtual DbSet<QRCode> QrCodes { get; set; }
     public virtual DbSet<RoomCategory> RoomCategories { get; set; }
-    public virtual DbSet<Rooms> Rooms { get; set; }
+    public virtual DbSet<Room> Rooms { get; set; }
     public virtual DbSet<StaffCategory> StaffCategories { get; set; }
     public virtual DbSet<Staffs> Staffs { get; set; }
     public virtual DbSet<Tasks> Tasks { get; set; }
@@ -55,7 +55,7 @@ public class GuestSideDb : DbContext
     public virtual DbSet<TaskToStaff> TaskToStaffs { get; set; }
     public virtual DbSet<RestaurantOrderPayment> PaymentMethods { get; set; }
     public virtual DbSet<Restaurants> Restaurants { get; set; }
-    public virtual DbSet<RestaunrantItem> RestaurantsItems { get; set; }
+    public virtual DbSet<RestaurantItem> RestaurantsItems { get; set; }
     public virtual DbSet<RestaurantCart> RestaurantCarts { get; set; }
     public virtual DbSet<RestaurantItemCategory> RestaurantItemCategories { get; set; }
     public virtual DbSet<PaymentOption> PaymentOptions { get; set; }

@@ -6,7 +6,7 @@ namespace Core.Core.Interfaces.Guest
 {
     public interface IGuestRepository : IGenericRepository<Guests>
     {
-        Task<Rooms> GetRoomByGuestId(long GuestId);
+        Task<Entities.Room.Room> GetRoomByGuestId(long GuestId);
         //add another methods
     }
 }

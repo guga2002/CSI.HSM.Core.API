@@ -11,11 +11,11 @@ namespace Core.API.Controllers.Restaurant
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RestaurantItemController : CSIControllerBase<RestaunrantItemDto, RestaurantItemResponseDto, long, RestaunrantItem>
+    public class RestaurantItemController : CSIControllerBase<RestaunrantItemDto, RestaurantItemResponseDto, long, RestaurantItem>
     {
         public RestaurantItemController(
-            IService<RestaunrantItemDto, RestaurantItemResponseDto, long, RestaunrantItem> serviceProvider,
-            IAdditionalFeatures<RestaunrantItemDto, RestaurantItemResponseDto, long, RestaunrantItem> additionalFeatures)
+            IService<RestaunrantItemDto, RestaurantItemResponseDto, long, RestaurantItem> serviceProvider,
+            IAdditionalFeatures<RestaunrantItemDto, RestaurantItemResponseDto, long, RestaurantItem> additionalFeatures)
             : base(serviceProvider, additionalFeatures)
         {
         }

@@ -8,9 +8,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Core.Infrastructure.Repositories.Advertisement
 {
-    public class AdvertisementRepository : GenericRepository<Advertisements>, IAdvertisementRepository
+    public class AdvertisementRepository : GenericRepository<Core.Entities.Advertisements.Advertisement>, IAdvertisementRepository
     {
-        public AdvertisementRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Advertisements> logger) : base(context, redisCache, httpContextAccessor, logger)
+        public AdvertisementRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Core.Entities.Advertisements.Advertisement> logger) : base(context, redisCache, httpContextAccessor, logger)
         {
         }
     }

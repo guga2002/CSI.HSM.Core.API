@@ -1,12 +1,16 @@
 ﻿using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Language;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Core.Entities.Advertisements;
 
 [Table("Advertisements", Schema = "CSI")]
-public class Advertisements : AbstractEntity
+[Index(nameof(AdvertisementTypeId))] 
+[Index(nameof(StartDate))] 
+[Index(nameof(EndDate))] 
+[Index(nameof(LanguageCode))] 
+public class Advertisement : AbstractEntity
 {
     [StringLength(100)]
     public required string Title { get; set; }
@@ -24,7 +28,8 @@ public class Advertisements : AbstractEntity
     [DataType(DataType.Date)]
     public DateTime? EndDate { get; set; }
 
-    public string LanguageCode { get; set; }
+    [StringLength(100)]
+    public string? LanguageCode { get; set; }
 
-    public List<byte[]>? Pictures { get; set; }
+    public List<string>? PicturesUrl { get; set; }
 }

@@ -3,7 +3,7 @@ using Core.Core.Interfaces.AbstractInterface;
 
 namespace Core.Core.Interfaces.Advertisement
 {
-    public interface IAdvertisementRepository : IGenericRepository<Advertisements>
+    public interface IAdvertisementRepository : IGenericRepository<Entities.Advertisements.Advertisement>
     {
         //add another methods
     }

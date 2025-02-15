@@ -1,36 +1,70 @@
 ﻿using Core.Core.Entities.AbstractEntities;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
 
-namespace Core.Core.Entities.Restaurant;
-
-[Table("RestaurantsItems", Schema = "CSI")]
-public class RestaunrantItem : AbstractEntity
+namespace Core.Core.Entities.Restaurant
 {
-    [StringLength(100)]
-    public required string Title { get; set; }
+    [Table("RestaurantItems", Schema = "CSI")]
+    [Index(nameof(RestaurantId))]
+    [Index(nameof(RestaurantItemCategoryId))] 
+    [Index(nameof(IsAvailable))] 
+    [Index(nameof(Price))]
+    public class RestaurantItem : AbstractEntity
+    {
+        [StringLength(100)]
+        public required string Title { get; set; }
 
-    public required List<string> PhotoUrl { get; set; }
+        [Column(TypeName = "nvarchar(max)")] 
+        public string? PhotoUrlSerialized { get; set; }
 
-    [StringLength(100)]
-    public string? Description { get; set; }
+        [NotMapped]
+        public List<string> PhotoUrl
+        {
+            get => PhotoUrlSerialized == null ? new List<string>() : JsonSerializer.Deserialize<List<string>>(PhotoUrlSerialized);
+            set => PhotoUrlSerialized = value == null ? null : JsonSerializer.Serialize(value);
+        }
 
-    [StringLength(100)]
-    public string? Allergens { get; set; }
+        [StringLength(255)] 
+        public string? Description { get; set; }
 
-    public decimal? Price { get; set; }
+        [StringLength(255)] 
+        public string? Allergens { get; set; }
 
-    public bool IsAvaliable { get; set; }
+        [Column(TypeName = "nvarchar(max)")]
+        public string? IngredientsSerialized { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        [NotMapped]
+        public List<string>? Ingredients
+        {
+            get => IngredientsSerialized == null ? new List<string>() : JsonSerializer.Deserialize<List<string>>(IngredientsSerialized);
+            set => IngredientsSerialized = value == null ? null : JsonSerializer.Serialize(value);
+        }
 
-    [ForeignKey(nameof(restaurantItemCategory))]
-    public long RestaurantItemCategoryId { get; set; }
+        [Precision(18, 2)] 
+        public decimal? Price { get; set; }
 
-    [ForeignKey(nameof(Restaurants))]
-    public long RestaurantId { get; set; }
+        public bool IsAvailable { get; set; } = true; 
 
-    public virtual RestaurantItemCategory? restaurantItemCategory { get; set; }
-    public virtual Restaurants? Restaurants { get; set; }
-    public virtual IEnumerable<RestaurantItemToCart>? RestaurantItemToCarts { get; set; }
+        public int? Calories { get; set; } 
+
+        public int? PreparationTimeMinutes { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+        [ForeignKey(nameof(RestaurantItemCategory))]
+        public long RestaurantItemCategoryId { get; set; }
+
+        public virtual RestaurantItemCategory? RestaurantItemCategory { get; set; } 
+
+        [ForeignKey(nameof(Restaurant))]
+        public long RestaurantId { get; set; }
+
+        public virtual Restaurants? Restaurant { get; set; } 
+
+        public virtual List<RestaurantItemToCart>? RestaurantItemToCarts { get; set; } 
+    }
 }

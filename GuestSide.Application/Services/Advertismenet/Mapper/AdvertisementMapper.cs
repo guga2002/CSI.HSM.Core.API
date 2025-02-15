@@ -9,7 +9,7 @@ public class AdvertisementMapper:Profile
 {
     public AdvertisementMapper()
     {
-        CreateMap<Advertisements, AdvertismentDto>();
-        CreateMap<AdvertismentResponseDto, Advertisements>();
+        CreateMap<Advertisement, AdvertismentDto>();
+        CreateMap<AdvertismentResponseDto, Advertisement>();
     }
 }

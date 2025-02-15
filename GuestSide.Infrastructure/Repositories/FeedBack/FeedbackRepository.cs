@@ -19,7 +19,7 @@ namespace Core.Infrastructure.Repositories.FeedBack
         {
             var suchFeadbacks = await DbSet.Include(io => io.Task).
                 ThenInclude(io => io!.Cart).
-                ThenInclude(io => io!.guest)
+                ThenInclude(io => io!.Guest)
                 .Where(io => io.Task.Cart.GuestId == guestId).ToListAsync();
 
             return suchFeadbacks;
