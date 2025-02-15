@@ -1,6 +1,6 @@
-﻿using GuestSide.Application.DTOs.Response.Task;
+﻿using Core.Application.DTOs.Response.Task;
 
-namespace GuestSide.Application.DTOs.Response.FeedBacks;
+namespace Core.Application.DTOs.Response.FeedBacks;
 
 public class FeedbackResponseDto
 {

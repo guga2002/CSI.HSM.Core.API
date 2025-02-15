@@ -1,13 +1,13 @@
-﻿using Core.Application.Interface.GenericContracts;
-using GuestSide.API.CustomExtendControllerBase;
-using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Request.Advertisment;
-using GuestSide.Application.DTOs.Response.Advertisment;
-using GuestSide.Core.Entities.Advertisments;
+﻿using Core.API.CustomExtendControllerBase;
+using Core.API.Response;
+using Core.Application.DTOs.Request.Advertisment;
+using Core.Application.DTOs.Response.Advertisment;
+using Core.Application.Interface.GenericContracts;
+using Core.Core.Entities.Advertisements;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace GuestSide.API.Controllers.Advertisement
+namespace Core.API.Controllers.Advertisement
 {
     [ApiController]
     [Route("api/[controller]")]

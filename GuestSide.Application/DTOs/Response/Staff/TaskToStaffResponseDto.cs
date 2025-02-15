@@ -1,7 +1,7 @@
-﻿using GuestSide.Application.DTOs.Response.Task;
+﻿using Core.Application.DTOs.Response.Task;
 using System.ComponentModel.DataAnnotations;
 
-namespace GuestSide.Application.DTOs.Response.Staff;
+namespace Core.Application.DTOs.Response.Staff;
 
 public class TaskToStaffResponseDto
 {

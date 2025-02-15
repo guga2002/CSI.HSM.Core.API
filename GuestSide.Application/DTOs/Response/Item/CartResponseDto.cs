@@ -1,7 +1,6 @@
-﻿using GuestSide.Application.DTOs.Request.Task;
-using GuestSide.Application.DTOs.Response.Task;
+﻿using Core.Application.DTOs.Response.Task;
 
-namespace GuestSide.Application.DTOs.Response.Item;
+namespace Core.Application.DTOs.Response.Item;
 
 public class CartResponseDto
 {
@@ -13,7 +12,7 @@ public class CartResponseDto
 
     public decimal SubTotal { get; set; }
 
-    public bool IsComplete {  get; set; }
+    public bool IsComplete { get; set; }
 
     public IEnumerable<TaskResponseDto> Tasks { get; set; }
 }

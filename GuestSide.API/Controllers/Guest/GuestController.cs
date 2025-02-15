@@ -1,15 +1,15 @@
-﻿using Core.Application.Interface.GenericContracts;
-using GuestSide.API.CustomExtendControllerBase;
-using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Request.Guest;
-using GuestSide.Application.DTOs.Response.Guest;
-using GuestSide.Application.DTOs.Response.Room;
-using GuestSide.Application.Interface.Guest;
-using GuestSide.Core.Entities.Guest;
+﻿using Core.API.CustomExtendControllerBase;
+using Core.API.Response;
+using Core.Application.DTOs.Request.Guest;
+using Core.Application.DTOs.Response.Guest;
+using Core.Application.DTOs.Response.Room;
+using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.Guest;
+using Core.Core.Entities.Guest;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace GuestSide.API.Controllers.Guest
+namespace Core.API.Controllers.Guest
 {
     [ApiController]
     [Route("api/[controller]")]

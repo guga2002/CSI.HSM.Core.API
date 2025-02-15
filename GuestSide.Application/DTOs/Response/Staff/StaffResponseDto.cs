@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GuestSide.Application.DTOs.Response.Staff
+namespace Core.Application.DTOs.Response.Staff
 {
     public class StaffResponseDto
     {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using GuestSide.Application.DTOs.Request.Task;
-using GuestSide.Application.DTOs.Response.Task;
-using GuestSide.Core.Entities.Task;
+using Core.Application.DTOs.Request.Task;
+using Core.Application.DTOs.Response.Task;
+using Core.Core.Entities.Task;
 
 namespace Core.Application.Services.Task.Status.Mapper;
 

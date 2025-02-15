@@ -1,4 +1,4 @@
-﻿namespace GuestSide.API.CustomMiddlwares
+﻿namespace Core.API.CustomMiddlwares
 {
     public class TenantMiddleware
     {

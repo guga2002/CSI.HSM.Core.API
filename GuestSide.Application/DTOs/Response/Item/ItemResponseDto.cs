@@ -1,8 +1,6 @@
-﻿using GuestSide.Core.Entities.Item;
-using GuestSide.Core.Entities.Language;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuestSide.Application.DTOs.Response.Item;
+namespace Core.Application.DTOs.Response.Item;
 
 public class ItemResponseDto
 {

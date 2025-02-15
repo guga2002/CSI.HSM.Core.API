@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace GuestSide.Application.CustomExceptions
+namespace Core.Application.CustomExceptions
 {
     public class ResourceConflictException : Exception
     {

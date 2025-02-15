@@ -1,13 +1,13 @@
-﻿using Core.Persistance.Cashing;
-using GuestSide.Core.Data;
-using GuestSide.Core.Entities.Item;
-using GuestSide.Core.Interfaces.Item;
-using GuestSide.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Core.Data;
+using Core.Core.Entities.Item;
+using Core.Core.Interfaces.Item;
+using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Persistance.Cashing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace GuestSide.Infrastructure.Repositories.Item
+namespace Core.Infrastructure.Repositories.Item
 {
     public class ItemRepository : GenericRepository<Items>, IItemRepository
     {
@@ -17,7 +17,7 @@ namespace GuestSide.Infrastructure.Repositories.Item
 
         public async override Task<IEnumerable<Items>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await DbSet.Include(io=>io.ItemCategory).ToListAsync(cancellationToken);
+            return await DbSet.Include(io => io.ItemCategory).ToListAsync(cancellationToken);
         }
     }
 }

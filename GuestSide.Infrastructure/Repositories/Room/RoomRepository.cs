@@ -1,13 +1,13 @@
-﻿using Core.Persistance.Cashing;
-using GuestSide.Core.Data;
-using GuestSide.Core.Entities.Room;
-using GuestSide.Core.Interfaces.Room;
-using GuestSide.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Core.Data;
+using Core.Core.Entities.Room;
+using Core.Core.Interfaces.Room;
+using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Persistance.Cashing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace GuestSide.Infrastructure.Repositories.Room
+namespace Core.Infrastructure.Repositories.Room
 {
     public class RoomRepository : GenericRepository<Rooms>, IRoomRepository
     {
@@ -17,14 +17,14 @@ namespace GuestSide.Infrastructure.Repositories.Room
 
         public async Task<Rooms> GetRoomDetails(long roomId)
         {
-            var res=await DbSet.Where(io => io.Id == roomId).Include(io => io.RoomCategory).FirstOrDefaultAsync();
+            var res = await DbSet.Where(io => io.Id == roomId).Include(io => io.RoomCategory).FirstOrDefaultAsync();
 
             return res;
         }
 
         public async Task<Core.Entities.Hotel.Hotel> GetHotelForRoom(long roomId)
         {
-            var res = await DbSet.Where(io => io.Id == roomId).Include(io => io.Hotel).ThenInclude(io=>io.Location).Select(io => io.Hotel).FirstOrDefaultAsync();
+            var res = await DbSet.Where(io => io.Id == roomId).Include(io => io.Hotel).ThenInclude(io => io.Location).Select(io => io.Hotel).FirstOrDefaultAsync();
 
             return res;
         }

@@ -1,7 +1,5 @@
-﻿using GuestSide.Core.Entities.Guest;
-using GuestSide.Core.Entities.Room;
-
-namespace GuestSide.Application.DTOs.Response.Room
+﻿
+namespace Core.Application.DTOs.Response.Room
 {
     public class RoomsResponseDto
     {

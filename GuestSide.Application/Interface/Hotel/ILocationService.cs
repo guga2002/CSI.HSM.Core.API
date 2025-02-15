@@ -1,11 +1,12 @@
-﻿using Core.Application.Interface.GenericContracts;
-using GuestSide.Application.DTOs.Request.Hotel;
-using GuestSide.Application.DTOs.Response.Hotel;
+﻿using Core.Application.DTOs.Request.Hotel;
+using Core.Application.DTOs.Response.Hotel;
+using Core.Application.Interface.GenericContracts;
+using Core.Core.Entities.Hotel.GeoLocation;
 
-namespace GuestSide.Application.Interface.Hotel;
+namespace Core.Application.Interface.Hotel;
 
-public interface ILocationService: IService<LocationrequestDto, LocationResponse, long, GuestSide.Core.Entities.Hotel.GeoLocation.Location>,
-    IAdditionalFeatures<LocationrequestDto, LocationResponse, long, GuestSide.Core.Entities.Hotel.GeoLocation.Location>
+public interface ILocationService : IService<LocationrequestDto, LocationResponse, long, Location>,
+    IAdditionalFeatures<LocationrequestDto, LocationResponse, long, Location>
 {
     Task<LocationResponse> GetLocationByHotelId(long hotelId, CancellationToken token = default);
 }

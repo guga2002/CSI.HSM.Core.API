@@ -1,10 +1,10 @@
-﻿using Core.Core.Sheared;
-using GuestSide.Core.Entities.Staff;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Staff;
+using Core.Core.Interfaces.AbstractInterface;
+using Core.Core.Sheared;
 
-namespace GuestSide.Core.Interfaces.Staff
+namespace Core.Core.Interfaces.Staff
 {
-    public interface ITaskToStaffRepository:IGenericRepository<TaskToStaff>
+    public interface ITaskToStaffRepository : IGenericRepository<TaskToStaff>
     {
         Task<TaskToStaff> GetByTaskId(long taskId);
         Task<IEnumerable<GroupTasksStatusByCard>> GetTasksStatusByCard(long cardId);

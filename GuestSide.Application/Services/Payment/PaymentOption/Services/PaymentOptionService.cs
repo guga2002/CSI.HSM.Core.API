@@ -3,8 +3,6 @@ using Core.Application.DTOs.Request.Payment;
 using Core.Application.DTOs.Response.Payment;
 using Core.Application.Interface.PaymentOption;
 using Core.Core.Interfaces.AbstractInterface;
-using GuestSide.Application.Services;
-using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Payment.PaymentOption.Services;

@@ -1,8 +1,8 @@
-﻿using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Interfaces.AbstractInterface;
 
-namespace GuestSide.Core.Interfaces.Hotel
+namespace Core.Core.Interfaces.Hotel
 {
-    public interface IHotelRepository: IGenericRepository<GuestSide.Core.Entities.Hotel.Hotel>
+    public interface IHotelRepository : IGenericRepository<Entities.Hotel.Hotel>
     {
     }
 }

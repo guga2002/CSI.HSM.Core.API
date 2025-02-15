@@ -1,20 +1,22 @@
-﻿using GuestSide.Core.Entities.AbstractEntities;
-using GuestSide.Core.Entities.Language;
+﻿using Core.Core.Entities.AbstractEntities;
+using Core.Core.Entities.Language;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuestSide.Core.Entities.Advertisments;
+namespace Core.Core.Entities.Advertisements;
 
 [Table("AdvertisementTypes", Schema = "CSI")]
-public class AdvertisementType:AbstractEntity
+public class AdvertisementType : AbstractEntity
 {
+    [StringLength(100)]
     public required string Name { get; set; }
-
-    public string? Description {  get; set; }
+    [StringLength(100)]
+    public string? Description { get; set; }
 
     [ForeignKey(nameof(languagePack))]
     public long LanguageId { get; set; }
 
     public LanguagePack languagePack { get; set; }
 
-    public IEnumerable<Advertisements.Advertisements>Advertisements { get; set; }
+    public IEnumerable<Advertisements> Advertisements { get; set; }
 }

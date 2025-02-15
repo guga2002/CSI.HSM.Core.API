@@ -1,4 +1,4 @@
-﻿namespace GuestSide.Application.DTOs.Response.Task;
+﻿namespace Core.Application.DTOs.Response.Task;
 
 public class TaskStatusResponseDto
 {

@@ -1,18 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Core.Core.Entities.AbstractEntities;
+using Core.Core.Entities.FeedBacks;
 using Core.Core.Entities.Item;
-using GuestSide.Core.Entities.AbstractEntities;
-using GuestSide.Core.Entities.Feedbacks;
-using GuestSide.Core.Entities.Item;
-using GuestSide.Core.Entities.Language;
+using Core.Core.Entities.Language;
 
-namespace GuestSide.Core.Entities.Task;
+namespace Core.Core.Entities.Task;
 
 [Table("Tasks", Schema = "CSI")]
 public class Tasks : AbstractEntity
 {
+    [StringLength(100)]
     public required string Title { get; set; }
 
+    [StringLength(100)]
     public required string Description { get; set; }
 
     [DataType(DataType.Date)]
@@ -30,6 +31,7 @@ public class Tasks : AbstractEntity
 
     public virtual ICollection<TaskItem> TaskItems { get; set; } = new List<TaskItem>();
 
+    [StringLength(100)]
     public string? Note { get; set; }
 
     public decimal Total => TaskItems.Sum(io => io.Item.Price * io.Quantity) ?? 0;

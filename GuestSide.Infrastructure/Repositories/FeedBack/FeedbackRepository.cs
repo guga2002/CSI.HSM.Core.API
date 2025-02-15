@@ -1,13 +1,13 @@
-﻿using Core.Persistance.Cashing;
-using GuestSide.Core.Data;
-using GuestSide.Core.Entities.Feedbacks;
-using GuestSide.Core.Interfaces.FeedBack;
-using GuestSide.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Core.Data;
+using Core.Core.Entities.FeedBacks;
+using Core.Core.Interfaces.FeedBack;
+using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Persistance.Cashing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace GuestSide.Infrastructure.Repositories.FeedBack
+namespace Core.Infrastructure.Repositories.FeedBack
 {
     public class FeedbackRepository : GenericRepository<Feedback>, IFeedbackRepository
     {
@@ -17,10 +17,10 @@ namespace GuestSide.Infrastructure.Repositories.FeedBack
 
         public async Task<List<Feedback>> GetallFeadbackForguest(long guestId)
         {
-            var suchFeadbacks=await DbSet.Include(io=>io.Task).
-                ThenInclude(io=>io!.Cart).
-                ThenInclude(io=>io!.guest)
-                .Where(io=>io.Task.Cart.GuestId== guestId).ToListAsync();
+            var suchFeadbacks = await DbSet.Include(io => io.Task).
+                ThenInclude(io => io!.Cart).
+                ThenInclude(io => io!.guest)
+                .Where(io => io.Task.Cart.GuestId == guestId).ToListAsync();
 
             return suchFeadbacks;
         }

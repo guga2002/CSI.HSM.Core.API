@@ -1,8 +1,8 @@
-﻿using GuestSide.Core.Entities.Guest;
-using GuestSide.Core.Entities.Room;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Guest;
+using Core.Core.Entities.Room;
+using Core.Core.Interfaces.AbstractInterface;
 
-namespace GuestSide.Core.Interfaces.Guest
+namespace Core.Core.Interfaces.Guest
 {
     public interface IGuestRepository : IGenericRepository<Guests>
     {

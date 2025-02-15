@@ -1,5 +1,5 @@
-﻿using Core.Core.Interfaces.AbstractInterface;
-using GuestSide.Core.Data;
+﻿using Core.Core.Data;
+using Core.Core.Interfaces.AbstractInterface;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -18,10 +18,10 @@ public class AdditionalFeaturesRepository<T> : IAdditionalFeaturesRepository<T> 
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="Context"></param>
-    public AdditionalFeaturesRepository(GuestSideDb Context)
+    /// <param name="context"></param>
+    public AdditionalFeaturesRepository(GuestSideDb context)
     {
-        _context = Context;
+        _context = context;
         DbSet = _context.Set<T>();
     }
     #endregion
@@ -32,7 +32,7 @@ public class AdditionalFeaturesRepository<T> : IAdditionalFeaturesRepository<T> 
     /// </summary>
     /// <param name="action"></param>
     /// <returns></returns>
-    public async Task ExecuteInTransaction(Func<Task> action)
+    public async System.Threading.Tasks.Task ExecuteInTransaction(Func<System.Threading.Tasks.Task> action)
     {
         using var transaction = await _context.Database.BeginTransactionAsync();
         try
@@ -98,7 +98,7 @@ public class AdditionalFeaturesRepository<T> : IAdditionalFeaturesRepository<T> 
     #endregion
 
     #region BulkInsert
-    public async Task BulkAddAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+    public async System.Threading.Tasks.Task BulkAddAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
     {
         if (entities == null || !entities.Any())
         {
@@ -124,7 +124,7 @@ public class AdditionalFeaturesRepository<T> : IAdditionalFeaturesRepository<T> 
     #endregion
 
     #region BulkUpdate
-    public async Task BulkUpdateAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+    public async System.Threading.Tasks.Task BulkUpdateAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
     {
         if (entities == null || !entities.Any())
         {
@@ -151,7 +151,7 @@ public class AdditionalFeaturesRepository<T> : IAdditionalFeaturesRepository<T> 
     #endregion
 
     #region BulkDelete
-    public async Task BulkDeleteAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+    public async System.Threading.Tasks.Task BulkDeleteAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
     {
         if (entities == null || !entities.Any())
         {

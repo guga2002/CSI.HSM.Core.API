@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using GuestSide.Application.DTOs.Request.Advertisment;
-using GuestSide.Application.DTOs.Response.Advertisment;
-using GuestSide.Core.Entities.Advertisements;
+using Core.Application.DTOs.Request.Advertisment;
+using Core.Application.DTOs.Response.Advertisment;
+using Core.Core.Entities.Advertisements;
 
 namespace Core.Application.Services.Advertismenet.Mapper;
 

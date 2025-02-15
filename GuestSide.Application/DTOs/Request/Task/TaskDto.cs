@@ -1,4 +1,4 @@
-﻿namespace GuestSide.Application.DTOs.Request.Task;
+﻿namespace Core.Application.DTOs.Request.Task;
 
 public class TaskDto
 {

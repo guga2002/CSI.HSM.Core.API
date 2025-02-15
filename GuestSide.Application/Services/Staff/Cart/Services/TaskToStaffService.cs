@@ -1,15 +1,12 @@
 ﻿using AutoMapper;
+using Core.Application.CustomExceptions;
+using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
+using Core.Application.Interface.Staff.Task;
+using Core.Core.Entities.Staff;
 using Core.Core.Interfaces.AbstractInterface;
+using Core.Core.Interfaces.Staff;
 using Core.Core.Sheared;
-using GuestSide.Application.CustomExceptions;
-using GuestSide.Application.DTOs.Request.Staff;
-using GuestSide.Application.DTOs.Response.Staff;
-using GuestSide.Application.Interface.Staff.Cart;
-using GuestSide.Application.Services;
-using GuestSide.Core.Entities.Staff;
-using GuestSide.Core.Interfaces.AbstractInterface;
-using GuestSide.Core.Interfaces.Staff;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Staff.Cart.Services;

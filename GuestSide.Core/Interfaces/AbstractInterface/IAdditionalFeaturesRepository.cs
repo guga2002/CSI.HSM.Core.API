@@ -64,7 +64,7 @@ public interface IAdditionalFeaturesRepository<T> where T : class
     /// <param name="entities"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task BulkDeleteAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+    System.Threading.Tasks.Task BulkDeleteAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Bulk Update
@@ -72,7 +72,7 @@ public interface IAdditionalFeaturesRepository<T> where T : class
     /// <param name="entities"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task BulkUpdateAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+    System.Threading.Tasks.Task BulkUpdateAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Bulk Add
@@ -80,5 +80,5 @@ public interface IAdditionalFeaturesRepository<T> where T : class
     /// <param name="entities"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task BulkAddAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+    System.Threading.Tasks.Task BulkAddAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
 }

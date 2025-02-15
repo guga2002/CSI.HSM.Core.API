@@ -1,4 +1,4 @@
-﻿namespace GuestSide.Application.DTOs.Request.Hotel;
+﻿namespace Core.Application.DTOs.Request.Hotel;
 
 public class LocationrequestDto
 {

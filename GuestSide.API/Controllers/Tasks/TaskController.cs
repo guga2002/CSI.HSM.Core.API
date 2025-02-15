@@ -1,15 +1,12 @@
-﻿using Core.Application.Interface.GenericContracts;
-using Core.Application.Services.Task.Task.Services;
-using GuestSide.API.CustomExtendControllerBase;
-using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Request.Task;
-using GuestSide.Application.DTOs.Response.Task;
-using GuestSide.Application.Interface.Task.Task;
-using GuestSide.Core.Entities.Task;
+﻿using Core.API.CustomExtendControllerBase;
+using Core.API.Response;
+using Core.Application.DTOs.Request.Task;
+using Core.Application.DTOs.Response.Task;
+using Core.Application.Interface.GenericContracts;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace GuestSide.API.Controllers.Tasks
+namespace Core.API.Controllers.Tasks
 {
     [Route("api/[controller]")]
     [ApiController]

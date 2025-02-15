@@ -1,11 +1,11 @@
-﻿using GuestSide.Core.Entities.Room;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Room;
+using Core.Core.Interfaces.AbstractInterface;
 
-namespace GuestSide.Core.Interfaces.Room
+namespace Core.Core.Interfaces.Room
 {
-    public interface IRoomRepository:IGenericRepository<Rooms>
+    public interface IRoomRepository : IGenericRepository<Rooms>
     {
-        Task<Core.Entities.Hotel.Hotel> GetHotelForRoom(long roomId);
+        Task<Entities.Hotel.Hotel> GetHotelForRoom(long roomId);
         Task<Rooms> GetRoomDetails(long roomId);
         //add another method
     }

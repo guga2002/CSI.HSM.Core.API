@@ -1,5 +1,4 @@
-﻿using GuestSide.Core.Entities.AbstractEntities;
-using GuestSide.Core.Entities.Restaurant;
+﻿using Core.Core.Entities.AbstractEntities;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 

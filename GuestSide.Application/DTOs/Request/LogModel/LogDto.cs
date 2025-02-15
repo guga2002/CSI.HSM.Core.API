@@ -1,4 +1,4 @@
-﻿namespace GuestSide.Application.DTOs.Request.LogModel;
+﻿namespace Core.Application.DTOs.Request.LogModel;
 
 public class LogDto
 {

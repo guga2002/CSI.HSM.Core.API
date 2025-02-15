@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GuestSide.Application.DTOs.Request.Guest;
+namespace Core.Application.DTOs.Request.Guest;
 
 public class GuestDto
 {

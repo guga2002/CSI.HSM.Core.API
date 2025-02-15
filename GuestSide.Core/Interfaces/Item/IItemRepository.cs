@@ -1,9 +1,9 @@
-﻿using GuestSide.Core.Entities.Item;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Item;
+using Core.Core.Interfaces.AbstractInterface;
 
-namespace GuestSide.Core.Interfaces.Item
+namespace Core.Core.Interfaces.Item
 {
-    public interface IItemRepository:IGenericRepository<Items>
+    public interface IItemRepository : IGenericRepository<Items>
     {
         //add another method
     }

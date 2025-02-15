@@ -1,17 +1,16 @@
-﻿using FluentValidation;
-using GuestSide.Application.DTOs.Request.Advertisment;
-using GuestSide.Application.DTOs.Response.Advertisment;
+﻿using Core.Application.DTOs.Request.Advertisment;
+using FluentValidation;
 
-namespace GuestSide.Application.FluentValidation.Advertisment
+namespace Core.Application.FluentValidation.Advertisment
 {
-    public class AdventismentValidator:AbstractValidator<AdvertismentDto>
+    public class AdventismentValidator : AbstractValidator<AdvertismentDto>
     {
         public AdventismentValidator()
         {
             RuleFor(x => x.Title).NotEmpty()
                 .NotNull().WithMessage("Title is required.")
                 .MaximumLength(200).WithMessage("Title cannot exceed 200 characters.")
-                .MinimumLength(3).WithMessage("Title must be at least 3 characters long."); 
+                .MinimumLength(3).WithMessage("Title must be at least 3 characters long.");
 
             RuleFor(x => x.Description).NotEmpty()
                 .NotNull().WithMessage("Name is required.")
@@ -23,7 +22,7 @@ namespace GuestSide.Application.FluentValidation.Advertisment
 
             RuleFor(x => x.EndDate)
                 .NotEmpty().WithMessage("EndDate is required.")
-                .GreaterThanOrEqualTo(x=>x.StartDate).WithMessage("End date must be after or equal to the start date.");
+                .GreaterThanOrEqualTo(x => x.StartDate).WithMessage("End date must be after or equal to the start date.");
         }
     }
 }

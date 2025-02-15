@@ -1,4 +1,5 @@
-﻿using GuestSide.Core.Entities.AbstractEntities;
+﻿using Core.Core.Entities.AbstractEntities;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Core.Entities.Payment;
@@ -7,11 +8,10 @@ namespace Core.Core.Entities.Payment;
 public class PaymentOption: AbstractEntity
 {
     [Column("Payment_Method_Name")]
+    [StringLength(100)]
     public required string Name { get; set; }
 
     public virtual IEnumerable<RestaurantOrderPayment>? RestaurantOrderPayments { get; set; }
-
-    public bool IsActive {  get; set; }
 
     public DateTime CreatedDate {  get; set; }
 }

@@ -1,35 +1,35 @@
-﻿using Core.Application.Interface.GenericContracts;
-using GuestSide.API.CustomExtendControllerBase;
-using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Request.Advertisment;
-using GuestSide.Application.DTOs.Response.Advertisment;
-using GuestSide.Core.Data;
-using GuestSide.Core.Entities.Advertisements;
+﻿using Core.API.CustomExtendControllerBase;
+using Core.API.Response;
+using Core.Application.DTOs.Request.Advertisment;
+using Core.Application.DTOs.Response.Advertisment;
+using Core.Application.Interface.GenericContracts;
+using Core.Core.Data;
+using Core.Core.Entities.Advertisements;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace GuestSide.API.Controllers.Advertisement;
+namespace Core.API.Controllers.Advertisement;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AdvertisementController : CSIControllerBase<AdvertismentDto,AdvertismentResponseDto, long, Advertisements>
+public class AdvertisementController : CSIControllerBase<AdvertismentDto, AdvertismentResponseDto, long, Advertisements>
 {
-    public AdvertisementController(IService<AdvertismentDto,AdvertismentResponseDto, long, Advertisements> serviceProvider,GuestSideDb db,IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Advertisements> feat) : base(serviceProvider,feat)
+    public AdvertisementController(IService<AdvertismentDto, AdvertismentResponseDto, long, Advertisements> serviceProvider, GuestSideDb db, IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Advertisements> feat) : base(serviceProvider, feat)
     {
     }
 
-   /// <summary>
-   /// Get All Advertisements
-   /// </summary>
-   /// <param name="cancellationToken"></param>
-   /// <returns></returns>
+    /// <summary>
+    /// Get All Advertisements
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpGet]
     [SwaggerOperation(Summary = "Retrieve all records", Description = "Returns all records of the specified type.")]
     [ProducesResponseType(typeof(Response<IEnumerable<AdvertismentResponseDto>>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(Response<string>), StatusCodes.Status404NotFound)]
     public override async Task<Response<IEnumerable<AdvertismentResponseDto>>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-       return await base.GetAllAsync(cancellationToken);
+        return await base.GetAllAsync(cancellationToken);
     }
 
     /// <summary>
@@ -40,11 +40,11 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto,Adverti
     /// <returns>The record matching the specified ID.</returns>
     [HttpGet("{id:int}")]
     [SwaggerOperation(Summary = "Retrieve a record by ID", Description = "Fetches a specific record using its unique identifier.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Record retrieved successfully.",typeof(Response<AdvertismentResponseDto>))]
+    [SwaggerResponse(StatusCodes.Status200OK, "Record retrieved successfully.", typeof(Response<AdvertismentResponseDto>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
     public override async Task<Response<AdvertismentResponseDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
     {
-       return await base.GetByIdAsync(id, cancellationToken);
+        return await base.GetByIdAsync(id, cancellationToken);
     }
 
     /// <summary>
@@ -55,11 +55,11 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto,Adverti
     /// <returns>The created record.</returns>
     [HttpPost]
     [SwaggerOperation(Summary = "Create a new record", Description = "Adds a new record to the system.")]
-    [SwaggerResponse(StatusCodes.Status201Created, "Record created successfully.",typeof(Response<AdvertismentResponseDto>))]
+    [SwaggerResponse(StatusCodes.Status201Created, "Record created successfully.", typeof(Response<AdvertismentResponseDto>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
     public override async Task<Response<AdvertismentResponseDto>> CreateAsync([FromBody] AdvertismentDto entityDto, CancellationToken cancellationToken = default)
     {
-        return await this.CreateAsync(entityDto, cancellationToken);
+        return await CreateAsync(entityDto, cancellationToken);
     }
 
     /// <summary>
@@ -71,11 +71,11 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto,Adverti
     /// <returns>The updated record.</returns>
     [HttpPut("{id:int}")]
     [SwaggerOperation(Summary = "Update an existing record", Description = "Modifies the data of an existing record using its ID.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Record updated successfully.",typeof(Response<AdvertismentResponseDto>))]
+    [SwaggerResponse(StatusCodes.Status200OK, "Record updated successfully.", typeof(Response<AdvertismentResponseDto>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
     public override async Task<Response<AdvertismentResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] AdvertismentDto entityDto, CancellationToken cancellationToken = default)
     {
-      return await this.UpdateAsync(id, entityDto, cancellationToken);
+        return await UpdateAsync(id, entityDto, cancellationToken);
     }
 
     /// <summary>
@@ -86,11 +86,11 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto,Adverti
     /// <returns>A success or failure response.</returns>
     [HttpDelete("{id:int}")]
     [SwaggerOperation(Summary = "Delete a record", Description = "Removes a record from the system using its unique identifier.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Record deleted successfully.",typeof(Response<AdvertismentResponseDto>))]
+    [SwaggerResponse(StatusCodes.Status200OK, "Record deleted successfully.", typeof(Response<AdvertismentResponseDto>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found or failed to delete.")]
     public override async Task<Response<AdvertismentResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
     {
-       return await this.DeleteAsync(id, cancellationToken);
+        return await DeleteAsync(id, cancellationToken);
     }
 
     /// <summary>
@@ -105,7 +105,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto,Adverti
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data. Collection is empty or null.")]
     public override async Task<IActionResult> BulkDeleteAsync([FromBody] IEnumerable<AdvertismentDto> entities, CancellationToken cancellationToken = default)
     {
-        return await this.BulkDeleteAsync(entities, cancellationToken);
+        return await BulkDeleteAsync(entities, cancellationToken);
     }
 
     /// <summary>
@@ -120,7 +120,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto,Adverti
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data. Collection is empty or null.")]
     public override async Task<IActionResult> BulkUpdateAsync([FromBody] IEnumerable<AdvertismentDto> entities, CancellationToken cancellationToken = default)
     {
-        return await base.BulkUpdateAsync(entities,cancellationToken);
+        return await base.BulkUpdateAsync(entities, cancellationToken);
     }
 
     /// <summary>
@@ -131,11 +131,11 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto,Adverti
     /// <returns>A success or failure response for bulk add.</returns>
     [HttpPost("bulk")]
     [SwaggerOperation(Summary = "Bulk add records", Description = "Adds multiple records in a single operation.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Entities added successfully.",typeof(IActionResult))]
+    [SwaggerResponse(StatusCodes.Status200OK, "Entities added successfully.", typeof(IActionResult))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data. Collection is empty or null.")]
     public override async Task<IActionResult> BulkAddAsync([FromBody] IEnumerable<AdvertismentDto> entities, CancellationToken cancellationToken = default)
     {
-       return await this.BulkAddAsync(entities, cancellationToken);
+        return await BulkAddAsync(entities, cancellationToken);
     }
 
     /// <summary>
@@ -150,6 +150,6 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto,Adverti
     [ProducesResponseType(typeof(Response<string>), StatusCodes.Status404NotFound)]
     public override async Task<Response<AdvertismentResponseDto>> SoftDeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
     {
-       return await this.SoftDeleteAsync(id, cancellationToken);
+        return await SoftDeleteAsync(id, cancellationToken);
     }
 }

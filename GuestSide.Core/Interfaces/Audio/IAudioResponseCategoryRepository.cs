@@ -1,5 +1,5 @@
-﻿using GuestSide.Core.Entities.Audio;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Audio;
+using Core.Core.Interfaces.AbstractInterface;
 
 namespace Core.Core.Interfaces.Audio;
 

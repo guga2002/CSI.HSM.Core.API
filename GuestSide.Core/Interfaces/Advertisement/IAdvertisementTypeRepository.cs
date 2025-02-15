@@ -1,9 +1,9 @@
-﻿using GuestSide.Core.Entities.Advertisments;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Advertisements;
+using Core.Core.Interfaces.AbstractInterface;
 
-namespace GuestSide.Core.Interfaces.Advertisement
+namespace Core.Core.Interfaces.Advertisement
 {
-    public interface IAdvertisementTypeRepository:IGenericRepository<AdvertisementType>
+    public interface IAdvertisementTypeRepository : IGenericRepository<AdvertisementType>
     {
         //add another methods
     }

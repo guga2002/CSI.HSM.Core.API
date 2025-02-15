@@ -1,19 +1,17 @@
-﻿using Core.Core.Interfaces.Audio;
+﻿using Core.Core.Interfaces.Advertisement;
+using Core.Core.Interfaces.Audio;
+using Core.Core.Interfaces.FeedBack;
 using Core.Core.Interfaces.Guest;
+using Core.Core.Interfaces.Hotel;
 using Core.Core.Interfaces.Item;
 using Core.Core.Interfaces.Language;
+using Core.Core.Interfaces.LogInterfaces;
+using Core.Core.Interfaces.Notification;
 using Core.Core.Interfaces.Restaurant;
 using Core.Core.Interfaces.Restaurant.Payment;
-using GuestSide.Core.Interfaces.Advertisement;
-using GuestSide.Core.Interfaces.FeedBack;
-using GuestSide.Core.Interfaces.Guest;
-using GuestSide.Core.Interfaces.Hotel;
-using GuestSide.Core.Interfaces.Item;
-using GuestSide.Core.Interfaces.LogInterfaces;
-using GuestSide.Core.Interfaces.Notification;
-using GuestSide.Core.Interfaces.Room;
-using GuestSide.Core.Interfaces.Staff;
-using GuestSide.Core.Interfaces.Task;
+using Core.Core.Interfaces.Room;
+using Core.Core.Interfaces.Staff;
+using Core.Core.Interfaces.Task;
 
 namespace Core.Core.Interfaces.UniteOfWork;
 
@@ -63,11 +61,11 @@ public interface IUniteOfWork
 
     public IItemCategoryToStaffCategory ItemCategoryToStaffCategory { get; }
 
-    Task Savechanges(bool Track = false);
+    System.Threading.Tasks.Task Savechanges(bool Track = false);
 
-    Task BeginTransaction();
+    System.Threading.Tasks.Task BeginTransaction();
 
-    Task CommitTransaction();
+    System.Threading.Tasks.Task CommitTransaction();
 
-    Task RollbackTransaction();
+    System.Threading.Tasks.Task RollbackTransaction();
 }

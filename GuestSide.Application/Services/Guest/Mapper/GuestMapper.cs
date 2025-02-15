@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using GuestSide.Application.DTOs.Request.Guest;
-using GuestSide.Application.DTOs.Response.Guest;
-using GuestSide.Core.Entities.Guest;
+using Core.Application.DTOs.Request.Guest;
+using Core.Application.DTOs.Response.Guest;
+using Core.Core.Entities.Guest;
 
 namespace Core.Application.Services.Guest.Mapper;
 

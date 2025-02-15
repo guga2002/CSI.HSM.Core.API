@@ -1,11 +1,12 @@
-﻿using GuestSide.API.Response;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Swashbuckle.AspNetCore.Annotations;
 using Core.Application.Interface.GenericContracts;
 using MongoDB.Driver;
+using Core.API.Extensions;
+using Core.API.Response;
 
-namespace GuestSide.API.CustomExtendControllerBase;
+namespace Core.API.CustomExtendControllerBase;
 
 /// <summary>
 /// Base controller for handling common CRUD operations for models.
@@ -93,7 +94,7 @@ public class CSIControllerBase<RequestDto, RsponseDto, TKey, TDatabase> : Contro
     [HttpPost]
     public virtual async Task<Response<RsponseDto>> CreateAsync([FromBody] RequestDto entityDto, CancellationToken cancellationToken = default)
     {
-        GuestSide.API.Extensions.ControllerBaseExtension.ValidateModel(this);
+        this.ValidateModel();
 
         if (entityDto == null)
         {
@@ -157,7 +158,7 @@ public class CSIControllerBase<RequestDto, RsponseDto, TKey, TDatabase> : Contro
     [HttpDelete("bulk")]
     public virtual async Task<IActionResult> BulkDeleteAsync([FromBody] IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
     {
-        GuestSide.API.Extensions.ControllerBaseExtension.ValidateModel(this);
+        this.ValidateModel();
 
         if (entities == null || !entities.Any())
         {
@@ -178,7 +179,7 @@ public class CSIControllerBase<RequestDto, RsponseDto, TKey, TDatabase> : Contro
     [HttpPut("bulk")]
     public virtual async Task<IActionResult> BulkUpdateAsync([FromBody] IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
     {
-        GuestSide.API.Extensions.ControllerBaseExtension.ValidateModel(this);
+        this.ValidateModel();
 
         if (entities == null || !entities.Any())
         {
@@ -203,7 +204,7 @@ public class CSIControllerBase<RequestDto, RsponseDto, TKey, TDatabase> : Contro
     [HttpPost("bulk")]
     public virtual async Task<IActionResult> BulkAddAsync([FromBody] IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
     {
-        GuestSide.API.Extensions.ControllerBaseExtension.ValidateModel(this);
+        this.ValidateModel();
 
         if (entities == null || !entities.Any())
         {

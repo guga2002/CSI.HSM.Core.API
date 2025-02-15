@@ -1,21 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.Item;
-using GuestSide.Core.Entities.AbstractEntities;
-using GuestSide.Core.Entities.Language;
-using GuestSide.Core.Entities.Task;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Core.Core.Entities.AbstractEntities;
+using Core.Core.Entities.Language;
 using Microsoft.EntityFrameworkCore;
 
-namespace GuestSide.Core.Entities.Item;
+namespace Core.Core.Entities.Item;
 
 [Table("Items", Schema = "CSI")]
 [Index(nameof(LanguageId))]
 public class Items : AbstractEntity
 {
     [Column("ItemName")]
+    [StringLength(100)]
     public required string Name { get; set; }
 
+    [StringLength(100)]
     public string? Description { get; set; }
 
+    [StringLength(100)]
     public string? Information { get; set; }
 
     public bool IsOrderable { get; set; }
@@ -23,7 +25,7 @@ public class Items : AbstractEntity
     public decimal? Price { get; set; }
 
     public int Quantity { get; set; } //refer to  quantity of item in stock
-
+    [StringLength(100)]
     public string? WhatWillRobotSay { get; set; }
 
     [ForeignKey(nameof(ItemCategory))]

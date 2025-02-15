@@ -1,13 +1,13 @@
-﻿using Core.Persistance.Cashing;
-using GuestSide.Core.Data;
-using GuestSide.Core.Entities.Notification;
-using GuestSide.Core.Interfaces.Notification;
-using GuestSide.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Core.Data;
+using Core.Core.Entities.Notification;
+using Core.Core.Interfaces.Notification;
+using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Persistance.Cashing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace GuestSide.Infrastructure.Repositories.Notification;
+namespace Core.Infrastructure.Repositories.Notification;
 
 public class GuestNotificationRepository : GenericRepository<GuestNotification>, IGuestNotificationRepository
 {
@@ -15,7 +15,7 @@ public class GuestNotificationRepository : GenericRepository<GuestNotification>,
     {
     }
 
-    public async Task<GuestNotification> MarkGuestNotificationAsRead(long GuestId, long NotificationId,bool unread=false)
+    public async Task<GuestNotification> MarkGuestNotificationAsRead(long GuestId, long NotificationId, bool unread = false)
     {
         var sms = await DbSet.Where(io => io.GuestId == GuestId && io.NotificationId == NotificationId).FirstOrDefaultAsync();
 
@@ -35,14 +35,14 @@ public class GuestNotificationRepository : GenericRepository<GuestNotification>,
         return null;
     }
 
-    public async Task<IEnumerable<GuestNotification>>GetNotificationsByGuestId(long GuestId)
+    public async Task<IEnumerable<GuestNotification>> GetNotificationsByGuestId(long GuestId)
     {
-        return await DbSet.Where(io=>io.GuestId==GuestId).ToListAsync();
+        return await DbSet.Where(io => io.GuestId == GuestId).ToListAsync();
     }
 
     public override async Task<IEnumerable<GuestNotification>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        return await DbSet.Include(io=>io.Guest).Include(io=>io.Notifications).ToListAsync();
+        return await DbSet.Include(io => io.Guest).Include(io => io.Notifications).ToListAsync();
     }
 
     public override async Task<GuestNotification> GetByIdAsync(object id, CancellationToken cancellationToken = default)

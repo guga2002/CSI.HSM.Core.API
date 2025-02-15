@@ -1,15 +1,14 @@
-﻿using Core.Application.Interface.GenericContracts;
-using GuestSide.API.CustomExtendControllerBase;
-using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Request.Item;
-using GuestSide.Application.DTOs.Response.Item;
-using GuestSide.Application.Interface.Item;
-using GuestSide.Application.Services.Item.DI;
-using GuestSide.Core.Entities.Item;
+﻿using Core.API.CustomExtendControllerBase;
+using Core.API.Response;
+using Core.Application.DTOs.Request.Item;
+using Core.Application.DTOs.Response.Item;
+using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.Item;
+using Core.Core.Entities.Item;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace GuestSide.API.Controllers.Item;
+namespace Core.API.Controllers.Item;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -33,9 +32,9 @@ public class CartController : CSIControllerBase<CartDto, CartResponseDto, long, 
     [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
     public async Task<Response<bool>> ClearCart(long cartId)
     {
-        var res=await _cartService.ClearCart(cartId);
+        var res = await _cartService.ClearCart(cartId);
 
-        if(res)
+        if (res)
         {
             return Response<bool>.SuccessResponse(true);
         }
@@ -67,7 +66,7 @@ public class CartController : CSIControllerBase<CartDto, CartResponseDto, long, 
     [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
     public async Task<Response<CartResponseDto>> RemoveItemFromCart(long cartId, long itemId)
     {
-        var res = await _cartService.RemoveItemFromCart(cartId,itemId);
+        var res = await _cartService.RemoveItemFromCart(cartId, itemId);
 
         if (res is not null)
         {
@@ -93,14 +92,14 @@ public class CartController : CSIControllerBase<CartDto, CartResponseDto, long, 
         return Response<List<ItemResponseDto>>.ErrorResponse("No data found");
     }
 
-   
+
     [HttpGet("GetCartByGuestId/{guestId:long}")]
     [SwaggerOperation(Summary = "Get Carts For Guest Id", Description = "return carts for guest by status")]
     [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<CartResponseDto>>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
     public async Task<Response<IEnumerable<CartResponseDto>>> GetCartsByGuestId(long guestId, bool status)
     {
-        var res = await _cartService.GetCartsByGuestId(guestId,status);
+        var res = await _cartService.GetCartsByGuestId(guestId, status);
 
         if (res is not null)
         {
@@ -116,7 +115,7 @@ public class CartController : CSIControllerBase<CartDto, CartResponseDto, long, 
     [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
     public async Task<Response<CartResponseDto>> UpdateItemQuantityInCart(long cartId, long itemId, int newQuantity)
     {
-        var res = await _cartService.UpdateItemQuantityInCart(cartId,itemId,newQuantity);
+        var res = await _cartService.UpdateItemQuantityInCart(cartId, itemId, newQuantity);
 
         if (res is not null)
         {

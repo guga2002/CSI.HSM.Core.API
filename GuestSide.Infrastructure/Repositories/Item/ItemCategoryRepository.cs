@@ -1,12 +1,12 @@
-﻿using Core.Persistance.Cashing;
-using GuestSide.Core.Data;
-using GuestSide.Core.Entities.Item;
-using GuestSide.Core.Interfaces.Item;
-using GuestSide.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Core.Data;
+using Core.Core.Entities.Item;
+using Core.Core.Interfaces.Item;
+using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Persistance.Cashing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace GuestSide.Infrastructure.Repositories.Item
+namespace Core.Infrastructure.Repositories.Item
 {
     public class ItemCategoryRepository : GenericRepository<ItemCategory>, IItemCategoryRepository
     {

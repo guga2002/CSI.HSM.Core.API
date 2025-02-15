@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GuestSide.Application.DTOs.Response.Room;
+namespace Core.Application.DTOs.Response.Room;
 
 public class QRCodeResponseDto
 {

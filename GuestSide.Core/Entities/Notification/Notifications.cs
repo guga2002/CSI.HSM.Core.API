@@ -1,16 +1,20 @@
-﻿using GuestSide.Core.Entities.AbstractEntities;
-using GuestSide.Core.Entities.Language;
+﻿using Core.Core.Entities.AbstractEntities;
+using Core.Core.Entities.Language;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuestSide.Core.Entities.Notification;
+namespace Core.Core.Entities.Notification;
 
 [Table("Notifications", Schema = "CSI")]
-public class Notifications:AbstractEntity
+public class Notifications : AbstractEntity
 {
+    [StringLength(100)]
     public required string Title { get; set; }
 
+    [StringLength(100)]
     public required string Message { get; set; }
 
+    [StringLength(100)]
     public string? WhatWillRobotSay { get; set; }
 
     public DateTime NotificationDate { get; set; }
@@ -25,12 +29,12 @@ public class Notifications:AbstractEntity
 
     public virtual IEnumerable<GuestNotification>? GuestNotifications { get; set; }
 
-    public Notifications(string pattern="You got new notification:{0},{1}}")
+    public Notifications(string pattern = "You got new notification:{0},{1}}")
     {
-        WhatWillRobotSay= string.Format(pattern, Title, Message);
+        WhatWillRobotSay = string.Format(pattern, Title, Message);
     }
     public Notifications()
     {
-        
+
     }
 }

@@ -1,28 +1,31 @@
-﻿using Core.Core.Entities.Item;
-using GuestSide.Core.Entities.AbstractEntities;
-using GuestSide.Core.Entities.Language;
+﻿using Core.Core.Entities.AbstractEntities;
+using Core.Core.Entities.Language;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuestSide.Core.Entities.Item;
+namespace Core.Core.Entities.Item;
 
 [Table("ItemCategories", Schema = "CSI")]
-public class ItemCategory:AbstractEntity
+public class ItemCategory : AbstractEntity
 {
     [Column("CategoryName")]
+    [StringLength(100)]
     public required string Name { get; set; }
+    [StringLength(100)]
     public string? WhatWillRobotSay { get; set; }
+    [StringLength(100)]
     public string? Description { get; set; }
     [ForeignKey(nameof(language))]
     public long LanguageId { get; set; }
     public virtual LanguagePack? language { get; set; }
     public virtual IEnumerable<Items>? Item { get; set; }
     public virtual ItemCategoryToStaffCategory? ItemCategoryToStaffCategory { get; set; }
-    public ItemCategory(string RobbotWords= "you choice is {0}, explore products, se  details, if  you would  like also  order  items")
+    public ItemCategory(string robotWords = "you choice is {0}, explore products, se  details, if  you would  like also  order  items")
     {
-        WhatWillRobotSay = string.Format(RobbotWords,Name);
+        WhatWillRobotSay = string.Format(robotWords, Name);
     }
     public ItemCategory()
     {
-        
+
     }
 }

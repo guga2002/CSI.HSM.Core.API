@@ -1,9 +1,9 @@
-﻿using Core.Application.DTOs.Request.Payment;
+﻿using Core.API.CustomExtendControllerBase;
+using Core.API.Response;
+using Core.Application.DTOs.Request.Payment;
 using Core.Application.DTOs.Response.Payment;
 using Core.Application.Interface.GenericContracts;
 using Core.Core.Entities.Payment;
-using GuestSide.API.CustomExtendControllerBase;
-using GuestSide.API.Response;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

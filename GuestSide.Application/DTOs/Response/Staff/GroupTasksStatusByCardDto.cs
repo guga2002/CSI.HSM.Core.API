@@ -1,4 +1,4 @@
-﻿using GuestSide.Application.DTOs.Response.Task;
+﻿using Core.Application.DTOs.Response.Task;
 
 namespace Core.Application.DTOs.Response.Staff;
 

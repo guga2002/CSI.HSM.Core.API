@@ -1,10 +1,10 @@
-﻿using GuestSide.Core.Entities.Hotel.GeoLocation;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Hotel.GeoLocation;
+using Core.Core.Interfaces.AbstractInterface;
 
-namespace GuestSide.Core.Interfaces.Hotel
+namespace Core.Core.Interfaces.Hotel
 {
-    public interface ILocationRepository:IGenericRepository<GuestSide.Core.Entities.Hotel.GeoLocation.Location>
+    public interface ILocationRepository : IGenericRepository<Location>
     {
-        Task<Location> GetLocationByHotelId(long hotelId,CancellationToken token=default);
+        Task<Location> GetLocationByHotelId(long hotelId, CancellationToken token = default);
     }
 }

@@ -1,5 +1,5 @@
-﻿using GuestSide.Core.Entities.Language;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Language;
+using Core.Core.Interfaces.AbstractInterface;
 
 namespace Core.Core.Interfaces.Language;
 

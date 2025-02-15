@@ -1,6 +1,5 @@
-﻿using GuestSide.Core.Entities.Language;
-
-namespace GuestSide.Application.DTOs.Request.Room
+﻿
+namespace Core.Application.DTOs.Request.Room
 {
     public class RoomCategoryDto
     {

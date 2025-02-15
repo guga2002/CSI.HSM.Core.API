@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GuestSide.Application.DTOs.Response.Advertisment;
+namespace Core.Application.DTOs.Response.Advertisment;
 
 public class AdvertismentResponseDto
 {

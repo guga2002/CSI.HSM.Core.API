@@ -1,13 +1,4 @@
-using GuestSide.Application.Services.AdvertisementType;
-using GuestSide.Application.Services.Advertismenet;
-using GuestSide.Application.Services.Feadback;
-using GuestSide.Core.Data;
-using GuestSide.API.CustomMiddlwares;
-using GuestSide.Application.Services.Item.DI;
-using GuestSide.Application.Services.Notification.DI;
-using GuestSide.Application.Services.Room.DI;
 using Microsoft.OpenApi.Models;
-using GuestSide.Application.Services.Hotel;
 using Core.Persistance.Cashing.Inject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -32,6 +23,14 @@ using Core.Persistance.LoggingConfigs;
 using AuthorizationHelper.Injection.CommonServices;
 using Core.Application.Services.Audio.Injection;
 using Core.Application.Services.Item.DI;
+using Core.Core.Data;
+using Core.Application.Services.AdvertisementType;
+using Core.Application.Services.Notification.DI;
+using Core.Application.Services.Hotel;
+using Core.Application.Services.Room.DI;
+using Core.Application.Services.Advertismenet;
+using Core.Application.Services.Feadback;
+using Core.API.CustomMiddlwares;
 
 var builder = WebApplication.CreateBuilder(args);
 

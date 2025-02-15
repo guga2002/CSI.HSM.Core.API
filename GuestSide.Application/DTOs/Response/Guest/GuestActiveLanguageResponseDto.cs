@@ -1,5 +1,4 @@
-﻿using GuestSide.Core.Entities.Guest;
-
+﻿
 namespace Core.Application.DTOs.Response.Guest;
 
 public class GuestActiveLanguageResponseDto

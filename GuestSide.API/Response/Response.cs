@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace GuestSide.API.Response
+namespace Core.API.Response
 {
     public class Response<T> : IActionResult
     {

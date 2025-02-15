@@ -1,4 +1,4 @@
-﻿namespace GuestSide.Application.DTOs.Response.Item;
+﻿namespace Core.Application.DTOs.Response.Item;
 
 public class ItemCategoryResponseDto
 {

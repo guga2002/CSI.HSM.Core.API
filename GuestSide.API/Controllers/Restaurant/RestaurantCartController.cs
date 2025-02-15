@@ -1,9 +1,9 @@
-﻿using Core.Application.DTOs.Request.Restaurant;
+﻿using Core.API.CustomExtendControllerBase;
+using Core.API.Response;
+using Core.Application.DTOs.Request.Restaurant;
 using Core.Application.DTOs.Response.Restaurant;
 using Core.Application.Interface.GenericContracts;
-using GuestSide.API.CustomExtendControllerBase;
-using GuestSide.API.Response;
-using GuestSide.Core.Entities.Restaurant;
+using Core.Core.Entities.Restaurant;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

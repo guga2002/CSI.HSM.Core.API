@@ -1,4 +1,4 @@
-﻿namespace GuestSide.Application.DTOs.Response.Hotel;
+﻿namespace Core.Application.DTOs.Response.Hotel;
 
 public class LocationResponse
 {
@@ -10,7 +10,7 @@ public class LocationResponse
 
     public string? Address { get; set; }
 
-    public string? MapUrl { get; set; } 
+    public string? MapUrl { get; set; }
 
     public long HotelId { get; set; }
 }

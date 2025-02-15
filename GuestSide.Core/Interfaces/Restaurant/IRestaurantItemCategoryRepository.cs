@@ -1,4 +1,4 @@
-﻿using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Interfaces.AbstractInterface;
 
 namespace Core.Core.Interfaces.Restaurant;
 

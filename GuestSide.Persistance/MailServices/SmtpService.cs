@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Mail;
 
-namespace GuestSide.Persistance.MailServices
+namespace Core.Persistance.MailServices
 {
     public sealed class SmtpService
     {

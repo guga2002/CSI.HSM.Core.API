@@ -1,9 +1,9 @@
-﻿using GuestSide.Core.Entities.Room;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Room;
+using Core.Core.Interfaces.AbstractInterface;
 
-namespace GuestSide.Core.Interfaces.Room
+namespace Core.Core.Interfaces.Room
 {
-    public interface IQRCodeRepository:IGenericRepository<QRCode>
+    public interface IQRCodeRepository : IGenericRepository<QRCode>
     {
         //add another method
     }

@@ -1,4 +1,4 @@
-﻿using GuestSide.Core.Interfaces.LogInterfaces;
+﻿using Core.Core.Interfaces.LogInterfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Persistance.LoggingConfigs

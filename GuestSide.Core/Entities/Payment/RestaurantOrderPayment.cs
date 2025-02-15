@@ -1,5 +1,5 @@
-﻿using GuestSide.Core.Entities.AbstractEntities;
-using GuestSide.Core.Entities.Restaurant;
+﻿using Core.Core.Entities.AbstractEntities;
+using Core.Core.Entities.Restaurant;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Core.Entities.Payment;

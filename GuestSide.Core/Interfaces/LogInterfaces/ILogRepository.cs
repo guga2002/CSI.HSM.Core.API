@@ -1,9 +1,9 @@
-﻿using GuestSide.Core.Entities.LogEntities;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.LogEntities;
+using Core.Core.Interfaces.AbstractInterface;
 
-namespace GuestSide.Core.Interfaces.LogInterfaces
+namespace Core.Core.Interfaces.LogInterfaces
 {
-    public interface ILogRepository:IGenericRepository<Logs>
+    public interface ILogRepository : IGenericRepository<Logs>
     {
         //add another method
     }

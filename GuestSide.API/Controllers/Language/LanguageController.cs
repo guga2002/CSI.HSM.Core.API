@@ -1,13 +1,13 @@
-﻿using Core.Application.DTOs.Request.Language;
+﻿using Core.API.CustomExtendControllerBase;
+using Core.API.Response;
+using Core.Application.DTOs.Request.Language;
 using Core.Application.DTOs.Response.Language;
 using Core.Application.Interface.GenericContracts;
-using GuestSide.API.CustomExtendControllerBase;
-using GuestSide.API.Response;
-using GuestSide.Core.Entities.Language;
+using Core.Core.Entities.Language;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace GuestSide.API.Controllers.Tasks
+namespace Core.API.Controllers.Language
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,15 +1,9 @@
-﻿using FluentValidation;
-using GuestSide.Application.DTOs.Request.Item;
-using GuestSide.Application.DTOs.Response.Item;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.Application.DTOs.Request.Item;
+using FluentValidation;
 
-namespace GuestSide.Application.FluentValidation.Item
+namespace Core.Application.FluentValidation.Item
 {
-    public class ItemCategoryValidator:AbstractValidator<ItemCategoryDto>
+    public class ItemCategoryValidator : AbstractValidator<ItemCategoryDto>
     {
         public ItemCategoryValidator()
         {

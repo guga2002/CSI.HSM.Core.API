@@ -1,14 +1,14 @@
-﻿using Core.Application.Interface.GenericContracts;
-using GuestSide.API.CustomExtendControllerBase;
-using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Request.FeedBacks;
-using GuestSide.Application.DTOs.Response.FeedBacks;
-using GuestSide.Application.Interface.Feadback;
-using GuestSide.Core.Entities.Feedbacks;
+﻿using Core.API.CustomExtendControllerBase;
+using Core.API.Response;
+using Core.Application.DTOs.Request.FeedBacks;
+using Core.Application.DTOs.Response.FeedBacks;
+using Core.Application.Interface.Feadback;
+using Core.Application.Interface.GenericContracts;
+using Core.Core.Entities.FeedBacks;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace GuestSide.API.Controllers.Feadbacks
+namespace Core.API.Controllers.Feadbacks
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -30,7 +30,7 @@ namespace GuestSide.API.Controllers.Feadbacks
         [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
         public async Task<Response<List<FeedbackResponseDto>>> GetallFeadbackForguest(long guestId)
         {
-            var res=await _feadbackService.GetallFeadbackForguest(guestId);
+            var res = await _feadbackService.GetallFeadbackForguest(guestId);
             if (res is not null)
             {
                 return Response<List<FeedbackResponseDto>>.SuccessResponse(res);

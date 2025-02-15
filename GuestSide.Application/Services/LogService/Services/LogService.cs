@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
+using Core.Application.DTOs.Request.LogModel;
+using Core.Application.DTOs.Response.LogModel;
+using Core.Application.Interface.LogInterfaces;
+using Core.Core.Entities.LogEntities;
 using Core.Core.Interfaces.AbstractInterface;
-using GuestSide.Application.DTOs.Request.LogModel;
-using GuestSide.Application.DTOs.Response.LogModel;
-using GuestSide.Application.Interface.LogInterfaces;
-using GuestSide.Application.Services;
-using GuestSide.Core.Entities.LogEntities;
-using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.LogService.Services;

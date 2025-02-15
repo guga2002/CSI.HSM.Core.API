@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GuestSide.Application.DTOs.Request.Advertisment;
+namespace Core.Application.DTOs.Request.Advertisment;
 public class AdvertismentDto
 {
     public required string Title { get; set; }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using GuestSide.Application.DTOs.Request.LogModel;
-using GuestSide.Application.DTOs.Response.LogModel;
-using GuestSide.Core.Entities.LogEntities;
+using Core.Application.DTOs.Request.LogModel;
+using Core.Application.DTOs.Response.LogModel;
+using Core.Core.Entities.LogEntities;
 
 namespace Core.Application.Services.LogService.Mapper;
 

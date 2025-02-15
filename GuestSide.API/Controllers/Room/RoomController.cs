@@ -1,15 +1,15 @@
-﻿using Core.Application.Interface.GenericContracts;
-using GuestSide.API.CustomExtendControllerBase;
-using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Request.Room;
-using GuestSide.Application.DTOs.Response.Hotel;
-using GuestSide.Application.DTOs.Response.Room;
-using GuestSide.Application.Interface.Room;
-using GuestSide.Core.Entities.Room;
+﻿using Core.API.CustomExtendControllerBase;
+using Core.API.Response;
+using Core.Application.DTOs.Request.Room;
+using Core.Application.DTOs.Response.Hotel;
+using Core.Application.DTOs.Response.Room;
+using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.Room;
+using Core.Core.Entities.Room;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace GuestSide.API.Controllers.Room
+namespace Core.API.Controllers.Room
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -31,8 +31,8 @@ namespace GuestSide.API.Controllers.Room
         [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
         public async Task<Response<RoomsResponseDto>> GetRoomDetails(long roomId)
         {
-            var res=await _roomService.GetRoomDetails(roomId);
-            if(res is not null)
+            var res = await _roomService.GetRoomDetails(roomId);
+            if (res is not null)
             {
                 return Response<RoomsResponseDto>.SuccessResponse(res);
             }

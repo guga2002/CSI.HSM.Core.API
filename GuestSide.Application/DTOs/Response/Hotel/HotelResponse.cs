@@ -1,6 +1,5 @@
-﻿using GuestSide.Core.Entities.Hotel.GeoLocation;
-
-namespace GuestSide.Application.DTOs.Response.Hotel;
+﻿
+namespace Core.Application.DTOs.Response.Hotel;
 
 public class HotelResponse
 {

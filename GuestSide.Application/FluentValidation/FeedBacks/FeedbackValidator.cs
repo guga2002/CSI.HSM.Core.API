@@ -1,10 +1,9 @@
-﻿using FluentValidation;
-using GuestSide.Application.DTOs.Request.FeedBacks;
-using GuestSide.Application.DTOs.Response.FeedBacks;
+﻿using Core.Application.DTOs.Request.FeedBacks;
+using FluentValidation;
 
-namespace GuestSide.Application.FluentValidation.FeedBacks
+namespace Core.Application.FluentValidation.FeedBacks
 {
-    public class FeedbackValidator:AbstractValidator<FeedbackDto>
+    public class FeedbackValidator : AbstractValidator<FeedbackDto>
     {
         public FeedbackValidator()
         {

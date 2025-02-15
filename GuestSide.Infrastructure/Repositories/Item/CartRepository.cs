@@ -1,15 +1,15 @@
 ﻿using System.Transactions;
+using Core.Core.Data;
+using Core.Core.Entities.Item;
+using Core.Core.Interfaces.Item;
+using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
 using Core.Persistance.LoggingConfigs;
-using GuestSide.Core.Data;
-using GuestSide.Core.Entities.Item;
-using GuestSide.Core.Interfaces.Item;
-using GuestSide.Infrastructure.Repositories.AbstractRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace GuestSide.Infrastructure.Repositories.Item
+namespace Core.Infrastructure.Repositories.Item
 {
     public class CartRepository : GenericRepository<Cart>, ICartRepository
     {
@@ -49,7 +49,7 @@ namespace GuestSide.Infrastructure.Repositories.Item
                 .FirstOrDefaultAsync(c => c.Id == cartId);
 
             if (cart == null)
-                return null; 
+                return null;
 
             var taskWithItem = cart.Tasks.FirstOrDefault(t => t.TaskItems.Any(i => i.ItemId == itemId));
 
@@ -59,7 +59,7 @@ namespace GuestSide.Infrastructure.Repositories.Item
                 if (itemToRemove is not null)
                 {
                     taskWithItem.TaskItems.Remove(itemToRemove);
-                    Context.Remove(itemToRemove); 
+                    Context.Remove(itemToRemove);
                     await Context.SaveChangesAsync();
                 }
             }
@@ -75,10 +75,10 @@ namespace GuestSide.Infrastructure.Repositories.Item
                .FirstOrDefaultAsync(c => c.Id == cartId);
 
             if (cart == null)
-                return null; 
+                return null;
 
             var taskItem = cart.Tasks
-                .SelectMany(t => t.TaskItems) 
+                .SelectMany(t => t.TaskItems)
                 .FirstOrDefault(i => i.ItemId == itemId);
 
             if (taskItem is not null)

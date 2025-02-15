@@ -1,4 +1,5 @@
-﻿using GuestSide.Core.Interfaces.LogInterfaces;
+﻿using Core.Core.Entities.LogEntities;
+using Core.Core.Interfaces.LogInterfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Persistance.LoggingConfigs
@@ -27,7 +28,7 @@ namespace Core.Persistance.LoggingConfigs
             if (logLevel is not LogLevel.Warning&&logLevel is not LogLevel.Information)
             {
                 Console.WriteLine(exception?.Message);
-                var res = _log.AddAsync(new GuestSide.Core.Entities.LogEntities.Logs
+                var res = _log.AddAsync(new Logs
                 {
                     LogLevel = logLevel.ToString(),
                     Message = formatter(state, exception),

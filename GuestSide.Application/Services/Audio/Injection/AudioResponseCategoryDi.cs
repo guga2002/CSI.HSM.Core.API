@@ -8,10 +8,9 @@ using Core.Core.Interfaces.AbstractInterface;
 using Core.Core.Interfaces.Audio;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Infrastructure.Repositories.Audio;
-using GuestSide.Core.Entities.Audio;
-using GuestSide.Core.Interfaces.AbstractInterface;
 using System;
 using Microsoft.Extensions.DependencyInjection;
+using Core.Core.Entities.Audio;
 
 namespace Core.Application.Services.Audio.Injection;
 public static class AudioResponseCategoryDi

@@ -1,4 +1,4 @@
-﻿using GuestSide.Core.Interfaces.LogInterfaces;
+﻿using Core.Core.Interfaces.LogInterfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;

@@ -1,4 +1,5 @@
-﻿using GuestSide.Core.Entities.AbstractEntities;
+﻿using Core.Core.Entities.AbstractEntities;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Core.Entities.Restaurant;
@@ -6,12 +7,15 @@ namespace Core.Core.Entities.Restaurant;
 [Table("RestaunrantItems", Schema = "CSI")]
 public class RestaunrantItem : AbstractEntity
 {
+    [StringLength(100)]
     public required string Title { get; set; }
 
     public required List<string> PhotoUrl { get; set; }
 
+    [StringLength(100)]
     public string? Description { get; set; }
 
+    [StringLength(100)]
     public string? Allergens { get; set; }
 
     public decimal? Price { get; set; }

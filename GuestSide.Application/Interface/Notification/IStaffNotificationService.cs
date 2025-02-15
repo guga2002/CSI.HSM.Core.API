@@ -1,11 +1,11 @@
-﻿using Core.Application.Interface.GenericContracts;
-using GuestSide.Application.DTOs.Request.Notification;
-using GuestSide.Application.DTOs.Response.Notification;
-using GuestSide.Core.Entities.Notification;
+﻿using Core.Application.DTOs.Request.Notification;
+using Core.Application.DTOs.Response.Notification;
+using Core.Application.Interface.GenericContracts;
+using Core.Core.Entities.Notification;
 
-namespace GuestSide.Application.Interface.Notification;
+namespace Core.Application.Interface.Notification;
 
-public interface IStaffNotificationService:IService<StafNotificationDto, StafNotificationResponseDto,long,StaffNotification>,
+public interface IStaffNotificationService : IService<StafNotificationDto, StafNotificationResponseDto, long, StaffNotification>,
     IAdditionalFeatures<StafNotificationDto, StafNotificationResponseDto, long, StaffNotification>
 {
 }

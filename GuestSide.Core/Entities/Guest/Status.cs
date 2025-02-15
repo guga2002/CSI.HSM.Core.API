@@ -1,12 +1,14 @@
-﻿using GuestSide.Core.Entities.Language;
+﻿using System.ComponentModel.DataAnnotations;
+using Core.Core.Entities.Language;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuestSide.Core.Entities.Guest;
+namespace Core.Core.Entities.Guest;
 
-[Table("Statuses",Schema ="CSI")]
-public class Status:AbstractEntities.AbstractEntity
+[Table("Statuses", Schema = "CSI")]
+public class Status : AbstractEntities.AbstractEntity
 {
-    public string  StatusName { get; set; }
+    [StringLength(100)]
+    public string? StatusName { get; set; }
 
     [ForeignKey(nameof(languagePack))]
     public long LanguageId { get; set; }

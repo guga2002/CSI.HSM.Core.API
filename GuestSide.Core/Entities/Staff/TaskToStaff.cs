@@ -1,9 +1,9 @@
-﻿using GuestSide.Core.Entities.AbstractEntities;
-using GuestSide.Core.Entities.Task;
+﻿using Core.Core.Entities.AbstractEntities;
+using Core.Core.Entities.Task;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuestSide.Core.Entities.Staff;
+namespace Core.Core.Entities.Staff;
 
 [Table("TaskToStaffs", Schema = "CSI")]
 public class TaskToStaff : AbstractEntity
@@ -32,5 +32,5 @@ public class TaskToStaff : AbstractEntity
     [ForeignKey(nameof(Task))]
     public long TaskId { get; set; }
 
-    public Task.Tasks Task { get; set; }
+    public Tasks Task { get; set; }
 }

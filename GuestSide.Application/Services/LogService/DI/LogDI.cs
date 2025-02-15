@@ -1,15 +1,14 @@
-﻿using GuestSide.Core.Interfaces.AbstractInterface;
-using Microsoft.Extensions.DependencyInjection;
-using GuestSide.Infrastructure.Repositories.LogRepo;
-using GuestSide.Core.Entities.LogEntities;
-using GuestSide.Core.Interfaces.LogInterfaces;
-using GuestSide.Application.Interface.LogInterfaces;
-using GuestSide.Application.DTOs.Request.LogModel;
-using GuestSide.Application.DTOs.Response.LogModel;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.LogService.Mapper;
 using Core.Core.Interfaces.AbstractInterface;
 using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Core.Interfaces.LogInterfaces;
+using Core.Core.Entities.LogEntities;
+using Core.Application.DTOs.Response.LogModel;
+using Core.Application.DTOs.Request.LogModel;
+using Core.Application.Interface.LogInterfaces;
+using Core.Infrastructure.Repositories.LogRepo;
 
 namespace Core.Application.Services.LogService.DI;
 

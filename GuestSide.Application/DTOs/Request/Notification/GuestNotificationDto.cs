@@ -1,5 +1,4 @@
-﻿
-namespace GuestSide.Application.DTOs.Request.Notification;
+﻿namespace Core.Application.DTOs.Request.Notification;
 
 public class GuestNotificationDto
 {

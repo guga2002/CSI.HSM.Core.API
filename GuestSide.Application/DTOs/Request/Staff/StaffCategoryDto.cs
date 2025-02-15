@@ -1,4 +1,4 @@
-﻿namespace GuestSide.Application.DTOs.Request.Staff;
+﻿namespace Core.Application.DTOs.Request.Staff;
 
 public class StaffCategoryDto
 {

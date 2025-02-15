@@ -1,7 +1,6 @@
-﻿using GuestSide.Application.DTOs.Response.Guest;
-using GuestSide.Core.Entities.Notification;
+﻿using Core.Application.DTOs.Response.Guest;
 
-namespace GuestSide.Application.DTOs.Response.Notification;
+namespace Core.Application.DTOs.Response.Notification;
 
 public class GuestNotificationResponseDto
 {

@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using GuestSide.Application.DTOs.Response.Room;
-using GuestSide.Core.Entities.Room;
+using Core.Application.DTOs.Response.Room;
 
-namespace GuestSide.Application.DTOs.Response.Guest;
+namespace Core.Application.DTOs.Response.Guest;
 
 public class GuestResponseDto
 {

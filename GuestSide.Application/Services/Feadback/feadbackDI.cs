@@ -1,17 +1,16 @@
-﻿using Core.Application.Interface.GenericContracts;
+﻿using Core.Application.DTOs.Request.FeedBacks;
+using Core.Application.DTOs.Response.FeedBacks;
+using Core.Application.Interface.Feadback;
+using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.Feadback.Mapper;
+using Core.Core.Entities.FeedBacks;
 using Core.Core.Interfaces.AbstractInterface;
+using Core.Core.Interfaces.FeedBack;
 using Core.Infrastructure.Repositories.AbstractRepository;
-using GuestSide.Application.DTOs.Request.FeedBacks;
-using GuestSide.Application.DTOs.Response.FeedBacks;
-using GuestSide.Application.Interface.Feadback;
-using GuestSide.Core.Entities.Feedbacks;
-using GuestSide.Core.Interfaces.AbstractInterface;
-using GuestSide.Core.Interfaces.FeedBack;
-using GuestSide.Infrastructure.Repositories.FeedBack;
+using Core.Infrastructure.Repositories.FeedBack;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GuestSide.Application.Services.Feadback;
+namespace Core.Application.Services.Feadback;
 
 public static class feadbackDI
 {
@@ -19,8 +18,8 @@ public static class feadbackDI
     {
         services.AddScoped<IGenericRepository<Feedback>, FeedbackRepository>();
         services.AddScoped<IFeedbackRepository, FeedbackRepository>();
-        services.AddScoped<IFeadbackService,feadbackService>();
-        services.AddScoped<IService<FeedbackDto,FeedbackResponseDto, long, Feedback>, feadbackService>();
+        services.AddScoped<IFeadbackService, feadbackService>();
+        services.AddScoped<IService<FeedbackDto, FeedbackResponseDto, long, Feedback>, feadbackService>();
         services.AddScoped<IAdditionalFeatures<FeedbackDto, FeedbackResponseDto, long, Feedback>, feadbackService>();
         services.AddScoped<IAdditionalFeaturesRepository<Feedback>, AdditionalFeaturesRepository<Feedback>>();
         services.AddAutoMapper(typeof(FeadbackMapper));

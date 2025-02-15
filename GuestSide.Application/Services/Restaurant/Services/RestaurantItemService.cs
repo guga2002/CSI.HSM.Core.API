@@ -4,8 +4,6 @@ using Core.Application.DTOs.Response.Restaurant;
 using Core.Application.Interface.Restaurant;
 using Core.Core.Entities.Restaurant;
 using Core.Core.Interfaces.AbstractInterface;
-using GuestSide.Application.Services;
-using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Restaurant.Services;

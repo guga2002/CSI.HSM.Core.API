@@ -1,5 +1,5 @@
-﻿using GuestSide.Core.Entities.Guest;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Guest;
+using Core.Core.Interfaces.AbstractInterface;
 
 namespace Core.Core.Interfaces.Guest;
 

@@ -1,27 +1,26 @@
-﻿using Core.Application.Interface.GenericContracts;
+﻿using Core.Application.DTOs.Request.Advertisment;
+using Core.Application.DTOs.Response.Advertisment;
+using Core.Application.Interface.AdvertiementType;
+using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.AdvertisementType.Mapper;
 using Core.Core.Interfaces.AbstractInterface;
+using Core.Core.Interfaces.Advertisement;
 using Core.Infrastructure.Repositories.AbstractRepository;
-using GuestSide.Application.DTOs.Request.Advertisment;
-using GuestSide.Application.DTOs.Response.Advertisment;
-using GuestSide.Application.Interface.AdvertiementType;
-using GuestSide.Core.Interfaces.AbstractInterface;
-using GuestSide.Core.Interfaces.Advertisement;
-using GuestSide.Infrastructure.Repositories.Advertisement;
+using Core.Infrastructure.Repositories.Advertisement;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GuestSide.Application.Services.AdvertisementType;
+namespace Core.Application.Services.AdvertisementType;
 
 public static class AdvertismentTypeDI
 {
-    public static void  AddAdvertisementType(this IServiceCollection collect)
+    public static void AddAdvertisementType(this IServiceCollection collect)
     {
-        collect.AddScoped<IGenericRepository<GuestSide.Core.Entities.Advertisments.AdvertisementType>,AdvertisementTypeRepository>();
-        collect.AddScoped<IAdvertisementTypeRepository,AdvertisementTypeRepository>();
-        collect.AddScoped<IAdvertisementTypeService,AdvertisementTypeService>();
-        collect.AddScoped<IService<AdvertisementTypeDto,AdvertisementTypeResponseDto,long, GuestSide.Core.Entities.Advertisments.AdvertisementType>, AdvertisementTypeService>();
-        collect.AddScoped<IAdditionalFeatures<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, GuestSide.Core.Entities.Advertisments.AdvertisementType>, AdvertisementTypeService>();
-        collect.AddScoped<IAdditionalFeaturesRepository<GuestSide.Core.Entities.Advertisments.AdvertisementType>, AdditionalFeaturesRepository<GuestSide.Core.Entities.Advertisments.AdvertisementType>>();
+        collect.AddScoped<IGenericRepository<Core.Entities.Advertisements.AdvertisementType>, AdvertisementTypeRepository>();
+        collect.AddScoped<IAdvertisementTypeRepository, AdvertisementTypeRepository>();
+        collect.AddScoped<IAdvertisementTypeService, AdvertisementTypeService>();
+        collect.AddScoped<IService<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, Core.Entities.Advertisements.AdvertisementType>, AdvertisementTypeService>();
+        collect.AddScoped<IAdditionalFeatures<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, Core.Entities.Advertisements.AdvertisementType>, AdvertisementTypeService>();
+        collect.AddScoped<IAdditionalFeaturesRepository<Core.Entities.Advertisements.AdvertisementType>, AdditionalFeaturesRepository<Core.Entities.Advertisements.AdvertisementType>>();
         collect.AddAutoMapper(typeof(AdvertisementTypeMapper));
         // collect.AddScoped < ILogger<GenericService<AdvertisementTypeDto, long, GuestSide.Core.Entities.Advertisments.AdvertisementType>>>();
     }

@@ -1,6 +1,5 @@
-﻿using GuestSide.Core.Entities.AbstractEntities;
-using GuestSide.Core.Entities.Item;
-using GuestSide.Core.Entities.Staff;
+﻿using Core.Core.Entities.AbstractEntities;
+using Core.Core.Entities.Staff;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Core.Entities.Item;

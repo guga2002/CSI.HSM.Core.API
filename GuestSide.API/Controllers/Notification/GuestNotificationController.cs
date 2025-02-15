@@ -1,16 +1,15 @@
 ﻿using System.Threading;
+using Core.API.CustomExtendControllerBase;
+using Core.API.Response;
+using Core.Application.DTOs.Request.Notification;
+using Core.Application.DTOs.Response.Notification;
 using Core.Application.Interface.GenericContracts;
-using GuestSide.API.CustomExtendControllerBase;
-using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Request.Notification;
-using GuestSide.Application.DTOs.Response.Notification;
-using GuestSide.Application.Interface.Notification;
-using GuestSide.Application.Services.Notification.DI;
-using GuestSide.Core.Entities.Notification;
+using Core.Application.Interface.Notification;
+using Core.Core.Entities.Notification;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace GuestSide.API.Controllers.Notification
+namespace Core.API.Controllers.Notification
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -31,12 +30,12 @@ namespace GuestSide.API.Controllers.Notification
         [SwaggerOperation(Summary = "Mark notification as read", Description = "return  update notification")]
         [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<GuestNotificationResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
-        public async Task<Response<GuestNotificationResponseDto>> MarkGuestNotificationAsRead(long GuestId, long NotificationId, [FromQuery]bool unread = false)
+        public async Task<Response<GuestNotificationResponseDto>> MarkGuestNotificationAsRead(long GuestId, long NotificationId, [FromQuery] bool unread = false)
         {
-          var res=await _guestNotificationService.MarkGuestNotificationAsRead(GuestId, NotificationId, unread);
-            if(res is not null)
+            var res = await _guestNotificationService.MarkGuestNotificationAsRead(GuestId, NotificationId, unread);
+            if (res is not null)
             {
-                return Response< GuestNotificationResponseDto>.SuccessResponse(res);
+                return Response<GuestNotificationResponseDto>.SuccessResponse(res);
             }
 
             return Response<GuestNotificationResponseDto>.ErrorResponse("error while prioccessing mark notification as unread/Read");

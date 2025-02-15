@@ -1,4 +1,4 @@
-﻿namespace GuestSide.Application.DTOs.Request.Advertisment;
+﻿namespace Core.Application.DTOs.Request.Advertisment;
 
 public class AdvertisementTypeDto
 {

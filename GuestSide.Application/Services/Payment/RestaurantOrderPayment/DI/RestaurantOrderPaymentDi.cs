@@ -8,7 +8,6 @@ using Core.Core.Interfaces.AbstractInterface;
 using Core.Core.Interfaces.Restaurant.Payment;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Infrastructure.Repositories.Restaurant.Payment;
-using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Application.Services.Payment.RestaurantOrderPayment.DI;

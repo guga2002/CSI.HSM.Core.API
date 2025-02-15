@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using GuestSide.Application.DTOs.Request.Hotel;
-using GuestSide.Application.DTOs.Response.Hotel;
+using Core.Application.DTOs.Request.Hotel;
+using Core.Application.DTOs.Response.Hotel;
+using Core.Core.Entities.Hotel.GeoLocation;
 
 namespace Core.Application.Services.Hotel.Mapper;
 
@@ -9,7 +10,7 @@ public class LocationMapper:Profile
 
     public LocationMapper()
     {
-        CreateMap<LocationrequestDto, GuestSide.Core.Entities.Hotel.GeoLocation.Location>().ReverseMap();
-        CreateMap<LocationResponse, GuestSide.Core.Entities.Hotel.GeoLocation.Location>().ReverseMap();
+        CreateMap<LocationrequestDto, Location>().ReverseMap();
+        CreateMap<LocationResponse, Location>().ReverseMap();
     }
 }

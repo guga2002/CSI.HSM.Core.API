@@ -1,7 +1,7 @@
-﻿using GuestSide.Core.Entities.Task;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Task;
+using Core.Core.Interfaces.AbstractInterface;
 
-namespace GuestSide.Core.Interfaces.Task
+namespace Core.Core.Interfaces.Task
 {
     public interface ITaskStatusRepository : IGenericRepository<TasksStatus>
     {

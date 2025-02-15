@@ -1,20 +1,20 @@
-﻿using Core.Application.Interface.GenericContracts;
-using GuestSide.API.CustomExtendControllerBase;
-using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Request.Hotel;
-using GuestSide.Application.DTOs.Response.Hotel;
+﻿using Core.API.CustomExtendControllerBase;
+using Core.API.Response;
+using Core.Application.DTOs.Request.Hotel;
+using Core.Application.DTOs.Response.Hotel;
+using Core.Application.Interface.GenericContracts;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace GuestSide.API.Controllers.Hotel
+namespace Core.API.Controllers.Hotel
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HotelController : CSIControllerBase<HotelRequestDto, HotelResponse, long, GuestSide.Core.Entities.Hotel.Hotel>
+    public class HotelController : CSIControllerBase<HotelRequestDto, HotelResponse, long, Core.Entities.Hotel.Hotel>
     {
         public HotelController(
-            IService<HotelRequestDto, HotelResponse, long, GuestSide.Core.Entities.Hotel.Hotel> serviceProvider,
-            IAdditionalFeatures<HotelRequestDto, HotelResponse, long, GuestSide.Core.Entities.Hotel.Hotel> additionalFeatures)
+            IService<HotelRequestDto, HotelResponse, long, Core.Entities.Hotel.Hotel> serviceProvider,
+            IAdditionalFeatures<HotelRequestDto, HotelResponse, long, Core.Entities.Hotel.Hotel> additionalFeatures)
             : base(serviceProvider, additionalFeatures)
         {
         }

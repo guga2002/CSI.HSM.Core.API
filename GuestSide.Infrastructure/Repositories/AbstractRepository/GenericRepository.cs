@@ -1,12 +1,12 @@
-﻿using Core.Persistance.Cashing;
-using GuestSide.Core.Data;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Data;
+using Core.Core.Interfaces.AbstractInterface;
+using Core.Persistance.Cashing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
 
-namespace GuestSide.Infrastructure.Repositories.AbstractRepository;
+namespace Core.Infrastructure.Repositories.AbstractRepository;
 /// <summary>
 /// Generic Repository for CRUD operations
 /// </summary>

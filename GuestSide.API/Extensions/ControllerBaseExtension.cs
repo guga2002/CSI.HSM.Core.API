@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core.API.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace GuestSide.API.Extensions
+namespace Core.API.Extensions
 {
     public static class ControllerBaseExtension
     {
@@ -73,7 +74,7 @@ namespace GuestSide.API.Extensions
             return controller.HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
         }
 
-     
+
 
         /// <summary>
         /// Logs an information message.

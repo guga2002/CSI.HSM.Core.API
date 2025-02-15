@@ -53,7 +53,7 @@ public interface IAdditionalFeatures<RequestDto, ResponseDto, TKey, DatabaseEnti
     /// <param name="entities"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task BulkDeleteAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default);
+    System.Threading.Tasks.Task BulkDeleteAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Bulk Update
@@ -61,7 +61,7 @@ public interface IAdditionalFeatures<RequestDto, ResponseDto, TKey, DatabaseEnti
     /// <param name="entities"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task BulkUpdateAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default);
+    System.Threading.Tasks.Task BulkUpdateAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Bulk Add
@@ -69,5 +69,5 @@ public interface IAdditionalFeatures<RequestDto, ResponseDto, TKey, DatabaseEnti
     /// <param name="entities"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task BulkAddAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default);
+    System.Threading.Tasks.Task BulkAddAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default);
 }

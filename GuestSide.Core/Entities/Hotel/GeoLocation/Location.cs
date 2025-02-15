@@ -1,13 +1,16 @@
-﻿using GuestSide.Core.Entities.AbstractEntities;
+﻿using Core.Core.Entities.AbstractEntities;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuestSide.Core.Entities.Hotel.GeoLocation;
+namespace Core.Core.Entities.Hotel.GeoLocation;
 
-[Table("Locations",Schema ="CSI")]
-public class Location:AbstractEntity
+[Table("Locations", Schema = "CSI")]
+public class Location : AbstractEntity
 {
+    [StringLength(100)]
     public string? Address { get; set; }//human friendly name
 
+    [StringLength(100)]
     public string? MapUrl { get; set; } //back will generate  link for open  google map  for tracking
 
     public double Latitude { get; set; }

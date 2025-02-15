@@ -1,16 +1,17 @@
-﻿using Core.Core.Entities.Payment;
-using Core.Core.Entities.Restaurant;
-using GuestSide.Core.Entities.AbstractEntities;
-using GuestSide.Core.Entities.Guest;
+﻿using Core.Core.Entities.AbstractEntities;
+using Core.Core.Entities.Guest;
+using Core.Core.Entities.Payment;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuestSide.Core.Entities.Restaurant;
+namespace Core.Core.Entities.Restaurant;
 
 [Table("RestaurantCarts", Schema = "CSI")]
 public class RestaurantCart : AbstractEntity
 {
     [ForeignKey(nameof(Guests))]
     public long GuestId { get; set; }
+    [StringLength(100)]
     public string? WhatWillRobotSay { get; set; }
     public decimal Total => RestaurantItemToCarts?.Sum(item => item?.RestaunrantItem?.Price * item?.Quantity) ?? 0;
     public virtual RestaurantOrderPayment? RestaurantOrderPayment { get; set; }

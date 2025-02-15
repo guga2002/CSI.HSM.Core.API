@@ -1,13 +1,13 @@
-﻿using Core.Application.Interface.GenericContracts;
-using GuestSide.API.CustomExtendControllerBase;
-using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Request.Hotel;
-using GuestSide.Application.DTOs.Response.Hotel;
-using GuestSide.Core.Entities.Hotel.GeoLocation;
+﻿using Core.API.CustomExtendControllerBase;
+using Core.API.Response;
+using Core.Application.DTOs.Request.Hotel;
+using Core.Application.DTOs.Response.Hotel;
+using Core.Application.Interface.GenericContracts;
+using Core.Core.Entities.Hotel.GeoLocation;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace GuestSide.API.Controllers.Hotel
+namespace Core.API.Controllers.Hotel
 {
     [Route("api/[controller]")]
     [ApiController]

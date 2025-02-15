@@ -5,12 +5,11 @@ using Core.Application.Interface.Restaurant;
 using Core.Application.Services.Payment.PaymentOption.Mapper;
 using Core.Application.Services.Restaurant.Mapper;
 using Core.Application.Services.Restaurant.Services;
+using Core.Core.Entities.Restaurant;
 using Core.Core.Interfaces.AbstractInterface;
 using Core.Core.Interfaces.Restaurant;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Infrastructure.Repositories.Restaurant;
-using GuestSide.Core.Entities.Restaurant;
-using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Application.Services.Restaurant.DI;

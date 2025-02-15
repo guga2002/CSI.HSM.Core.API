@@ -1,10 +1,10 @@
-﻿using GuestSide.Core.Entities.Task;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Task;
+using Core.Core.Interfaces.AbstractInterface;
 
-namespace GuestSide.Core.Interfaces.Task
+namespace Core.Core.Interfaces.Task
 {
-    public interface ITaskRepository:IGenericRepository<Tasks>
+    public interface ITaskRepository : IGenericRepository<Tasks>
     {
-        Task<IEnumerable<Tasks>> GetTasksbycartId(long CartId,CancellationToken cancellationToken = default);
+        Task<IEnumerable<Tasks>> GetTasksbycartId(long CartId, CancellationToken cancellationToken = default);
     }
 }

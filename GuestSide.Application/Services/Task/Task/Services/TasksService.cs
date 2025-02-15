@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
+using Core.Application.DTOs.Request.Task;
+using Core.Application.DTOs.Response.Task;
+using Core.Application.Interface.Task.Task;
+using Core.Core.Entities.Task;
 using Core.Core.Interfaces.AbstractInterface;
-using GuestSide.Application.DTOs.Request.Task;
-using GuestSide.Application.DTOs.Response.Task;
-using GuestSide.Application.Interface.Task.Task;
-using GuestSide.Application.Services;
-using GuestSide.Core.Entities.Task;
-using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Task.Task.Services

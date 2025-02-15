@@ -1,16 +1,15 @@
-﻿using GuestSide.Core.Interfaces.AbstractInterface;
-using Microsoft.Extensions.DependencyInjection;
-using GuestSide.Core.Entities.Task;
-using GuestSide.Infrastructure.Repositories.Task;
-using GuestSide.Core.Interfaces.Task;
-using GuestSide.Application.Interface.Task.Status;
-using GuestSide.Application.DTOs.Request.Task;
-using GuestSide.Application.DTOs.Response.Task;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Core.Application.Services.Task.Status.Services;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.Task.Status.Mapper;
 using Core.Core.Interfaces.AbstractInterface;
 using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Core.Entities.Task;
+using Core.Core.Interfaces.Task;
+using Core.Application.DTOs.Response.Task;
+using Core.Application.Interface.Task.Status;
+using Core.Application.DTOs.Request.Task;
+using Core.Infrastructure.Repositories.Task;
 
 namespace Core.Application.Services.Task.Status.DI;
 

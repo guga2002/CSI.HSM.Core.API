@@ -1,7 +1,6 @@
-﻿using GuestSide.Application.DTOs.Request.Task;
-using GuestSide.Core.Entities.Task;
+﻿using Core.Application.DTOs.Request.Task;
 
-namespace GuestSide.Application.DTOs.Request.Item;
+namespace Core.Application.DTOs.Request.Item;
 
 public class CartDto
 {

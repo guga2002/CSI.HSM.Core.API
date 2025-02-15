@@ -2,10 +2,8 @@
 using Core.Application.DTOs.Request.Language;
 using Core.Application.DTOs.Response.Language;
 using Core.Application.Interface.Language;
+using Core.Core.Entities.Language;
 using Core.Core.Interfaces.AbstractInterface;
-using GuestSide.Application.Services;
-using GuestSide.Core.Entities.Language;
-using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Language.Service;

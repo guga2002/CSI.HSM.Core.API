@@ -1,9 +1,9 @@
-﻿using FluentValidation;
-using GuestSide.Application.DTOs.Request.Item;
+﻿using Core.Application.DTOs.Request.Item;
+using FluentValidation;
 
-namespace GuestSide.Application.FluentValidation.Item
+namespace Core.Application.FluentValidation.Item
 {
-    public class ItemValidator:AbstractValidator<ItemDto>
+    public class ItemValidator : AbstractValidator<ItemDto>
     {
         public ItemValidator()
         {

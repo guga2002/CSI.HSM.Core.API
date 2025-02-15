@@ -1,10 +1,9 @@
-﻿using FluentValidation;
-using GuestSide.Application.DTOs.Request.Guest;
-using GuestSide.Application.DTOs.Response.Guest;
+﻿using Core.Application.DTOs.Request.Guest;
+using FluentValidation;
 
-namespace GuestSide.Application.FluentValidation.Guest
+namespace Core.Application.FluentValidation.Guest
 {
-    public class GuestValidator:AbstractValidator<GuestDto>
+    public class GuestValidator : AbstractValidator<GuestDto>
     {
         public GuestValidator()
         {

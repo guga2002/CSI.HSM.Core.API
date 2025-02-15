@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace GuestSide.Persistance.Reflections
+namespace Core.Persistance.Reflections
 {
     public static class ReflectionRepositories
     {

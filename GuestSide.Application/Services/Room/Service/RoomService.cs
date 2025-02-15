@@ -1,33 +1,32 @@
 ﻿using AutoMapper;
+using Core.Application.DTOs.Request.Room;
+using Core.Application.DTOs.Response.Hotel;
+using Core.Application.DTOs.Response.Room;
+using Core.Application.Interface.Room;
+using Core.Core.Entities.Room;
 using Core.Core.Interfaces.AbstractInterface;
-using GuestSide.Application.DTOs.Request.Room;
-using GuestSide.Application.DTOs.Response.Hotel;
-using GuestSide.Application.DTOs.Response.Room;
-using GuestSide.Application.Interface.Room;
-using GuestSide.Core.Entities.Room;
-using GuestSide.Core.Interfaces.AbstractInterface;
-using GuestSide.Core.Interfaces.Room;
+using Core.Core.Interfaces.Room;
 using Microsoft.Extensions.Logging;
 
-namespace GuestSide.Application.Services.Room.Service;
+namespace Core.Application.Services.Room.Service;
 
 public class RoomService : GenericService<RoomsDto, RoomsResponseDto, long, Rooms>, IRoomService
 {
     private readonly IRoomRepository _roomRepository;
     private readonly IMapper _mapper;
-    public RoomService(IRoomRepository roomRepository, IMapper mapper, 
-        IGenericRepository<Rooms> repository, 
-        ILogger<GenericService<RoomsDto, RoomsResponseDto, long, Rooms>> logger, 
+    public RoomService(IRoomRepository roomRepository, IMapper mapper,
+        IGenericRepository<Rooms> repository,
+        ILogger<GenericService<RoomsDto, RoomsResponseDto, long, Rooms>> logger,
         IAdditionalFeaturesRepository<Rooms> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
     {
-        _mapper= mapper;
-        _roomRepository= roomRepository;
+        _mapper = mapper;
+        _roomRepository = roomRepository;
     }
 
     public async Task<HotelResponse> GetHotelForRoom(long roomId)
     {
-        var res=await _roomRepository.GetHotelForRoom(roomId);
-        if(res is not null)
+        var res = await _roomRepository.GetHotelForRoom(roomId);
+        if (res is not null)
         {
             return _mapper.Map<HotelResponse>(res);
         }

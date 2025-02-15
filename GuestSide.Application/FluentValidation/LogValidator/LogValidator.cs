@@ -1,13 +1,13 @@
-﻿using FluentValidation;
-using GuestSide.Application.DTOs.Request.LogModel;
+﻿using Core.Application.DTOs.Request.LogModel;
+using FluentValidation;
 
-namespace GuestSide.Application.FluentValidation.LogValidator
+namespace Core.Application.FluentValidation.LogValidator
 {
-    public class LogValidator:AbstractValidator<LogDto>
+    public class LogValidator : AbstractValidator<LogDto>
     {
         public LogValidator()
         {
-           
+
         }
     }
 }

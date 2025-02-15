@@ -1,7 +1,7 @@
 ﻿using Core.Application.DTOs.Request.Language;
 using Core.Application.DTOs.Response.Language;
 using Core.Application.Interface.GenericContracts;
-using GuestSide.Core.Entities.Language;
+using Core.Core.Entities.Language;
 
 namespace Core.Application.Interface.Language
 {

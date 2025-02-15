@@ -1,12 +1,12 @@
-﻿using Core.Persistance.Cashing;
-using GuestSide.Core.Data;
-using GuestSide.Core.Entities.Task;
-using GuestSide.Core.Interfaces.Task;
-using GuestSide.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Core.Data;
+using Core.Core.Entities.Task;
+using Core.Core.Interfaces.Task;
+using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Persistance.Cashing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace GuestSide.Infrastructure.Repositories.Task
+namespace Core.Infrastructure.Repositories.Task
 {
     public class TaskStatusRepository : GenericRepository<TasksStatus>, ITaskStatusRepository
     {

@@ -1,12 +1,12 @@
-﻿using Core.Persistance.Cashing;
-using GuestSide.Core.Data;
-using GuestSide.Core.Entities.Room;
-using GuestSide.Core.Interfaces.Room;
-using GuestSide.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Core.Data;
+using Core.Core.Entities.Room;
+using Core.Core.Interfaces.Room;
+using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Persistance.Cashing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace GuestSide.Infrastructure.Repositories.Room
+namespace Core.Infrastructure.Repositories.Room
 {
     public class RoomCategoryRepository : GenericRepository<RoomCategory>, IRoomCategoryRepository
     {

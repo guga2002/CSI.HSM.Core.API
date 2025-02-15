@@ -1,16 +1,15 @@
-﻿using Core.Application.DTOs.Response.Staff;
+﻿using Core.API.CustomExtendControllerBase;
+using Core.API.Response;
+using Core.Application.DTOs.Request.Staff;
+using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.GenericContracts;
-using GuestSide.API.CustomExtendControllerBase;
-using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Request.Staff;
-using GuestSide.Application.DTOs.Response.Staff;
-using GuestSide.Application.Interface.Staff.Cart;
-using GuestSide.Core.Entities.Staff;
+using Core.Application.Interface.Staff.Task;
+using Core.Core.Entities.Staff;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace GuestSide.API.Controllers.Staff
+namespace Core.API.Controllers.Staff
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -50,10 +49,10 @@ namespace GuestSide.API.Controllers.Staff
         [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
         public async Task<Response<IEnumerable<GroupTasksStatusByCardDto>>> GetTasksStatusByCard(long cardId)
         {
-            var result=await _taskToStaffService.GetTasksStatusByCard(cardId);
-            if(result is not null)
+            var result = await _taskToStaffService.GetTasksStatusByCard(cardId);
+            if (result is not null)
             {
-                return Response < IEnumerable<GroupTasksStatusByCardDto>>.SuccessResponse(result);
+                return Response<IEnumerable<GroupTasksStatusByCardDto>>.SuccessResponse(result);
             }
 
             return Response<IEnumerable<GroupTasksStatusByCardDto>>.ErrorResponse("Data not found");
@@ -63,11 +62,11 @@ namespace GuestSide.API.Controllers.Staff
         [SwaggerOperation(Summary = "Retrieve a Task assigned to Staff by taskId", Description = "Fetches a specific task-to-staff record by task ID.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Record retrieved successfully.", typeof(Response<TaskToStaffResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
-        public async Task<Response<TaskToStaffResponseDto>> GetByTaskId([FromRoute]long taskId)
+        public async Task<Response<TaskToStaffResponseDto>> GetByTaskId([FromRoute] long taskId)
         {
-            var res =  await _taskToStaffService.GetByTaskId(taskId);
+            var res = await _taskToStaffService.GetByTaskId(taskId);
             if (res == null) return Response<TaskToStaffResponseDto>.ErrorResponse("No data found");
-            
+
             return Response<TaskToStaffResponseDto>.SuccessResponse(res);
         }
 

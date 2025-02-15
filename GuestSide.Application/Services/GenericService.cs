@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
-using GuestSide.Application.CustomExceptions;
-using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.Logging;
 using Core.Application.ErrorSuccessKeys;
 using Core.Core.Interfaces.AbstractInterface;
 using Core.Application.Interface.GenericContracts;
 using System.Linq.Expressions;
 using Core.Application.CustomExceptions;
-using InvalidOperationException = GuestSide.Application.CustomExceptions.InvalidOperationException;
+using InvalidOperationException = Core.Application.CustomExceptions.InvalidOperationException;
 
-namespace GuestSide.Application.Services;
+namespace Core.Application.Services;
 
 public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEntity>
     (IMapper mapper, IGenericRepository<TDatabaseEntity> repository,
@@ -47,7 +45,7 @@ public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEnt
         }
     }
 
-    public async Task BulkAddAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
+    public async System.Threading.Tasks.Task BulkAddAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
     {
         LogOperation("Starting bulk add operation.");
 
@@ -71,7 +69,7 @@ public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEnt
         }
     }
 
-    public async Task BulkDeleteAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
+    public async System.Threading.Tasks.Task BulkDeleteAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
     {
         LogOperation("Starting bulk delete operation.");
 
@@ -95,7 +93,7 @@ public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEnt
         }
     }
 
-    public async Task BulkUpdateAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
+    public async System.Threading.Tasks.Task BulkUpdateAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
     {
         LogOperation("Starting bulk update operation.");
 
@@ -332,7 +330,7 @@ public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEnt
             }
 
             var isDeletedProperty = typeof(TDatabaseEntity).GetProperty("IsActive");
-            if (isDeletedProperty  is not null)
+            if (isDeletedProperty is not null)
             {
                 isDeletedProperty.SetValue(entity, true);
             }

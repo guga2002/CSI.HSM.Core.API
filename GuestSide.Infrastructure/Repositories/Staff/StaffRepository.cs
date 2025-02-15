@@ -1,12 +1,12 @@
-﻿using Core.Persistance.Cashing;
-using GuestSide.Core.Data;
-using GuestSide.Core.Entities.Staff;
-using GuestSide.Core.Interfaces.Staff;
-using GuestSide.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Core.Data;
+using Core.Core.Entities.Staff;
+using Core.Core.Interfaces.Staff;
+using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Persistance.Cashing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace GuestSide.Infrastructure.Repositories.Staff
+namespace Core.Infrastructure.Repositories.Staff
 {
     public class StaffRepository : GenericRepository<Staffs>, IStaffRepository
     {

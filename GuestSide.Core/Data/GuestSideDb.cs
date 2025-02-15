@@ -1,26 +1,22 @@
-﻿using Core.Core.Entities.Guest;
+﻿using Core.Core.Entities.Advertisements;
+using Core.Core.Entities.Audio;
+using Core.Core.Entities.FeedBacks;
+using Core.Core.Entities.Guest;
+using Core.Core.Entities.Hotel;
+using Core.Core.Entities.Hotel.GeoLocation;
 using Core.Core.Entities.Item;
+using Core.Core.Entities.Language;
+using Core.Core.Entities.LogEntities;
+using Core.Core.Entities.Notification;
 using Core.Core.Entities.Payment;
 using Core.Core.Entities.Restaurant;
-using GuestSide.Core.Entities.Advertisements;
-using GuestSide.Core.Entities.Advertisments;
-using GuestSide.Core.Entities.Audio;
-using GuestSide.Core.Entities.Feedbacks;
-using GuestSide.Core.Entities.Guest;
-using GuestSide.Core.Entities.Hotel;
-using GuestSide.Core.Entities.Hotel.GeoLocation;
-using GuestSide.Core.Entities.Item;
-using GuestSide.Core.Entities.Language;
-using GuestSide.Core.Entities.LogEntities;
-using GuestSide.Core.Entities.Notification;
-using GuestSide.Core.Entities.Restaurant;
-using GuestSide.Core.Entities.Room;
-using GuestSide.Core.Entities.Staff;
-using GuestSide.Core.Entities.Task;
+using Core.Core.Entities.Room;
+using Core.Core.Entities.Staff;
+using Core.Core.Entities.Task;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace GuestSide.Core.Data;
+namespace Core.Core.Data;
 
 public class GuestSideDb : DbContext
 {
@@ -60,8 +56,8 @@ public class GuestSideDb : DbContext
     public virtual DbSet<RestaurantOrderPayment> PaymentMethods { get; set; }
     public virtual DbSet<Restaurants> Restaurants { get; set; }
     public virtual DbSet<RestaunrantItem> RestaunrantItems { get; set; }
-    public virtual DbSet<RestaurantCart> RestaurantCarts { get; set; }  
-    public virtual DbSet<RestaurantItemCategory> RestaurantItemCategories {  get; set; }
+    public virtual DbSet<RestaurantCart> RestaurantCarts { get; set; }
+    public virtual DbSet<RestaurantItemCategory> RestaurantItemCategories { get; set; }
     public virtual DbSet<PaymentOption> PaymentOptions { get; set; }
     public virtual DbSet<RestaurantItemToCart> RestaurantItemToCarts { get; set; }
     public virtual DbSet<TaskItem> TaskItems { get; set; }
@@ -78,7 +74,7 @@ public class GuestSideDb : DbContext
             Console.WriteLine($"connection String changed:{connectionString}");
 
             optionsBuilder.UseSqlServer(connectionString);
-        }   
+        }
         else
         {
             Console.WriteLine("Default case");
@@ -115,7 +111,7 @@ public class GuestSideDb : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Hotel>()
-            .HasOne(l => l.languagePack)
+            .HasOne(l => l.LanguagePack)
             .WithMany()
             .HasForeignKey(l => l.LanguageId)
             .OnDelete(DeleteBehavior.Restrict);
@@ -140,7 +136,7 @@ public class GuestSideDb : DbContext
 
 
         modelBuilder.Entity<Guests>()
-            .HasOne(l => l.languagePack)
+            .HasOne(l => l.LanguagePack)
             .WithMany()
             .HasForeignKey(l => l.LanguageId)
             .OnDelete(DeleteBehavior.Restrict);

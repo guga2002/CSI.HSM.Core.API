@@ -1,11 +1,11 @@
-﻿using GuestSide.Core.Entities.AbstractEntities;
-using GuestSide.Core.Entities.Staff;
+﻿using Core.Core.Entities.AbstractEntities;
+using Core.Core.Entities.Staff;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuestSide.Core.Entities.Notification;
+namespace Core.Core.Entities.Notification;
 
-[Table("StaffNotifications",Schema = "CSI")]
-public class StaffNotification:AbstractEntity
+[Table("StaffNotifications", Schema = "CSI")]
+public class StaffNotification : AbstractEntity
 {
     [ForeignKey(nameof(Staff))]
     public long StaffId { get; set; }

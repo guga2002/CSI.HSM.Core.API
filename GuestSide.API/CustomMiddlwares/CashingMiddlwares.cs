@@ -2,7 +2,7 @@
 using System.Text.Json;
 using Core.Persistance.Cashing;
 
-namespace GuestSide.API.CustomMiddlwares
+namespace Core.API.CustomMiddlwares
 {
     public class CashingMiddlwares
     {
@@ -70,8 +70,8 @@ namespace GuestSide.API.CustomMiddlwares
 
             var response = new
             {
-                StatusCode = context.Response.StatusCode,
-                Message = ex.Message,
+                context.Response.StatusCode,
+                ex.Message,
                 Detailed = ex.Source
             };
 

@@ -1,11 +1,11 @@
-﻿using GuestSide.Core.Entities.AbstractEntities;
-using GuestSide.Core.Entities.Guest;
+﻿using Core.Core.Entities.AbstractEntities;
+using Core.Core.Entities.Guest;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuestSide.Core.Entities.Notification;
+namespace Core.Core.Entities.Notification;
 
 [Table("GuestNotifications", Schema = "CSI")]
-public class GuestNotification:AbstractEntity
+public class GuestNotification : AbstractEntity
 {
 
     [ForeignKey(nameof(Guest))]

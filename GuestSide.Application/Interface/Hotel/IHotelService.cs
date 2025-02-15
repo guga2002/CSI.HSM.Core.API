@@ -1,10 +1,10 @@
-﻿using Core.Application.Interface.GenericContracts;
-using GuestSide.Application.DTOs.Request.Hotel;
-using GuestSide.Application.DTOs.Response.Hotel;
+﻿using Core.Application.DTOs.Request.Hotel;
+using Core.Application.DTOs.Response.Hotel;
+using Core.Application.Interface.GenericContracts;
 
-namespace GuestSide.Application.Interface.Hotel;
+namespace Core.Application.Interface.Hotel;
 
-public interface IHotelService: IService<HotelRequestDto, HotelResponse, long, GuestSide.Core.Entities.Hotel.Hotel>,
-    IAdditionalFeatures<HotelRequestDto, HotelResponse, long, GuestSide.Core.Entities.Hotel.Hotel>
+public interface IHotelService : IService<HotelRequestDto, HotelResponse, long, Core.Entities.Hotel.Hotel>,
+    IAdditionalFeatures<HotelRequestDto, HotelResponse, long, Core.Entities.Hotel.Hotel>
 {
 }

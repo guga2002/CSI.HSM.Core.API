@@ -1,14 +1,14 @@
-﻿using GuestSide.Core.Entities.Notification;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Notification;
+using Core.Core.Interfaces.AbstractInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GuestSide.Core.Interfaces.Notification
+namespace Core.Core.Interfaces.Notification
 {
-    public interface IGuestNotificationRepository:IGenericRepository<GuestNotification>
+    public interface IGuestNotificationRepository : IGenericRepository<GuestNotification>
     {
         Task<GuestNotification> MarkGuestNotificationAsRead(long GuestId, long NotificationId, bool unread = false);
         Task<IEnumerable<GuestNotification>> GetNotificationsByGuestId(long GuestId);

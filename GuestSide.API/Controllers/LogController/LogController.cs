@@ -1,13 +1,13 @@
-﻿using Core.Application.Interface.GenericContracts;
-using GuestSide.API.CustomExtendControllerBase;
-using GuestSide.API.Response;
-using GuestSide.Application.DTOs.Request.LogModel;
-using GuestSide.Application.DTOs.Response.LogModel;
-using GuestSide.Core.Entities.LogEntities;
+﻿using Core.API.CustomExtendControllerBase;
+using Core.API.Response;
+using Core.Application.DTOs.Request.LogModel;
+using Core.Application.DTOs.Response.LogModel;
+using Core.Application.Interface.GenericContracts;
+using Core.Core.Entities.LogEntities;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace GuestSide.API.Controllers.LogController
+namespace Core.API.Controllers.LogController
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,12 +1,12 @@
-﻿using Core.Application.Interface.GenericContracts;
-using GuestSide.Application.DTOs.Request.Room;
-using GuestSide.Application.DTOs.Response.Hotel;
-using GuestSide.Application.DTOs.Response.Room;
-using GuestSide.Core.Entities.Room;
+﻿using Core.Application.DTOs.Request.Room;
+using Core.Application.DTOs.Response.Hotel;
+using Core.Application.DTOs.Response.Room;
+using Core.Application.Interface.GenericContracts;
+using Core.Core.Entities.Room;
 
-namespace GuestSide.Application.Interface.Room;
+namespace Core.Application.Interface.Room;
 
-public interface IRoomService:IService<RoomsDto,RoomsResponseDto,long,Rooms>,
+public interface IRoomService : IService<RoomsDto, RoomsResponseDto, long, Rooms>,
     IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Rooms>
 {
     Task<RoomsResponseDto> GetRoomDetails(long roomId);

@@ -1,12 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Core.Core.Entities.Item;
-using GuestSide.Core.Entities.Feedbacks;
-using GuestSide.Core.Entities.Item;
-using GuestSide.Core.Entities.Language;
-using System.ComponentModel.DataAnnotations.Schema;
-using Core.Application.DTOs.Response.Item;
+﻿using Core.Application.DTOs.Response.Item;
 
-namespace GuestSide.Application.DTOs.Response.Task;
+namespace Core.Application.DTOs.Response.Task;
 
 public class TaskResponseDto
 {

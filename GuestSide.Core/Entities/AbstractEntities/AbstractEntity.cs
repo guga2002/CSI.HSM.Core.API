@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GuestSide.Core.Entities.AbstractEntities
+namespace Core.Core.Entities.AbstractEntities
 {
     public abstract class AbstractEntity
     {
@@ -9,9 +9,9 @@ namespace GuestSide.Core.Entities.AbstractEntities
 
         public bool IsActive { get; set; } = true;
 
-        protected  AbstractEntity()
+        protected AbstractEntity()
         {
-            
+
         }
 
     }

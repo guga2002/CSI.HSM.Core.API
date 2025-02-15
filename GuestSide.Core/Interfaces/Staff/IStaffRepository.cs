@@ -1,9 +1,9 @@
-﻿using GuestSide.Core.Entities.Staff;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Staff;
+using Core.Core.Interfaces.AbstractInterface;
 
-namespace GuestSide.Core.Interfaces.Staff
+namespace Core.Core.Interfaces.Staff
 {
-    public interface IStaffRepository:IGenericRepository<Staffs>
+    public interface IStaffRepository : IGenericRepository<Staffs>
     {
     }
 }

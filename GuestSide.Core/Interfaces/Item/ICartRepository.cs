@@ -1,9 +1,9 @@
-﻿using GuestSide.Core.Entities.Item;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Item;
+using Core.Core.Interfaces.AbstractInterface;
 
-namespace GuestSide.Core.Interfaces.Item
+namespace Core.Core.Interfaces.Item
 {
-    public interface ICartRepository:IGenericRepository<Cart>
+    public interface ICartRepository : IGenericRepository<Cart>
     {
         Task<bool> ClearCart(long cartId);
         Task<Cart?> CartSymmary(long cartId);

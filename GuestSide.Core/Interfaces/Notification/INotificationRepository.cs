@@ -1,9 +1,9 @@
-﻿using GuestSide.Core.Entities.Notification;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.Notification;
+using Core.Core.Interfaces.AbstractInterface;
 
-namespace GuestSide.Core.Interfaces.Notification
+namespace Core.Core.Interfaces.Notification
 {
-    public interface INotificationRepository:IGenericRepository<Notifications>
+    public interface INotificationRepository : IGenericRepository<Notifications>
     {
         //add another method
     }

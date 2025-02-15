@@ -1,9 +1,9 @@
-﻿using GuestSide.Core.Entities.Feedbacks;
-using GuestSide.Core.Interfaces.AbstractInterface;
+﻿using Core.Core.Entities.FeedBacks;
+using Core.Core.Interfaces.AbstractInterface;
 
-namespace GuestSide.Core.Interfaces.FeedBack
+namespace Core.Core.Interfaces.FeedBack
 {
-    public interface IFeedbackRepository:IGenericRepository<Feedback>
+    public interface IFeedbackRepository : IGenericRepository<Feedback>
     {
         Task<List<Feedback>> GetallFeadbackForguest(long guestId);
         //add another method

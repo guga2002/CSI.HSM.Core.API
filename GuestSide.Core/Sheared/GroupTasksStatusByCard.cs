@@ -1,4 +1,4 @@
-﻿using GuestSide.Core.Entities.Task;
+﻿using Core.Core.Entities.Task;
 
 namespace Core.Core.Sheared
 {

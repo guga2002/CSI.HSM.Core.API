@@ -2,10 +2,8 @@
 using Core.Application.DTOs.Request.Audio;
 using Core.Application.DTOs.Response.Audio;
 using Core.Application.Interface.Audio;
+using Core.Core.Entities.Audio;
 using Core.Core.Interfaces.AbstractInterface;
-using GuestSide.Application.Services;
-using GuestSide.Core.Entities.Audio;
-using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Audio.Service;

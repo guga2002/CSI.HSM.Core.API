@@ -9,7 +9,6 @@ using Core.Core.Interfaces.AbstractInterface;
 using Core.Core.Interfaces.Guest;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Infrastructure.Repositories.Guest;
-using GuestSide.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Application.Services.Guest.Injection;

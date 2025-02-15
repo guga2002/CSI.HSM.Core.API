@@ -1,10 +1,9 @@
-﻿using FluentValidation;
-using GuestSide.Application.DTOs.Request.Advertisment;
-using GuestSide.Application.DTOs.Response.Advertisment;
+﻿using Core.Application.DTOs.Request.Advertisment;
+using FluentValidation;
 
-namespace GuestSide.Application.FluentValidation.Advertisment
+namespace Core.Application.FluentValidation.Advertisment
 {
-    public class AdvertismentTypeValidator:AbstractValidator<AdvertisementTypeDto>
+    public class AdvertismentTypeValidator : AbstractValidator<AdvertisementTypeDto>
     {
         public AdvertismentTypeValidator()
         {

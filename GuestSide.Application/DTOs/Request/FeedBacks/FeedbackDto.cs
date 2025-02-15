@@ -1,4 +1,4 @@
-﻿namespace GuestSide.Application.DTOs.Request.FeedBacks;
+﻿namespace Core.Application.DTOs.Request.FeedBacks;
 
 public class FeedbackDto
 {
