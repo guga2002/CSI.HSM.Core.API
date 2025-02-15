@@ -374,7 +374,7 @@ namespace Core.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RestaunrantItems",
+                name: "RestaurantsItems",
                 schema: "CSI",
                 columns: table => new
                 {
@@ -905,7 +905,7 @@ namespace Core.Core.Migrations
                         name: "FK_RestaunrantItemRestaurantCart_RestaunrantItems_RestaunrantItemId",
                         column: x => x.RestaunrantItemId,
                         principalSchema: "CSI",
-                        principalTable: "RestaunrantItems",
+                        principalTable: "RestaurantsItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -1195,13 +1195,13 @@ namespace Core.Core.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_RestaunrantItems_RestaurantId",
                 schema: "CSI",
-                table: "RestaunrantItems",
+                table: "RestaurantsItems",
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RestaunrantItems_RestaurantItemCategoryId",
                 schema: "CSI",
-                table: "RestaunrantItems",
+                table: "RestaurantsItems",
                 column: "RestaurantItemCategoryId");
 
             migrationBuilder.CreateIndex(
@@ -1375,7 +1375,7 @@ namespace Core.Core.Migrations
                 schema: "CSI");
 
             migrationBuilder.DropTable(
-                name: "RestaunrantItems",
+                name: "RestaurantsItems",
                 schema: "CSI");
 
             migrationBuilder.DropTable(

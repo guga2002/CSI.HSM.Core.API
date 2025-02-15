@@ -24,10 +24,7 @@ public class Advertisements : AbstractEntity
     [DataType(DataType.Date)]
     public DateTime? EndDate { get; set; }
 
-    [ForeignKey(nameof(languagePack))]
-    public long LanguageId { get; set; }
-
-    public LanguagePack languagePack { get; set; }
+    public string LanguageCode { get; set; }
 
     public List<byte[]>? Pictures { get; set; }
 }

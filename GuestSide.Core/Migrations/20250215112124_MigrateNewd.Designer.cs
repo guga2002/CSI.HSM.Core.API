@@ -4,6 +4,7 @@ using Core.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Core.Migrations
 {
     [DbContext(typeof(GuestSideDb))]
-    partial class GuestSideDbModelSnapshot : ModelSnapshot
+    [Migration("20250215112124_MigrateNewd")]
+    partial class MigrateNewd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1019,7 +1022,7 @@ namespace Core.Core.Migrations
 
                     b.HasIndex("RestaurantItemCategoryId");
 
-                    b.ToTable("RestaurantsItems", "CSI");
+                    b.ToTable("RestaunrantItems", "CSI");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantCart", b =>

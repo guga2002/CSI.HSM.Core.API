@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Core.Core.Entities.Item;
 
 [Table("Carts", Schema = "CSI")]
-[Index(nameof(LanguageId))]
+[Index(nameof(LanguageCode))]
 public class Cart : AbstractEntity
 {
     [ForeignKey(nameof(guest))]
@@ -22,10 +22,8 @@ public class Cart : AbstractEntity
 
     public virtual IEnumerable<Tasks> Tasks { get; set; }
 
-    [ForeignKey(nameof(language))]
-    public long LanguageId { get; set; }
-
-    public virtual LanguagePack? language { get; set; }
+    [StringLength(100)]
+    public string? LanguageCode { get; set; }
 
     public bool IsComplete { get; set; }
 

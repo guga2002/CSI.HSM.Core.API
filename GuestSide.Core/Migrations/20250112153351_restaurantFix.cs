@@ -48,7 +48,7 @@ namespace Core.Core.Migrations
                 table: "RestaurantCarts",
                 column: "RestaunrantItemId",
                 principalSchema: "CSI",
-                principalTable: "RestaunrantItems",
+                principalTable: "RestaurantsItems",
                 principalColumn: "Id");
         }
     }

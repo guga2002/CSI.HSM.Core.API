@@ -39,7 +39,7 @@ public class GuestSideDb : DbContext
     public virtual DbSet<GuestNotification> GuestNotifications { get; set; }
     public virtual DbSet<StaffNotification> StaffNotifications { get; set; }
     public virtual DbSet<Notifications> Notifications { get; set; }
-    public virtual DbSet<QRCode> QRCodes { get; set; }
+    public virtual DbSet<QRCode> QrCodes { get; set; }
     public virtual DbSet<RoomCategory> RoomCategories { get; set; }
     public virtual DbSet<Rooms> Rooms { get; set; }
     public virtual DbSet<StaffCategory> StaffCategories { get; set; }
@@ -51,11 +51,11 @@ public class GuestSideDb : DbContext
     public virtual DbSet<LanguagePack> LanguagePacks { get; set; }
     public virtual DbSet<Location> Locations { get; set; }
     public virtual DbSet<Hotel> Hotels { get; set; }
-    public virtual DbSet<GuestActiveLanguage> GuestActiveLanguage { get; set; }
+    public virtual DbSet<GuestActiveLanguage> GuestActiveLanguages { get; set; }
     public virtual DbSet<TaskToStaff> TaskToStaffs { get; set; }
     public virtual DbSet<RestaurantOrderPayment> PaymentMethods { get; set; }
     public virtual DbSet<Restaurants> Restaurants { get; set; }
-    public virtual DbSet<RestaunrantItem> RestaunrantItems { get; set; }
+    public virtual DbSet<RestaunrantItem> RestaurantsItems { get; set; }
     public virtual DbSet<RestaurantCart> RestaurantCarts { get; set; }
     public virtual DbSet<RestaurantItemCategory> RestaurantItemCategories { get; set; }
     public virtual DbSet<PaymentOption> PaymentOptions { get; set; }
@@ -63,6 +63,12 @@ public class GuestSideDb : DbContext
     public virtual DbSet<TaskItem> TaskItems { get; set; }
     public virtual DbSet<ItemCategoryToStaffCategory> ItemCategoryToStaffCategories { get; set; }
 
+    public virtual DbSet<StaffInfoAboutRanOutItems> StaffInfoAboutRanOutItems { get; set; }
+    public virtual DbSet<StaffReserveItem> StaffReserveItems { get; set; }
+    public virtual DbSet<StaffIncident> StaffIncidents { get; set; }
+    public virtual DbSet<StaffSentiment> StaffSentiments { get; set; }
+    public virtual DbSet<StaffSupport> StaffSupports { get; set; }
+    public virtual DbSet<StaffSupportResponse> StaffSupportResponses { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -80,119 +86,5 @@ public class GuestSideDb : DbContext
             Console.WriteLine("Default case");
             // optionsBuilder.UseSqlServer("Data Source=DESKTOP-JT3FIU7\\SQLEXPRESS;Initial Catalog=CSILopota;Integrated Security=True;TrustServerCertificate=True;");//default case
         }
-    }
-
-    public async Task<Tasks> GetTaskByCartId(long CardId)
-    {
-        CreateProcedure();
-        var res = await Database.SqlQueryRaw<Tasks>("EXEC [dbo].[GetTaskByCartId] @CardId", CardId).FirstOrDefaultAsync();
-        return res ?? throw new ArgumentNullException("No data exist!");
-    }
-
-    private void CreateProcedure()
-    {
-        var sql = @"
-            IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES 
-               WHERE ROUTINE_TYPE = 'PROCEDURE' 
-               AND ROUTINE_NAME = 'GetTaskByCartId')
-            BEGIN
-            EXEC('
-             CREATE PROCEDURE [dbo].[GetTaskByCartId]
-            @CardId INT
-            AS
-            BEGIN
-            SELECT * FROM [dbo].[Tasks] WHERE [CartId]= @CardId
-            END
-            ')
-            END";
-        Database.ExecuteSqlRaw(sql);
-    }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Hotel>()
-            .HasOne(l => l.LanguagePack)
-            .WithMany()
-            .HasForeignKey(l => l.LanguageId)
-            .OnDelete(DeleteBehavior.Restrict);
-        modelBuilder.Entity<Advertisements>()
-            .HasOne(l => l.languagePack)
-            .WithMany()
-            .HasForeignKey(l => l.LanguageId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<AdvertisementType>()
-            .HasOne(l => l.languagePack)
-            .WithMany()
-            .HasForeignKey(l => l.LanguageId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-
-        modelBuilder.Entity<AudioResponse>()
-            .HasOne(l => l.Language)
-            .WithMany()
-            .HasForeignKey(l => l.LanguageId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-
-        modelBuilder.Entity<Guests>()
-            .HasOne(l => l.LanguagePack)
-            .WithMany()
-            .HasForeignKey(l => l.LanguageId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-
-        modelBuilder.Entity<Status>()
-            .HasOne(l => l.languagePack)
-            .WithMany()
-            .HasForeignKey(l => l.LanguageId)
-            .OnDelete(DeleteBehavior.Restrict);
-        modelBuilder.Entity<Cart>()
-         .HasOne(l => l.language)
-         .WithMany()
-         .HasForeignKey(l => l.LanguageId)
-         .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<ItemCategory>()
-       .HasOne(l => l.language)
-       .WithMany()
-       .HasForeignKey(l => l.LanguageId)
-       .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<Items>()
-      .HasOne(l => l.LanguagePack)
-      .WithMany()
-      .HasForeignKey(l => l.LanguageId)
-      .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<Notifications>()
-      .HasOne(l => l.languagePack)
-      .WithMany()
-      .HasForeignKey(l => l.LanguageId)
-      .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<RoomCategory>()
-    .HasOne(l => l.languagePack)
-    .WithMany()
-    .HasForeignKey(l => l.LanguageId)
-    .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<Rooms>()
-      .HasOne(l => l.languagePack)
-      .WithMany()
-      .HasForeignKey(l => l.LanguageId)
-      .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<Tasks>()
-    .HasOne(l => l.LanguagePack)
-    .WithMany()
-    .HasForeignKey(l => l.LanguageId)
-    .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<TasksStatus>()
-      .HasOne(l => l.languagePack)
-      .WithMany()
-      .HasForeignKey(l => l.LanguageId)
-      .OnDelete(DeleteBehavior.Restrict);
     }
 }

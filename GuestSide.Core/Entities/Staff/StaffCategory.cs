@@ -12,9 +12,6 @@ public class StaffCategory : AbstractEntity
     [StringLength(100)]
     public required string CategoryName { get; set; }
 
-    [ForeignKey(nameof(languagePack))]
-    public long LanguageId { get; set; }
-    public virtual LanguagePack? languagePack { get; set; }
     public virtual IEnumerable<Staffs>? Staff { get; set; }
 
     public virtual IEnumerable<TaskToStaff>? TaskToStaff { get; set; }

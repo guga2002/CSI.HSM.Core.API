@@ -19,9 +19,8 @@ public class Tasks : AbstractEntity
     [DataType(DataType.Date)]
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
-    [ForeignKey(nameof(LanguagePack))]
-    public long LanguageId { get; set; }
-    public virtual LanguagePack? LanguagePack { get; set; }
+    [StringLength(100)]
+    public string? LanguageCode { get; set; }
 
     public virtual IEnumerable<Feedback>? Feedbacks { get; set; }
 

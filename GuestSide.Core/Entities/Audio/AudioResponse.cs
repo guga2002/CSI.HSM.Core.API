@@ -11,9 +11,8 @@ public class AudioResponse
     public long Id { get; set; }
     [StringLength(100)]
     public required string TextContent { get; set; }
-
-    [ForeignKey(nameof(Language))]
-    public long LanguageId { get; set; }
+    [StringLength(100)]
+    public string? LanguageCode { get; set; }
     [StringLength(100)]
     public string? VoiceType { get; set; }
     [StringLength(100)]
@@ -24,7 +23,4 @@ public class AudioResponse
     [ForeignKey("Categories")]
     public long CategoryId { get; set; }
     public virtual AudioResponseCategory? Categories { get; set; }
-
-    [StringLength(100)]
-    public LanguagePack Language { get; set; }
 }

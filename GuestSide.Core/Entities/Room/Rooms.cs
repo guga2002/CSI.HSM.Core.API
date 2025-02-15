@@ -22,9 +22,8 @@ public class Rooms : AbstractEntity
     [ForeignKey(nameof(Hotel))]
     public long HotelId { get; set; }
 
-    [ForeignKey(nameof(languagePack))]
-    public long LanguageId { get; set; }
-    public virtual LanguagePack? languagePack { get; set; }
+    [StringLength(100)]
+    public string? LanguageCode { get; set; }
 
     public virtual Hotel.Hotel? Hotel { get; set; }
     public virtual RoomCategory? RoomCategory { get; set; }

@@ -46,7 +46,7 @@ namespace Core.Core.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "CreatedAt",
                 schema: "CSI",
-                table: "RestaunrantItems",
+                table: "RestaurantsItems",
                 type: "datetime2",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
@@ -54,7 +54,7 @@ namespace Core.Core.Migrations
             migrationBuilder.AddColumn<bool>(
                 name: "IsAvaliable",
                 schema: "CSI",
-                table: "RestaunrantItems",
+                table: "RestaurantsItems",
                 type: "bit",
                 nullable: false,
                 defaultValue: false);
@@ -62,7 +62,7 @@ namespace Core.Core.Migrations
             migrationBuilder.AddColumn<decimal>(
                 name: "Price",
                 schema: "CSI",
-                table: "RestaunrantItems",
+                table: "RestaurantsItems",
                 type: "decimal(18,2)",
                 nullable: true);
 
@@ -101,7 +101,7 @@ namespace Core.Core.Migrations
                         name: "FK_RestaurantItemToCarts_RestaunrantItems_RestaunrantItemId",
                         column: x => x.RestaunrantItemId,
                         principalSchema: "CSI",
-                        principalTable: "RestaunrantItems",
+                        principalTable: "RestaurantsItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -183,7 +183,7 @@ namespace Core.Core.Migrations
                 table: "RestaurantCarts",
                 column: "RestaunrantItemId",
                 principalSchema: "CSI",
-                principalTable: "RestaunrantItems",
+                principalTable: "RestaurantsItems",
                 principalColumn: "Id");
         }
 
@@ -215,17 +215,17 @@ namespace Core.Core.Migrations
             migrationBuilder.DropColumn(
                 name: "CreatedAt",
                 schema: "CSI",
-                table: "RestaunrantItems");
+                table: "RestaurantsItems");
 
             migrationBuilder.DropColumn(
                 name: "IsAvaliable",
                 schema: "CSI",
-                table: "RestaunrantItems");
+                table: "RestaurantsItems");
 
             migrationBuilder.DropColumn(
                 name: "Price",
                 schema: "CSI",
-                table: "RestaunrantItems");
+                table: "RestaurantsItems");
 
             migrationBuilder.AlterColumn<long>(
                 name: "RestaunrantItemId",
@@ -275,7 +275,7 @@ namespace Core.Core.Migrations
                         name: "FK_RestaunrantItemRestaurantCart_RestaunrantItems_RestaunrantItemId",
                         column: x => x.RestaunrantItemId,
                         principalSchema: "CSI",
-                        principalTable: "RestaunrantItems",
+                        principalTable: "RestaurantsItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(

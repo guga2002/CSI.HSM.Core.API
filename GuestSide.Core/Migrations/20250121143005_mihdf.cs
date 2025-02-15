@@ -133,7 +133,7 @@ namespace Core.Core.Migrations
             migrationBuilder.AddColumn<bool>(
                 name: "IsActive",
                 schema: "CSI",
-                table: "RestaunrantItems",
+                table: "RestaurantsItems",
                 type: "bit",
                 nullable: false,
                 defaultValue: false);
@@ -324,7 +324,7 @@ namespace Core.Core.Migrations
             migrationBuilder.DropColumn(
                 name: "IsActive",
                 schema: "CSI",
-                table: "RestaunrantItems");
+                table: "RestaurantsItems");
 
             migrationBuilder.DropColumn(
                 name: "IsActive",

@@ -15,9 +15,9 @@ public class ItemCategory : AbstractEntity
     public string? WhatWillRobotSay { get; set; }
     [StringLength(100)]
     public string? Description { get; set; }
-    [ForeignKey(nameof(language))]
-    public long LanguageId { get; set; }
-    public virtual LanguagePack? language { get; set; }
+
+    [StringLength(100)]
+    public string? LanguageCode { get; set; }
     public virtual IEnumerable<Items>? Item { get; set; }
     public virtual ItemCategoryToStaffCategory? ItemCategoryToStaffCategory { get; set; }
     public ItemCategory(string robotWords = "you choice is {0}, explore products, se  details, if  you would  like also  order  items")

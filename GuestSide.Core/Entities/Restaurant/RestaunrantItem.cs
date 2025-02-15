@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Core.Entities.Restaurant;
 
-[Table("RestaunrantItems", Schema = "CSI")]
+[Table("RestaurantsItems", Schema = "CSI")]
 public class RestaunrantItem : AbstractEntity
 {
     [StringLength(100)]

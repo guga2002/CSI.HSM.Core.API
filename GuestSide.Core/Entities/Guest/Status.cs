@@ -10,9 +10,8 @@ public class Status : AbstractEntities.AbstractEntity
     [StringLength(100)]
     public string? StatusName { get; set; }
 
-    [ForeignKey(nameof(languagePack))]
-    public long LanguageId { get; set; }
-    public LanguagePack languagePack { get; set; }
+    [StringLength(100)]
+    public string? LanguageCode { get; set; }
 
     public virtual IEnumerable<Guests> GuestsStatues { get; set; }
 }

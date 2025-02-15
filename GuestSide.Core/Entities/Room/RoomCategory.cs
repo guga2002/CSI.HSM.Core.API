@@ -15,10 +15,8 @@ public class RoomCategory : AbstractEntity
     [StringLength(100)]
     public string? Description { get; set; }
 
-    [ForeignKey(nameof(languagePack))]
-    public long LanguageId { get; set; }
-
-    public virtual LanguagePack? languagePack { get; set; }
+    [StringLength(100)]
+    public string? LanguageCode { get; set; }
 
     public virtual IEnumerable<Rooms>? Rooms { get; set; }
 

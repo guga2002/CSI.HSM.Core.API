@@ -12,11 +12,6 @@ public class AdvertisementType : AbstractEntity
     public required string Name { get; set; }
     [StringLength(100)]
     public string? Description { get; set; }
-
-    [ForeignKey(nameof(languagePack))]
-    public long LanguageId { get; set; }
-
-    public LanguagePack languagePack { get; set; }
-
-    public IEnumerable<Advertisements> Advertisements { get; set; }
+    public string LanguageCode { get; set; }
+    public IEnumerable<Advertisements>? Advertisements { get; set; }
 }

@@ -21,9 +21,8 @@ public class Notifications : AbstractEntity
 
     public bool IsSent { get; set; } = false;
 
-    [ForeignKey(nameof(languagePack))]
-    public long LanguageId { get; set; }
-    public virtual LanguagePack? languagePack { get; set; }
+    [StringLength(100)]
+    public string? LanguageCode { get; set; }
 
     public virtual IEnumerable<StaffNotification>? StaffNotifications { get; set; }
 

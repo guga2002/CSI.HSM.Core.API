@@ -23,9 +23,8 @@ public class Feedback : AbstractEntity
 
     public DateTime FeedbackDate { get; set; }
 
-    [ForeignKey(nameof(LanguagePack))]
-    public long LanguageId { get; set; }
-    public virtual LanguagePack? LanguagePack { get; set; }
+    [StringLength(100)]
+    public string? LanguageCode { get; set; }
 
     [ForeignKey(nameof(Task))]
     public long TasksId { get; set; }

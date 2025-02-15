@@ -35,9 +35,8 @@ public class Hotel : AbstractEntity
     [NotMapped]
     public int TotalRoomCount => Rooms?.Count() ?? 0;
 
-    [ForeignKey(nameof(LanguagePack))]
-    public long LanguageId { get; set; }
-    public virtual LanguagePack? LanguagePack { get; set; }
+    [StringLength(100)]
+    public string? LanguageCode { get; set; }
 
     public virtual Location? Location { get; set; }
 

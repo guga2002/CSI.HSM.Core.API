@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Language;
 using Microsoft.EntityFrameworkCore;
 
 namespace Core.Core.Entities.Item;
 
 [Table("Items", Schema = "CSI")]
-[Index(nameof(LanguageId))]
+[Index(nameof(LanguageCode))]
 public class Items : AbstractEntity
 {
     [Column("ItemName")]
@@ -33,12 +32,10 @@ public class Items : AbstractEntity
     public long ItemCategoryId { get; set; }
     public virtual ItemCategory? ItemCategory { get; set; }
 
-    [ForeignKey(nameof(LanguagePack))]
-    public long LanguageId { get; set; }
+    [StringLength(100)]
+    public string? LanguageCode { get; set; }
 
-    public virtual LanguagePack? LanguagePack { get; set; }
-
-    public virtual ICollection<TaskItem>? TaskItems { get; set; }
+    public virtual IEnumerable<TaskItem>? TaskItems { get; set; }
 
     public virtual IEnumerable<StaffReserveItem>? ReservedItems { get; set; }
 
