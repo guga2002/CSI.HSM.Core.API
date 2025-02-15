@@ -39,10 +39,8 @@ namespace Core.Core.Entities.Hotel
 
         public virtual List<Room.Room> Rooms { get; set; } = new();
 
-        [Column(TypeName = "nvarchar(max)")] 
         public string? PicturesSerialized { get; set; }
 
-        [Column(TypeName = "nvarchar(max)")]
         public string? FacilitiesSerialized { get; set; }
 
         [NotMapped]

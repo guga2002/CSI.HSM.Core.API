@@ -7,8 +7,6 @@ using System.Text.Json;
 namespace Core.Core.Entities.Restaurant
 {
     [Table("RestaurantItems", Schema = "CSI")]
-    [Index(nameof(RestaurantId))]
-    [Index(nameof(RestaurantItemCategoryId))] 
     [Index(nameof(IsAvailable))] 
     [Index(nameof(Price))]
     public class RestaurantItem : AbstractEntity

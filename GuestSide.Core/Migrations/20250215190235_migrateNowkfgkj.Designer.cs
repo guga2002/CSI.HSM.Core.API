@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Core.Migrations
 {
     [DbContext(typeof(GuestSideDb))]
-    [Migration("20250215112124_MigrateNewd")]
-    partial class MigrateNewd
+    [Migration("20250215190235_migrateNowkfgkj")]
+    partial class migrateNowkfgkj
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,37 +25,7 @@ namespace Core.Core.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Core.Core.Entities.Advertisements.AdvertisementType", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.ToTable("AdvertisementTypes", "CSI");
-                });
-
-            modelBuilder.Entity("Core.Core.Entities.Advertisements.Advertisements", b =>
+            modelBuilder.Entity("Core.Core.Entities.Advertisements.Advertisement", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,10 +46,11 @@ namespace Core.Core.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Pictures")
+                    b.Property<string>("PicturesUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("StartDate")
@@ -94,9 +65,46 @@ namespace Core.Core.Migrations
 
                     b.HasIndex("AdvertisementTypeId");
 
-                    b.HasIndex("LanguageId");
+                    b.HasIndex("EndDate");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.HasIndex("StartDate");
 
                     b.ToTable("Advertisements", "CSI");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Advertisements.AdvertisementType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("AdvertisementTypes", "CSI");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Audio.AudioResponse", b =>
@@ -109,8 +117,8 @@ namespace Core.Core.Migrations
 
                     b.Property<string>("AudioFilePath")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
@@ -121,23 +129,28 @@ namespace Core.Core.Migrations
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");
 
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("TextContent")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("VoiceType")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("LanguageId");
+                    b.HasIndex("CreatedDate");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.HasIndex("VoiceType");
 
                     b.ToTable("AudioResponses", "CSI");
                 });
@@ -156,10 +169,12 @@ namespace Core.Core.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryName");
 
                     b.ToTable("AudioResponseCategories", "CSI");
                 });
@@ -186,13 +201,14 @@ namespace Core.Core.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<long>("TasksId")
+                    b.Property<long>("TaskId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Title")
@@ -206,9 +222,15 @@ namespace Core.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
+                    b.HasIndex("CorrelationId");
 
-                    b.HasIndex("TasksId");
+                    b.HasIndex("FeedbackDate");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.HasIndex("Rating");
+
+                    b.HasIndex("TaskId");
 
                     b.ToTable("Feedbacks", "CSI");
                 });
@@ -228,8 +250,8 @@ namespace Core.Core.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LanguageCode")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTime>("SetDate")
                         .HasColumnType("datetime2");
@@ -238,6 +260,10 @@ namespace Core.Core.Migrations
 
                     b.HasIndex("GuestId")
                         .IsUnique();
+
+                    b.HasIndex("LanguageCode");
+
+                    b.HasIndex("SetDate");
 
                     b.ToTable("GuestLanguages", "CSI");
                 });
@@ -251,12 +277,12 @@ namespace Core.Core.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Address")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("AdminNotes")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("CheckInDate")
                         .HasColumnType("datetime2");
@@ -313,8 +339,8 @@ namespace Core.Core.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Preferences")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<byte[]>("ProfilePicture")
                         .HasColumnType("varbinary(max)");
@@ -326,12 +352,21 @@ namespace Core.Core.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("WhatWillRobotSay")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CheckInDate");
+
+                    b.HasIndex("CheckOutDate");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("LanguageId");
+
+                    b.HasIndex("PhoneNumber");
 
                     b.HasIndex("RoomId");
 
@@ -351,8 +386,9 @@ namespace Core.Core.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("StatusName")
                         .HasMaxLength(100)
@@ -360,7 +396,9 @@ namespace Core.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
+                    b.HasIndex("LanguageCode");
+
+                    b.HasIndex("StatusName");
 
                     b.ToTable("Statuses", "CSI");
                 });
@@ -374,8 +412,8 @@ namespace Core.Core.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Address")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<long>("HotelId")
                         .HasColumnType("bigint");
@@ -390,13 +428,14 @@ namespace Core.Core.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("MapUrl")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("HotelId")
                         .IsUnique();
+
+                    b.HasIndex("Latitude", "Longitude");
 
                     b.ToTable("Locations", "CSI");
                 });
@@ -410,36 +449,33 @@ namespace Core.Core.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Address")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("City")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
-                    b.Property<string>("Facilities")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<string>("FacilitiesSerialized")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("LanguagePackId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Pictures")
+                    b.Property<string>("PicturesSerialized")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RegistrationDate")
@@ -450,9 +486,13 @@ namespace Core.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
+                    b.HasIndex("City");
 
-                    b.HasIndex("LanguagePackId");
+                    b.HasIndex("LanguageCode");
+
+                    b.HasIndex("Name");
+
+                    b.HasIndex("Stars");
 
                     b.ToTable("Hotels", "CSI");
                 });
@@ -474,11 +514,9 @@ namespace Core.Core.Migrations
                     b.Property<bool>("IsComplete")
                         .HasColumnType("bit");
 
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("LanguagePackId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("WhatWillRobotSay")
                         .HasMaxLength(100)
@@ -488,9 +526,9 @@ namespace Core.Core.Migrations
 
                     b.HasIndex("GuestId");
 
-                    b.HasIndex("LanguageId");
+                    b.HasIndex("IsComplete");
 
-                    b.HasIndex("LanguagePackId");
+                    b.HasIndex("LanguageCode");
 
                     b.ToTable("Carts", "CSI");
                 });
@@ -504,17 +542,15 @@ namespace Core.Core.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("LanguagePackId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -523,14 +559,14 @@ namespace Core.Core.Migrations
                         .HasColumnName("CategoryName");
 
                     b.Property<string>("WhatWillRobotSay")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
+                    b.HasIndex("LanguageCode");
 
-                    b.HasIndex("LanguagePackId");
+                    b.HasIndex("Name");
 
                     b.ToTable("ItemCategories", "CSI");
                 });
@@ -570,13 +606,16 @@ namespace Core.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Information")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -587,11 +626,9 @@ namespace Core.Core.Migrations
                     b.Property<long>("ItemCategoryId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("LanguagePackId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -600,22 +637,23 @@ namespace Core.Core.Migrations
                         .HasColumnName("ItemName");
 
                     b.Property<decimal?>("Price")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<string>("WhatWillRobotSay")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IsOrderAble");
+
                     b.HasIndex("ItemCategoryId");
 
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("LanguagePackId");
+                    b.HasIndex("LanguageCode");
 
                     b.ToTable("Items", "CSI");
                 });
@@ -628,11 +666,13 @@ namespace Core.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime?>("HandledDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ItemIds")
-                        .IsRequired()
+                    b.Property<string>("ItemIdsSerialized")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Notes")
@@ -653,6 +693,10 @@ namespace Core.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Priority");
+
+                    b.HasIndex("Resolved");
+
                     b.HasIndex("StaffId");
 
                     b.ToTable("StaffAboutRanOutItems", "CSI");
@@ -669,6 +713,9 @@ namespace Core.Core.Migrations
                     b.Property<bool>("FinalUsed")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime?>("HandledDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -681,6 +728,9 @@ namespace Core.Core.Migrations
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
+
+                    b.Property<bool>("ReleasedBySystem")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("RequiredDate")
                         .HasColumnType("datetime2");
@@ -699,7 +749,11 @@ namespace Core.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FinalUsed");
+
                     b.HasIndex("ItemId");
+
+                    b.HasIndex("ReservedTill");
 
                     b.HasIndex("StaffId");
 
@@ -714,11 +768,24 @@ namespace Core.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long?>("AssignedByStaffId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("AssignedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
                     b.Property<long>("ItemId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -727,6 +794,10 @@ namespace Core.Core.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AssignedByStaffId");
+
+                    b.HasIndex("IsCompleted");
 
                     b.HasIndex("ItemId");
 
@@ -745,15 +816,30 @@ namespace Core.Core.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("LanguagePacks", "CSI");
                 });
@@ -769,14 +855,16 @@ namespace Core.Core.Migrations
                     b.Property<Guid>("CorrelationId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Exception")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IpAddress")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(45)
+                        .HasColumnType("nvarchar(45)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -786,25 +874,42 @@ namespace Core.Core.Migrations
 
                     b.Property<string>("LogLevel")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long?>("LoggerId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Message")
                         .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("RequestId")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Source")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("StackTrace")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CorrelationId");
+
+                    b.HasIndex("IsEmergency");
+
+                    b.HasIndex("LogLevel");
+
+                    b.HasIndex("LoggerId");
+
+                    b.HasIndex("Timestamp");
 
                     b.ToTable("Logs", "CSI");
                 });
@@ -823,11 +928,17 @@ namespace Core.Core.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsImportant")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
 
                     b.Property<long>("NotificationId")
                         .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ReadTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("SentTime")
                         .HasColumnType("datetime2");
@@ -836,7 +947,11 @@ namespace Core.Core.Migrations
 
                     b.HasIndex("GuestId");
 
+                    b.HasIndex("IsRead");
+
                     b.HasIndex("NotificationId");
+
+                    b.HasIndex("SentTime");
 
                     b.ToTable("GuestNotifications", "CSI");
                 });
@@ -849,35 +964,53 @@ namespace Core.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsSent")
                         .HasColumnType("bit");
 
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Message")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime>("NotificationDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("NotificationType")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("PriorityLevel")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("SentDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("WhatWillRobotSay")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
+                    b.HasIndex("IsSent");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.HasIndex("NotificationDate");
 
                     b.ToTable("Notifications", "CSI");
                 });
@@ -893,13 +1026,31 @@ namespace Core.Core.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsImportant")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
                     b.Property<long>("NotificationId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("NotificationType")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("ReadTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("SentTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("StaffId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IsRead");
 
                     b.HasIndex("NotificationId");
 
@@ -922,13 +1073,31 @@ namespace Core.Core.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("Payment_Method_Name");
 
+                    b.Property<string>("PaymentType")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedDate");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("PaymentOptions", "CSI");
                 });
@@ -941,6 +1110,13 @@ namespace Core.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CurrencyCode")
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2")
                         .HasColumnName("Time_Of_Payment");
@@ -951,19 +1127,24 @@ namespace Core.Core.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsRefunded")
+                        .HasColumnType("bit");
+
                     b.Property<long>("PaymentOptionId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("RestaurantCartId")
                         .HasColumnType("bigint");
 
-                    b.Property<decimal?>("Subtotal")
+                    b.Property<decimal?>("TaxAmount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Date");
 
                     b.HasIndex("PaymentOptionId");
 
@@ -973,7 +1154,62 @@ namespace Core.Core.Migrations
                     b.ToTable("RestaurantOrderPayments", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaunrantItem", b =>
+            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantCart", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CurrencyCode")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<decimal?>("Discount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long>("GuestId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Subtotal")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("TaxAmount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("WhatWillRobotSay")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("GuestId");
+
+                    b.HasIndex("IsPaid");
+
+                    b.ToTable("RestaurantCarts", "CSI");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItem", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -982,27 +1218,36 @@ namespace Core.Core.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Allergens")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int?>("Calories")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("IngredientsSerialized")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsAvaliable")
+                    b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
-                    b.Property<string>("PhotoUrl")
-                        .IsRequired()
+                    b.Property<string>("PhotoUrlSerialized")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PreparationTimeMinutes")
+                        .HasColumnType("int");
+
                     b.Property<decimal?>("Price")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<long>("RestaurantId")
@@ -1016,38 +1261,20 @@ namespace Core.Core.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("IsAvailable");
+
+                    b.HasIndex("Price");
 
                     b.HasIndex("RestaurantId");
 
                     b.HasIndex("RestaurantItemCategoryId");
 
-                    b.ToTable("RestaunrantItems", "CSI");
-                });
-
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantCart", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("GuestId")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("WhatWillRobotSay")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GuestId");
-
-                    b.ToTable("RestaurantCarts", "CSI");
+                    b.ToTable("RestaurantItems", "CSI");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItemCategory", b =>
@@ -1063,14 +1290,27 @@ namespace Core.Core.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryName")
+                        .IsUnique();
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsActive");
 
                     b.ToTable("RestaurantItemCategories", "CSI");
                 });
@@ -1089,20 +1329,32 @@ namespace Core.Core.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsOrdered")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
-
-                    b.Property<long>("RestaunrantItemId")
-                        .HasColumnType("bigint");
 
                     b.Property<long>("RestaurantCartId")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("RestaurantItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("RestaunrantItemId");
+                    b.HasIndex("CreatedAt");
 
                     b.HasIndex("RestaurantCartId");
+
+                    b.HasIndex("RestaurantItemId");
 
                     b.ToTable("RestaurantItemToCarts", "CSI");
                 });
@@ -1115,19 +1367,44 @@ namespace Core.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<TimeSpan?>("ClosingTime")
+                        .HasColumnType("time");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Location")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("RestaunrantCategory")
+                    b.Property<TimeSpan?>("OpeningTime")
+                        .HasColumnType("time");
+
+                    b.Property<string>("RestaurantCategory")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("RestaurantCategory");
 
                     b.ToTable("Restaurants", "CSI");
                 });
@@ -1145,6 +1422,9 @@ namespace Core.Core.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime?>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("GeneratedDate")
                         .HasColumnType("datetime2");
 
@@ -1158,11 +1438,22 @@ namespace Core.Core.Migrations
                     b.Property<long>("RoomId")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("ScannedCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("Text")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("GeneratedDate");
 
                     b.HasIndex("RoomId")
                         .IsUnique();
@@ -1170,7 +1461,7 @@ namespace Core.Core.Migrations
                     b.ToTable("QRCodes", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Room.RoomCategory", b =>
+            modelBuilder.Entity("Core.Core.Entities.Room.Room", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1178,39 +1469,8 @@ namespace Core.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("WhatWillRobotSay")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.ToTable("RoomCategories", "CSI");
-                });
-
-            modelBuilder.Entity("Core.Core.Entities.Room.Rooms", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Floor")
                         .HasColumnType("int");
@@ -1224,11 +1484,15 @@ namespace Core.Core.Migrations
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("MaxOccupancy")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Pictures")
+                    b.Property<string>("PictureUrlsSerialized")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PricePerNight")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<long>("RoomCategoryId")
                         .HasColumnType("bigint");
@@ -1236,19 +1500,76 @@ namespace Core.Core.Migrations
                     b.Property<int>("RoomNumber")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("WhatWillRobotSay")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("Floor");
+
                     b.HasIndex("HotelId");
 
-                    b.HasIndex("LanguageId");
+                    b.HasIndex("IsAvailable");
 
                     b.HasIndex("RoomCategoryId");
 
+                    b.HasIndex("RoomNumber");
+
                     b.ToTable("Rooms", "CSI");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Room.RoomCategory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("WhatWillRobotSay")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("RoomCategories", "CSI");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Staff.StaffCategory", b =>
@@ -1264,15 +1585,27 @@ namespace Core.Core.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
+                    b.HasIndex("CategoryName")
+                        .IsUnique();
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsActive");
 
                     b.ToTable("StaffCategories", "CSI");
                 });
@@ -1288,6 +1621,10 @@ namespace Core.Core.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("IncidentType")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -1320,17 +1657,28 @@ namespace Core.Core.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("ReportedAt");
+
                     b.HasIndex("ReportedByStaffId");
+
+                    b.HasIndex("RequiresImmediateAction");
+
+                    b.HasIndex("Severity");
+
+                    b.HasIndex("Status");
 
                     b.ToTable("StaffIncidents", "CSI");
                 });
@@ -1353,8 +1701,11 @@ namespace Core.Core.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<string>("KeyPhrases")
+                    b.Property<string>("KeyPhrasesSerialized")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("SentimentConfidence")
+                        .HasColumnType("float");
 
                     b.Property<string>("SentimentLabel")
                         .HasMaxLength(100)
@@ -1363,6 +1714,10 @@ namespace Core.Core.Migrations
                     b.Property<double>("SentimentScore")
                         .HasColumnType("float");
 
+                    b.Property<string>("Source")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<long>("StaffId")
                         .HasColumnType("bigint");
 
@@ -1370,11 +1725,125 @@ namespace Core.Core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AnalysisDate");
+
+                    b.HasIndex("Emotion");
+
+                    b.HasIndex("SentimentLabel");
+
+                    b.HasIndex("SentimentScore");
 
                     b.HasIndex("StaffId");
 
                     b.ToTable("StaffSentiments", "CSI");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Staff.StaffSupport", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("AttachmentUrlsSerialized")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Category")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ResolvedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("StaffId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Subject")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedDate");
+
+                    b.HasIndex("Priority");
+
+                    b.HasIndex("StaffId");
+
+                    b.HasIndex("Status");
+
+                    b.ToTable("StaffSupports", "CSI");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Staff.StaffSupportResponse", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("AttachmentUrlsSerialized")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsFromSupportTeam")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ResponderName")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("ResponseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ResponseMessage")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<long>("TicketId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsFromSupportTeam");
+
+                    b.HasIndex("ResponseDate");
+
+                    b.HasIndex("TicketId")
+                        .IsUnique();
+
+                    b.ToTable("StaffSupportResponses", "CSI");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Staff.Staffs", b =>
@@ -1386,8 +1855,8 @@ namespace Core.Core.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Bio")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
@@ -1431,12 +1900,35 @@ namespace Core.Core.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<decimal?>("Salary")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<long>("StaffCategoryId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("SupervisorId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("HireDate");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("PhoneNumber");
+
+                    b.HasIndex("Position");
+
                     b.HasIndex("StaffCategoryId");
+
+                    b.HasIndex("SupervisorId");
 
                     b.ToTable("Staffs", "CSI");
                 });
@@ -1449,11 +1941,20 @@ namespace Core.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long?>("AssignedBy")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
 
                     b.Property<long?>("StaffCategoryId")
                         .HasColumnType("bigint");
@@ -1470,15 +1971,25 @@ namespace Core.Core.Migrations
                     b.Property<long>("TaskId")
                         .HasColumnType("bigint");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AssignedBy");
+
+                    b.HasIndex("EndDate");
 
                     b.HasIndex("StaffCategoryId");
 
                     b.HasIndex("StaffId");
 
+                    b.HasIndex("StartDate");
+
                     b.HasIndex("StatusId");
 
-                    b.HasIndex("TaskId");
+                    b.HasIndex("TaskId")
+                        .IsUnique();
 
                     b.ToTable("TaskToStaffs", "CSI");
                 });
@@ -1499,29 +2010,51 @@ namespace Core.Core.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<DateTime?>("DueDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Note")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CartId");
 
-                    b.HasIndex("LanguageId");
+                    b.HasIndex("CreatedDate");
+
+                    b.HasIndex("DueDate");
+
+                    b.HasIndex("IsCompleted");
+
+                    b.HasIndex("LanguageCode");
 
                     b.ToTable("Tasks", "CSI");
                 });
@@ -1534,15 +2067,19 @@ namespace Core.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1550,25 +2087,24 @@ namespace Core.Core.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("NameOfStatus");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("TaskStatus", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Advertisements.AdvertisementType", b =>
-                {
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", "languagePack")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("languagePack");
-                });
-
-            modelBuilder.Entity("Core.Core.Entities.Advertisements.Advertisements", b =>
+            modelBuilder.Entity("Core.Core.Entities.Advertisements.Advertisement", b =>
                 {
                     b.HasOne("Core.Core.Entities.Advertisements.AdvertisementType", "AdvertisementType")
                         .WithMany("Advertisements")
@@ -1576,51 +2112,27 @@ namespace Core.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", "languagePack")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("AdvertisementType");
-
-                    b.Navigation("languagePack");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Audio.AudioResponse", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Audio.AudioResponseCategory", "Categories")
+                    b.HasOne("Core.Core.Entities.Audio.AudioResponseCategory", "Category")
                         .WithMany("AudioResponses")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Categories");
-
-                    b.Navigation("Language");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.FeedBacks.Feedback", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", "LanguagePack")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Core.Core.Entities.Task.Tasks", "Task")
                         .WithMany("Feedbacks")
-                        .HasForeignKey("TasksId")
+                        .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("LanguagePack");
 
                     b.Navigation("Task");
                 });
@@ -1641,17 +2153,17 @@ namespace Core.Core.Migrations
                     b.HasOne("Core.Core.Entities.Language.LanguagePack", "LanguagePack")
                         .WithMany()
                         .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Room.Rooms", "Room")
+                    b.HasOne("Core.Core.Entities.Room.Room", "Room")
                         .WithMany("Guests")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Core.Entities.Guest.Status", "Status")
-                        .WithMany("GuestsStatues")
+                        .WithMany("GuestsStatuses")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1661,17 +2173,6 @@ namespace Core.Core.Migrations
                     b.Navigation("Room");
 
                     b.Navigation("Status");
-                });
-
-            modelBuilder.Entity("Core.Core.Entities.Guest.Status", b =>
-                {
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", "languagePack")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("languagePack");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Hotel.GeoLocation.Location", b =>
@@ -1685,57 +2186,15 @@ namespace Core.Core.Migrations
                     b.Navigation("Hotel");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Hotel.Hotel", b =>
-                {
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", "LanguagePack")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", null)
-                        .WithMany("Hotels")
-                        .HasForeignKey("LanguagePackId");
-
-                    b.Navigation("LanguagePack");
-                });
-
             modelBuilder.Entity("Core.Core.Entities.Item.Cart", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Guest.Guests", "guest")
+                    b.HasOne("Core.Core.Entities.Guest.Guests", "Guest")
                         .WithMany("Tasks")
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", "language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", null)
-                        .WithMany("Carts")
-                        .HasForeignKey("LanguagePackId");
-
-                    b.Navigation("guest");
-
-                    b.Navigation("language");
-                });
-
-            modelBuilder.Entity("Core.Core.Entities.Item.ItemCategory", b =>
-                {
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", "language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", null)
-                        .WithMany("ItemCategories")
-                        .HasForeignKey("LanguagePackId");
-
-                    b.Navigation("language");
+                    b.Navigation("Guest");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Item.ItemCategoryToStaffCategory", b =>
@@ -1758,24 +2217,12 @@ namespace Core.Core.Migrations
             modelBuilder.Entity("Core.Core.Entities.Item.Items", b =>
                 {
                     b.HasOne("Core.Core.Entities.Item.ItemCategory", "ItemCategory")
-                        .WithMany("Item")
+                        .WithMany("Items")
                         .HasForeignKey("ItemCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", "LanguagePack")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", null)
-                        .WithMany("Items")
-                        .HasForeignKey("LanguagePackId");
-
                     b.Navigation("ItemCategory");
-
-                    b.Navigation("LanguagePack");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Item.StaffInfoAboutRanOutItems", b =>
@@ -1810,6 +2257,10 @@ namespace Core.Core.Migrations
 
             modelBuilder.Entity("Core.Core.Entities.Item.TaskItem", b =>
                 {
+                    b.HasOne("Core.Core.Entities.Staff.Staffs", "AssignedByStaff")
+                        .WithMany()
+                        .HasForeignKey("AssignedByStaffId");
+
                     b.HasOne("Core.Core.Entities.Item.Items", "Item")
                         .WithMany("TaskItems")
                         .HasForeignKey("ItemId")
@@ -1821,6 +2272,8 @@ namespace Core.Core.Migrations
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AssignedByStaff");
 
                     b.Navigation("Item");
 
@@ -1846,17 +2299,6 @@ namespace Core.Core.Migrations
                     b.Navigation("Notifications");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Notification.Notifications", b =>
-                {
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", "languagePack")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("languagePack");
-                });
-
             modelBuilder.Entity("Core.Core.Entities.Notification.StaffNotification", b =>
                 {
                     b.HasOne("Core.Core.Entities.Notification.Notifications", "Notifications")
@@ -1865,7 +2307,7 @@ namespace Core.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Staff.Staffs", "Staff")
+                    b.HasOne("Core.Core.Entities.Staff.Staffs", "StaffMember")
                         .WithMany("StaffNotifications")
                         .HasForeignKey("StaffId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1873,7 +2315,7 @@ namespace Core.Core.Migrations
 
                     b.Navigation("Notifications");
 
-                    b.Navigation("Staff");
+                    b.Navigation("StaffMember");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Payment.RestaurantOrderPayment", b =>
@@ -1895,58 +2337,58 @@ namespace Core.Core.Migrations
                     b.Navigation("RestaurantCart");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaunrantItem", b =>
-                {
-                    b.HasOne("Core.Core.Entities.Restaurant.Restaurants", "Restaurants")
-                        .WithMany("Items")
-                        .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Core.Entities.Restaurant.RestaurantItemCategory", "restaurantItemCategory")
-                        .WithMany("restaunrantItems")
-                        .HasForeignKey("RestaurantItemCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Restaurants");
-
-                    b.Navigation("restaurantItemCategory");
-                });
-
             modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantCart", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Guest.Guests", "Guests")
+                    b.HasOne("Core.Core.Entities.Guest.Guests", "Guest")
                         .WithMany("RestaurantCart")
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Guests");
+                    b.Navigation("Guest");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItem", b =>
+                {
+                    b.HasOne("Core.Core.Entities.Restaurant.Restaurants", "Restaurant")
+                        .WithMany("Items")
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Core.Entities.Restaurant.RestaurantItemCategory", "RestaurantItemCategory")
+                        .WithMany("RestaurantItems")
+                        .HasForeignKey("RestaurantItemCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restaurant");
+
+                    b.Navigation("RestaurantItemCategory");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItemToCart", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Restaurant.RestaunrantItem", "RestaunrantItem")
-                        .WithMany("RestaurantItemToCarts")
-                        .HasForeignKey("RestaunrantItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Core.Core.Entities.Restaurant.RestaurantCart", "RestaurantCart")
                         .WithMany("RestaurantItemToCarts")
                         .HasForeignKey("RestaurantCartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("RestaunrantItem");
+                    b.HasOne("Core.Core.Entities.Restaurant.RestaurantItem", "RestaurantItem")
+                        .WithMany("RestaurantItemToCarts")
+                        .HasForeignKey("RestaurantItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("RestaurantCart");
+
+                    b.Navigation("RestaurantItem");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Room.QRCode", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Room.Rooms", "Room")
+                    b.HasOne("Core.Core.Entities.Room.Room", "Room")
                         .WithOne("QRCode")
                         .HasForeignKey("Core.Core.Entities.Room.QRCode", "RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1955,29 +2397,12 @@ namespace Core.Core.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Room.RoomCategory", b =>
-                {
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", "languagePack")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("languagePack");
-                });
-
-            modelBuilder.Entity("Core.Core.Entities.Room.Rooms", b =>
+            modelBuilder.Entity("Core.Core.Entities.Room.Room", b =>
                 {
                     b.HasOne("Core.Core.Entities.Hotel.Hotel", "Hotel")
                         .WithMany("Rooms")
                         .HasForeignKey("HotelId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", "languagePack")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Core.Core.Entities.Room.RoomCategory", "RoomCategory")
@@ -1989,30 +2414,17 @@ namespace Core.Core.Migrations
                     b.Navigation("Hotel");
 
                     b.Navigation("RoomCategory");
-
-                    b.Navigation("languagePack");
-                });
-
-            modelBuilder.Entity("Core.Core.Entities.Staff.StaffCategory", b =>
-                {
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", "languagePack")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("languagePack");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Staff.StaffIncident", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Staff.Staffs", "StaffMember")
+                    b.HasOne("Core.Core.Entities.Staff.Staffs", "ReportedByStaff")
                         .WithMany("StaffIncidents")
                         .HasForeignKey("ReportedByStaffId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("StaffMember");
+                    b.Navigation("ReportedByStaff");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Staff.StaffSentiment", b =>
@@ -2026,6 +2438,28 @@ namespace Core.Core.Migrations
                     b.Navigation("StaffMember");
                 });
 
+            modelBuilder.Entity("Core.Core.Entities.Staff.StaffSupport", b =>
+                {
+                    b.HasOne("Core.Core.Entities.Staff.Staffs", "StaffMember")
+                        .WithMany()
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StaffMember");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Staff.StaffSupportResponse", b =>
+                {
+                    b.HasOne("Core.Core.Entities.Staff.StaffSupport", "StaffSupport")
+                        .WithOne("SupportResponse")
+                        .HasForeignKey("Core.Core.Entities.Staff.StaffSupportResponse", "TicketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StaffSupport");
+                });
+
             modelBuilder.Entity("Core.Core.Entities.Staff.Staffs", b =>
                 {
                     b.HasOne("Core.Core.Entities.Staff.StaffCategory", "StaffCategory")
@@ -2034,11 +2468,21 @@ namespace Core.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Core.Core.Entities.Staff.Staffs", "Supervisor")
+                        .WithMany()
+                        .HasForeignKey("SupervisorId");
+
                     b.Navigation("StaffCategory");
+
+                    b.Navigation("Supervisor");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Staff.TaskToStaff", b =>
                 {
+                    b.HasOne("Core.Core.Entities.Staff.Staffs", "AssignedByStaff")
+                        .WithMany()
+                        .HasForeignKey("AssignedBy");
+
                     b.HasOne("Core.Core.Entities.Staff.StaffCategory", null)
                         .WithMany("TaskToStaff")
                         .HasForeignKey("StaffCategoryId");
@@ -2050,16 +2494,18 @@ namespace Core.Core.Migrations
                         .IsRequired();
 
                     b.HasOne("Core.Core.Entities.Task.TasksStatus", "Status")
-                        .WithMany("taskToStaff")
+                        .WithMany("TaskToStaff")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Core.Entities.Task.Tasks", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskId")
+                        .WithOne("TaskToStaff")
+                        .HasForeignKey("Core.Core.Entities.Staff.TaskToStaff", "TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AssignedByStaff");
 
                     b.Navigation("Staff");
 
@@ -2076,26 +2522,7 @@ namespace Core.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", "LanguagePack")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Cart");
-
-                    b.Navigation("LanguagePack");
-                });
-
-            modelBuilder.Entity("Core.Core.Entities.Task.TasksStatus", b =>
-                {
-                    b.HasOne("Core.Core.Entities.Language.LanguagePack", "languagePack")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("languagePack");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Advertisements.AdvertisementType", b =>
@@ -2122,7 +2549,7 @@ namespace Core.Core.Migrations
 
             modelBuilder.Entity("Core.Core.Entities.Guest.Status", b =>
                 {
-                    b.Navigation("GuestsStatues");
+                    b.Navigation("GuestsStatuses");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Hotel.Hotel", b =>
@@ -2139,9 +2566,9 @@ namespace Core.Core.Migrations
 
             modelBuilder.Entity("Core.Core.Entities.Item.ItemCategory", b =>
                 {
-                    b.Navigation("Item");
-
                     b.Navigation("ItemCategoryToStaffCategory");
+
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Item.Items", b =>
@@ -2149,17 +2576,6 @@ namespace Core.Core.Migrations
                     b.Navigation("ReservedItems");
 
                     b.Navigation("TaskItems");
-                });
-
-            modelBuilder.Entity("Core.Core.Entities.Language.LanguagePack", b =>
-                {
-                    b.Navigation("Carts");
-
-                    b.Navigation("Hotels");
-
-                    b.Navigation("ItemCategories");
-
-                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Notification.Notifications", b =>
@@ -2174,11 +2590,6 @@ namespace Core.Core.Migrations
                     b.Navigation("RestaurantOrderPayments");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaunrantItem", b =>
-                {
-                    b.Navigation("RestaurantItemToCarts");
-                });
-
             modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantCart", b =>
                 {
                     b.Navigation("RestaurantItemToCarts");
@@ -2186,9 +2597,14 @@ namespace Core.Core.Migrations
                     b.Navigation("RestaurantOrderPayment");
                 });
 
+            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItem", b =>
+                {
+                    b.Navigation("RestaurantItemToCarts");
+                });
+
             modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItemCategory", b =>
                 {
-                    b.Navigation("restaunrantItems");
+                    b.Navigation("RestaurantItems");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Restaurant.Restaurants", b =>
@@ -2196,16 +2612,16 @@ namespace Core.Core.Migrations
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Room.RoomCategory", b =>
-                {
-                    b.Navigation("Rooms");
-                });
-
-            modelBuilder.Entity("Core.Core.Entities.Room.Rooms", b =>
+            modelBuilder.Entity("Core.Core.Entities.Room.Room", b =>
                 {
                     b.Navigation("Guests");
 
                     b.Navigation("QRCode");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Room.RoomCategory", b =>
+                {
+                    b.Navigation("Rooms");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Staff.StaffCategory", b =>
@@ -2215,6 +2631,11 @@ namespace Core.Core.Migrations
                     b.Navigation("Staff");
 
                     b.Navigation("TaskToStaff");
+                });
+
+            modelBuilder.Entity("Core.Core.Entities.Staff.StaffSupport", b =>
+                {
+                    b.Navigation("SupportResponse");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Staff.Staffs", b =>
@@ -2235,11 +2656,13 @@ namespace Core.Core.Migrations
                     b.Navigation("Feedbacks");
 
                     b.Navigation("TaskItems");
+
+                    b.Navigation("TaskToStaff");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Task.TasksStatus", b =>
                 {
-                    b.Navigation("taskToStaff");
+                    b.Navigation("TaskToStaff");
                 });
 #pragma warning restore 612, 618
         }

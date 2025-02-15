@@ -6,8 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Core.Core.Entities.Restaurant
 {
     [Table("RestaurantItemToCarts", Schema = "CSI")]
-    [Index(nameof(RestaurantCartId))] 
-    [Index(nameof(RestaurantItemId))] 
     [Index(nameof(CreatedAt))] 
     public class RestaurantItemToCart : AbstractEntity
     {
