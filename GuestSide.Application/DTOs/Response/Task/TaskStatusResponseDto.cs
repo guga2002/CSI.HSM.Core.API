@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Response.Task;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Core.Application.DTOs.Response.Task;
 
 public class TaskStatusResponseDto
 {
@@ -6,7 +8,11 @@ public class TaskStatusResponseDto
 
     public required string Name { get; set; }
 
-    public string? Description { get; set; }
+     public string? Description { get; set; }
 
-    public long LanguageId { get; set; }
+    public string? LanguageCode { get; set; }
+
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 }

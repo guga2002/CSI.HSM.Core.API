@@ -48,7 +48,7 @@ public class CartController : CSIControllerBase<CartDto, CartResponseDto, long, 
     [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
     public async Task<Response<CartResponseDto>> CartSymmary(long cartId)
     {
-        var res = await _cartService.CartSymmary(cartId);
+        var res = await _cartService.CartSummary(cartId);
 
         if (res is not null)
         {
@@ -99,7 +99,7 @@ public class CartController : CSIControllerBase<CartDto, CartResponseDto, long, 
     [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
     public async Task<Response<IEnumerable<CartResponseDto>>> GetCartsByGuestId(long guestId, bool status)
     {
-        var res = await _cartService.GetCartsByGuestId(guestId, status);
+        var res = await _cartService.GetCartByGuestId(guestId, status);
 
         if (res is not null)
         {

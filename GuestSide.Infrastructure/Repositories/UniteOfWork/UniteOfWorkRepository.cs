@@ -6,7 +6,7 @@ using Core.Core.Interfaces.Guest;
 using Core.Core.Interfaces.Hotel;
 using Core.Core.Interfaces.Item;
 using Core.Core.Interfaces.Language;
-using Core.Core.Interfaces.LogInterfaces;
+using Core.Core.Interfaces.LogEntities;
 using Core.Core.Interfaces.Notification;
 using Core.Core.Interfaces.Restaurant;
 using Core.Core.Interfaces.Restaurant.Payment;
@@ -43,11 +43,11 @@ public class UniteOfWorkRepository : IUniteOfWork
 
     public IItemCategoryRepository ItemCategoryRepository { get; }
 
-    public IItemRepository ItemRepository { get; }
+    public IItemsRepository ItemRepository { get; }
 
     public ILanguagePackRepository LanguagePackRepository { get; }
 
-    public ILogRepository LogRepository { get; }
+    public ILogsRepository LogRepository { get; }
 
     public IGuestNotificationRepository GuestNotificationRepository { get; }
 
@@ -87,7 +87,7 @@ public class UniteOfWorkRepository : IUniteOfWork
 
     public ITaskItemRepository TaskItem { get; }
 
-    public IItemCategoryToStaffCategory ItemCategoryToStaffCategory { get; }
+    public IItemCategoryToStaffCategoryRepository ItemCategoryToStaffCategory { get; }
 
     private readonly GuestSideDb _context;
 
@@ -104,9 +104,9 @@ public class UniteOfWorkRepository : IUniteOfWork
      ILocationRepository locationRepository,
      ICartRepository cartRepository,
      IItemCategoryRepository itemCategoryRepository,
-     IItemRepository itemRepository,
+     IItemsRepository itemRepository,
      ILanguagePackRepository languagePackRepository,
-     ILogRepository logRepository,
+     ILogsRepository logRepository,
      IGuestNotificationRepository guestNotificationRepository,
      INotificationRepository notificationRepository,
      IStaffNotificationRepository staffNotificationRepository,
@@ -126,7 +126,7 @@ public class UniteOfWorkRepository : IUniteOfWork
      ITaskRepository taskRepository,
      ITaskStatusRepository taskStatusRepository,
      ITaskItemRepository taskItem,
-     IItemCategoryToStaffCategory itemCategoryToStaffCategory,
+     IItemCategoryToStaffCategoryRepository itemCategoryToStaffCategory,
      GuestSideDb Context
  )
     {

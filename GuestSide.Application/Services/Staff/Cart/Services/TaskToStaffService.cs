@@ -91,7 +91,7 @@ namespace Core.Application.Services.Staff.Cart.Services
             ValidatePositiveId(staffId, nameof(staffId));
 
             var existingTask = await _taskToStaffRepository.GetByTaskIdAsync(taskId, cancellationToken);
-            if (existingTask is not null && existingTask.StatusId == (long)TaskStatus.Completed)
+            if (existingTask is not null)
             {
                 _logger.LogWarning("Task {TaskId} has already been completed and cannot be reassigned.", taskId);
                 throw new BusinessRuleViolationException($"Task {taskId} has already been completed and cannot be reassigned.");

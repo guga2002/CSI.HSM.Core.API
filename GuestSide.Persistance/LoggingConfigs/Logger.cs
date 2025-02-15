@@ -1,5 +1,5 @@
 ﻿using Core.Core.Entities.LogEntities;
-using Core.Core.Interfaces.LogInterfaces;
+using Core.Core.Interfaces.LogEntities;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Persistance.LoggingConfigs
@@ -8,7 +8,7 @@ namespace Core.Persistance.LoggingConfigs
     {
        // private readonly ILogRepository _log;
 
-        public Logger(ILogRepository log)
+        public Logger(ILogsRepository log)
         {
             //_log = log;
         }

@@ -24,13 +24,13 @@ using AuthorizationHelper.Injection.CommonServices;
 using Core.Application.Services.Audio.Injection;
 using Core.Application.Services.Item.DI;
 using Core.Core.Data;
-using Core.Application.Services.AdvertisementType;
 using Core.Application.Services.Notification.DI;
-using Core.Application.Services.Hotel;
 using Core.Application.Services.Room.DI;
-using Core.Application.Services.Advertismenet;
-using Core.Application.Services.Feadback;
 using Core.API.CustomMiddlwares;
+using Core.Application.Services.AdvertisementType.Injection;
+using Core.Application.Services.Advertismenet.Inject;
+using Core.Application.Services.Feadback.Injection;
+using Core.Application.Services.Hotel.Injection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -128,6 +128,8 @@ builder.Services.AddSwaggerGen(c =>
     builder.Services.AddLanguagePack();
 
     builder.Services.InjectLog();
+
+    builder.Services.ActiveStaffInfoAboutRanOutItems();
 
     builder.Services.InjectNotification();
     builder.Services.InjectGuestNotification();

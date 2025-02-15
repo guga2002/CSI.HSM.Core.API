@@ -10,7 +10,6 @@ namespace Core.Core.Entities.Item
     [Index(nameof(StaffId))] 
     [Index(nameof(Resolved))]
     [Index(nameof(Priority))] 
-    [Index(nameof(IsUrgent))] 
     public class StaffInfoAboutRanOutItems : AbstractEntity
     {
         [ForeignKey(nameof(StaffMember))]
@@ -38,8 +37,9 @@ namespace Core.Core.Entities.Item
         public string? Notes { get; set; }
 
 
-        public DateTime? HandledDate { get; set; } 
+        public DateTime? HandledDate { get; set; }
 
+        [NotMapped]
         public bool IsUrgent => Priority == RefillPriority.High;
     }
 

@@ -18,7 +18,7 @@ public static class ItemCategoryToStaffCategoryDI
     public static void InjectItemCategoryToStaffCategory(this IServiceCollection services)
     {
         services.AddScoped<IGenericRepository<ItemCategoryToStaffCategory>, ItemCategoryToStaffCategoryRepository>();
-        services.AddScoped<IItemCategoryToStaffCategory, ItemCategoryToStaffCategoryRepository>();
+        services.AddScoped<IItemCategoryToStaffCategoryRepository, ItemCategoryToStaffCategoryRepository>();
         services.AddScoped<IItemCategoryToStaffCategoryService, ItemCategoryToStaffCategoryService>();
         services.AddScoped<IService<ItemCategoryToStaffCategoryDto, ItemCategoryToStaffCategoryResponseDto, long, ItemCategoryToStaffCategory>, ItemCategoryToStaffCategoryService>();
         services.AddScoped<IAdditionalFeatures<ItemCategoryToStaffCategoryDto, ItemCategoryToStaffCategoryResponseDto, long, ItemCategoryToStaffCategory>, ItemCategoryToStaffCategoryService>();

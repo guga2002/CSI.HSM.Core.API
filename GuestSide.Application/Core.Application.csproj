@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\Task\Category\**" />
+    <EmbeddedResource Remove="Services\Task\Category\**" />
+    <None Remove="Services\Task\Category\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="FluentValidation" Version="11.9.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
@@ -57,9 +63,6 @@
 
   <ItemGroup>
     <Folder Include="Interface\Task\Category\" />
-    <Folder Include="Services\Task\Category\DI\" />
-    <Folder Include="Services\Task\Category\Mapper\" />
-    <Folder Include="Services\Task\Category\Services\" />
   </ItemGroup>
 
 </Project>

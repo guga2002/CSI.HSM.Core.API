@@ -3,7 +3,6 @@ using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.GenericContracts;
 using Core.Core.Entities.Item;
 using Core.Core.Entities.Staff;
-using GuestSide.Application.DTOs.Response.Staff;
 
 namespace Core.Application.Interface.Staff.staf
 {

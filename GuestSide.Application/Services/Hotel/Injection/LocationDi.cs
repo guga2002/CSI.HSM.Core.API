@@ -9,8 +9,9 @@ using Core.Application.DTOs.Request.Hotel;
 using Core.Application.Interface.Hotel;
 using Core.Core.Entities.Hotel.GeoLocation;
 using Core.Infrastructure.Repositories.Hotel;
+using Core.Application.Services.Hotel.Service;
 
-namespace Core.Application.Services.Hotel;
+namespace Core.Application.Services.Hotel.Injection;
 
 public static class LocationDi
 {

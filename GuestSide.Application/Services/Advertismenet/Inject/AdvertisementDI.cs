@@ -10,7 +10,7 @@ using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Infrastructure.Repositories.Advertisement;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Application.Services.Advertismenet;
+namespace Core.Application.Services.Advertismenet.Inject;
 
 public static class AdvertisementDI
 {
@@ -19,7 +19,7 @@ public static class AdvertisementDI
         serviceProvider.AddScoped<IGenericRepository<Advertisement>, AdvertisementRepository>();
         serviceProvider.AddScoped<IAdditionalFeaturesRepository<Advertisement>, AdditionalFeaturesRepository<Advertisement>>();
         serviceProvider.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
-        serviceProvider.AddScoped<IAdvertismentService, AdvertisementService>();
+        serviceProvider.AddScoped<IAdvertisementService, AdvertisementService>();
         serviceProvider.AddScoped<IService<AdvertismentDto, AdvertismentResponseDto, long, Advertisement>, AdvertisementService>();
         serviceProvider.AddScoped<IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Advertisement>, AdvertisementService>();
         serviceProvider.AddAutoMapper(typeof(AdvertisementMapper));

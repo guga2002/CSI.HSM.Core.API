@@ -29,7 +29,7 @@ namespace Core.API.Controllers.Guest
         [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
         public async Task<Response<RoomsResponseDto>> GetRoomByGuestId(long GuestId)
         {
-            var res = await _guestService.GetRoomByGuestId(GuestId);
+            var res = await _guestService.GetRoomByGuestIdAsync(GuestId);
 
             if (res is not null)
             {

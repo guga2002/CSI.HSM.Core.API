@@ -11,7 +11,6 @@ namespace Core.Core.Entities.Item
     [Index(nameof(ItemId))] 
     [Index(nameof(FinalUsed))] 
     [Index(nameof(ReservedTill))] 
-    [Index(nameof(IsExpired))] 
     public class StaffReserveItem : AbstractEntity
     {
         [ForeignKey(nameof(StaffMember))]
@@ -36,6 +35,7 @@ namespace Core.Core.Entities.Item
 
         public DateTime? ReturnDate { get; set; } // When the item is returned
 
+        [NotMapped]
         public bool IsExpired => DateTime.UtcNow > ReservedTill && !FinalUsed; // Automatically calculated field
 
         public bool ReleasedBySystem { get; set; } = false; 

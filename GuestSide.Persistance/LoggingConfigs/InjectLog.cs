@@ -1,11 +1,6 @@
-﻿using Core.Core.Interfaces.LogInterfaces;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Core.Core.Interfaces.LogEntities;
 
 namespace Core.Persistance.LoggingConfigs
 {
@@ -15,7 +10,7 @@ namespace Core.Persistance.LoggingConfigs
         {
             services.AddLogging(builder =>
             {
-                builder.AddProvider(new LoggerProvider(services.BuildServiceProvider().GetRequiredService<ILogRepository>()));
+                builder.AddProvider(new LoggerProvider(services.BuildServiceProvider().GetRequiredService<ILogsRepository>()));
             });
         }
     }

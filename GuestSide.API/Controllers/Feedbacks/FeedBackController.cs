@@ -2,7 +2,7 @@
 using Core.API.Response;
 using Core.Application.DTOs.Request.FeedBacks;
 using Core.Application.DTOs.Response.FeedBacks;
-using Core.Application.Interface.Feadback;
+using Core.Application.Interface.FeedBack;
 using Core.Application.Interface.GenericContracts;
 using Core.Core.Entities.FeedBacks;
 using Microsoft.AspNetCore.Mvc;
@@ -30,8 +30,9 @@ namespace Core.API.Controllers.Feedbacks
         [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
         public async Task<Response<List<FeedbackResponseDto>>> GetallFeadbackForguest(long guestId)
         {
-            var res = await _feedbackService.GetallFeadbackForguest(guestId);
-            return res is not null ? Response<List<FeedbackResponseDto>>.SuccessResponse(res) : Response<List<FeedbackResponseDto>>.ErrorResponse("no data found");
+            //var res = await _feedbackService.get(guestId);
+            //return res is not null ? Response<List<FeedbackResponseDto>>.SuccessResponse(res) : Response<List<FeedbackResponseDto>>.ErrorResponse("no data found");
+            throw new NotImplementedException("not implemented");
         }
 
         [HttpGet]

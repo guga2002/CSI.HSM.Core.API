@@ -3,9 +3,10 @@
 public class FeedbackDto
 {
     public required string Title { get; set; }
+
     public required string Content { get; set; }
 
-    public long LanguageId { get; set; }
+    public string? LanguageCode { get; set; }
 
-    public long TasksId { get; set; }
+    public long TaskId { get; set; }
 }

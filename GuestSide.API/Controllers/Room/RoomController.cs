@@ -25,36 +25,7 @@ namespace Core.API.Controllers.Room
             _roomService = roomService;
         }
 
-        [HttpGet("RoomDetails/{roomId:long}")]
-        [SwaggerOperation(Summary = "Retrieve room details", Description = "Returns room details")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<RoomsResponseDto>))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
-        public async Task<Response<RoomsResponseDto>> GetRoomDetails(long roomId)
-        {
-            var res = await _roomService.GetRoomDetails(roomId);
-            if (res is not null)
-            {
-                return Response<RoomsResponseDto>.SuccessResponse(res);
-            }
-
-            return Response<RoomsResponseDto>.ErrorResponse("no data exist");
-        }
-
-        [HttpGet("HotelForRoom/{roomId:long}")]
-        [SwaggerOperation(Summary = "Get hotel for room", Description = "retrieve hotel")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<HotelResponse>))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
-        public async Task<Response<HotelResponse>> GetHotelForRoom(long roomId)
-        {
-            var res = await _roomService.GetHotelForRoom(roomId);
-            if (res is not null)
-            {
-                return Response<HotelResponse>.SuccessResponse(res);
-            }
-
-            return Response<HotelResponse>.ErrorResponse("no data exist");
-
-        }
+       
 
         [HttpGet]
         [SwaggerOperation(Summary = "Retrieve all Rooms", Description = "Returns all room records.")]

@@ -5,7 +5,7 @@ using Core.Core.Interfaces.Guest;
 using Core.Core.Interfaces.Hotel;
 using Core.Core.Interfaces.Item;
 using Core.Core.Interfaces.Language;
-using Core.Core.Interfaces.LogInterfaces;
+using Core.Core.Interfaces.LogEntities;
 using Core.Core.Interfaces.Notification;
 using Core.Core.Interfaces.Restaurant;
 using Core.Core.Interfaces.Restaurant.Payment;
@@ -30,10 +30,10 @@ public interface IUniteOfWork
     public ILocationRepository LocationRepository { get; }
     public ICartRepository CartRepository { get; }
     public IItemCategoryRepository ItemCategoryRepository { get; }
-    public IItemRepository ItemRepository { get; }
+    public IItemsRepository ItemRepository { get; }
     public ILanguagePackRepository LanguagePackRepository { get; }
 
-    public ILogRepository LogRepository { get; }
+    public ILogsRepository LogRepository { get; }
     public IGuestNotificationRepository GuestNotificationRepository { get; }
     public INotificationRepository NotificationRepository { get; }
     public IStaffNotificationRepository StaffNotificationRepository { get; }
@@ -59,7 +59,7 @@ public interface IUniteOfWork
 
     public ITaskItemRepository TaskItem { get; }
 
-    public IItemCategoryToStaffCategory ItemCategoryToStaffCategory { get; }
+    public IItemCategoryToStaffCategoryRepository ItemCategoryToStaffCategory { get; }
 
     System.Threading.Tasks.Task Savechanges(bool Track = false);
 

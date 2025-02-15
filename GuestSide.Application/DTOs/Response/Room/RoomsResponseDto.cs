@@ -1,4 +1,10 @@
 ﻿
+using Core.Core.Entities.Guest;
+using Core.Core.Entities.Room;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
 namespace Core.Application.DTOs.Response.Room
 {
     public class RoomsResponseDto
@@ -11,15 +17,30 @@ namespace Core.Application.DTOs.Response.Room
 
         public string? WhatWillRobotSay { get; set; }
 
-        public bool IsAvailable { get; set; } = true;
+        public bool IsAvailable { get; set; } 
 
-        public List<string>? Pictures { get; set; }
+        public int MaxOccupancy { get; set; }
+
+        public decimal PricePerNight { get; set; } 
+
+        public string? PictureUrlsSerialized { get; set; }
+
+
+        public List<string>? Pictures
+        {
+            get ;
+            set ;
+        }
 
         public long RoomCategoryId { get; set; }
 
+
         public long HotelId { get; set; }
 
-        public long LanguageId { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime UpdatedAt { get; set; } 
 
         public virtual RoomCategoryResponseDto? RoomCategory { get; set; }
 

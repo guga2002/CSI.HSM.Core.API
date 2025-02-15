@@ -2,7 +2,7 @@
 
 public class GuestActiveLanguageDto
 {
-    public long GuestID { get; set; }
-    public string LanguageCode { get; set; }
-    public DateTime SetDate { get; set; }
+    public long GuestId { get; set; }
+
+    public string? LanguageCode { get; set; }
 }

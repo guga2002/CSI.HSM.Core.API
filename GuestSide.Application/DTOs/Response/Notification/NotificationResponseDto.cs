@@ -1,5 +1,8 @@
 ﻿
 
+using Core.Core.Entities.Notification;
+using System.ComponentModel.DataAnnotations;
+
 namespace Core.Application.DTOs.Response.Notification;
 
 public class NotificationResponseDto
@@ -10,11 +13,19 @@ public class NotificationResponseDto
 
     public required string Message { get; set; }
 
+    public string? WhatWillRobotSay { get; set; } 
+
     public DateTime NotificationDate { get; set; }
 
-    public bool IsRead { get; set; }
+    public bool IsSent { get; set; }
 
-    public string? WhatWillRobotSay { get; set; }
+    public DateTime? SentDate { get; set; } // Stores when the notification was actually sent
 
-    public long LanguageId { get; set; }
+    public string? LanguageCode { get; set; }
+
+    public string? NotificationType { get; set; } // Categorizes notifications (e.g., "Reminder", "Offer", "System Alert")
+
+    public NotificationPriority PriorityLevel { get; set; }
+
+    public DateTime CreatedAt { get; set; }
 }

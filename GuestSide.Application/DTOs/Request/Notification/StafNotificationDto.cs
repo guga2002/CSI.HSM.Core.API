@@ -6,4 +6,8 @@ public class StafNotificationDto
 
     public long NotificationId { get; set; }
 
+    public bool IsImportant { get; set; }
+
+    public string? NotificationType { get; set; }
+
 }

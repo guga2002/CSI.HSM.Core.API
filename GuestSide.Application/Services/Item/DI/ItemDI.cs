@@ -17,8 +17,8 @@ public static class ItemDI
 {
     public static void InjectItem(this IServiceCollection services)
     {
-        services.AddScoped<IGenericRepository<Items>, ItemRepository>();
-        services.AddScoped<IItemRepository, ItemRepository>();
+        services.AddScoped<IGenericRepository<Items>, ItemsRepository>();
+        services.AddScoped<IItemsRepository, ItemsRepository>();
         services.AddScoped<IItemService, ItemService>();
         services.AddScoped<IService<ItemDto, ItemResponseDto, long, Items>, ItemService>();
         services.AddScoped<IAdditionalFeatures<ItemDto, ItemResponseDto, long, Items>, ItemService>();

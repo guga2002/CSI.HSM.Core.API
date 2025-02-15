@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Response.Item;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Core.Application.DTOs.Response.Item;
 
 public class ItemCategoryResponseDto
 {
@@ -6,7 +8,9 @@ public class ItemCategoryResponseDto
 
     public required string Name { get; set; }
 
+    public string? WhatWillRobotSay { get; set; } 
+
     public string? Description { get; set; }
 
-    public long LanguageId { get; set; }
+    public string? LanguageCode { get; set; }
 }

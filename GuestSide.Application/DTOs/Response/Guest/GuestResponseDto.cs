@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Core.Application.DTOs.Response.Room;
+using Core.Core.Entities.Guest;
+using Core.Core.Entities.Language;
 
 namespace Core.Application.DTOs.Response.Guest;
 
@@ -9,42 +12,60 @@ public class GuestResponseDto
 
     public required string FirstName { get; set; }
 
-    public required string LastName { get; set; }
+    [StringLength(100)]
+    public required string LastName { get; set; } 
 
+    [StringLength(100)]
+    [EmailAddress]
     public required string Email { get; set; }
 
-    public required string PhoneNumber { get; set; }
+    [StringLength(100)]
+    public required string PhoneNumber { get; set; } 
 
+    [StringLength(255)]
+    public string? WhatWillRobotSay { get; set; }
+
+    public byte[]? ProfilePicture { get; set; } 
 
     [DataType(DataType.Date)]
-    public DateTime? DateOfBirth { get; set; }
+    public DateTime? DateOfBirth { get; set; } 
 
-    public string? Country { get; set; }
+    [StringLength(100)]
+    public string? Country { get; set; } 
 
+    [StringLength(100)]
     public string? City { get; set; }
 
-    public string? Address { get; set; }
+    [StringLength(255)]
+    public string? Address { get; set; } 
 
     [DataType(DataType.Date)]
-    public DateTime CheckInDate { get; set; }
+    public DateTime CheckInDate { get; set; } 
 
     [DataType(DataType.Date)]
     public DateTime? CheckOutDate { get; set; }
 
+    [StringLength(255)]
     public string? AdminNotes { get; set; }
 
-    public long StatusId { get; set; }
+    [ForeignKey(nameof(Status))]
+    public long StatusId { get; set; } 
 
-    public bool IsFrequentGuest { get; set; }
+    public bool IsFrequentGuest { get; set; } = false;
 
-    public string? EmergencyContactName { get; set; }
+    [StringLength(100)]
+    public string? EmergencyContactName { get; set; } 
 
-    public string? EmergencyContactPhone { get; set; }
+    [StringLength(100)]
+    public string? EmergencyContactPhone { get; set; } 
 
+    [StringLength(255)]
+    public string? Preferences { get; set; } 
+
+    [ForeignKey(nameof(Room))]
     public long RoomId { get; set; }
 
-    public string? Preferences { get; set; }
-
+    [ForeignKey(nameof(LanguagePack))]
     public long LanguageId { get; set; }
 
     public virtual RoomsResponseDto? Room { get; set; }

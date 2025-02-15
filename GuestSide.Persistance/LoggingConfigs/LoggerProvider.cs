@@ -1,13 +1,13 @@
-﻿using Core.Core.Interfaces.LogInterfaces;
+﻿using Core.Core.Interfaces.LogEntities;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Persistance.LoggingConfigs
 {
     public class LoggerProvider : ILoggerProvider
     {
-        private readonly ILogRepository log;
+        private readonly ILogsRepository log;
 
-        public LoggerProvider(ILogRepository log)
+        public LoggerProvider(ILogsRepository log)
         {
             this.log = log;
         }

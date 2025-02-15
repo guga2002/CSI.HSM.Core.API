@@ -8,7 +8,7 @@ using Core.Core.Interfaces.Hotel;
 using Core.Core.Interfaces.UniteOfWork;
 using Microsoft.Extensions.Logging;
 
-namespace Core.Application.Services.Hotel
+namespace Core.Application.Services.Hotel.Service
 {
     public class LocationService : GenericService<LocationrequestDto, LocationResponse, long, Location>, ILocationService
     {

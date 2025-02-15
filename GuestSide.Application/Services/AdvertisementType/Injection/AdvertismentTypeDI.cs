@@ -3,13 +3,15 @@ using Core.Application.DTOs.Response.Advertisment;
 using Core.Application.Interface.AdvertiementType;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.AdvertisementType.Mapper;
+using Core.Application.Services.AdvertisementType.Service;
 using Core.Core.Interfaces.AbstractInterface;
 using Core.Core.Interfaces.Advertisement;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Infrastructure.Repositories.Advertisement;
+using Core.Infrastructure.Repositories.Advertisements;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Application.Services.AdvertisementType;
+namespace Core.Application.Services.AdvertisementType.Injection;
 
 public static class AdvertismentTypeDI
 {

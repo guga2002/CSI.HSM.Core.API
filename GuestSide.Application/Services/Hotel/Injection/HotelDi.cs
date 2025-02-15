@@ -8,8 +8,9 @@ using Core.Application.DTOs.Response.Hotel;
 using Core.Application.DTOs.Request.Hotel;
 using Core.Application.Interface.Hotel;
 using Core.Infrastructure.Repositories.Hotel;
+using Core.Application.Services.Hotel.Service;
 
-namespace Core.Application.Services.Hotel;
+namespace Core.Application.Services.Hotel.Injection;
 
 public static class HotelDi
 {

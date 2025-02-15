@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Request.Notification
+﻿using Core.Core.Entities.Notification;
+
+namespace Core.Application.DTOs.Request.Notification
 {
     public class NotificationDto
     {
@@ -6,8 +8,14 @@
 
         public required string Message { get; set; }
 
-        public DateTime NotificationDate { get; set; }
+        public string? WhatWillRobotSay { get; set; }
 
-        public long LanguageId { get; set; }
+        public string? LanguageCode { get; set; }
+
+        public string? NotificationType { get; set; } 
+
+        public NotificationPriority PriorityLevel { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 }
