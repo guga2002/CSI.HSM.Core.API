@@ -20,11 +20,12 @@ public class Items : AbstractEntity
     [StringLength(100)]
     public string? Information { get; set; }
 
-    public bool IsOrderable { get; set; }
+    public bool IsOrderAble { get; set; }
 
     public decimal? Price { get; set; }
 
     public int Quantity { get; set; } //refer to  quantity of item in stock
+
     [StringLength(100)]
     public string? WhatWillRobotSay { get; set; }
 
@@ -34,9 +35,12 @@ public class Items : AbstractEntity
 
     [ForeignKey(nameof(LanguagePack))]
     public long LanguageId { get; set; }
+
     public virtual LanguagePack? LanguagePack { get; set; }
 
-    public virtual ICollection<TaskItem> TaskItems { get; set; } = new List<TaskItem>();
+    public virtual ICollection<TaskItem>? TaskItems { get; set; }
+
+    public virtual IEnumerable<StaffReserveItem>? ReservedItems { get; set; }
 
     public Items(string whatWillRobotSay = "Your choice is {0}. See details and more information about this item. Happy weekends!")
     {

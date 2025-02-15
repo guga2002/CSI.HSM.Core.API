@@ -1,10 +1,8 @@
-﻿using System.Transactions;
-using Core.Core.Data;
+﻿using Core.Core.Data;
 using Core.Core.Entities.Item;
 using Core.Core.Interfaces.Item;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
-using Core.Persistance.LoggingConfigs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -53,15 +51,12 @@ namespace Core.Infrastructure.Repositories.Item
 
             var taskWithItem = cart.Tasks.FirstOrDefault(t => t.TaskItems.Any(i => i.ItemId == itemId));
 
-            if (taskWithItem is not null)
+            var itemToRemove = taskWithItem?.TaskItems.FirstOrDefault(i => i.ItemId == itemId);
+            if (itemToRemove != null)
             {
-                var itemToRemove = taskWithItem.TaskItems.FirstOrDefault(i => i.ItemId == itemId);
-                if (itemToRemove is not null)
-                {
-                    taskWithItem.TaskItems.Remove(itemToRemove);
-                    Context.Remove(itemToRemove);
-                    await Context.SaveChangesAsync();
-                }
+                taskWithItem.TaskItems.Remove(itemToRemove);
+                Context.Remove(itemToRemove);
+                await Context.SaveChangesAsync();
             }
             return cart;
         }
@@ -81,25 +76,23 @@ namespace Core.Infrastructure.Repositories.Item
                 .SelectMany(t => t.TaskItems)
                 .FirstOrDefault(i => i.ItemId == itemId);
 
-            if (taskItem is not null)
-            {
-                taskItem.Quantity = newQuantity;
-                await Context.SaveChangesAsync();
-            }
+            if (taskItem is null) return cart;
+            taskItem.Quantity = newQuantity;
+            await Context.SaveChangesAsync();
 
             return cart;
         }
 
         public async Task<List<Items>> ValidateCartItemsAvailability(long cartId)
         {
-            List<Items> exceptionalItems = new List<Items>();
+            var exceptionalItems = new List<Items>();
 
             var cart = await DbSet
                 .Include(c => c.Tasks)
                 .ThenInclude(t => t.TaskItems)
                 .FirstOrDefaultAsync(c => c.Id == cartId);
 
-            if (cart == null || cart.Tasks == null)
+            if (cart?.Tasks == null)
                 return exceptionalItems;
 
             var taskItems = cart.Tasks
@@ -112,7 +105,7 @@ namespace Core.Infrastructure.Repositories.Item
                 .ToList();
 
             var items = await Context.Items
-                .Where(io => itemIds.Contains(io.Id) && io.IsOrderable && io.IsActive)
+                .Where(io => itemIds.Contains(io.Id) && io.IsOrderAble && io.IsActive)
                 .ToDictionaryAsync(io => io.Id);
 
             bool requiresUpdate = false;

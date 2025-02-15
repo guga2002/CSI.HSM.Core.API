@@ -8,20 +8,20 @@ using Core.Core.Entities.FeedBacks;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Core.API.Controllers.Feadbacks
+namespace Core.API.Controllers.Feedbacks
 {
     [ApiController]
     [Route("api/[controller]")]
     public class FeedBackController : CSIControllerBase<FeedbackDto, FeedbackResponseDto, long, Feedback>
     {
-        private readonly IFeadbackService _feadbackService;
+        private readonly IFeadbackService _feedbackService;
         public FeedBackController(
             IService<FeedbackDto, FeedbackResponseDto, long, Feedback> serviceProvider,
             IAdditionalFeatures<FeedbackDto, FeedbackResponseDto, long, Feedback> additionalFeatures,
-            IFeadbackService feadbackService)
+            IFeadbackService feedbackService)
             : base(serviceProvider, additionalFeatures)
         {
-            _feadbackService = feadbackService;
+            _feedbackService = feedbackService;
         }
 
         [HttpGet("GuestAllFeedback/{guestId:long}")]
@@ -30,12 +30,8 @@ namespace Core.API.Controllers.Feadbacks
         [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
         public async Task<Response<List<FeedbackResponseDto>>> GetallFeadbackForguest(long guestId)
         {
-            var res = await _feadbackService.GetallFeadbackForguest(guestId);
-            if (res is not null)
-            {
-                return Response<List<FeedbackResponseDto>>.SuccessResponse(res);
-            }
-            return Response<List<FeedbackResponseDto>>.ErrorResponse("no data found");
+            var res = await _feedbackService.GetallFeadbackForguest(guestId);
+            return res is not null ? Response<List<FeedbackResponseDto>>.SuccessResponse(res) : Response<List<FeedbackResponseDto>>.ErrorResponse("no data found");
         }
 
         [HttpGet]

@@ -20,6 +20,8 @@ public class Logs : AbstractEntity
     [StringLength(100)]
     public required string Exception { get; set; }
     [StringLength(100)]
+    public string? IpAddress { get; set; }
+    [StringLength(100)]
     public string? Source { get; set; }
     public bool IsEmergency { get; set; } = false;//if  set true, will sent  emergency message to SA (Raisa, Guga) using SMTP
 }
