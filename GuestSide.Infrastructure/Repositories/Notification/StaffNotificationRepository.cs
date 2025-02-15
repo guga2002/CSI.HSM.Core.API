@@ -6,23 +6,94 @@ using Core.Persistance.Cashing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Core.Infrastructure.Repositories.Notification
 {
     public class StaffNotificationRepository : GenericRepository<StaffNotification>, IStaffNotificationRepository
     {
-        public StaffNotificationRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<StaffNotification> logger) : base(context, redisCache, httpContextAccessor, logger)
+        public StaffNotificationRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<StaffNotification> logger)
+            : base(context, redisCache, httpContextAccessor, logger)
         {
         }
 
-        public async override Task<StaffNotification> GetByIdAsync(object id, CancellationToken cancellationToken = default)
+        #region Mark Notification as Read/Unread
+        public async Task<StaffNotification> MarkStaffNotificationAsRead(long staffId, long notificationId, bool unread = false)
         {
-            return await Context.StaffNotifications.Include(io => io.Notifications).Where(io => io.Id == (long)id).FirstOrDefaultAsync() ??
-                throw new ArgumentNullException("no records found on this id");
+            var notification = await DbSet.FirstOrDefaultAsync(io => io.StaffId == staffId && io.NotificationId == notificationId);
+
+            if (notification is not null)
+            {
+                notification.IsRead = !unread;
+                notification.ReadTime = unread ? null : DateTime.UtcNow;
+                await Context.SaveChangesAsync();
+                return notification;
+            }
+
+            return null;
         }
-        public async override Task<IEnumerable<StaffNotification>> GetAllAsync(CancellationToken cancellationToken = default)
+        #endregion
+
+        #region Get All Notifications for Staff
+        public async Task<IEnumerable<StaffNotification>> GetUnreadNotificationsByStaffId(long staffId)
         {
-            return await Context.StaffNotifications.Include(io => io.Notifications).ToListAsync();
+            return await DbSet
+                .Include(io => io.Notifications)
+                .Where(io => io.StaffId == staffId && !io.IsRead)
+                .OrderByDescending(io => io.SentTime)
+                .ToListAsync();
         }
+        #endregion
+
+        #region Get Important Notifications for Staff
+        public async Task<IEnumerable<StaffNotification>> GetImportantNotificationsByStaffId(long staffId)
+        {
+            return await DbSet
+                .Include(io => io.Notifications)
+                .Where(io => io.StaffId == staffId && io.IsImportant)
+                .OrderByDescending(io => io.SentTime)
+                .ToListAsync();
+        }
+        #endregion
+
+        #region Delete Staff Notification (Soft Delete)
+        public async Task<bool> DeleteStaffNotification(long staffId, long notificationId)
+        {
+            var notification = await DbSet.FirstOrDefaultAsync(io => io.StaffId == staffId && io.NotificationId == notificationId);
+
+            if (notification != null)
+            {
+                notification.IsActive = false;  // Soft delete by marking inactive
+                await Context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+        #endregion
+
+        #region Get All Notifications (Overridden)
+        public override async Task<IEnumerable<StaffNotification>> GetAllAsync(CancellationToken cancellationToken = default)
+        {
+            return await DbSet
+                .Include(io => io.StaffMember)
+                .Include(io => io.Notifications)
+                .Where(io => io.IsActive) 
+                .ToListAsync(cancellationToken);
+        }
+        #endregion
+
+        #region Get Notification by ID (Overridden)
+        public override async Task<StaffNotification> GetByIdAsync(object id, CancellationToken cancellationToken = default)
+        {
+            return await DbSet
+                .Include(io => io.StaffMember)
+                .Include(io => io.Notifications)
+                .Where(io => io.IsActive && io.Id == long.Parse(id.ToString()))
+                .FirstOrDefaultAsync(cancellationToken);
+        }
+        #endregion
     }
 }

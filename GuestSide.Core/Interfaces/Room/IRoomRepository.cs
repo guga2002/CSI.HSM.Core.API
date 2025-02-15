@@ -5,8 +5,9 @@ namespace Core.Core.Interfaces.Room
 {
     public interface IRoomRepository : IGenericRepository<Entities.Room.Room>
     {
-        Task<Entities.Hotel.Hotel> GetHotelForRoom(long roomId);
-        Task<Entities.Room.Room> GetRoomDetails(long roomId);
-        //add another method
+        Task<IEnumerable<Entities.Room.Room>> GetAvailableRooms(long hotelId, long categoryId, int maxOccupancy, decimal maxPrice);
+        Task<bool> MarkRoomAsUnavailable(long roomId);
+        Task<bool> UpdateRoomPrice(long roomId, decimal newPrice);
+        Task<IEnumerable<Entities.Room.Room>> GetRoomsByHotel(long hotelId);
     }
 }

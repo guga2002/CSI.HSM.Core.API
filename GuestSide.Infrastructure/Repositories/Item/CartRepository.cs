@@ -11,7 +11,8 @@ namespace Core.Infrastructure.Repositories.Item
 {
     public class CartRepository : GenericRepository<Cart>, ICartRepository
     {
-        public CartRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Cart> logger) : base(context, redisCache, httpContextAccessor, logger)
+        public CartRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Cart> logger)
+            : base(context, redisCache, httpContextAccessor, logger)
         {
         }
 
@@ -20,24 +21,49 @@ namespace Core.Infrastructure.Repositories.Item
             return await Context.Carts.Include(io => io.Tasks).ToListAsync(cancellationToken);
         }
 
+        #region  Get Latest Active Cart for Guest
+        public async Task<Cart> GetLatestActiveCartForGuestAsync(long guestId)
+        {
+            var latestCart = await DbSet
+                .Where(c => c.GuestId == guestId && !c.IsComplete)
+                .OrderByDescending(c => c.Id)
+                .FirstOrDefaultAsync();
+
+            if (latestCart != null) return latestCart;
+
+            var newCart = new Cart
+            {
+                GuestId = guestId,
+                WhatWillRobotSay = $"Hi Guest {guestId}, your new cart is ready!",
+                LanguageCode = "en",
+                IsComplete = false
+            };
+
+            await DbSet.AddAsync(newCart);
+            await Context.SaveChangesAsync();
+
+            return newCart;
+        }
+        #endregion
+
         public async Task<bool> ClearCart(long cartId)
         {
             var cart = await DbSet.Include(c => c.Tasks)
                                   .FirstOrDefaultAsync(io => io.Id == cartId);
-            if (cart == null || cart.Tasks is null)
+            if (cart?.Tasks is null)
                 return false;
+
             cart.Tasks.ToList().ForEach(task => Context.Remove(task));
             return await Context.SaveChangesAsync() > 0;
         }
 
         public async Task<Cart?> CartSymmary(long cartId)
         {
-            var cart = await DbSet.Include(c => c.Tasks).Include(io => io.Guest).FirstOrDefaultAsync(
-                io => io.Id == cartId && io.IsActive);
-
-            return cart;
+            return await DbSet
+                .Include(c => c.Tasks)
+                .Include(io => io.Guest)
+                .FirstOrDefaultAsync(io => io.Id == cartId && io.IsActive);
         }
-
 
         public async Task<Cart> RemoveItemFromCart(long cartId, long itemId)
         {
@@ -60,7 +86,6 @@ namespace Core.Infrastructure.Repositories.Item
             }
             return cart;
         }
-
 
         public async Task<Cart> UpdateItemQuantityInCart(long cartId, long itemId, int newQuantity)
         {
@@ -146,9 +171,11 @@ namespace Core.Infrastructure.Repositories.Item
 
         public async Task<IEnumerable<Cart>> GetCartByGuestId(long guestId, bool status)
         {
-            var carts = await DbSet.Include(c => c.Tasks)
-                .ThenInclude(c => c.TaskItems).Where(guest => guest.GuestId == guestId && guest.IsComplete == status).ToListAsync();
-            return carts ?? new List<Cart>();
+            return await DbSet
+                .Include(c => c.Tasks)
+                .ThenInclude(c => c.TaskItems)
+                .Where(guest => guest.GuestId == guestId && guest.IsComplete == status)
+                .ToListAsync() ?? new List<Cart>();
         }
     }
 }

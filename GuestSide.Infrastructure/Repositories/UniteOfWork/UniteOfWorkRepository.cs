@@ -85,7 +85,7 @@ public class UniteOfWorkRepository : IUniteOfWork
 
     public ITaskStatusRepository TaskStatusRepository { get; }
 
-    public ITaskItem TaskItem { get; }
+    public ITaskItemRepository TaskItem { get; }
 
     public IItemCategoryToStaffCategory ItemCategoryToStaffCategory { get; }
 
@@ -125,7 +125,7 @@ public class UniteOfWorkRepository : IUniteOfWork
      ITaskToStaffRepository taskToStaffRepository,
      ITaskRepository taskRepository,
      ITaskStatusRepository taskStatusRepository,
-     ITaskItem taskItem,
+     ITaskItemRepository taskItem,
      IItemCategoryToStaffCategory itemCategoryToStaffCategory,
      GuestSideDb Context
  )

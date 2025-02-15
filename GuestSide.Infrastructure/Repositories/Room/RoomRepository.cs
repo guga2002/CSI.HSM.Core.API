@@ -1,5 +1,4 @@
 ﻿using Core.Core.Data;
-using Core.Core.Entities.Room;
 using Core.Core.Interfaces.Room;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
@@ -11,23 +10,61 @@ namespace Core.Infrastructure.Repositories.Room
 {
     public class RoomRepository : GenericRepository<Core.Entities.Room.Room>, IRoomRepository
     {
-        public RoomRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Core.Entities.Room.Room> logger) : base(context, redisCache, httpContextAccessor, logger)
+        public RoomRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Core.Entities.Room.Room> logger)
+            : base(context, redisCache, httpContextAccessor, logger)
         {
         }
 
-        public async Task<Core.Entities.Room.Room> GetRoomDetails(long roomId)
+        #region Get Available Rooms
+        public async Task<IEnumerable<Core.Entities.Room.Room>> GetAvailableRooms(long hotelId, long categoryId, int maxOccupancy, decimal maxPrice)
         {
-            var res = await DbSet.Where(io => io.Id == roomId).Include(io => io.RoomCategory).FirstOrDefaultAsync();
-
-            return res;
+            return await DbSet
+                .Where(room => room.HotelId == hotelId
+                            && room.RoomCategoryId == categoryId
+                            && room.IsAvailable
+                            && room.MaxOccupancy >= maxOccupancy
+                            && room.PricePerNight <= maxPrice)
+                .OrderBy(room => room.PricePerNight)
+                .ToListAsync();
         }
+        #endregion
 
-        public async Task<Core.Entities.Hotel.Hotel> GetHotelForRoom(long roomId)
+        #region Mark Room as Unavailable
+        public async Task<bool> MarkRoomAsUnavailable(long roomId)
         {
-            var res = await DbSet.Where(io => io.Id == roomId).Include(io => io.Hotel).ThenInclude(io => io.Location).Select(io => io.Hotel).FirstOrDefaultAsync();
+            var room = await DbSet.FindAsync(roomId);
+            if (room == null || !room.IsAvailable) return false;
 
-            return res;
+            room.IsAvailable = false;
+            room.UpdatedAt = DateTime.UtcNow;
+            await Context.SaveChangesAsync();
+
+            return true;
         }
+        #endregion
 
+        #region Update Room Price
+        public async Task<bool> UpdateRoomPrice(long roomId, decimal newPrice)
+        {
+            var room = await DbSet.FindAsync(roomId);
+            if (room == null) return false;
+
+            room.PricePerNight = newPrice;
+            room.UpdatedAt = DateTime.UtcNow;
+            await Context.SaveChangesAsync();
+
+            return true;
+        }
+        #endregion
+
+        #region Get Rooms by Hotel
+        public async Task<IEnumerable<Core.Entities.Room.Room>> GetRoomsByHotel(long hotelId)
+        {
+            return await DbSet
+                .Where(room => room.HotelId == hotelId)
+                .OrderBy(room => room.RoomNumber)
+                .ToListAsync();
+        }
+        #endregion
     }
 }

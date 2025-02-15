@@ -5,6 +5,8 @@ namespace Core.Core.Interfaces.Room
 {
     public interface IRoomCategoryRepository : IGenericRepository<RoomCategory>
     {
-        //add another method
+        Task<RoomCategory?> GetCategoryByName(string categoryName);
+        Task<IEnumerable<RoomCategory>> GetAllActiveCategories();
+        Task<bool> UpdateRoomCategoryName(long categoryId, string newName);
     }
 }

@@ -3,9 +3,29 @@ using Core.Application.DTOs.Response.Notification;
 using Core.Application.Interface.GenericContracts;
 using Core.Core.Entities.Notification;
 
-namespace Core.Application.Interface.Notification;
-
-public interface IStaffNotificationService : IService<StafNotificationDto, StafNotificationResponseDto, long, StaffNotification>,
-    IAdditionalFeatures<StafNotificationDto, StafNotificationResponseDto, long, StaffNotification>
+namespace Core.Application.Interface.Notification
 {
+    public interface IStaffNotificationService : IService<StafNotificationDto, StafNotificationResponseDto, long, StaffNotification>,
+        IAdditionalFeatures<StafNotificationDto, StafNotificationResponseDto, long, StaffNotification>
+    {
+        /// <summary>
+        /// Mark a staff notification as read/unread.
+        /// </summary>
+        Task<StafNotificationResponseDto?> MarkStaffNotificationAsRead(long staffId, long notificationId, bool unread = false, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get unread notifications for a staff member.
+        /// </summary>
+        Task<IEnumerable<StafNotificationResponseDto>> GetUnreadNotificationsByStaffId(long staffId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get important notifications for a staff member.
+        /// </summary>
+        Task<IEnumerable<StafNotificationResponseDto>> GetImportantNotificationsByStaffId(long staffId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Delete a specific staff notification.
+        /// </summary>
+        Task<bool> DeleteStaffNotification(long staffId, long notificationId, CancellationToken cancellationToken = default);
+    }
 }

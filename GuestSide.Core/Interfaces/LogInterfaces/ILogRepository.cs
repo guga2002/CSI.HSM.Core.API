@@ -1,10 +1,16 @@
 ﻿using Core.Core.Entities.LogEntities;
 using Core.Core.Interfaces.AbstractInterface;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace Core.Core.Interfaces.LogInterfaces
+namespace Core.Core.Interfaces.LogEntities
 {
-    public interface ILogRepository : IGenericRepository<Logs>
+    public interface ILogsRepository : IGenericRepository<Logs>
     {
-        //add another method
+        Task<IEnumerable<Logs>> GetLogsBySeverity(string logLevel);
+        Task<IEnumerable<Logs>> GetLogsByUser(long loggerId);
+        Task<IEnumerable<Logs>> GetLogsByRequestId(string requestId);
+        Task<bool> DeleteOldLogs(int days);
     }
 }

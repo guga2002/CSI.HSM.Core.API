@@ -57,7 +57,7 @@ public interface IUniteOfWork
     public ITaskRepository TaskRepository { get; }
     public ITaskStatusRepository TaskStatusRepository { get; }
 
-    public ITaskItem TaskItem { get; }
+    public ITaskItemRepository TaskItem { get; }
 
     public IItemCategoryToStaffCategory ItemCategoryToStaffCategory { get; }
 

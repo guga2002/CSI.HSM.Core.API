@@ -18,7 +18,7 @@ public static class TaskItemDI
     public static void InjectTaskItem(this IServiceCollection services)
     {
         services.AddScoped<IGenericRepository<TaskItem>, TaskItemRepository>();
-        services.AddScoped<ITaskItem, TaskItemRepository>();
+        services.AddScoped<ITaskItemRepository, TaskItemRepository>();
         services.AddScoped<ITaskItemService, TaskItemService>();
         services.AddScoped<IService<TaskItemDto, TaskItemResponseDto, long, TaskItem>, TaskItemService>();
         services.AddScoped<IAdditionalFeatures<TaskItemDto, TaskItemResponseDto, long, TaskItem>, TaskItemService>();

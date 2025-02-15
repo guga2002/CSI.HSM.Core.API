@@ -11,42 +11,97 @@ namespace Core.Infrastructure.Repositories.Notification;
 
 public class GuestNotificationRepository : GenericRepository<GuestNotification>, IGuestNotificationRepository
 {
-    public GuestNotificationRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<GuestNotification> logger) : base(context, redisCache, httpContextAccessor, logger)
+    public GuestNotificationRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<GuestNotification> logger)
+        : base(context, redisCache, httpContextAccessor, logger)
     {
     }
 
-    public async Task<GuestNotification> MarkGuestNotificationAsRead(long GuestId, long NotificationId, bool unread = false)
+    #region Mark Notification as Read/Unread
+    public async Task<GuestNotification> MarkGuestNotificationAsRead(long guestId, long notificationId, bool unread = false)
     {
-        var sms = await DbSet.Where(io => io.GuestId == GuestId && io.NotificationId == NotificationId).FirstOrDefaultAsync();
+        var notification = await DbSet.FirstOrDefaultAsync(io => io.GuestId == guestId && io.NotificationId == notificationId);
 
-        if (sms is not null)
+        if (notification is not null)
         {
-            if (unread)
-            {
-                sms.IsRead = false;
-            }
-            else
-            {
-                sms.IsRead = true;
-            }
+            notification.IsRead = !unread;
+            notification.ReadTime = unread ? null : DateTime.UtcNow;
             await Context.SaveChangesAsync();
-            return sms;
+            return notification;
         }
+
         return null;
     }
+    #endregion
 
-    public async Task<IEnumerable<GuestNotification>> GetNotificationsByGuestId(long GuestId)
+    #region Get All Notifications for Guest
+    public async Task<IEnumerable<GuestNotification>> GetNotificationsByGuestId(long guestId)
     {
-        return await DbSet.Where(io => io.GuestId == GuestId).ToListAsync();
+        return await DbSet
+            .Include(io => io.Guest)
+            .Include(io => io.Notifications)
+            .Where(io => io.GuestId == guestId)
+            .OrderByDescending(io => io.SentTime)
+            .ToListAsync();
     }
+    #endregion
 
+    #region Get Unread Notifications for Guest
+    public async Task<IEnumerable<GuestNotification>> GetUnreadNotificationsByGuestId(long guestId)
+    {
+        return await DbSet
+            .Include(io => io.Notifications)
+            .Where(io => io.GuestId == guestId && !io.IsRead)
+            .OrderByDescending(io => io.SentTime)
+            .ToListAsync();
+    }
+    #endregion
+
+    #region  Get Important Notifications for Guest
+    public async Task<IEnumerable<GuestNotification>> GetImportantNotificationsByGuestId(long guestId)
+    {
+        return await DbSet
+            .Include(io => io.Notifications)
+            .Where(io => io.GuestId == guestId && io.IsImportant)
+            .OrderByDescending(io => io.SentTime)
+            .ToListAsync();
+    }
+    #endregion
+
+    #region Delete Guest Notification (Soft Delete)
+    public async Task<bool> DeleteGuestNotification(long guestId, long notificationId)
+    {
+        var notification = await DbSet.FirstOrDefaultAsync(io => io.GuestId == guestId && io.NotificationId == notificationId);
+
+        if (notification != null)
+        {
+            notification.IsActive = false;  // Soft delete by marking inactive
+            await Context.SaveChangesAsync();
+            return true;
+        }
+
+        return false;
+    }
+    #endregion
+
+    #region Get All Notifications (Overridden)
     public override async Task<IEnumerable<GuestNotification>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        return await DbSet.Include(io => io.Guest).Include(io => io.Notifications).ToListAsync();
+        return await DbSet
+            .Include(io => io.Guest)
+            .Include(io => io.Notifications)
+            .Where(io => io.IsActive)  // Only fetch active notifications
+            .ToListAsync(cancellationToken);
     }
+    #endregion
 
+    #region  Get Notification by ID (Overridden)
     public override async Task<GuestNotification> GetByIdAsync(object id, CancellationToken cancellationToken = default)
     {
-        return await DbSet.Include(io => io.Guest).Include(io => io.Notifications).Where(io => io.IsActive && io.Id == long.Parse(id.ToString())).FirstOrDefaultAsync();
+        return await DbSet
+            .Include(io => io.Guest)
+            .Include(io => io.Notifications)
+            .Where(io => io.IsActive && io.Id == long.Parse(id.ToString()))
+            .FirstOrDefaultAsync(cancellationToken);
     }
+    #endregion
 }

@@ -81,7 +81,6 @@ StyleCopReport.xml
 .history/
 
 # ASP.NET Core Web API specific
-appsettings*.json
 secrets.json
 
 # Azure Web Apps
