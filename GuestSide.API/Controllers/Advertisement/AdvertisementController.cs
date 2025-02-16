@@ -2,9 +2,11 @@
 using Core.API.Response;
 using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.DTOs.Response.Advertisment;
+using Core.Application.Interface.Advertisment;
 using Core.Application.Interface.GenericContracts;
 using Core.Core.Data;
 using Core.Core.Entities.Advertisements;
+using global::Core.Application.Interface.Advertisment;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -14,8 +16,79 @@ namespace Core.API.Controllers.Advertisement;
 [Route("api/[controller]")]
 public class AdvertisementController : CSIControllerBase<AdvertismentDto, AdvertismentResponseDto, long, Core.Entities.Advertisements.Advertisement>
 {
-    public AdvertisementController(IService<AdvertismentDto, AdvertismentResponseDto, long, Core.Entities.Advertisements.Advertisement> serviceProvider, GuestSideDb db, IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Core.Entities.Advertisements.Advertisement> feat) : base(serviceProvider, feat)
+    private readonly IAdvertisementService _advertisementService;
+
+    public AdvertisementController(
+        IAdvertisementService advertisementService,
+        IService<AdvertismentDto, AdvertismentResponseDto, long, Core.Entities.Advertisements.Advertisement> serviceProvider,
+        GuestSideDb db,
+        IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Core.Entities.Advertisements.Advertisement> feat)
+        : base(serviceProvider, feat)
     {
+        _advertisementService = advertisementService;
+    }
+
+    [HttpGet("active")]
+    [SwaggerOperation(Summary = "Get all active advertisements", Description = "Retrieves a list of all active advertisements.")]
+    [ProducesResponseType(typeof(Response<IEnumerable<AdvertismentResponseDto>>), StatusCodes.Status200OK)]
+    public async Task<Response<IEnumerable<AdvertismentResponseDto>>> GetActiveAdvertisementsAsync(CancellationToken cancellationToken = default)
+    {
+        var result = await _advertisementService.GetActiveAdvertisementsAsync(cancellationToken);
+        return new Response<IEnumerable<AdvertismentResponseDto>>(true,result);
+    }
+
+    [HttpGet("type/{advertisementTypeId}")]
+    [SwaggerOperation(Summary = "Get advertisements by type", Description = "Retrieves advertisements filtered by a specific type ID.")]
+    [ProducesResponseType(typeof(Response<IEnumerable<AdvertismentResponseDto>>), StatusCodes.Status200OK)]
+    public async Task<Response<IEnumerable<AdvertismentResponseDto>>> GetAdvertisementsByTypeAsync([FromRoute] long advertisementTypeId, CancellationToken cancellationToken = default)
+    {
+        var result = await _advertisementService.GetAdvertisementsByTypeAsync(advertisementTypeId, cancellationToken);
+        return new Response<IEnumerable<AdvertismentResponseDto>>(true,result);
+    }
+
+    [HttpGet("date-range")]
+    [SwaggerOperation(Summary = "Get advertisements within a specific date range", Description = "Retrieves advertisements that fall within the specified start and end dates.")]
+    [ProducesResponseType(typeof(Response<IEnumerable<AdvertismentResponseDto>>), StatusCodes.Status200OK)]
+    public async Task<Response<IEnumerable<AdvertismentResponseDto>>> GetAdvertisementsByDateRangeAsync([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, CancellationToken cancellationToken = default)
+    {
+        var result = await _advertisementService.GetAdvertisementsByDateRangeAsync(startDate, endDate, cancellationToken);
+        return new Response<IEnumerable<AdvertismentResponseDto>>(true, result);
+    }
+
+    [HttpGet("language/{languageCode}")]
+    [SwaggerOperation(Summary = "Get advertisements by language", Description = "Retrieves advertisements filtered by a specific language code.")]
+    [ProducesResponseType(typeof(Response<IEnumerable<AdvertismentResponseDto>>), StatusCodes.Status200OK)]
+    public async Task<Response<IEnumerable<AdvertismentResponseDto>>> GetAdvertisementsByLanguageAsync([FromRoute] string languageCode, CancellationToken cancellationToken = default)
+    {
+        var result = await _advertisementService.GetAdvertisementsByLanguageAsync(languageCode, cancellationToken);
+        return new Response<IEnumerable<AdvertismentResponseDto>>(true,result);
+    }
+
+    [HttpGet("title/{title}")]
+    [SwaggerOperation(Summary = "Get advertisement by title", Description = "Fetches an advertisement using its title.")]
+    [ProducesResponseType(typeof(Response<AdvertismentResponseDto>), StatusCodes.Status200OK)]
+    public async Task<Response<AdvertismentResponseDto?>> GetAdvertisementByTitleAsync([FromRoute] string title, CancellationToken cancellationToken = default)
+    {
+        var result = await _advertisementService.GetAdvertisementByTitleAsync(title, cancellationToken);
+        return new Response<AdvertismentResponseDto?>(true, result);
+    }
+
+    [HttpPut("update-dates/{id}")]
+    [SwaggerOperation(Summary = "Update advertisement start and end dates", Description = "Modifies the start and end dates of a specified advertisement.")]
+    [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
+    public async Task<Response<bool>> UpdateAdvertisementDatesAsync([FromRoute] long id, [FromBody] DateTime? newStartDate, [FromBody] DateTime? newEndDate, CancellationToken cancellationToken = default)
+    {
+        var result = await _advertisementService.UpdateAdvertisementDatesAsync(id, newStartDate, newEndDate, cancellationToken);
+        return new Response<bool>(true, result);
+    }
+
+    [HttpDelete("delete/{id}")]
+    [SwaggerOperation(Summary = "Delete advertisement by ID", Description = "Deletes a specific advertisement by its unique identifier.")]
+    [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
+    public async Task<Response<bool>> DeleteAdvertisementByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+    {
+        var result = await _advertisementService.DeleteAdvertisementByIdAsync(id, cancellationToken);
+        return new Response<bool>(true, result);
     }
 
     /// <summary>

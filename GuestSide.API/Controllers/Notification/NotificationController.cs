@@ -3,6 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Notification;
 using Core.Application.DTOs.Response.Notification;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.Notification;
 using Core.Core.Entities.Notification;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +14,75 @@ namespace Core.API.Controllers.Notification
     [ApiController]
     public class NotificationController : CSIControllerBase<NotificationDto, NotificationResponseDto, long, Notifications>
     {
+        private readonly INotificationService _notificationService;
+
         public NotificationController(
             IService<NotificationDto, NotificationResponseDto, long, Notifications> serviceProvider,
-            IAdditionalFeatures<NotificationDto, NotificationResponseDto, long, Notifications> additionalFeatures)
+            IAdditionalFeatures<NotificationDto, NotificationResponseDto, long, Notifications> additionalFeatures,
+            INotificationService notificationService)
             : base(serviceProvider, additionalFeatures)
         {
+            _notificationService = notificationService;
+        }
+
+        [HttpGet("unsent")]
+        [SwaggerOperation(Summary = "Retrieve Unsent Notifications", Description = "Fetches all unsent notifications.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Unsent notifications retrieved successfully.", typeof(Response<IEnumerable<NotificationResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No unsent notifications found.")]
+        public async Task<Response<IEnumerable<NotificationResponseDto>>> GetUnsentNotifications()
+        {
+            var result = await _notificationService.GetUnsentNotifications();
+            return result.Any()
+                ? Response<IEnumerable<NotificationResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<NotificationResponseDto>>.ErrorResponse("No unsent notifications found.");
+        }
+
+        [HttpGet("priority/{priority:int}")]
+        [SwaggerOperation(Summary = "Retrieve Notifications by Priority", Description = "Fetches notifications filtered by priority.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Notifications retrieved successfully.", typeof(Response<IEnumerable<NotificationResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No notifications found for the given priority.")]
+        public async Task<Response<IEnumerable<NotificationResponseDto>>> GetNotificationsByPriority([FromRoute] NotificationPriority priority)
+        {
+            var result = await _notificationService.GetNotificationsByPriority(priority);
+            return result.Any()
+                ? Response<IEnumerable<NotificationResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<NotificationResponseDto>>.ErrorResponse("No notifications found for the given priority.");
+        }
+
+        [HttpPatch("mark-as-sent/{notificationId:long}")]
+        [SwaggerOperation(Summary = "Mark a Notification as Sent", Description = "Updates a notification's status to 'sent'.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Notification marked as sent successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Notification not found.")]
+        public async Task<Response<bool>> MarkNotificationAsSent([FromRoute] long notificationId)
+        {
+            var result = await _notificationService.MarkNotificationAsSent(notificationId);
+            return result
+                ? Response<bool>.SuccessResponse(true, "Notification marked as sent successfully.")
+                : Response<bool>.ErrorResponse("Notification not found.");
+        }
+
+        [HttpGet("date-range")]
+        [SwaggerOperation(Summary = "Retrieve Notifications by Date Range", Description = "Fetches notifications within a specific date range.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Notifications retrieved successfully.", typeof(Response<IEnumerable<NotificationResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No notifications found within the given date range.")]
+        public async Task<Response<IEnumerable<NotificationResponseDto>>> GetNotificationsByDateRange([FromQuery] DateTime start, [FromQuery] DateTime end)
+        {
+            var result = await _notificationService.GetNotificationsByDateRange(start, end);
+            return result.Any()
+                ? Response<IEnumerable<NotificationResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<NotificationResponseDto>>.ErrorResponse("No notifications found within the given date range.");
+        }
+
+        [HttpGet("latest/{count:int}")]
+        [SwaggerOperation(Summary = "Retrieve Latest Notifications", Description = "Fetches the latest notifications up to a specified count.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Latest notifications retrieved successfully.", typeof(Response<IEnumerable<NotificationResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No recent notifications found.")]
+        public async Task<Response<IEnumerable<NotificationResponseDto>>> GetLatestNotifications([FromRoute] int count)
+        {
+            var result = await _notificationService.GetLatestNotifications(count);
+            return result.Any()
+                ? Response<IEnumerable<NotificationResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<NotificationResponseDto>>.ErrorResponse("No recent notifications found.");
         }
 
         [HttpGet]

@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using Core.API.CustomExtendControllerBase;
+﻿using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Notification;
 using Core.Application.DTOs.Response.Notification;
@@ -26,34 +25,67 @@ namespace Core.API.Controllers.Notification
             _guestNotificationService = guestNotificationService;
         }
 
-        [HttpGet("MarkGuestNotificationAsRead/{GuestId:long}/{NotificationId:long}")]
-        [SwaggerOperation(Summary = "Mark notification as read", Description = "return  update notification")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<GuestNotificationResponseDto>))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
-        public async Task<Response<GuestNotificationResponseDto>> MarkGuestNotificationAsRead(long GuestId, long NotificationId, [FromQuery] bool unread = false)
+        [HttpPatch("MarkAsRead/{guestId:long}/{notificationId:long}")]
+        [SwaggerOperation(Summary = "Mark a Notification as Read/Unread", Description = "Marks a specific guest notification as read or unread.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Notification status updated successfully.", typeof(Response<GuestNotificationResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Notification not found.")]
+        public async Task<Response<GuestNotificationResponseDto>> MarkNotificationAsRead(
+            [FromRoute] long guestId,
+            [FromRoute] long notificationId,
+            [FromQuery] bool unread = false)
         {
-            var res = await _guestNotificationService.MarkGuestNotificationAsRead(GuestId, NotificationId, unread);
-            if (res is not null)
-            {
-                return Response<GuestNotificationResponseDto>.SuccessResponse(res);
-            }
-
-            return Response<GuestNotificationResponseDto>.ErrorResponse("error while prioccessing mark notification as unread/Read");
+            var result = await _guestNotificationService.MarkGuestNotificationAsRead(guestId, notificationId, unread);
+            return result is not null
+                ? Response<GuestNotificationResponseDto>.SuccessResponse(result, "Notification status updated successfully.")
+                : Response<GuestNotificationResponseDto>.ErrorResponse("Error updating notification status.");
         }
 
-        [HttpGet("GetNotificationsByGuestId/{GuestId:long}")]
-        [SwaggerOperation(Summary = "Get nortifications", Description = "by guest Id")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<GuestNotificationResponseDto>>))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
-        public async Task<Response<IEnumerable<GuestNotificationResponseDto>>> GetNotificationsByGuestId(long GuestId)
+        [HttpGet("ByGuest/{guestId:long}")]
+        [SwaggerOperation(Summary = "Retrieve Notifications by Guest ID", Description = "Fetches all notifications associated with a specific guest.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Notifications retrieved successfully.", typeof(Response<IEnumerable<GuestNotificationResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No notifications found.")]
+        public async Task<Response<IEnumerable<GuestNotificationResponseDto>>> GetNotificationsByGuest([FromRoute] long guestId)
         {
-            var res = await _guestNotificationService.GetNotificationsByGuestId(GuestId);
-            if (res is not null)
-            {
-                return Response<IEnumerable<GuestNotificationResponseDto>>.SuccessResponse(res);
-            }
+            var result = await _guestNotificationService.GetNotificationsByGuestId(guestId);
+            return result.Any()
+                ? Response<IEnumerable<GuestNotificationResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<GuestNotificationResponseDto>>.ErrorResponse("No notifications found.");
+        }
 
-            return Response<IEnumerable<GuestNotificationResponseDto>>.ErrorResponse("error while fetch Notitfcations");
+        [HttpGet("Unread/{guestId:long}")]
+        [SwaggerOperation(Summary = "Retrieve Unread Notifications", Description = "Fetches all unread notifications for a specific guest.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Unread notifications retrieved successfully.", typeof(Response<IEnumerable<GuestNotificationResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No unread notifications found.")]
+        public async Task<Response<IEnumerable<GuestNotificationResponseDto>>> GetUnreadNotifications([FromRoute] long guestId)
+        {
+            var result = await _guestNotificationService.GetUnreadNotificationsByGuestId(guestId);
+            return result.Any()
+                ? Response<IEnumerable<GuestNotificationResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<GuestNotificationResponseDto>>.ErrorResponse("No unread notifications found.");
+        }
+
+        [HttpGet("Important/{guestId:long}")]
+        [SwaggerOperation(Summary = "Retrieve Important Notifications", Description = "Fetches all important notifications for a specific guest.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Important notifications retrieved successfully.", typeof(Response<IEnumerable<GuestNotificationResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No important notifications found.")]
+        public async Task<Response<IEnumerable<GuestNotificationResponseDto>>> GetImportantNotifications([FromRoute] long guestId)
+        {
+            var result = await _guestNotificationService.GetImportantNotificationsByGuestId(guestId);
+            return result.Any()
+                ? Response<IEnumerable<GuestNotificationResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<GuestNotificationResponseDto>>.ErrorResponse("No important notifications found.");
+        }
+
+        [HttpDelete("Delete/{guestId:long}/{notificationId:long}")]
+        [SwaggerOperation(Summary = "Delete a Specific Guest Notification", Description = "Deletes a specific guest notification.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Notification deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Notification not found.")]
+        public async Task<Response<bool>> DeleteGuestNotification([FromRoute] long guestId, [FromRoute] long notificationId)
+        {
+            var result = await _guestNotificationService.DeleteGuestNotification(guestId, notificationId);
+            return result
+                ? Response<bool>.SuccessResponse(true, "Notification deleted successfully.")
+                : Response<bool>.ErrorResponse("Notification not found.");
         }
 
         [HttpGet]

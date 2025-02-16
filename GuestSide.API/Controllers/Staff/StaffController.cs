@@ -3,6 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.Staff.staf;
 using Core.Core.Entities.Staff;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +14,124 @@ namespace Core.API.Controllers.Staff
     [ApiController]
     public class StaffController : CSIControllerBase<StaffDto, StaffResponseDto, long, Staffs>
     {
+        private readonly IStaffService _staffService;
+
         public StaffController(
+            IStaffService staffService,
             IService<StaffDto, StaffResponseDto, long, Staffs> serviceProvider,
             IAdditionalFeatures<StaffDto, StaffResponseDto, long, Staffs> additionalFeatures)
             : base(serviceProvider, additionalFeatures)
         {
+            _staffService = staffService;
+        }
+
+        [HttpGet("by-email")]
+        [SwaggerOperation(Summary = "Retrieve Staff by Email", Description = "Fetches staff details by email.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Staff member retrieved successfully.", typeof(Response<StaffResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Staff member not found.")]
+        public async Task<Response<StaffResponseDto>> GetByEmailAsync([FromQuery] string email)
+        {
+            var result = await _staffService.GetByEmailAsync(email);
+            return result != null
+                ? Response<StaffResponseDto>.SuccessResponse(result)
+                : Response<StaffResponseDto>.ErrorResponse("Staff member not found.");
+        }
+
+        [HttpGet("by-position")]
+        [SwaggerOperation(Summary = "Retrieve Staff by Position", Description = "Fetches staff members by job position.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Staff members retrieved successfully.", typeof(Response<IEnumerable<StaffResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No staff members found.")]
+        public async Task<Response<IEnumerable<StaffResponseDto>>> GetByPositionAsync([FromQuery] string position)
+        {
+            var result = await _staffService.GetByPositionAsync(position);
+            return result.Any()
+                ? Response<IEnumerable<StaffResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<StaffResponseDto>>.ErrorResponse("No staff members found.");
+        }
+
+        [HttpGet("by-supervisor/{supervisorId:long}")]
+        [SwaggerOperation(Summary = "Retrieve Staff by Supervisor ID", Description = "Fetches all staff members supervised by a specific supervisor.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Staff members retrieved successfully.", typeof(Response<IEnumerable<StaffResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No staff members found.")]
+        public async Task<Response<IEnumerable<StaffResponseDto>>> GetBySupervisorIdAsync([FromRoute] long supervisorId)
+        {
+            var result = await _staffService.GetBySupervisorIdAsync(supervisorId);
+            return result.Any()
+                ? Response<IEnumerable<StaffResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<StaffResponseDto>>.ErrorResponse("No staff members found.");
+        }
+
+        [HttpGet("hired-between")]
+        [SwaggerOperation(Summary = "Retrieve Staff Hired Between Two Dates", Description = "Fetches staff members hired between two dates.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Staff members retrieved successfully.", typeof(Response<IEnumerable<StaffResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No staff members found.")]
+        public async Task<Response<IEnumerable<StaffResponseDto>>> GetStaffHiredBetweenDatesAsync(
+            [FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        {
+            var result = await _staffService.GetStaffHiredBetweenDatesAsync(startDate, endDate);
+            return result.Any()
+                ? Response<IEnumerable<StaffResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<StaffResponseDto>>.ErrorResponse("No staff members found.");
+        }
+
+        [HttpGet("active")]
+        [SwaggerOperation(Summary = "Retrieve Active Staff", Description = "Fetches all active staff members.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Active staff retrieved successfully.", typeof(Response<IEnumerable<StaffResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No active staff members found.")]
+        public async Task<Response<IEnumerable<StaffResponseDto>>> GetActiveStaffAsync()
+        {
+            var result = await _staffService.GetActiveStaffAsync();
+            return result.Any()
+                ? Response<IEnumerable<StaffResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<StaffResponseDto>>.ErrorResponse("No active staff members found.");
+        }
+
+        [HttpGet("inactive")]
+        [SwaggerOperation(Summary = "Retrieve Inactive Staff", Description = "Fetches all inactive staff members.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Inactive staff retrieved successfully.", typeof(Response<IEnumerable<StaffResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No inactive staff members found.")]
+        public async Task<Response<IEnumerable<StaffResponseDto>>> GetInactiveStaffAsync()
+        {
+            var result = await _staffService.GetInactiveStaffAsync();
+            return result.Any()
+                ? Response<IEnumerable<StaffResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<StaffResponseDto>>.ErrorResponse("No inactive staff members found.");
+        }
+
+        [HttpPatch("update-position/{staffId:long}")]
+        [SwaggerOperation(Summary = "Update Staff Position", Description = "Updates the job position of a staff member.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Position updated successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Staff member not found.")]
+        public async Task<Response<bool>> UpdatePositionAsync([FromRoute] long staffId, [FromBody] string newPosition)
+        {
+            var result = await _staffService.UpdatePositionAsync(staffId, newPosition);
+            return result
+                ? Response<bool>.SuccessResponse(true, "Position updated successfully.")
+                : Response<bool>.ErrorResponse("Staff member not found.");
+        }
+
+        [HttpPatch("update-salary/{staffId:long}")]
+        [SwaggerOperation(Summary = "Update Staff Salary", Description = "Updates the salary of a staff member.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Salary updated successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Staff member not found.")]
+        public async Task<Response<bool>> UpdateSalaryAsync([FromRoute] long staffId, [FromBody] decimal newSalary)
+        {
+            var result = await _staffService.UpdateSalaryAsync(staffId, newSalary);
+            return result
+                ? Response<bool>.SuccessResponse(true, "Salary updated successfully.")
+                : Response<bool>.ErrorResponse("Staff member not found.");
+        }
+
+        [HttpPatch("assign-supervisor/{staffId:long}")]
+        [SwaggerOperation(Summary = "Assign Supervisor", Description = "Assigns a new supervisor to a staff member.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Supervisor assigned successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Staff member not found.")]
+        public async Task<Response<bool>> AssignSupervisorAsync([FromRoute] long staffId, [FromBody] long newSupervisorId)
+        {
+            var result = await _staffService.AssignSupervisorAsync(staffId, newSupervisorId);
+            return result
+                ? Response<bool>.SuccessResponse(true, "Supervisor assigned successfully.")
+                : Response<bool>.ErrorResponse("Staff member not found.");
         }
 
         [HttpGet]

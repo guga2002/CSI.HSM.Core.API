@@ -16,26 +16,85 @@ namespace Core.API.Controllers.Guest
     public class GuestController : CSIControllerBase<GuestDto, GuestResponseDto, long, Guests>
     {
         private readonly IGuestService _guestService;
-        public GuestController(IService<GuestDto, GuestResponseDto, long, Guests> serviceProvider, IAdditionalFeatures<GuestDto, GuestResponseDto, long, Guests> additionalFeatures,
-            IGuestService ser)
+        public GuestController(
+            IService<GuestDto, GuestResponseDto, long, Guests> serviceProvider,
+            IAdditionalFeatures<GuestDto, GuestResponseDto, long, Guests> additionalFeatures,
+            IGuestService guestService)
             : base(serviceProvider, additionalFeatures)
         {
-            _guestService = ser;
+            _guestService = guestService;
         }
 
-        [HttpGet("RoomByGuestId/{GuestId:long}")]
-        [SwaggerOperation(Summary = "retrive guest room", Description = "Returns guest room")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<RoomsResponseDto>))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
-        public async Task<Response<RoomsResponseDto>> GetRoomByGuestId(long GuestId)
+        [HttpGet("room/{guestId:long}")]
+        [SwaggerOperation(Summary = "Retrieve guest room", Description = "Returns the room assigned to a guest.")]
+        [ProducesResponseType(typeof(Response<RoomsResponseDto>), StatusCodes.Status200OK)]
+        public async Task<Response<RoomsResponseDto>> GetRoomByGuestIdAsync([FromRoute] long guestId, CancellationToken cancellationToken = default)
         {
-            var res = await _guestService.GetRoomByGuestIdAsync(GuestId);
+            var result = await _guestService.GetRoomByGuestIdAsync(guestId, cancellationToken);
+            return new Response<RoomsResponseDto>(true,result);
+        }
 
-            if (res is not null)
-            {
-                return Response<RoomsResponseDto>.SuccessResponse(res);
-            }
-            return Response<RoomsResponseDto>.ErrorResponse("no data exist!");
+        [HttpGet("details/{guestId:long}")]
+        [SwaggerOperation(Summary = "Retrieve guest details", Description = "Fetches detailed information about a guest.")]
+        [ProducesResponseType(typeof(Response<GuestResponseDto>), StatusCodes.Status200OK)]
+        public async Task<Response<GuestResponseDto?>> GetGuestDetailsByIdAsync([FromRoute] long guestId, CancellationToken cancellationToken = default)
+        {
+            var result = await _guestService.GetGuestDetailsByIdAsync(guestId, cancellationToken);
+            return new Response<GuestResponseDto?>(true, result);
+        }
+
+        [HttpGet("room-guests/{roomId:long}")]
+        [SwaggerOperation(Summary = "Retrieve guests by room ID", Description = "Returns a list of guests assigned to a specific room.")]
+        [ProducesResponseType(typeof(Response<IEnumerable<GuestResponseDto>>), StatusCodes.Status200OK)]
+        public async Task<Response<IEnumerable<GuestResponseDto>>> GetGuestsByRoomIdAsync([FromRoute] long roomId, CancellationToken cancellationToken = default)
+        {
+            var result = await _guestService.GetGuestsByRoomIdAsync(roomId, cancellationToken);
+            return new Response<IEnumerable<GuestResponseDto>>(true, result);
+        }
+
+        [HttpGet("check-exists")]
+        [SwaggerOperation(Summary = "Check if guest exists", Description = "Checks whether a guest exists based on email and phone number.")]
+        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
+        public async Task<Response<bool>> CheckGuestExistsAsync([FromQuery] string email, [FromQuery] string phoneNumber, CancellationToken cancellationToken = default)
+        {
+            var result = await _guestService.CheckGuestExistsAsync(email, phoneNumber, cancellationToken);
+            return new Response<bool>(true, result);
+        }
+
+        [HttpPut("update-status/{guestId:long}")]
+        [SwaggerOperation(Summary = "Update guest status", Description = "Updates the status of a guest.")]
+        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
+        public async Task<Response<bool>> UpdateGuestStatusAsync([FromRoute] long guestId, [FromBody] long statusId, CancellationToken cancellationToken = default)
+        {
+            var result = await _guestService.UpdateGuestStatusAsync(guestId, statusId, cancellationToken);
+            return new Response<bool>(true,result);
+        }
+
+        [HttpGet("frequent-guests")]
+        [SwaggerOperation(Summary = "Retrieve frequent guests", Description = "Returns a list of frequent guests.")]
+        [ProducesResponseType(typeof(Response<IEnumerable<GuestResponseDto>>), StatusCodes.Status200OK)]
+        public async Task<Response<IEnumerable<GuestResponseDto>>> GetFrequentGuestsAsync(CancellationToken cancellationToken = default)
+        {
+            var result = await _guestService.GetFrequentGuestsAsync(cancellationToken);
+            return new Response<IEnumerable<GuestResponseDto>>(true,result);
+        }
+
+        [HttpPost("assign-room/{guestId:long}")]
+        [SwaggerOperation(Summary = "Assign room to guest", Description = "Assigns a guest to a specific room.")]
+        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
+        public async Task<Response<bool>> AssignRoomToGuestAsync([FromRoute] long guestId, [FromBody] long roomId, CancellationToken cancellationToken = default)
+        {
+            var result = await _guestService.AssignRoomToGuestAsync(guestId, roomId, cancellationToken);
+            return new Response<bool>(true, result);
+        }
+
+        [HttpDelete("delete-permanently/{guestId:long}")]
+        [SwaggerOperation(Summary = "Permanently delete a guest", Description = "Removes a guest record permanently from the system.")]
+        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
+        public async Task<Response<bool>> DeleteGuestPermanentlyAsync([FromRoute] long guestId, CancellationToken cancellationToken = default)
+        {
+            var result = await _guestService.DeleteGuestPermanentlyAsync(guestId, cancellationToken);
+            return new Response<bool>(true,result);
         }
 
         [HttpGet]

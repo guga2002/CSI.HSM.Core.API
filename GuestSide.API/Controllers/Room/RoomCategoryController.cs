@@ -3,6 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Room;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.Room;
 using Core.Core.Entities.Room;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +14,51 @@ namespace Core.API.Controllers.Room
     [ApiController]
     public class RoomCategoryController : CSIControllerBase<RoomCategoryDto, RoomCategoryResponseDto, long, RoomCategory>
     {
+        private readonly IRoomCategoryService _roomCategoryService;
+
         public RoomCategoryController(
             IService<RoomCategoryDto, RoomCategoryResponseDto, long, RoomCategory> serviceProvider,
-            IAdditionalFeatures<RoomCategoryDto, RoomCategoryResponseDto, long, RoomCategory> additionalFeatures)
+            IAdditionalFeatures<RoomCategoryDto, RoomCategoryResponseDto, long, RoomCategory> additionalFeatures,
+            IRoomCategoryService roomCategoryService)
             : base(serviceProvider, additionalFeatures)
         {
+            _roomCategoryService = roomCategoryService;
+        }
+
+        [HttpGet("by-name/{categoryName}")]
+        [SwaggerOperation(Summary = "Retrieve Room Category by Name", Description = "Fetches the details of a room category by its name.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Category retrieved successfully.", typeof(Response<RoomCategoryResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Category not found.")]
+        public async Task<Response<RoomCategoryResponseDto>> GetCategoryByName([FromRoute] string categoryName)
+        {
+            var result = await _roomCategoryService.GetCategoryByName(categoryName);
+            return result is not null
+                ? Response<RoomCategoryResponseDto>.SuccessResponse(result)
+                : Response<RoomCategoryResponseDto>.ErrorResponse("Category not found.");
+        }
+
+        [HttpGet("active")]
+        [SwaggerOperation(Summary = "Retrieve Active Room Categories", Description = "Fetches all active (non-deleted) room categories.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Active categories retrieved successfully.", typeof(Response<IEnumerable<RoomCategoryResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No active categories found.")]
+        public async Task<Response<IEnumerable<RoomCategoryResponseDto>>> GetAllActiveCategories()
+        {
+            var result = await _roomCategoryService.GetAllActiveCategories();
+            return result.Any()
+                ? Response<IEnumerable<RoomCategoryResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<RoomCategoryResponseDto>>.ErrorResponse("No active categories found.");
+        }
+
+        [HttpPatch("update-name/{categoryId:long}")]
+        [SwaggerOperation(Summary = "Update Room Category Name", Description = "Updates the name of a room category.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Category name updated successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Category not found.")]
+        public async Task<Response<bool>> UpdateRoomCategoryName([FromRoute] long categoryId, [FromBody] string newName)
+        {
+            var result = await _roomCategoryService.UpdateRoomCategoryName(categoryId, newName);
+            return result
+                ? Response<bool>.SuccessResponse(true, "Category name updated successfully.")
+                : Response<bool>.ErrorResponse("Category not found.");
         }
 
         [HttpGet]

@@ -3,6 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Hotel;
 using Core.Application.DTOs.Response.Hotel;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.Hotel;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -12,11 +13,51 @@ namespace Core.API.Controllers.Hotel
     [ApiController]
     public class HotelController : CSIControllerBase<HotelRequestDto, HotelResponse, long, Core.Entities.Hotel.Hotel>
     {
+        private readonly IHotelService _hotelService;
         public HotelController(
+            IHotelService hotelService,
             IService<HotelRequestDto, HotelResponse, long, Core.Entities.Hotel.Hotel> serviceProvider,
             IAdditionalFeatures<HotelRequestDto, HotelResponse, long, Core.Entities.Hotel.Hotel> additionalFeatures)
             : base(serviceProvider, additionalFeatures)
         {
+            _hotelService = hotelService;
+        }
+
+        [HttpGet("by-city/{city}")]
+        [SwaggerOperation(Summary = "Retrieve hotels by city", Description = "Returns a list of hotels located in a specific city.")]
+        [ProducesResponseType(typeof(Response<IEnumerable<HotelResponse>>), StatusCodes.Status200OK)]
+        public async Task<Response<IEnumerable<HotelResponse>>> GetHotelsByCity([FromRoute] string city, CancellationToken cancellationToken = default)
+        {
+            var result = await _hotelService.GetHotelsByCity(city, cancellationToken);
+            return new Response<IEnumerable<HotelResponse>>(true,result);
+        }
+
+        [HttpGet("by-stars/{stars:int}")]
+        [SwaggerOperation(Summary = "Retrieve hotels by star rating", Description = "Returns a list of hotels with a specific star rating (1-5 stars).")]
+        [ProducesResponseType(typeof(Response<IEnumerable<HotelResponse>>), StatusCodes.Status200OK)]
+        public async Task<Response<IEnumerable<HotelResponse>>> GetHotelsByStars([FromRoute] int stars, CancellationToken cancellationToken = default)
+        {
+            var result = await _hotelService.GetHotelsByStars(stars, cancellationToken);
+            return new Response<IEnumerable<HotelResponse>>(true, result);
+        }
+
+        [HttpGet("full-details/{hotelId:long}")]
+        [SwaggerOperation(Summary = "Retrieve full hotel details", Description = "Returns detailed information about a hotel, including rooms and services.")]
+        [ProducesResponseType(typeof(Response<HotelResponse>), StatusCodes.Status200OK)]
+        public async Task<Response<HotelResponse?>> GetFullHotelDetails([FromRoute] long hotelId, CancellationToken cancellationToken = default)
+        {
+            var result = await _hotelService.GetFullHotelDetails(hotelId, cancellationToken);
+            return new Response<HotelResponse?>(true, result);
+        }
+
+        [HttpPut("update-details/{hotelId:long}")]
+        [SwaggerOperation(Summary = "Update hotel details", Description = "Updates hotel details, including address, description, pictures, and facilities.")]
+        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
+        public async Task<Response<bool>> UpdateHotelDetails([FromRoute] long hotelId, [FromBody] HotelRequestDto updateDto, CancellationToken cancellationToken = default)
+        {
+            var result = await _hotelService.UpdateHotelDetails(
+                hotelId, updateDto.Address, updateDto.Description, updateDto.Pictures, updateDto.Facilities, cancellationToken);
+            return new Response<bool>(true, result);
         }
 
         [HttpGet]

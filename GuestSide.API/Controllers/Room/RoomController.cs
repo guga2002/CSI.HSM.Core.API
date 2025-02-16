@@ -1,7 +1,6 @@
 ﻿using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Room;
-using Core.Application.DTOs.Response.Hotel;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Room;
@@ -16,6 +15,7 @@ namespace Core.API.Controllers.Room
     public class RoomController : CSIControllerBase<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room>
     {
         private readonly IRoomService _roomService;
+
         public RoomController(
             IRoomService roomService,
             IService<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room> serviceProvider,
@@ -25,7 +25,58 @@ namespace Core.API.Controllers.Room
             _roomService = roomService;
         }
 
-       
+        [HttpGet("available")]
+        [SwaggerOperation(Summary = "Retrieve Available Rooms", Description = "Fetches available rooms by hotel, category, and occupancy.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Available rooms retrieved successfully.", typeof(Response<IEnumerable<RoomsResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No available rooms found.")]
+        public async Task<Response<IEnumerable<RoomsResponseDto>>> GetAvailableRooms(
+            [FromQuery] long hotelId,
+            [FromQuery] long categoryId,
+            [FromQuery] int maxOccupancy,
+            [FromQuery] decimal maxPrice)
+        {
+            var result = await _roomService.GetAvailableRooms(hotelId, categoryId, maxOccupancy, maxPrice);
+            return result.Any()
+                ? Response<IEnumerable<RoomsResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<RoomsResponseDto>>.ErrorResponse("No available rooms found.");
+        }
+
+        [HttpPatch("mark-unavailable/{roomId:long}")]
+        [SwaggerOperation(Summary = "Mark Room as Unavailable", Description = "Marks a specific room as unavailable.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Room marked as unavailable.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Room not found.")]
+        public async Task<Response<bool>> MarkRoomAsUnavailable([FromRoute] long roomId)
+        {
+            var result = await _roomService.MarkRoomAsUnavailable(roomId);
+            return result
+                ? Response<bool>.SuccessResponse(true, "Room marked as unavailable.")
+                : Response<bool>.ErrorResponse("Room not found.");
+        }
+
+        [HttpPatch("update-price/{roomId:long}")]
+        [SwaggerOperation(Summary = "Update Room Price", Description = "Updates the price of a specific room.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Room price updated successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Room not found.")]
+        public async Task<Response<bool>> UpdateRoomPrice([FromRoute] long roomId, [FromBody] decimal newPrice)
+        {
+            var result = await _roomService.UpdateRoomPrice(roomId, newPrice);
+            return result
+                ? Response<bool>.SuccessResponse(true, "Room price updated successfully.")
+                : Response<bool>.ErrorResponse("Room not found.");
+        }
+
+        [HttpGet("by-hotel/{hotelId:long}")]
+        [SwaggerOperation(Summary = "Retrieve Rooms by Hotel", Description = "Fetches all rooms associated with a specific hotel.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Rooms retrieved successfully.", typeof(Response<IEnumerable<RoomsResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No rooms found for this hotel.")]
+        public async Task<Response<IEnumerable<RoomsResponseDto>>> GetRoomsByHotel([FromRoute] long hotelId)
+        {
+            var result = await _roomService.GetRoomsByHotel(hotelId);
+            return result.Any()
+                ? Response<IEnumerable<RoomsResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<RoomsResponseDto>>.ErrorResponse("No rooms found for this hotel.");
+        }
+
 
         [HttpGet]
         [SwaggerOperation(Summary = "Retrieve all Rooms", Description = "Returns all room records.")]

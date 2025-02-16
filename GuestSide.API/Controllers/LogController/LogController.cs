@@ -3,6 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.LogModel;
 using Core.Application.DTOs.Response.LogModel;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.LogInterfaces;
 using Core.Core.Entities.LogEntities;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +14,62 @@ namespace Core.API.Controllers.LogController
     [ApiController]
     public class LogController : CSIControllerBase<LogDto, LogResponseDto, long, Logs>
     {
+        private readonly ILogService _logService;
+
         public LogController(
             IService<LogDto, LogResponseDto, long, Logs> serviceProvider,
-            IAdditionalFeatures<LogDto, LogResponseDto, long, Logs> additionalFeatures)
+            IAdditionalFeatures<LogDto, LogResponseDto, long, Logs> additionalFeatures,
+            ILogService logService)
             : base(serviceProvider, additionalFeatures)
         {
+            _logService = logService;
+        }
+
+        [HttpGet("severity/{logLevel}")]
+        [SwaggerOperation(Summary = "Retrieve Logs by Severity", Description = "Fetches logs filtered by log severity level (e.g., INFO, ERROR, DEBUG).")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<LogResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No logs found for the given severity.")]
+        public async Task<Response<IEnumerable<LogResponseDto>>> GetLogsBySeverityAsync([FromRoute] string logLevel, CancellationToken cancellationToken = default)
+        {
+            var result = await _logService.GetLogsBySeverity(logLevel, cancellationToken);
+            return result.Any() ? Response<IEnumerable<LogResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<LogResponseDto>>.ErrorResponse("No logs found for the given severity.");
+        }
+
+        [HttpGet("user/{loggerId:long}")]
+        [SwaggerOperation(Summary = "Retrieve Logs by User", Description = "Fetches all logs related to a specific user based on logger ID.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<LogResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No logs found for the specified user.")]
+        public async Task<Response<IEnumerable<LogResponseDto>>> GetLogsByUserAsync([FromRoute] long loggerId, CancellationToken cancellationToken = default)
+        {
+            var result = await _logService.GetLogsByUser(loggerId, cancellationToken);
+            return result.Any() ? Response<IEnumerable<LogResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<LogResponseDto>>.ErrorResponse("No logs found for the specified user.");
+        }
+
+        [HttpGet("request/{requestId}")]
+        [SwaggerOperation(Summary = "Retrieve Logs by Request ID", Description = "Fetches logs associated with a specific request ID.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<LogResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No logs found for the given request ID.")]
+        public async Task<Response<IEnumerable<LogResponseDto>>> GetLogsByRequestIdAsync([FromRoute] string requestId, CancellationToken cancellationToken = default)
+        {
+            var result = await _logService.GetLogsByRequestId(requestId, cancellationToken);
+            return result.Any() ? Response<IEnumerable<LogResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<LogResponseDto>>.ErrorResponse("No logs found for the given request ID.");
+        }
+
+        [HttpDelete("cleanup/{days:int}")]
+        [SwaggerOperation(Summary = "Delete Old Logs", Description = "Deletes all logs older than a specified number of days.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Logs deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid number of days specified.")]
+        public async Task<Response<bool>> DeleteOldLogsAsync([FromRoute] int days, CancellationToken cancellationToken = default)
+        {
+            if (days <= 0)
+                return Response<bool>.ErrorResponse("Days parameter must be greater than 0.");
+
+            var result = await _logService.DeleteOldLogs(days, cancellationToken);
+            return result ? Response<bool>.SuccessResponse(true, "Logs deleted successfully.")
+                : Response<bool>.ErrorResponse("Failed to delete logs.");
         }
 
         [HttpGet]

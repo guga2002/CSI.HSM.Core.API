@@ -3,6 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Notification;
 using Core.Application.DTOs.Response.Notification;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.Notification;
 using Core.Core.Entities.Notification;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +14,66 @@ namespace Core.API.Controllers.Notification
     [ApiController]
     public class StaffNotificationController : CSIControllerBase<StafNotificationDto, StafNotificationResponseDto, long, StaffNotification>
     {
+        private readonly IStaffNotificationService _staffNotificationService;
+
         public StaffNotificationController(
             IService<StafNotificationDto, StafNotificationResponseDto, long, StaffNotification> serviceProvider,
-            IAdditionalFeatures<StafNotificationDto, StafNotificationResponseDto, long, StaffNotification> additionalFeatures)
+            IAdditionalFeatures<StafNotificationDto, StafNotificationResponseDto, long, StaffNotification> additionalFeatures,
+            IStaffNotificationService staffNotificationService)
             : base(serviceProvider, additionalFeatures)
         {
+            _staffNotificationService = staffNotificationService;
+        }
+
+        [HttpGet("unread/{staffId:long}")]
+        [SwaggerOperation(Summary = "Retrieve Unread Notifications for Staff", Description = "Fetches unread notifications for a specific staff member.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Unread notifications retrieved successfully.", typeof(Response<IEnumerable<StafNotificationResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No unread notifications found.")]
+        public async Task<Response<IEnumerable<StafNotificationResponseDto>>> GetUnreadNotificationsByStaffId([FromRoute] long staffId)
+        {
+            var result = await _staffNotificationService.GetUnreadNotificationsByStaffId(staffId);
+            return result.Any()
+                ? Response<IEnumerable<StafNotificationResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<StafNotificationResponseDto>>.ErrorResponse("No unread notifications found.");
+        }
+
+        [HttpGet("important/{staffId:long}")]
+        [SwaggerOperation(Summary = "Retrieve Important Notifications for Staff", Description = "Fetches important notifications for a specific staff member.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Important notifications retrieved successfully.", typeof(Response<IEnumerable<StafNotificationResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No important notifications found.")]
+        public async Task<Response<IEnumerable<StafNotificationResponseDto>>> GetImportantNotificationsByStaffId([FromRoute] long staffId)
+        {
+            var result = await _staffNotificationService.GetImportantNotificationsByStaffId(staffId);
+            return result.Any()
+                ? Response<IEnumerable<StafNotificationResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<StafNotificationResponseDto>>.ErrorResponse("No important notifications found.");
+        }
+
+        [HttpPatch("mark-as-read/{staffId:long}/{notificationId:long}")]
+        [SwaggerOperation(Summary = "Mark a Staff Notification as Read/Unread", Description = "Marks a staff notification as read or unread.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Notification marked successfully.", typeof(Response<StafNotificationResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Notification not found.")]
+        public async Task<Response<StafNotificationResponseDto>> MarkStaffNotificationAsRead(
+            [FromRoute] long staffId,
+            [FromRoute] long notificationId,
+            [FromQuery] bool unread = false)
+        {
+            var result = await _staffNotificationService.MarkStaffNotificationAsRead(staffId, notificationId, unread);
+            return result is not null
+                ? Response<StafNotificationResponseDto>.SuccessResponse(result, "Notification status updated.")
+                : Response<StafNotificationResponseDto>.ErrorResponse("Notification not found.");
+        }
+
+        [HttpDelete("delete/{staffId:long}/{notificationId:long}")]
+        [SwaggerOperation(Summary = "Delete a Staff Notification", Description = "Deletes a specific staff notification.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Notification deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Notification not found.")]
+        public async Task<Response<bool>> DeleteStaffNotification([FromRoute] long staffId, [FromRoute] long notificationId)
+        {
+            var result = await _staffNotificationService.DeleteStaffNotification(staffId, notificationId);
+            return result
+                ? Response<bool>.SuccessResponse(true, "Notification deleted successfully.")
+                : Response<bool>.ErrorResponse("Notification not found.");
         }
 
         [HttpGet]

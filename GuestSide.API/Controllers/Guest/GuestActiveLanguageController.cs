@@ -2,6 +2,7 @@
 using Core.API.Response;
 using Core.Application.DTOs.Request.Guest;
 using Core.Application.DTOs.Response.Guest;
+using Core.Application.Interface.Guest;
 using Core.Application.Interface.GenericContracts;
 using Core.Core.Entities.Guest;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +14,51 @@ namespace Core.API.Controllers.Guest
     [ApiController]
     public class GuestActiveLanguageController : CSIControllerBase<GuestActiveLanguageDto, GuestActiveLanguageResponseDto, long, GuestActiveLanguage>
     {
-        public GuestActiveLanguageController(IService<GuestActiveLanguageDto, GuestActiveLanguageResponseDto, long, GuestActiveLanguage> serviceProvider, IAdditionalFeatures<GuestActiveLanguageDto, GuestActiveLanguageResponseDto, long, GuestActiveLanguage> additionalFeatures)
+        private readonly IGuestActiveLanguageService _guestActiveLanguageService;
+
+        public GuestActiveLanguageController(
+            IGuestActiveLanguageService guestActiveLanguageService,
+            IService<GuestActiveLanguageDto, GuestActiveLanguageResponseDto, long, GuestActiveLanguage> serviceProvider,
+            IAdditionalFeatures<GuestActiveLanguageDto, GuestActiveLanguageResponseDto, long, GuestActiveLanguage> additionalFeatures)
             : base(serviceProvider, additionalFeatures)
         {
+            _guestActiveLanguageService = guestActiveLanguageService;
+        }
+
+        [HttpGet("guest/{guestId:long}")]
+        [SwaggerOperation(Summary = "Get active language by guest ID", Description = "Retrieves the active language of a guest by their ID.")]
+        [ProducesResponseType(typeof(Response<GuestActiveLanguageResponseDto>), StatusCodes.Status200OK)]
+        public async Task<Response<GuestActiveLanguageResponseDto?>> GetActiveLanguageByGuestIdAsync([FromRoute] long guestId, CancellationToken cancellationToken = default)
+        {
+            var result = await _guestActiveLanguageService.GetActiveLanguageByGuestIdAsync(guestId, cancellationToken);
+            return new Response<GuestActiveLanguageResponseDto?>(true, result);
+        }
+
+        [HttpGet("history/{guestId:long}")]
+        [SwaggerOperation(Summary = "Get guest language history", Description = "Retrieves the history of languages used by a guest.")]
+        [ProducesResponseType(typeof(Response<IEnumerable<GuestActiveLanguageResponseDto>>), StatusCodes.Status200OK)]
+        public async Task<Response<IEnumerable<GuestActiveLanguageResponseDto>>> GetGuestLanguageHistoryAsync([FromRoute] long guestId, CancellationToken cancellationToken = default)
+        {
+            var result = await _guestActiveLanguageService.GetGuestLanguageHistoryAsync(guestId, cancellationToken);
+            return new Response<IEnumerable<GuestActiveLanguageResponseDto>>(true, result);
+        }
+
+        [HttpPost("set-language/{guestId:long}")]
+        [SwaggerOperation(Summary = "Set guest active language", Description = "Sets a new active language for a guest.")]
+        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
+        public async Task<Response<bool>> SetGuestActiveLanguageAsync([FromRoute] long guestId, [FromBody] string languageCode, CancellationToken cancellationToken = default)
+        {
+            var result = await _guestActiveLanguageService.SetGuestActiveLanguageAsync(guestId, languageCode, cancellationToken);
+            return new Response<bool>(true, result);
+        }
+
+        [HttpDelete("remove-language/{guestId:long}")]
+        [SwaggerOperation(Summary = "Remove guest active language", Description = "Removes the active language of a guest.")]
+        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
+        public async Task<Response<bool>> RemoveGuestActiveLanguageAsync([FromRoute] long guestId, CancellationToken cancellationToken = default)
+        {
+            var result = await _guestActiveLanguageService.RemoveGuestActiveLanguageAsync(guestId, cancellationToken);
+            return new Response<bool>(true, result);
         }
 
         [HttpGet]

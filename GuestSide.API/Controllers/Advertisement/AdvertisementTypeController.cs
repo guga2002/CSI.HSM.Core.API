@@ -2,6 +2,7 @@
 using Core.API.Response;
 using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.DTOs.Response.Advertisment;
+using Core.Application.Interface.AdvertiementType;
 using Core.Application.Interface.GenericContracts;
 using Core.Core.Entities.Advertisements;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,60 @@ namespace Core.API.Controllers.Advertisement
     [Route("api/[controller]")]
     public class AdvertisemenetTypeController : CSIControllerBase<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, AdvertisementType>
     {
+        private readonly IAdvertisementTypeService _advertisementTypeService;
+
         public AdvertisemenetTypeController(
+            IAdvertisementTypeService advertisementTypeService,
             IService<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, AdvertisementType> serviceProvider,
             IAdditionalFeatures<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, AdvertisementType> additionalFeatures)
             : base(serviceProvider, additionalFeatures)
         {
+            _advertisementTypeService = advertisementTypeService;
+        }
+
+        [HttpGet("by-name/{name}")]
+        [SwaggerOperation(Summary = "Get advertisement type by name", Description = "Fetches an advertisement type by its name.")]
+        [ProducesResponseType(typeof(Response<AdvertisementTypeResponseDto>), StatusCodes.Status200OK)]
+        public async Task<Response<AdvertisementTypeResponseDto?>> GetAdvertisementTypeByNameAsync([FromRoute] string name, CancellationToken cancellationToken = default)
+        {
+            var result = await _advertisementTypeService.GetAdvertisementTypeByNameAsync(name, cancellationToken);
+            return new Response<AdvertisementTypeResponseDto?>(true, result);
+        }
+
+        [HttpGet("all")]
+        [SwaggerOperation(Summary = "Get all advertisement types", Description = "Retrieves all advertisement types.")]
+        [ProducesResponseType(typeof(Response<IEnumerable<AdvertisementTypeResponseDto>>), StatusCodes.Status200OK)]
+        public async Task<Response<IEnumerable<AdvertisementTypeResponseDto>>> GetAllAdvertisementTypesAsync(CancellationToken cancellationToken = default)
+        {
+            var result = await _advertisementTypeService.GetAllAdvertisementTypesAsync(cancellationToken);
+            return new Response<IEnumerable<AdvertisementTypeResponseDto>>(true,result);
+        }
+
+        [HttpGet("by-language/{languageCode}")]
+        [SwaggerOperation(Summary = "Get advertisement types by language", Description = "Retrieves advertisement types based on the specified language.")]
+        [ProducesResponseType(typeof(Response<IEnumerable<AdvertisementTypeResponseDto>>), StatusCodes.Status200OK)]
+        public async Task<Response<IEnumerable<AdvertisementTypeResponseDto>>> GetAdvertisementTypesByLanguageAsync([FromRoute] string languageCode, CancellationToken cancellationToken = default)
+        {
+            var result = await _advertisementTypeService.GetAdvertisementTypesByLanguageAsync(languageCode, cancellationToken);
+            return new Response<IEnumerable<AdvertisementTypeResponseDto>>(true, result);
+        }
+
+        [HttpPut("update-description/{id}")]
+        [SwaggerOperation(Summary = "Update advertisement type description", Description = "Updates the description of an advertisement type.")]
+        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
+        public async Task<Response<bool>> UpdateAdvertisementTypeDescriptionAsync([FromRoute] long id, [FromBody] string newDescription, CancellationToken cancellationToken = default)
+        {
+            var result = await _advertisementTypeService.UpdateAdvertisementTypeDescriptionAsync(id, newDescription, cancellationToken);
+            return new Response<bool>(true,result);
+        }
+
+        [HttpDelete("delete/{id}")]
+        [SwaggerOperation(Summary = "Delete advertisement type by ID", Description = "Deletes a specific advertisement type by its ID.")]
+        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
+        public async Task<Response<bool>> DeleteAdvertisementTypeByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        {
+            var result = await _advertisementTypeService.DeleteAdvertisementTypeByIdAsync(id, cancellationToken);
+            return new Response<bool>(true, result);
         }
 
         [HttpGet]

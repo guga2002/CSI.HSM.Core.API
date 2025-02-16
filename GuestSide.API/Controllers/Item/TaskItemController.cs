@@ -1,5 +1,4 @@
-﻿
-using Core.API.CustomExtendControllerBase;
+﻿using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Response.Item;
@@ -15,33 +14,99 @@ namespace Core.API.Controllers.Item;
 [ApiController]
 public class TaskItemController : CSIControllerBase<TaskItemDto, TaskItemResponseDto, long, TaskItem>
 {
+    private readonly ITaskItemService _taskItemService;
 
-    private readonly ITaskItemService _serviceProvider;
-    public TaskItemController(IService<TaskItemDto,
-        TaskItemResponseDto, long, TaskItem> serviceProvider,
+    public TaskItemController(
+        IService<TaskItemDto, TaskItemResponseDto, long, TaskItem> serviceProvider,
         IAdditionalFeatures<TaskItemDto, TaskItemResponseDto, long, TaskItem> additionalFeatures,
-        ITaskItemService service) 
+        ITaskItemService taskItemService)
         : base(serviceProvider, additionalFeatures)
     {
-        _serviceProvider = service;
+        _taskItemService = taskItemService;
     }
 
-    //[HttpGet(nameof(GetTaskItemsByCartId))]
-    //[SwaggerOperation(Summary = "Retrieve all TaskItem by cartId", Description = "Returns all TaskItem records.")]
-    //[SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<TaskItemResponseDto>>))]
-    //[SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
-    //public async Task<Response<IEnumerable<TaskItemResponseDto>>> GetTaskItemsByCartId([FromQuery]long CartId)
-    //{
-    //    var res=await _serviceProvider.taski(CartId);
-        
-    //    if(res.Count() > 0)
-    //    {
-    //        Response<IEnumerable<TaskItemResponseDto>>.SuccessResponse(res, "Successfullly  retrieved");
-    //    }
+    [HttpGet("ByTask/{taskId:long}")]
+    [SwaggerOperation(Summary = "Retrieve Task Items by Task ID", Description = "Fetches all task items associated with a specific task.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<TaskItemResponseDto>>))]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+    public async Task<Response<IEnumerable<TaskItemResponseDto>>> GetTaskItemsByTaskIdAsync([FromRoute] long taskId, CancellationToken cancellationToken = default)
+    {
+        var result = await _taskItemService.GetTaskItemsByTaskIdAsync(taskId, cancellationToken);
+        return result.Any() ? Response<IEnumerable<TaskItemResponseDto>>.SuccessResponse(result) : Response<IEnumerable<TaskItemResponseDto>>.ErrorResponse("No task items found.");
+    }
 
-    //    return Response<IEnumerable<TaskItemResponseDto>>.ErrorResponse("No data found");
-    //}
+    [HttpGet("ByItem/{itemId:long}")]
+    [SwaggerOperation(Summary = "Retrieve Task Items by Item ID", Description = "Fetches all task items associated with a specific item.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<TaskItemResponseDto>>))]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+    public async Task<Response<IEnumerable<TaskItemResponseDto>>> GetTaskItemsByItemIdAsync([FromRoute] long itemId, CancellationToken cancellationToken = default)
+    {
+        var result = await _taskItemService.GetTaskItemsByItemIdAsync(itemId, cancellationToken);
+        return result.Any() ? Response<IEnumerable<TaskItemResponseDto>>.SuccessResponse(result) : Response<IEnumerable<TaskItemResponseDto>>.ErrorResponse("No task items found.");
+    }
 
+    [HttpGet("Pending")]
+    [SwaggerOperation(Summary = "Retrieve all Pending Task Items", Description = "Fetches all task items that are still pending.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<TaskItemResponseDto>>))]
+    public async Task<Response<IEnumerable<TaskItemResponseDto>>> GetPendingTaskItemsAsync(CancellationToken cancellationToken = default)
+    {
+        var result = await _taskItemService.GetPendingTaskItemsAsync(cancellationToken);
+        return Response<IEnumerable<TaskItemResponseDto>>.SuccessResponse(result);
+    }
+
+    [HttpGet("Completed")]
+    [SwaggerOperation(Summary = "Retrieve all Completed Task Items", Description = "Fetches all task items that have been marked as completed.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<TaskItemResponseDto>>))]
+    public async Task<Response<IEnumerable<TaskItemResponseDto>>> GetCompletedTaskItemsAsync(CancellationToken cancellationToken = default)
+    {
+        var result = await _taskItemService.GetCompletedTaskItemsAsync(cancellationToken);
+        return Response<IEnumerable<TaskItemResponseDto>>.SuccessResponse(result);
+    }
+
+    [HttpPatch("UpdateQuantity/{taskItemId:long}/{newQuantity:int}")]
+    [SwaggerOperation(Summary = "Update Task Item Quantity", Description = "Updates the quantity of a task item.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Quantity updated successfully.", typeof(Response<bool>))]
+    public async Task<Response<bool>> UpdateItemQuantityAsync([FromRoute] long taskItemId, [FromRoute] int newQuantity, CancellationToken cancellationToken = default)
+    {
+        var result = await _taskItemService.UpdateItemQuantityAsync(taskItemId, newQuantity, cancellationToken);
+        return result ? Response<bool>.SuccessResponse(true, "Quantity updated successfully.") : Response<bool>.ErrorResponse("Failed to update quantity.");
+    }
+
+    [HttpPatch("MarkCompleted/{taskItemId:long}")]
+    [SwaggerOperation(Summary = "Mark Task Item as Completed", Description = "Marks a task item as completed.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Task item marked as completed.", typeof(Response<bool>))]
+    public async Task<Response<bool>> MarkTaskItemCompletedAsync([FromRoute] long taskItemId, CancellationToken cancellationToken = default)
+    {
+        var result = await _taskItemService.MarkTaskItemCompletedAsync(taskItemId, cancellationToken);
+        return result ? Response<bool>.SuccessResponse(true, "Task item marked as completed.") : Response<bool>.ErrorResponse("Failed to mark task item as completed.");
+    }
+
+    [HttpPatch("AddNotes/{taskItemId:long}")]
+    [SwaggerOperation(Summary = "Add Notes to Task Item", Description = "Adds additional notes to a task item.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Notes added successfully.", typeof(Response<bool>))]
+    public async Task<Response<bool>> AddNotesToTaskItemAsync([FromRoute] long taskItemId, [FromBody] string notes, CancellationToken cancellationToken = default)
+    {
+        var result = await _taskItemService.AddNotesToTaskItemAsync(taskItemId, notes, cancellationToken);
+        return result ? Response<bool>.SuccessResponse(true, "Notes added successfully.") : Response<bool>.ErrorResponse("Failed to add notes.");
+    }
+
+    [HttpGet("CountTotal/{taskId:long}")]
+    [SwaggerOperation(Summary = "Count Total Items in a Task", Description = "Returns the total count of items associated with a task.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Count retrieved successfully.", typeof(Response<int>))]
+    public async Task<Response<int>> CountTotalItemsInTaskAsync([FromRoute] long taskId, CancellationToken cancellationToken = default)
+    {
+        var result = await _taskItemService.CountTotalItemsInTaskAsync(taskId, cancellationToken);
+        return Response<int>.SuccessResponse(result);
+    }
+
+    [HttpGet("CountCompleted/{taskId:long}")]
+    [SwaggerOperation(Summary = "Count Completed Items in a Task", Description = "Returns the count of completed items associated with a task.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Count retrieved successfully.", typeof(Response<int>))]
+    public async Task<Response<int>> CountCompletedItemsInTaskAsync([FromRoute] long taskId, CancellationToken cancellationToken = default)
+    {
+        var result = await _taskItemService.CountCompletedItemsInTaskAsync(taskId, cancellationToken);
+        return Response<int>.SuccessResponse(result);
+    }
 
     [HttpGet]
     [SwaggerOperation(Summary = "Retrieve all TaskItem records", Description = "Returns all TaskItem records.")]

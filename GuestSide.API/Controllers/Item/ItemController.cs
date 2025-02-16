@@ -3,6 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Response.Item;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.Item;
 using Core.Core.Entities.Item;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +14,55 @@ namespace Core.API.Controllers.Item
     [ApiController]
     public class ItemController : CSIControllerBase<ItemDto, ItemResponseDto, long, Items>
     {
+        private readonly IItemService _itemService;
+
         public ItemController(
             IService<ItemDto, ItemResponseDto, long, Items> serviceProvider,
-            IAdditionalFeatures<ItemDto, ItemResponseDto, long, Items> additionalFeatures)
+            IAdditionalFeatures<ItemDto, ItemResponseDto, long, Items> additionalFeatures,
+            IItemService itemService)
             : base(serviceProvider, additionalFeatures)
         {
+            _itemService = itemService;
+        }
+
+        [HttpGet("category/{categoryId:long}")]
+        [SwaggerOperation(Summary = "Retrieve Items by Category", Description = "Returns items filtered by category.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<ItemResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+        public async Task<Response<IEnumerable<ItemResponseDto>>> GetItemsByCategory(long categoryId)
+        {
+            var items = await _itemService.GetItemsByCategoryAsync(categoryId);
+            return items.Any() ? Response<IEnumerable<ItemResponseDto>>.SuccessResponse(items) : Response<IEnumerable<ItemResponseDto>>.ErrorResponse("No items found for this category.");
+        }
+
+        [HttpGet("language/{languageCode}")]
+        [SwaggerOperation(Summary = "Retrieve Items by Language", Description = "Returns items filtered by language.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<ItemResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+        public async Task<Response<IEnumerable<ItemResponseDto>>> GetItemsByLanguage(string languageCode)
+        {
+            var items = await _itemService.GetItemsByLanguageAsync(languageCode);
+            return items.Any() ? Response<IEnumerable<ItemResponseDto>>.SuccessResponse(items) : Response<IEnumerable<ItemResponseDto>>.ErrorResponse("No items found for this language.");
+        }
+
+        [HttpGet("orderable")]
+        [SwaggerOperation(Summary = "Retrieve Orderable Items", Description = "Returns all orderable items.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<ItemResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+        public async Task<Response<IEnumerable<ItemResponseDto>>> GetOrderableItems()
+        {
+            var items = await _itemService.GetOrderableItemsAsync();
+            return items.Any() ? Response<IEnumerable<ItemResponseDto>>.SuccessResponse(items) : Response<IEnumerable<ItemResponseDto>>.ErrorResponse("No orderable items found.");
+        }
+
+        [HttpGet("outofstock")]
+        [SwaggerOperation(Summary = "Retrieve Out-of-Stock Items", Description = "Returns all items that are out of stock.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<ItemResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+        public async Task<Response<IEnumerable<ItemResponseDto>>> GetOutOfStockItems()
+        {
+            var items = await _itemService.GetOutOfStockItemsAsync();
+            return items.Any() ? Response<IEnumerable<ItemResponseDto>>.SuccessResponse(items) : Response<IEnumerable<ItemResponseDto>>.ErrorResponse("No out-of-stock items found.");
         }
 
         [HttpGet]

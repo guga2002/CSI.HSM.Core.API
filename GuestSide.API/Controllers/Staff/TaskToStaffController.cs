@@ -6,7 +6,6 @@ using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Staff.Task;
 using Core.Core.Entities.Staff;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Core.API.Controllers.Staff
@@ -19,10 +18,95 @@ namespace Core.API.Controllers.Staff
 
         public TaskToStaffController(
             IService<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff> serviceProvider,
-            IAdditionalFeatures<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff> additionalFeatures, ITaskToStaffService taskToStaffService)
+            IAdditionalFeatures<TaskToStaffDto, TaskToStaffResponseDto, long, TaskToStaff> additionalFeatures,
+            ITaskToStaffService taskToStaffService)
             : base(serviceProvider, additionalFeatures)
         {
             _taskToStaffService = taskToStaffService;
+        }
+
+        [HttpGet("by-task/{taskId:long}")]
+        [SwaggerOperation(Summary = "Retrieve a Task assigned to Staff by Task ID", Description = "Fetches a specific task assigned to staff.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Record retrieved successfully.", typeof(Response<TaskToStaffResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
+        public async Task<Response<TaskToStaffResponseDto>> GetByTaskIdAsync([FromRoute] long taskId)
+        {
+            var result = await _taskToStaffService.GetByTaskIdAsync(taskId);
+            return result != null
+                ? Response<TaskToStaffResponseDto>.SuccessResponse(result)
+                : Response<TaskToStaffResponseDto>.ErrorResponse("No data found.");
+        }
+
+        [HttpGet("by-staff/{staffId:long}")]
+        [SwaggerOperation(Summary = "Retrieve Tasks assigned to a Staff Member", Description = "Fetches all tasks assigned to a specific staff member.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Tasks retrieved successfully.", typeof(Response<IEnumerable<TaskToStaffResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No tasks found.")]
+        public async Task<Response<IEnumerable<TaskToStaffResponseDto>>> GetTasksByStaffIdAsync([FromRoute] long staffId)
+        {
+            var result = await _taskToStaffService.GetTasksByStaffIdAsync(staffId);
+            return result.Any()
+                ? Response<IEnumerable<TaskToStaffResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<TaskToStaffResponseDto>>.ErrorResponse("No tasks found.");
+        }
+
+        [HttpPatch("update-task-status/{taskId:long}")]
+        [SwaggerOperation(Summary = "Update Task Status", Description = "Updates the status of a task assigned to staff.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Task status updated successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Task not found.")]
+        public async Task<Response<bool>> UpdateTaskStatusAsync([FromRoute] long taskId, [FromBody] long statusId)
+        {
+            var result = await _taskToStaffService.UpdateTaskStatusAsync(taskId, statusId);
+            return result
+                ? Response<bool>.SuccessResponse(true, "Task status updated successfully.")
+                : Response<bool>.ErrorResponse("Task not found.");
+        }
+
+        [HttpPatch("mark-completed/{taskId:long}")]
+        [SwaggerOperation(Summary = "Mark Task as Completed", Description = "Marks a task assigned to staff as completed.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Task marked as completed successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Task not found.")]
+        public async Task<Response<bool>> MarkTaskAsCompletedAsync([FromRoute] long taskId)
+        {
+            var result = await _taskToStaffService.MarkTaskAsCompletedAsync(taskId);
+            return result
+                ? Response<bool>.SuccessResponse(true, "Task marked as completed successfully.")
+                : Response<bool>.ErrorResponse("Task not found.");
+        }
+
+        [HttpPost("assign-task/{taskId:long}/{staffId:long}")]
+        [SwaggerOperation(Summary = "Assign Task to Staff", Description = "Assigns a task to a staff member.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Task assigned successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid request data.")]
+        public async Task<Response<bool>> AssignTaskToStaffAsync([FromRoute] long taskId, [FromRoute] long staffId)
+        {
+            var result = await _taskToStaffService.AssignTaskToStaffAsync(taskId, staffId);
+            return result
+                ? Response<bool>.SuccessResponse(true, "Task assigned successfully.")
+                : Response<bool>.ErrorResponse("Failed to assign task.");
+        }
+
+        [HttpGet("active-tasks/{staffId:long}")]
+        [SwaggerOperation(Summary = "Retrieve Active Tasks assigned to Staff", Description = "Fetches all active tasks assigned to a specific staff member.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Tasks retrieved successfully.", typeof(Response<IEnumerable<TaskToStaffResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No active tasks found.")]
+        public async Task<Response<IEnumerable<TaskToStaffResponseDto>>> GetActiveTasksByStaffIdAsync([FromRoute] long staffId)
+        {
+            var result = await _taskToStaffService.GetActiveTasksByStaffIdAsync(staffId);
+            return result.Any()
+                ? Response<IEnumerable<TaskToStaffResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<TaskToStaffResponseDto>>.ErrorResponse("No active tasks found.");
+        }
+
+        [HttpGet("due-tasks")]
+        [SwaggerOperation(Summary = "Retrieve Due Tasks", Description = "Fetches all tasks that are due by a specific date.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Due tasks retrieved successfully.", typeof(Response<IEnumerable<TaskToStaffResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No due tasks found.")]
+        public async Task<Response<IEnumerable<TaskToStaffResponseDto>>> GetDueTasksAsync([FromQuery] DateTime dueDate)
+        {
+            var result = await _taskToStaffService.GetDueTasksAsync(dueDate);
+            return result.Any()
+                ? Response<IEnumerable<TaskToStaffResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<TaskToStaffResponseDto>>.ErrorResponse("No due tasks found.");
         }
 
         [HttpGet]
@@ -43,20 +127,6 @@ namespace Core.API.Controllers.Staff
             return await base.GetByIdAsync(id, cancellationToken);
         }
 
-        //[HttpGet("GroupedTasksByStatus/{cardId:long}")]
-        //[SwaggerOperation(Summary = "retrieve  tasks  by status  for cart", Description = "fetcha  grouped tasks by statuses")]
-        //[SwaggerResponse(StatusCodes.Status200OK, "Record retrieved successfully.", typeof(Response<IEnumerable<GroupTasksStatusByCardDto>>))]
-        //[SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
-        //public async Task<Response<IEnumerable<GroupTasksStatusByCardDto>>> GetTasksStatusByCard(long cardId)
-        //{
-        //    var result = await _taskToStaffService.GetTasksStatusByCardAsync(cardId);
-        //    if (result is not null)
-        //    {
-        //        return Response<IEnumerable<GroupTasksStatusByCardDto>>.SuccessResponse(result);
-        //    }
-
-        //    return Response<IEnumerable<GroupTasksStatusByCardDto>>.ErrorResponse("Data not found");
-        //}
 
         [HttpGet("{taskId:long}")]
         [SwaggerOperation(Summary = "Retrieve a Task assigned to Staff by taskId", Description = "Fetches a specific task-to-staff record by task ID.")]

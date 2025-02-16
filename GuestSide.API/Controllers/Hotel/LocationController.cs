@@ -3,6 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Hotel;
 using Core.Application.DTOs.Response.Hotel;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.Hotel;
 using Core.Core.Entities.Hotel.GeoLocation;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +14,42 @@ namespace Core.API.Controllers.Hotel
     [ApiController]
     public class LocationController : CSIControllerBase<LocationrequestDto, LocationResponse, long, Location>
     {
+        private readonly ILocationService _locationService;
+
         public LocationController(
+            ILocationService locationService,
             IService<LocationrequestDto, LocationResponse, long, Location> serviceProvider,
             IAdditionalFeatures<LocationrequestDto, LocationResponse, long, Location> additionalFeatures)
             : base(serviceProvider, additionalFeatures)
         {
+            _locationService = locationService;
+        }
+
+        [HttpGet("by-hotel/{hotelId:long}")]
+        [SwaggerOperation(Summary = "Retrieve location by hotel ID", Description = "Fetches the location details of a hotel by its ID.")]
+        [ProducesResponseType(typeof(Response<LocationResponse>), StatusCodes.Status200OK)]
+        public async Task<Response<LocationResponse?>> GetLocationByHotelId([FromRoute] long hotelId, CancellationToken cancellationToken = default)
+        {
+            var result = await _locationService.GetLocationByHotelId(hotelId, cancellationToken);
+            return new Response<LocationResponse?>(true, result);
+        }
+
+        [HttpGet("nearest-hotel")]
+        [SwaggerOperation(Summary = "Find the nearest hotel", Description = "Finds the nearest hotel based on given latitude and longitude.")]
+        [ProducesResponseType(typeof(Response<LocationResponse>), StatusCodes.Status200OK)]
+        public async Task<Response<LocationResponse?>> FindNearestHotel([FromQuery] double latitude, [FromQuery] double longitude, CancellationToken cancellationToken = default)
+        {
+            var result = await _locationService.FindNearestHotel(latitude, longitude, cancellationToken);
+            return new Response<LocationResponse?>(true, result);
+        }
+
+        [HttpPut("update-location/{hotelId:long}")]
+        [SwaggerOperation(Summary = "Update hotel location", Description = "Updates the latitude and longitude of a hotel location.")]
+        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
+        public async Task<Response<bool>> UpdateHotelLocation([FromRoute] long hotelId, [FromBody] LocationrequestDto locationDto, CancellationToken cancellationToken = default)
+        {
+            var result = await _locationService.UpdateHotelLocation(hotelId, locationDto.Latitude, locationDto.Longitude, cancellationToken);
+            return new Response<bool>(true,result);
         }
 
         [HttpGet]

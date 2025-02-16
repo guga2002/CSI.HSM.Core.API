@@ -3,6 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.Task.Status;
 using Core.Core.Entities.Task;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +14,63 @@ namespace Core.API.Controllers.Tasks
     [ApiController]
     public class TaskStatusController : CSIControllerBase<TaskStatusDto, TaskStatusResponseDto, long, TasksStatus>
     {
+        private readonly ITaskStatusService _taskStatusService;
+
         public TaskStatusController(
+            ITaskStatusService taskStatusService,
             IService<TaskStatusDto, TaskStatusResponseDto, long, TasksStatus> serviceProvider,
             IAdditionalFeatures<TaskStatusDto, TaskStatusResponseDto, long, TasksStatus> additionalFeatures)
             : base(serviceProvider, additionalFeatures)
         {
+            _taskStatusService = taskStatusService;
+        }
+
+        [HttpGet("all")]
+        [SwaggerOperation(Summary = "Retrieve all Task Statuses", Description = "Returns all available task status records.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<TaskStatusResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+        public async Task<Response<IEnumerable<TaskStatusResponseDto>>> GetAllTaskStatusesAsync()
+        {
+            var result = await _taskStatusService.GetAllTaskStatusesAsync();
+            return result.Any()
+                ? Response<IEnumerable<TaskStatusResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<TaskStatusResponseDto>>.ErrorResponse("No task statuses found.");
+        }
+
+        [HttpGet("by-name/{statusName}")]
+        [SwaggerOperation(Summary = "Retrieve a Task Status by Name", Description = "Fetches a specific task status record by its name.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Record retrieved successfully.", typeof(Response<TaskStatusResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
+        public async Task<Response<TaskStatusResponseDto>> GetTaskStatusByNameAsync([FromRoute] string statusName)
+        {
+            var result = await _taskStatusService.GetTaskStatusByNameAsync(statusName);
+            return result != null
+                ? Response<TaskStatusResponseDto>.SuccessResponse(result)
+                : Response<TaskStatusResponseDto>.ErrorResponse("Task status not found.");
+        }
+
+        [HttpPatch("update-name/{statusId:long}")]
+        [SwaggerOperation(Summary = "Update Task Status Name", Description = "Updates the name of an existing task status.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Task status updated successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
+        public async Task<Response<bool>> UpdateTaskStatusNameAsync([FromRoute] long statusId, [FromBody] string newName)
+        {
+            var result = await _taskStatusService.UpdateTaskStatusNameAsync(statusId, newName);
+            return result
+                ? Response<bool>.SuccessResponse(true, "Task status name updated successfully.")
+                : Response<bool>.ErrorResponse("Failed to update task status name.");
+        }
+
+        [HttpGet("active")]
+        [SwaggerOperation(Summary = "Retrieve Active Task Statuses", Description = "Fetches all active task status records.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<TaskStatusResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+        public async Task<Response<IEnumerable<TaskStatusResponseDto>>> GetAllActiveStatusesAsync()
+        {
+            var result = await _taskStatusService.GetAllActiveStatusesAsync();
+            return result.Any()
+                ? Response<IEnumerable<TaskStatusResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<TaskStatusResponseDto>>.ErrorResponse("No active task statuses found.");
         }
 
         [HttpGet]

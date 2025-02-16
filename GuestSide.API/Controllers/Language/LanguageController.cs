@@ -3,6 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Language;
 using Core.Application.DTOs.Response.Language;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.Language;
 using Core.Core.Entities.Language;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +14,48 @@ namespace Core.API.Controllers.Language
     [ApiController]
     public class LanguageController : CSIControllerBase<LanguagePackDto, LanguagePackResponseDto, long, LanguagePack>
     {
+        private readonly ILanguageService _languageService;
+
         public LanguageController(
             IService<LanguagePackDto, LanguagePackResponseDto, long, LanguagePack> serviceProvider,
-            IAdditionalFeatures<LanguagePackDto, LanguagePackResponseDto, long, LanguagePack> additionalFeatures)
+            IAdditionalFeatures<LanguagePackDto, LanguagePackResponseDto, long, LanguagePack> additionalFeatures,
+            ILanguageService languageService)
             : base(serviceProvider, additionalFeatures)
         {
+            _languageService = languageService;
+        }
+
+        [HttpGet("active")]
+        [SwaggerOperation(Summary = "Retrieve all Active Language Packs", Description = "Fetches all active language packs.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<LanguagePackResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No active language packs found.")]
+        public async Task<Response<IEnumerable<LanguagePackResponseDto>>> GetAllActiveLanguagesAsync(CancellationToken cancellationToken = default)
+        {
+            var result = await _languageService.GetAllActiveLanguages(cancellationToken);
+            return result.Any() ? Response<IEnumerable<LanguagePackResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<LanguagePackResponseDto>>.ErrorResponse("No active language packs found.");
+        }
+
+        [HttpGet("by-code/{code}")]
+        [SwaggerOperation(Summary = "Retrieve Language Pack by Code", Description = "Fetches a specific language pack based on its unique language code.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Record retrieved successfully.", typeof(Response<LanguagePackResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Language pack not found.")]
+        public async Task<Response<LanguagePackResponseDto>> GetLanguageByCodeAsync([FromRoute] string code, CancellationToken cancellationToken = default)
+        {
+            var result = await _languageService.GetLanguageByCode(code, cancellationToken);
+            return result is not null ? Response<LanguagePackResponseDto>.SuccessResponse(result)
+                : Response<LanguagePackResponseDto>.ErrorResponse("Language pack not found.");
+        }
+
+        [HttpPatch("soft-delete/{languageId:long}")]
+        [SwaggerOperation(Summary = "Soft Delete a Language Pack", Description = "Marks a language pack as inactive instead of removing it from the database.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Language pack soft deleted successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Language pack not found.")]
+        public async Task<Response<bool>> SoftDeleteLanguageAsync([FromRoute] long languageId, CancellationToken cancellationToken = default)
+        {
+            var result = await _languageService.SoftDeleteLanguage(languageId, cancellationToken);
+            return result ? Response<bool>.SuccessResponse(true, "Language pack soft deleted successfully.")
+                : Response<bool>.ErrorResponse("Failed to soft delete language pack.");
         }
 
         [HttpGet]

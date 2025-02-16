@@ -3,6 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Room;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.Room;
 using Core.Core.Entities.Room;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +14,75 @@ namespace Core.API.Controllers.Room
     [ApiController]
     public class QrCodeController : CSIControllerBase<QRCodeDto, QRCodeResponseDto, long, QRCode>
     {
+        private readonly IQrCodeService _qrCodeService;
+
         public QrCodeController(
             IService<QRCodeDto, QRCodeResponseDto, long, QRCode> serviceProvider,
-            IAdditionalFeatures<QRCodeDto, QRCodeResponseDto, long, QRCode> additionalFeatures)
+            IAdditionalFeatures<QRCodeDto, QRCodeResponseDto, long, QRCode> additionalFeatures,
+            IQrCodeService qrCodeService)
             : base(serviceProvider, additionalFeatures)
         {
+            _qrCodeService = qrCodeService;
+        }
+
+        [HttpGet("room/{roomId:long}")]
+        [SwaggerOperation(Summary = "Retrieve QR Code by Room ID", Description = "Fetches the QR code associated with a specific room.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "QR Code retrieved successfully.", typeof(Response<QRCodeResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "QR Code not found.")]
+        public async Task<Response<QRCodeResponseDto>> GetQRCodeByRoomId([FromRoute] long roomId)
+        {
+            var result = await _qrCodeService.GetQRCodeByRoomId(roomId);
+            return result is not null
+                ? Response<QRCodeResponseDto>.SuccessResponse(result)
+                : Response<QRCodeResponseDto>.ErrorResponse("QR Code not found.");
+        }
+
+        [HttpGet("code/{qrCode}")]
+        [SwaggerOperation(Summary = "Retrieve QR Code by Code", Description = "Fetches a QR code record using the QR string.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "QR Code retrieved successfully.", typeof(Response<QRCodeResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "QR Code not found.")]
+        public async Task<Response<QRCodeResponseDto>> GetQRCodeByCode([FromRoute] string qrCode)
+        {
+            var result = await _qrCodeService.GetQRCodeByCode(qrCode);
+            return result is not null
+                ? Response<QRCodeResponseDto>.SuccessResponse(result)
+                : Response<QRCodeResponseDto>.ErrorResponse("QR Code not found.");
+        }
+
+        [HttpPost("increment-scan/{qrId:long}")]
+        [SwaggerOperation(Summary = "Increment QR Code Scan Count", Description = "Increments the scan count for a given QR code.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Scan count incremented successfully.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "QR Code not found.")]
+        public async Task<Response<bool>> IncrementScanCount([FromRoute] long qrId)
+        {
+            var result = await _qrCodeService.IncrementScanCount(qrId);
+            return result
+                ? Response<bool>.SuccessResponse(true, "Scan count updated successfully.")
+                : Response<bool>.ErrorResponse("QR Code not found.");
+        }
+
+        [HttpPatch("expire/{qrId:long}")]
+        [SwaggerOperation(Summary = "Mark QR Code as Expired", Description = "Marks a QR code as expired.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "QR Code marked as expired.", typeof(Response<bool>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "QR Code not found.")]
+        public async Task<Response<bool>> MarkQRCodeAsExpired([FromRoute] long qrId)
+        {
+            var result = await _qrCodeService.MarkQRCodeAsExpired(qrId);
+            return result
+                ? Response<bool>.SuccessResponse(true, "QR Code marked as expired.")
+                : Response<bool>.ErrorResponse("QR Code not found.");
+        }
+
+        [HttpGet("active")]
+        [SwaggerOperation(Summary = "Retrieve Active QR Codes", Description = "Fetches all active (non-expired) QR codes.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Active QR Codes retrieved successfully.", typeof(Response<IEnumerable<QRCodeResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No active QR Codes found.")]
+        public async Task<Response<IEnumerable<QRCodeResponseDto>>> GetActiveQRCodes()
+        {
+            var result = await _qrCodeService.GetActiveQRCodes();
+            return result.Any()
+                ? Response<IEnumerable<QRCodeResponseDto>>.SuccessResponse(result)
+                : Response<IEnumerable<QRCodeResponseDto>>.ErrorResponse("No active QR Codes found.");
         }
 
         [HttpGet]

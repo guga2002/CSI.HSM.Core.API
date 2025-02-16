@@ -1,4 +1,5 @@
 ﻿using Core.API.CustomExtendControllerBase;
+using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Response.Item;
@@ -14,7 +15,6 @@ namespace Core.API.Controllers.Item;
 [ApiController]
 public class CartController : CSIControllerBase<CartDto, CartResponseDto, long, Cart>
 {
-
     private readonly ICartService _cartService;
 
     public CartController(
@@ -24,6 +24,16 @@ public class CartController : CSIControllerBase<CartDto, CartResponseDto, long, 
         : base(serviceProvider, additionalFeatures)
     {
         _cartService = cartService;
+    }
+
+    [HttpGet("latest-active-cart/{guestId:long}")]
+    [SwaggerOperation(Summary = "Get latest active cart for a guest", Description = "Returns the latest active cart for a guest.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Record retrieved successfully.", typeof(Response<CartResponseDto>))]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "No active cart found.")]
+    public async Task<Response<CartResponseDto?>> GetLatestActiveCartForGuestAsync([FromRoute] long guestId, CancellationToken cancellationToken = default)
+    {
+        var result = await _cartService.GetLatestActiveCartForGuestAsync(guestId, cancellationToken);
+        return new Response<CartResponseDto?>(true, result);
     }
 
     [HttpDelete("clearCart/{cartId:long}")]
