@@ -42,16 +42,8 @@ namespace Core.Core.Entities.Staff
 
         public virtual Staffs? AssignedByStaff { get; set; } 
 
-        public TaskPriority Priority { get; set; } = TaskPriority.Medium; 
 
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow; 
     }
 
-    public enum TaskPriority
-    {
-        Low,
-        Medium,
-        High,
-        Critical
-    }
 }

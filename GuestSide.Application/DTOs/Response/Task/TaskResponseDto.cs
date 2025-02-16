@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Core.Application.DTOs.Response.Item;
 using Core.Core.Entities.Item;
 using Core.Core.Entities.Task;
-using TaskStatus = System.Threading.Tasks.TaskStatus;
+using TaskStatus = Core.Core.Entities.Task.TaskStatus;
 
 namespace Core.Application.DTOs.Response.Task;
 
@@ -22,8 +22,6 @@ public class TaskResponseDto
     public bool IsCompleted { get; set; }
 
     public TaskStatus Status { get; set; }
-
-    public TaskPriority Priority { get; set; }
 
     public string? LanguageCode { get; set; }
 

@@ -1,5 +1,5 @@
 ﻿using Core.Core.Entities.Task;
-using TaskStatus = System.Threading.Tasks.TaskStatus;
+using TaskStatus = Core.Core.Entities.Task.TaskStatus;
 
 namespace Core.Application.DTOs.Request.Task;
 
@@ -16,8 +16,6 @@ public class TaskDto
     public bool IsCompleted { get; set; }
 
     public TaskStatus Status { get; set; }
-
-    public TaskPriority Priority { get; set; }
 
     public string? LanguageCode { get; set; }
 
