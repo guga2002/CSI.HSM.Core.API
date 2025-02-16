@@ -8,10 +8,10 @@ namespace Core.Persistance.LoggingConfigs
     {
         public static void InjectSeriLog(this IServiceCollection services)
         {
-            //services.AddLogging(builder =>
-            //{
-            //    builder.AddProvider(new LoggerProvider(services.BuildServiceProvider().GetRequiredService<ILogsRepository>()));
-            //});
+            services.AddLogging(builder =>
+            {
+                builder.AddProvider(new LoggerProvider(services.BuildServiceProvider().GetRequiredService<ILogsRepository>()));
+            });
         }
     }
 }

@@ -6,11 +6,11 @@ namespace Core.Persistance.LoggingConfigs
 {
     public class Logger : ILogger
     {
-       // private readonly ILogRepository _log;
+        private readonly ILogsRepository _log;
 
         public Logger(ILogsRepository log)
         {
-            //_log = log;
+            _log = log;
         }
         public IDisposable? BeginScope<TState>(TState state) where TState : notnull
         {
@@ -28,16 +28,16 @@ namespace Core.Persistance.LoggingConfigs
             if (logLevel is not LogLevel.Warning&&logLevel is not LogLevel.Information)
             {
                 Console.WriteLine(exception?.Message);
-                //var res = _log.AddAsync(new Logs
-                //{
-                //    LogLevel = logLevel.ToString(),
-                //    Message = formatter(state, exception),
-                //    Exception = exception?.Message,
-                //    CorrelationId = Guid.NewGuid(),
-                //    Source = exception?.StackTrace,
-                //    Timestamp = DateTime.Now,
-                //    IsEmergency = logLevel == LogLevel.Critical || logLevel == LogLevel.Error
-                //}).Result;
+                var res = _log.AddAsync(new Logs
+                {
+                    LogLevel = logLevel.ToString(),
+                    Message = formatter(state, exception),
+                    Exception = exception?.Message,
+                    CorrelationId = Guid.NewGuid(),
+                    Source = exception?.StackTrace,
+                    Timestamp = DateTime.Now,
+                    IsEmergency = logLevel == LogLevel.Critical || logLevel == LogLevel.Error
+                }).Result;
             }
         }
     }

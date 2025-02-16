@@ -38,11 +38,11 @@ using Core.Application.Services.Staff.StaffSupportResponse.DI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
- //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.AuthorizationController).Assembly)
- //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.UsersController).Assembly)
- //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.RolesController).Assembly)
- //.AddControllersAsServices();
+builder.Services.AddControllers()
+ .AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.AuthorizationController).Assembly)
+ .AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.UsersController).Assembly)
+ .AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.RolesController).Assembly)
+ .AddControllersAsServices();
 builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
@@ -183,8 +183,8 @@ builder.Services.InjectAudioResponseCategory();
 
 builder.Services.InjectCommonServices(builder.Configuration);
 
-//builder.Logging.ClearProviders();
-//builder.Services.InjectSeriLog();
+builder.Logging.ClearProviders();
+builder.Services.InjectSeriLog();
 
 builder.Services.AddScoped(typeof(IAdditionalFeaturesRepository<>), typeof(AdditionalFeaturesRepository<>));
 
