@@ -7,7 +7,7 @@ using Core.Core.Interfaces.AbstractInterface;
 using Core.Core.Interfaces.Staff;
 using Microsoft.Extensions.Logging;
 
-namespace Core.Application.Services.Staff
+namespace Core.Application.Services.Staff.Incident.Service
 {
     public class StaffIncidentService : GenericService<StaffIncidentDto, StaffIncidentResponseDto, long, StaffIncident>, IStaffIncidentService
     {

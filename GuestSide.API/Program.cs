@@ -31,6 +31,10 @@ using Core.Application.Services.AdvertisementType.Injection;
 using Core.Application.Services.Advertismenet.Inject;
 using Core.Application.Services.Feadback.Injection;
 using Core.Application.Services.Hotel.Injection;
+using Core.Application.Services.Staff.Incident.DI;
+using Core.Application.Services.Staff.Sentiments.Injection;
+using Core.Application.Services.Staff.StaffSupport.DI;
+using Core.Application.Services.Staff.StaffSupportResponse.DI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -129,6 +133,8 @@ builder.Services.AddSwaggerGen(c =>
 
     builder.Services.InjectLog();
 
+    builder.Services.ActiveStaffIncident();
+
     builder.Services.ActiveStaffInfoAboutRanOutItems();
 
     builder.Services.InjectNotification();
@@ -136,7 +142,9 @@ builder.Services.AddSwaggerGen(c =>
     builder.Services.InjectStaffNotification();
 
 builder.Services.InjectItemCategoryToStaffCategory();
-
+builder.Services.ActiveStaffSentiments();
+builder.Services.ActiveStaffSupport();
+builder.Services.ActiveStaffSupportResponse();
     builder.Services.InjectPaymentOption();
 
     builder.Services.InjectRestaurantOrderPaymen();

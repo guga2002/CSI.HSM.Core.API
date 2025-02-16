@@ -7,7 +7,7 @@ using Core.Core.Interfaces.AbstractInterface;
 using Core.Core.Interfaces.Staff;
 using Microsoft.Extensions.Logging;
 
-namespace Core.Application.Services.Staff
+namespace Core.Application.Services.Staff.Sentiments.Service
 {
     public class StaffSentimentService : GenericService<StaffSentimentDto, StaffSentimentResponseDto, long, StaffSentiment>, IStaffSentimentService
     {

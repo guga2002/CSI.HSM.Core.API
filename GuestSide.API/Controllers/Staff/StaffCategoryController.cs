@@ -108,29 +108,29 @@ namespace Core.API.Controllers.Staff
             return Response<bool>.SuccessResponse(result);
         }
 
-        [HttpGet("staff/{categoryId:long}")]
-        [SwaggerOperation(Summary = "Retrieve Staff Assigned to Category", Description = "Fetches all staff members assigned to a specific category.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Staff members retrieved successfully.", typeof(Response<IEnumerable<Staffs>>))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "No staff members found.")]
-        public async Task<Response<IEnumerable<Staffs>>> GetStaffByCategoryIdAsync([FromRoute] long categoryId)
-        {
-            var result = await _staffCategoryService.GetStaffByCategoryIdAsync(categoryId);
-            return result.Any()
-                ? Response<IEnumerable<Staffs>>.SuccessResponse(result)
-                : Response<IEnumerable<Staffs>>.ErrorResponse("No staff members found.");
-        }
+        //[HttpGet("staffs/{categoryId:long}")]
+        //[SwaggerOperation(Summary = "Retrieve Staff Assigned to Category", Description = "Fetches all staff members assigned to a specific category.")]
+        //[SwaggerResponse(StatusCodes.Status200OK, "Staff members retrieved successfully.", typeof(Response<IEnumerable<Staffs>>))]
+        //[SwaggerResponse(StatusCodes.Status404NotFound, "No staff members found.")]
+        //public async Task<Response<IEnumerable<Staffs>>> GetStaffByCategoryIdAsync([FromRoute] long categoryId)
+        //{
+        //    var result = await _staffCategoryService.GetStaffByCategoryIdAsync(categoryId);
+        //    return result.Any()
+        //        ? Response<IEnumerable<Staffs>>.SuccessResponse(result)
+        //        : Response<IEnumerable<Staffs>>.ErrorResponse("No staff members found.");
+        //}
 
-        [HttpGet("tasks/{categoryId:long}")]
-        [SwaggerOperation(Summary = "Retrieve Tasks Associated with Category", Description = "Fetches all tasks associated with a specific category.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Tasks retrieved successfully.", typeof(Response<IEnumerable<TaskToStaff>>))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "No tasks found.")]
-        public async Task<Response<IEnumerable<TaskToStaff>>> GetTasksByCategoryIdAsync([FromRoute] long categoryId)
-        {
-            var result = await _staffCategoryService.GetTasksByCategoryIdAsync(categoryId);
-            return result.Any()
-                ? Response<IEnumerable<TaskToStaff>>.SuccessResponse(result)
-                : Response<IEnumerable<TaskToStaff>>.ErrorResponse("No tasks found.");
-        }
+        //[HttpGet("tasks/{categoryId:long}")]
+        //[SwaggerOperation(Summary = "Retrieve Tasks Associated with Category", Description = "Fetches all tasks associated with a specific category.")]
+        //[SwaggerResponse(StatusCodes.Status200OK, "Tasks retrieved successfully.", typeof(Response<IEnumerable<TaskToStaff>>))]
+        //[SwaggerResponse(StatusCodes.Status404NotFound, "No tasks found.")]
+        //public async Task<Response<IEnumerable<TaskToStaff>>> GetTasksByCategoryIdAsync([FromRoute] long categoryId)
+        //{
+        //    var result = await _staffCategoryService.GetTasksByCategoryIdAsync(categoryId);
+        //    return result.Any()
+        //        ? Response<IEnumerable<TaskToStaff>>.SuccessResponse(result)
+        //        : Response<IEnumerable<TaskToStaff>>.ErrorResponse("No tasks found.");
+        //}
 
         [HttpGet]
         [SwaggerOperation(Summary = "Retrieve all Staff Categories", Description = "Returns all staff category records.")]

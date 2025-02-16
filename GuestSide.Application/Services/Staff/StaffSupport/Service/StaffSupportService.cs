@@ -7,9 +7,9 @@ using Core.Core.Interfaces.AbstractInterface;
 using Core.Core.Interfaces.Staff;
 using Microsoft.Extensions.Logging;
 
-namespace Core.Application.Services.Staff
+namespace Core.Application.Services.Staff.StaffSupport.Service
 {
-    public class StaffSupportService : GenericService<StaffSupportDto, StaffSupportResponseDto, long, StaffSupport>, IStaffSupportService
+    public class StaffSupportService : GenericService<StaffSupportDto, StaffSupportResponseDto, long, Core.Entities.Staff.StaffSupport>, IStaffSupportService
     {
         private readonly IStaffSupportRepository _staffSupportRepository;
         private readonly IMapper _mapper;
@@ -19,8 +19,8 @@ namespace Core.Application.Services.Staff
             IMapper mapper,
             IStaffSupportRepository staffSupportRepository,
             ILogger<StaffSupportService> logger,
-            IGenericRepository<StaffSupport> repository,
-            IAdditionalFeaturesRepository<StaffSupport> additionalFeatures)
+            IGenericRepository<Core.Entities.Staff.StaffSupport> repository,
+            IAdditionalFeaturesRepository<Core.Entities.Staff.StaffSupport> additionalFeatures)
             : base(mapper, repository, logger, additionalFeatures)
         {
             _staffSupportRepository = staffSupportRepository;

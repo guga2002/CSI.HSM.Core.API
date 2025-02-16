@@ -76,7 +76,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     [HttpPut("update-dates/{id}")]
     [SwaggerOperation(Summary = "Update advertisement start and end dates", Description = "Modifies the start and end dates of a specified advertisement.")]
     [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
-    public async Task<Response<bool>> UpdateAdvertisementDatesAsync([FromRoute] long id, [FromBody] DateTime? newStartDate, [FromBody] DateTime? newEndDate, CancellationToken cancellationToken = default)
+    public async Task<Response<bool>> UpdateAdvertisementDatesAsync([FromRoute] long id, [FromQuery] DateTime? newStartDate, [FromQuery] DateTime? newEndDate, CancellationToken cancellationToken = default)
     {
         var result = await _advertisementService.UpdateAdvertisementDatesAsync(id, newStartDate, newEndDate, cancellationToken);
         return new Response<bool>(true, result);
