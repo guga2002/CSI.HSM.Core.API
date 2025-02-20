@@ -55,7 +55,7 @@ namespace Core.API.Controllers.Advertisement
         [HttpPut("update-description/{id}")]
         [SwaggerOperation(Summary = "Update advertisement type description", Description = "Updates the description of an advertisement type.")]
         [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
-        public async Task<Response<bool>> UpdateAdvertisementTypeDescriptionAsync([FromRoute] long id, [FromBody] string newDescription, CancellationToken cancellationToken = default)
+        public async Task<Response<bool>> UpdateAdvertisementTypeDescriptionAsync([FromRoute] long id, [FromQuery] string newDescription, CancellationToken cancellationToken = default)
         {
             var result = await _advertisementTypeService.UpdateAdvertisementTypeDescriptionAsync(id, newDescription, cancellationToken);
             return new Response<bool>(true,result);

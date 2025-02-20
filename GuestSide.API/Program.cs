@@ -183,7 +183,7 @@ builder.Services.InjectAudioResponseCategory();
 
 builder.Services.InjectCommonServices(builder.Configuration);
 
-builder.Logging.ClearProviders();
+//builder.Logging.ClearProviders();
 builder.Services.InjectSeriLog();
 
 builder.Services.AddScoped(typeof(IAdditionalFeaturesRepository<>), typeof(AdditionalFeaturesRepository<>));
@@ -205,7 +205,7 @@ var app = builder.Build();
 
 app.UseMiddleware<TenantMiddleware>();
 //app.UseMiddleware<RequestLoggerMiddleware>();
-app.UseMiddleware<CashingMiddlwares>();
+//app.UseMiddleware<CashingMiddlwares>();
 
  
     app.UseHttpsRedirection();

@@ -54,7 +54,6 @@ namespace Core.Infrastructure.Repositories.Advertisements
             if (advertisementType == null) return false;
 
             advertisementType.Description = newDescription;
-            Context.Update(advertisementType);
             await Context.SaveChangesAsync();
             return true;
         }
