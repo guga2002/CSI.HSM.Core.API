@@ -25,7 +25,7 @@ namespace Core.API.Controllers.Notification
             _guestNotificationService = guestNotificationService;
         }
 
-        [HttpPatch("MarkAsRead/{guestId:long}/{notificationId:long}")]
+        [HttpPatch("Guest-Notification-Mark-AsRead/{guestId:long}/{notificationId:long}")]
         [SwaggerOperation(Summary = "Mark a Notification as Read/Unread", Description = "Marks a specific guest notification as read or unread.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Notification status updated successfully.", typeof(Response<GuestNotificationResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Notification not found.")]
@@ -52,7 +52,7 @@ namespace Core.API.Controllers.Notification
                 : Response<IEnumerable<GuestNotificationResponseDto>>.ErrorResponse("No notifications found.");
         }
 
-        [HttpGet("Unread/{guestId:long}")]
+        [HttpGet("Guest-Unread-Notification/{guestId:long}")]
         [SwaggerOperation(Summary = "Retrieve Unread Notifications", Description = "Fetches all unread notifications for a specific guest.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Unread notifications retrieved successfully.", typeof(Response<IEnumerable<GuestNotificationResponseDto>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "No unread notifications found.")]
@@ -64,7 +64,7 @@ namespace Core.API.Controllers.Notification
                 : Response<IEnumerable<GuestNotificationResponseDto>>.ErrorResponse("No unread notifications found.");
         }
 
-        [HttpGet("Important/{guestId:long}")]
+        [HttpGet("Guest-Important/{guestId:long}")]
         [SwaggerOperation(Summary = "Retrieve Important Notifications", Description = "Fetches all important notifications for a specific guest.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Important notifications retrieved successfully.", typeof(Response<IEnumerable<GuestNotificationResponseDto>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "No important notifications found.")]
@@ -76,7 +76,7 @@ namespace Core.API.Controllers.Notification
                 : Response<IEnumerable<GuestNotificationResponseDto>>.ErrorResponse("No important notifications found.");
         }
 
-        [HttpDelete("Delete/{guestId:long}/{notificationId:long}")]
+        [HttpDelete("Guest-Notification-Delete/{guestId:long}/{notificationId:long}")]
         [SwaggerOperation(Summary = "Delete a Specific Guest Notification", Description = "Deletes a specific guest notification.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Notification deleted successfully.", typeof(Response<bool>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Notification not found.")]

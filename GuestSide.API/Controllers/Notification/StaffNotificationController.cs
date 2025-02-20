@@ -25,7 +25,7 @@ namespace Core.API.Controllers.Notification
             _staffNotificationService = staffNotificationService;
         }
 
-        [HttpGet("unread/{staffId:long}")]
+        [HttpGet("Staff-unread/{staffId:long}")]
         [SwaggerOperation(Summary = "Retrieve Unread Notifications for Staff", Description = "Fetches unread notifications for a specific staff member.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Unread notifications retrieved successfully.", typeof(Response<IEnumerable<StafNotificationResponseDto>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "No unread notifications found.")]
@@ -37,7 +37,7 @@ namespace Core.API.Controllers.Notification
                 : Response<IEnumerable<StafNotificationResponseDto>>.ErrorResponse("No unread notifications found.");
         }
 
-        [HttpGet("important/{staffId:long}")]
+        [HttpGet("Staff-important/{staffId:long}")]
         [SwaggerOperation(Summary = "Retrieve Important Notifications for Staff", Description = "Fetches important notifications for a specific staff member.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Important notifications retrieved successfully.", typeof(Response<IEnumerable<StafNotificationResponseDto>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "No important notifications found.")]
@@ -49,7 +49,7 @@ namespace Core.API.Controllers.Notification
                 : Response<IEnumerable<StafNotificationResponseDto>>.ErrorResponse("No important notifications found.");
         }
 
-        [HttpPatch("mark-as-read/{staffId:long}/{notificationId:long}")]
+        [HttpPatch("Staff-mark-as-read/{staffId:long}/{notificationId:long}")]
         [SwaggerOperation(Summary = "Mark a Staff Notification as Read/Unread", Description = "Marks a staff notification as read or unread.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Notification marked successfully.", typeof(Response<StafNotificationResponseDto>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Notification not found.")]
@@ -64,7 +64,7 @@ namespace Core.API.Controllers.Notification
                 : Response<StafNotificationResponseDto>.ErrorResponse("Notification not found.");
         }
 
-        [HttpDelete("delete/{staffId:long}/{notificationId:long}")]
+        [HttpDelete("Staff-delete/{staffId:long}/{notificationId:long}")]
         [SwaggerOperation(Summary = "Delete a Staff Notification", Description = "Deletes a specific staff notification.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Notification deleted successfully.", typeof(Response<bool>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Notification not found.")]
