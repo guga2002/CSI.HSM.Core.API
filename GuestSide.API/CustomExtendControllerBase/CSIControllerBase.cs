@@ -15,8 +15,6 @@ namespace Core.API.CustomExtendControllerBase;
 /// <typeparam name="RsponseDto">The DTO type for responses.</typeparam>
 /// <typeparam name="TKey">The type of the entity identifier.</typeparam>
 /// <typeparam name="TDatabase">The type of the database context.</typeparam>
-[ApiController]
-[Route("api/[controller]")]
 [AllowAnonymous]
 public class CSIControllerBase<RequestDto, RsponseDto, TKey, TDatabase> : ControllerBase
     where RequestDto : class

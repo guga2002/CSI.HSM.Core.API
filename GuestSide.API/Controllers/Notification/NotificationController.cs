@@ -49,7 +49,7 @@ namespace Core.API.Controllers.Notification
                 : Response<IEnumerable<NotificationResponseDto>>.ErrorResponse("No notifications found for the given priority.");
         }
 
-        [HttpPatch("mark-as-sent/{notificationId:long}")]
+        [HttpPatch("notification-mark-as-sent/{notificationId:long}")]
         [SwaggerOperation(Summary = "Mark a Notification as Sent", Description = "Updates a notification's status to 'sent'.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Notification marked as sent successfully.", typeof(Response<bool>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Notification not found.")]
@@ -73,7 +73,7 @@ namespace Core.API.Controllers.Notification
                 : Response<IEnumerable<NotificationResponseDto>>.ErrorResponse("No notifications found within the given date range.");
         }
 
-        [HttpGet("latest/{count:int}")]
+        [HttpGet("latestNotification/{count:int}")]
         [SwaggerOperation(Summary = "Retrieve Latest Notifications", Description = "Fetches the latest notifications up to a specified count.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Latest notifications retrieved successfully.", typeof(Response<IEnumerable<NotificationResponseDto>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "No recent notifications found.")]
