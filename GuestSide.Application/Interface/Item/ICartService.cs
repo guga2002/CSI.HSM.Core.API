@@ -26,7 +26,7 @@ namespace Core.Application.Interface.Item
         /// <summary>
         /// Validate if all items in the cart are available.
         /// </summary>
-        Task<List<ItemResponseDto>> ValidateCartItemsAvailability(long cartId, CancellationToken cancellationToken = default);
+       // Task<List<ItemResponseDto>> ValidateCartItemsAvailability(long cartId, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Update item quantity in a cart.

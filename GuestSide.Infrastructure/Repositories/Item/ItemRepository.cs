@@ -45,26 +45,26 @@ namespace Core.Infrastructure.Repositories.Item
                 .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Items>> GetOutOfStockItemsAsync(CancellationToken cancellationToken = default)
-        {
-            return await _context.Items.AsNoTracking()
-                .Where(item => item.Quantity == 0)
-                .ToListAsync(cancellationToken);
-        }
+        //public async Task<IEnumerable<Items>> GetOutOfStockItemsAsync(CancellationToken cancellationToken = default)
+        //{
+        //    return await _context.Items.AsNoTracking()
+        //        .Where(item => item.Quantity == 0)
+        //        .ToListAsync(cancellationToken);
+        //}
         #endregion
 
         #region Item Management
-        public async Task<bool> UpdateItemQuantityAsync(long itemId, int newQuantity, CancellationToken cancellationToken = default)
-        {
-            var item = await _context.Items.FindAsync(new object[] { itemId }, cancellationToken);
-            if (item == null) return false;
+        //public async Task<bool> UpdateItemQuantityAsync(long itemId, int newQuantity, CancellationToken cancellationToken = default)
+        //{
+        //    var item = await _context.Items.FindAsync(new object[] { itemId }, cancellationToken);
+        //    if (item == null) return false;
 
-            item.Quantity = newQuantity;
-            await _context.SaveChangesAsync(cancellationToken);
+        //    item.Quantity = newQuantity;
+        //    await _context.SaveChangesAsync(cancellationToken);
 
-            await InvalidateCache(itemId);
-            return true;
-        }
+        //    await InvalidateCache(itemId);
+        //    return true;
+        //}
 
         public async Task<bool> UpdateItemPriceAsync(long itemId, decimal newPrice, CancellationToken cancellationToken = default)
         {

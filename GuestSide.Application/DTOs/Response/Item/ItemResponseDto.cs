@@ -1,14 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.Item;
-using Microsoft.EntityFrameworkCore;
-
-namespace Core.Application.DTOs.Response.Item;
+﻿namespace Core.Application.DTOs.Response.Item;
 
 public class ItemResponseDto
 {
     public long Id { get; set; }
-  
 
     public virtual ItemCategoryResponseDto? ItemCategory { get; set; }
 
@@ -21,8 +15,6 @@ public class ItemResponseDto
     public bool IsOrderAble { get; set; }
 
     public decimal? Price { get; set; }
-
-    public int Quantity { get; set; } 
 
     public string? WhatWillRobotSay { get; set; }
 

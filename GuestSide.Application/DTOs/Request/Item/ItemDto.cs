@@ -13,8 +13,6 @@ public class ItemDto
 
     public decimal? Price { get; set; }
 
-    public int Quantity { get; set; }
-
     public string? WhatWillRobotSay { get; set; }
 
     public long ItemCategoryId { get; set; }

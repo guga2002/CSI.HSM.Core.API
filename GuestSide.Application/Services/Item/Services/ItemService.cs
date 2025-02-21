@@ -88,26 +88,26 @@ namespace Core.Application.Services.Item.Services
             return _mapper.Map<IEnumerable<ItemResponseDto>>(items);
         }
 
-        public async Task<IEnumerable<ItemResponseDto>> GetOutOfStockItemsAsync(CancellationToken cancellationToken = default)
-        {
-            var items = await _itemsRepository.GetOutOfStockItemsAsync(cancellationToken);
-            return _mapper.Map<IEnumerable<ItemResponseDto>>(items);
-        }
+        //public async Task<IEnumerable<ItemResponseDto>> GetOutOfStockItemsAsync(CancellationToken cancellationToken = default)
+        //{
+        //    var items = await _itemsRepository.GetOutOfStockItemsAsync(cancellationToken);
+        //    return _mapper.Map<IEnumerable<ItemResponseDto>>(items);
+        //}
 
-        public async Task<bool> UpdateItemQuantityAsync(long itemId, int newQuantity, CancellationToken cancellationToken = default)
-        {
-            ValidatePositiveId(itemId, nameof(itemId));
-            ValidateQuantity(newQuantity);
+        //public async Task<bool> UpdateItemQuantityAsync(long itemId, int newQuantity, CancellationToken cancellationToken = default)
+        //{
+        //    ValidatePositiveId(itemId, nameof(itemId));
+        //    ValidateQuantity(newQuantity);
 
-            var item = await _itemsRepository.GetByIdAsync(itemId, cancellationToken);
-            if (item is null)
-            {
-                _logger.LogWarning("Item with ID {ItemId} does not exist.", itemId);
-                throw new ArgumentException($"Item with ID {itemId} does not exist.");
-            }
+        //    var item = await _itemsRepository.GetByIdAsync(itemId, cancellationToken);
+        //    if (item is null)
+        //    {
+        //        _logger.LogWarning("Item with ID {ItemId} does not exist.", itemId);
+        //        throw new ArgumentException($"Item with ID {itemId} does not exist.");
+        //    }
 
-            return await _itemsRepository.UpdateItemQuantityAsync(itemId, newQuantity, cancellationToken);
-        }
+        //    return await _itemsRepository.UpdateItemQuantityAsync(itemId, newQuantity, cancellationToken);
+        //}
 
         public async Task<bool> UpdateItemPriceAsync(long itemId, decimal newPrice, CancellationToken cancellationToken = default)
         {

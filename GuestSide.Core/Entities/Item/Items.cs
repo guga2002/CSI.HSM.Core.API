@@ -26,8 +26,6 @@ namespace Core.Core.Entities.Item
         [Precision(18, 2)] // Ensuring consistent decimal precision
         public decimal? Price { get; set; }
 
-        public int Quantity { get; set; } // Refers to quantity of item in stock
-
         [StringLength(255)]
         public string? WhatWillRobotSay { get; set; } = "See details and more information about this item!";
 

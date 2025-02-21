@@ -8,9 +8,9 @@ namespace Core.Core.Interfaces.Item
         Task<IEnumerable<Items>> GetItemsByCategoryAsync(long categoryId, CancellationToken cancellationToken = default);
         Task<IEnumerable<Items>> GetItemsByLanguageAsync(string languageCode, CancellationToken cancellationToken = default);
         Task<IEnumerable<Items>> GetOrderableItemsAsync(CancellationToken cancellationToken = default);
-        Task<IEnumerable<Items>> GetOutOfStockItemsAsync(CancellationToken cancellationToken = default);
+        //Task<IEnumerable<Items>> GetOutOfStockItemsAsync(CancellationToken cancellationToken = default);
 
-        Task<bool> UpdateItemQuantityAsync(long itemId, int newQuantity, CancellationToken cancellationToken = default);
+        //Task<bool> UpdateItemQuantityAsync(long itemId, int newQuantity, CancellationToken cancellationToken = default);
         Task<bool> UpdateItemPriceAsync(long itemId, decimal newPrice, CancellationToken cancellationToken = default);
         Task<bool> SetItemOrderableStatusAsync(long itemId, bool isOrderable, CancellationToken cancellationToken = default);
 

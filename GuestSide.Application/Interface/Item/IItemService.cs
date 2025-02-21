@@ -26,12 +26,12 @@ namespace Core.Application.Interface.Item
         /// <summary>
         /// Get out-of-stock items.
         /// </summary>
-        Task<IEnumerable<ItemResponseDto>> GetOutOfStockItemsAsync(CancellationToken cancellationToken = default);
+        //Task<IEnumerable<ItemResponseDto>> GetOutOfStockItemsAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Update the quantity of an item.
         /// </summary>
-        Task<bool> UpdateItemQuantityAsync(long itemId, int newQuantity, CancellationToken cancellationToken = default);
+        //Task<bool> UpdateItemQuantityAsync(long itemId, int newQuantity, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Update the price of an item.

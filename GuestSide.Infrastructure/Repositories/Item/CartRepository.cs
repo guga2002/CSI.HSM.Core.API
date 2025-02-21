@@ -108,66 +108,66 @@ namespace Core.Infrastructure.Repositories.Item
             return cart;
         }
 
-        public async Task<List<Items>> ValidateCartItemsAvailability(long cartId)
-        {
-            var exceptionalItems = new List<Items>();
+        //public async Task<List<Items>> ValidateCartItemsAvailability(long cartId)
+        //{
+        //    var exceptionalItems = new List<Items>();
 
-            var cart = await DbSet
-                .Include(c => c.Tasks)
-                .ThenInclude(t => t.TaskItems)
-                .FirstOrDefaultAsync(c => c.Id == cartId);
+        //    var cart = await DbSet
+        //        .Include(c => c.Tasks)
+        //        .ThenInclude(t => t.TaskItems)
+        //        .FirstOrDefaultAsync(c => c.Id == cartId);
 
-            if (cart?.Tasks == null)
-                return exceptionalItems;
+        //    if (cart?.Tasks == null)
+        //        return exceptionalItems;
 
-            var taskItems = cart.Tasks
-                .SelectMany(t => t.TaskItems)
-                .ToList();
+        //    var taskItems = cart.Tasks
+        //        .SelectMany(t => t.TaskItems)
+        //        .ToList();
 
-            var itemIds = taskItems
-                .Select(ti => ti.ItemId)
-                .Distinct()
-                .ToList();
+        //    var itemIds = taskItems
+        //        .Select(ti => ti.ItemId)
+        //        .Distinct()
+        //        .ToList();
 
-            var items = await Context.Items
-                .Where(io => itemIds.Contains(io.Id) && io.IsOrderAble && io.IsActive)
-                .ToDictionaryAsync(io => io.Id);
+        //    var items = await Context.Items
+        //        .Where(io => itemIds.Contains(io.Id) && io.IsOrderAble && io.IsActive)
+        //        .ToDictionaryAsync(io => io.Id);
 
-            bool requiresUpdate = false;
+        //    bool requiresUpdate = false;
 
-            foreach (var taskItem in taskItems)
-            {
-                if (items.TryGetValue(taskItem.ItemId, out var item))
-                {
-                    if (taskItem.Quantity > item.Quantity)
-                    {
-                        exceptionalItems.Add(item);
-                    }
-                    else
-                    {
-                        item.Quantity -= taskItem.Quantity;
-                        requiresUpdate = true;
-                    }
-                }
-            }
+        //    foreach (var taskItem in taskItems)
+        //    {
+        //        if (items.TryGetValue(taskItem.ItemId, out var item))
+        //        {
+        //            if (taskItem.Quantity > item.Quantity)
+        //            {
+        //                exceptionalItems.Add(item);
+        //            }
+        //            else
+        //            {
+        //                item.Quantity -= taskItem.Quantity;
+        //                requiresUpdate = true;
+        //            }
+        //        }
+        //    }
 
-            if (requiresUpdate && exceptionalItems.Count == 0)
-            {
-                await using var transaction = await Context.Database.BeginTransactionAsync();
-                try
-                {
-                    await Context.SaveChangesAsync();
-                    await transaction.CommitAsync();
-                }
-                catch (Exception ex)
-                {
-                    await transaction.RollbackAsync();
-                    Console.WriteLine($"Transaction rolled back: {ex.Message}");
-                }
-            }
+        //    if (requiresUpdate && exceptionalItems.Count == 0)
+        //    {
+        //        await using var transaction = await Context.Database.BeginTransactionAsync();
+        //        try
+        //        {
+        //            await Context.SaveChangesAsync();
+        //            await transaction.CommitAsync();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            await transaction.RollbackAsync();
+        //            Console.WriteLine($"Transaction rolled back: {ex.Message}");
+        //        }
+        //    }
 
-            return exceptionalItems;
-        }
+        //    return exceptionalItems;
+        //}
 
         public async Task<IEnumerable<Cart>> GetCartByGuestId(long guestId, bool status)
         {
