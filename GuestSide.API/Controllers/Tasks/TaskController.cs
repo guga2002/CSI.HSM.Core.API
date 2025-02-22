@@ -4,6 +4,7 @@ using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Task.Task;
+using Core.Core.Entities.Item;
 using Core.Core.Entities.Task;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -24,6 +25,19 @@ namespace Core.API.Controllers.Tasks
         {
             _taskService = taskService;
         }
+
+        [HttpGet("GetTaskItemsByCartId/{cartId:long}")]
+        [SwaggerOperation(Summary = "Retrieve Tasks by Cart ID", Description = "Fetches all tasks associated with a specific cart.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Tasks retrieved successfully.", typeof(Response<IEnumerable<TaskResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No tasks found.")]
+        public async Task<Response<Dictionary<long, IEnumerable<TaskItem>>>> GetTaskItemsByCartIdAsync([FromRoute]long cartId)
+        {
+            var result = await _taskService.GetTaskItemsByCartIdAsync(cartId);
+            return result.Any()
+                ? Response < Dictionary<long, IEnumerable<TaskItem>>>.SuccessResponse(result)
+                : Response < Dictionary<long, IEnumerable<TaskItem>>>.ErrorResponse("No tasks found.");
+        }
+
 
         [HttpGet("by-cart/{cartId:long}")]
         [SwaggerOperation(Summary = "Retrieve Tasks by Cart ID", Description = "Fetches all tasks associated with a specific cart.")]

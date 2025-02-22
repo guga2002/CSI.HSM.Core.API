@@ -1,4 +1,5 @@
 ﻿using Core.Core.Data;
+using Core.Core.Entities.Item;
 using Core.Core.Entities.Task;
 using Core.Core.Interfaces.Task;
 using Core.Infrastructure.Repositories.AbstractRepository;
@@ -68,5 +69,17 @@ namespace Core.Infrastructure.Repositories.Task
                 .ToListAsync();
         }
         #endregion
+
+        public async Task<Dictionary<long, IEnumerable<TaskItem>>> GetTaskItemsByCartIdAsync(long cartId)
+        {
+            var res = await DbSet
+                .Where(io => io.CartId == cartId)
+                .Include(io => io.TaskItems)
+                .Select(io => new KeyValuePair<long, IEnumerable<TaskItem>>(io.Id, io.TaskItems))
+                .ToListAsync();
+
+            return res.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        }
+
     }
 }

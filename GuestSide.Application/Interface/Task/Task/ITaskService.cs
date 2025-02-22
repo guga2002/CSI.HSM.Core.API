@@ -1,6 +1,8 @@
 ﻿using Core.Application.DTOs.Request.Task;
+using Core.Application.DTOs.Response.Item;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.GenericContracts;
+using Core.Core.Entities.Item;
 using Core.Core.Entities.Task;
 
 namespace Core.Application.Interface.Task.Task
@@ -38,5 +40,12 @@ namespace Core.Application.Interface.Task.Task
         /// <param name="limit">Max number of high-priority tasks (default: 10)</param>
         /// <returns>List of TaskResponseDto</returns>
         Task<IEnumerable<TaskResponseDto>> GetHighPriorityTasks(int limit = 10);
+
+        /// <summary>
+        /// Get Task Items By Cart Id Async
+        /// </summary>
+        /// <param name="cartId"></param>
+        /// <returns></returns>
+        Task<Dictionary<long, IEnumerable<TaskItem>>> GetTaskItemsByCartIdAsync(long cartId);
     }
 }

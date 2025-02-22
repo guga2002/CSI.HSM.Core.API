@@ -6,6 +6,9 @@ using Core.Application.Interface.Task.Task;
 using Core.Core.Entities.Task;
 using Core.Core.Interfaces.AbstractInterface;
 using Core.Core.Interfaces.Task;
+using Core.Application.DTOs.Response.Item;
+using System.Collections.Generic;
+using Core.Core.Entities.Item;
 
 namespace Core.Application.Services.Task.Task.Services
 {
@@ -46,6 +49,12 @@ namespace Core.Application.Services.Task.Task.Services
         {
             var tasks = await _taskRepository.GetHighPriorityTasks(limit);
             return _mapper.Map<IEnumerable<TaskResponseDto>>(tasks);
+        }
+
+        public async Task<Dictionary<long, IEnumerable<TaskItem>>> GetTaskItemsByCartIdAsync(long cartId)
+        {
+            var tasks = await _taskRepository.GetTaskItemsByCartIdAsync(cartId);
+            return tasks;
         }
     }
 }
