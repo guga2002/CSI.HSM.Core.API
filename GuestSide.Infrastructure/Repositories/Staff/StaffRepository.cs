@@ -119,10 +119,7 @@ namespace Core.Infrastructure.Repositories.Staff
 
         public async Task<IEnumerable<StaffReserveItem>> GetReservedItemsByStaffIdAsync(long staffId, CancellationToken cancellationToken = default)
         {
-            return await _context.Set<StaffReserveItem>().AsNoTracking()
-                .Where(t => t.StaffId == staffId)
-                .Include(t => t.Item)
-                .ToListAsync(cancellationToken);
+            throw new NotImplementedException("THis feature is removed");
         }
         #endregion
 

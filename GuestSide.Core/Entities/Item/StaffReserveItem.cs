@@ -7,8 +7,6 @@ using Microsoft.EntityFrameworkCore;
 namespace Core.Core.Entities.Item
 {
     [Table("StaffReserveItems", Schema = "CSI")]
-    [Index(nameof(StaffId))] 
-    [Index(nameof(ItemId))] 
     [Index(nameof(FinalUsed))] 
     [Index(nameof(ReservedTill))] 
     public class StaffReserveItem : AbstractEntity
