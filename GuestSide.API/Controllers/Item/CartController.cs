@@ -86,23 +86,6 @@ public class CartController : CSIControllerBase<CartDto, CartResponseDto, long, 
         return Response<CartResponseDto>.ErrorResponse("No data found");
     }
 
-    [HttpGet("ValidateCartItemsAvailability/{cartId:long}")]
-    [SwaggerOperation(Summary = "Validate  cart items avalibility", Description = "return items which is exceptional, if any")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<List<ItemResponseDto>>))]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
-    public async Task<Response<List<ItemResponseDto>>> ValidateCartItemsAvailability(long cartId)
-    {
-        var res = await _cartService.ValidateCartItemsAvailability(cartId);
-
-        if (res is not null)
-        {
-            return Response<List<ItemResponseDto>>.SuccessResponse(res);
-        }
-
-        return Response<List<ItemResponseDto>>.ErrorResponse("No data found");
-    }
-
-
     [HttpGet("GetCartByGuestId/{guestId:long}")]
     [SwaggerOperation(Summary = "Get Carts For Guest Id", Description = "return carts for guest by status")]
     [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<CartResponseDto>>))]

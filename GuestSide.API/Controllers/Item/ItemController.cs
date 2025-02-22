@@ -55,16 +55,6 @@ namespace Core.API.Controllers.Item
             return items.Any() ? Response<IEnumerable<ItemResponseDto>>.SuccessResponse(items) : Response<IEnumerable<ItemResponseDto>>.ErrorResponse("No orderable items found.");
         }
 
-        [HttpGet("outofstock")]
-        [SwaggerOperation(Summary = "Retrieve Out-of-Stock Items", Description = "Returns all items that are out of stock.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<ItemResponseDto>>))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
-        public async Task<Response<IEnumerable<ItemResponseDto>>> GetOutOfStockItems()
-        {
-            var items = await _itemService.GetOutOfStockItemsAsync();
-            return items.Any() ? Response<IEnumerable<ItemResponseDto>>.SuccessResponse(items) : Response<IEnumerable<ItemResponseDto>>.ErrorResponse("No out-of-stock items found.");
-        }
-
         [HttpGet]
         [SwaggerOperation(Summary = "Retrieve all Items", Description = "Returns all item records.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<ItemResponseDto>>))]

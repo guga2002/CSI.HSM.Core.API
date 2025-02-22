@@ -70,13 +70,13 @@ namespace Core.Application.Services.Item.Services
             return _mapper.Map<CartResponseDto>(cart);
         }
 
-        public async Task<List<ItemResponseDto>> ValidateCartItemsAvailability(long cartId, CancellationToken cancellationToken = default)
-        {
-            ValidatePositiveId(cartId, nameof(cartId));
+        //public async Task<List<ItemResponseDto>> ValidateCartItemsAvailability(long cartId, CancellationToken cancellationToken = default)
+        //{
+        //    ValidatePositiveId(cartId, nameof(cartId));
 
-            var items = await _cartRepository.ValidateCartItemsAvailability(cartId);
-            return _mapper.Map<List<ItemResponseDto>>(items);
-        }
+        //    var items = await _cartRepository.ValidateCartItemsAvailability(cartId);
+        //    return _mapper.Map<List<ItemResponseDto>>(items);
+        //}
 
         public async Task<CartResponseDto> UpdateItemQuantityInCart(long cartId, long itemId, int newQuantity, CancellationToken cancellationToken = default)
         {
