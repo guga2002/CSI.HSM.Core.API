@@ -25,7 +25,7 @@ public class TaskItemController : CSIControllerBase<TaskItemDto, TaskItemRespons
         _taskItemService = taskItemService;
     }
 
-    [HttpGet("ByTask/{taskId:long}")]
+    [HttpGet("TaskItemByTask/{taskId:long}")]
     [SwaggerOperation(Summary = "Retrieve Task Items by Task ID", Description = "Fetches all task items associated with a specific task.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<TaskItemResponseDto>>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
@@ -72,7 +72,7 @@ public class TaskItemController : CSIControllerBase<TaskItemDto, TaskItemRespons
         return result ? Response<bool>.SuccessResponse(true, "Quantity updated successfully.") : Response<bool>.ErrorResponse("Failed to update quantity.");
     }
 
-    [HttpPatch("MarkCompleted/{taskItemId:long}")]
+    [HttpPatch("MarkTaskAsCompleted/{taskItemId:long}")]
     [SwaggerOperation(Summary = "Mark Task Item as Completed", Description = "Marks a task item as completed.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Task item marked as completed.", typeof(Response<bool>))]
     public async Task<Response<bool>> MarkTaskItemCompletedAsync([FromRoute] long taskItemId, CancellationToken cancellationToken = default)
