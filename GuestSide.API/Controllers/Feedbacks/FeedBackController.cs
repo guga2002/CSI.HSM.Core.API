@@ -24,6 +24,15 @@ namespace Core.API.Controllers.Feedbacks
             _feedbackService = feedbackService;
         }
 
+        [HttpGet("GuestFeedbacks/{guestId:long}")]
+        [SwaggerOperation(Summary = "Get feedbacks by guest ID", Description = "Retrieves feedbacks associated with a specific Guest ID.")]
+        [ProducesResponseType(typeof(Response<IEnumerable<FeedbackResponseDto>>), StatusCodes.Status200OK)]
+        public async Task<Response<IEnumerable<FeedbackResponseDto>>> GuestFeedbacks([FromRoute] long guestId, CancellationToken cancellationToken = default)
+        {
+            var result = await _feedbackService.GetFeedbacksByUserId(guestId);
+            return new Response<IEnumerable<FeedbackResponseDto>>(true, result);
+        }
+
         [HttpGet("task/{taskId:long}")]
         [SwaggerOperation(Summary = "Get feedbacks by task ID", Description = "Retrieves feedbacks associated with a specific task ID.")]
         [ProducesResponseType(typeof(Response<IEnumerable<FeedbackResponseDto>>), StatusCodes.Status200OK)]

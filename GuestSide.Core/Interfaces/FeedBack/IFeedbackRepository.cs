@@ -12,5 +12,6 @@ namespace Core.Core.Interfaces.FeedBack
         Task<Feedback> GetFeedbackByCorrelationIdAsync(Guid correlationId);
         Task<bool> UpdateFeedbackRatingAsync(Guid correlationId, int newRating);
         Task<bool> DeleteFeedbackByCorrelationIdAsync(Guid correlationId);
+        Task<IEnumerable<Feedback>> GetFeedbacksByUserId(long userId);
     }
 }

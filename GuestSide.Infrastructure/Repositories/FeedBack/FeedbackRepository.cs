@@ -94,5 +94,15 @@ namespace Core.Infrastructure.Repositories.FeedBack
             await Context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<IEnumerable<Feedback>> GetFeedbacksByUserId(long userId)
+        {
+            return await DbSet
+                .Include(io => io.Task)
+                .ThenInclude(io => io.Cart)
+                .Where(io => io.Task != null && io.Task.Cart != null && io.Task.Cart.GuestId == userId)
+                .ToListAsync();
+        }
+
     }
 }

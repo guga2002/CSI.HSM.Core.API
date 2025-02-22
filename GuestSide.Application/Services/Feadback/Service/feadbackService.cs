@@ -136,5 +136,17 @@ namespace Core.Application.Services.Feadback
 
             return await _feedbackRepository.DeleteFeedbackByCorrelationIdAsync(correlationId);
         }
+
+        public async Task<IEnumerable<FeedbackResponseDto>> GetFeedbacksByUserId(long userId)
+        {
+            var feedback = await _feedbackRepository.GetFeedbacksByUserId(userId);
+            if (feedback is null)
+            {
+                _logger.LogWarning("Feedback with userId ID {userId} does not exist.", userId);
+                throw new ArgumentException($"Feedback with userId ID {userId} does not exist.");
+            }
+
+            return _mapper.Map<IEnumerable<FeedbackResponseDto>>(feedback);
+        }
     }
 }

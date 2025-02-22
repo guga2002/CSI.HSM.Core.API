@@ -42,5 +42,12 @@ namespace Core.Application.Interface.FeedBack
         /// Delete feedback by correlation ID.
         /// </summary>
         Task<bool> DeleteFeedbackByCorrelationIdAsync(Guid correlationId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Fetch user feedbacks
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<IEnumerable<FeedbackResponseDto>> GetFeedbacksByUserId(long userId);
     }
 }
