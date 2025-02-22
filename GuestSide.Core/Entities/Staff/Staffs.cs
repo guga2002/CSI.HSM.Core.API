@@ -55,6 +55,4 @@ public class Staffs : AbstractEntity
     public virtual List<StaffSentiment>? StaffSentiments { get; set; }
 
     public virtual List<StaffInfoAboutRanOutItems>? StaffRequestForItemStockRenewal { get; set; }
-
-    public virtual List<StaffReserveItem>? StaffReservedItems { get; set; }
 }

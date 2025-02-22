@@ -41,8 +41,6 @@ namespace Core.Core.Entities.Item
 
         public virtual List<TaskItem> TaskItems { get; set; } = new(); // Proper ORM handling
 
-        public virtual List<StaffReserveItem> ReservedItems { get; set; } = new(); // Proper ORM handling
-
         public DateTime AddedDate { get; set; } = DateTime.UtcNow; // Default timestamp for item creation
 
 

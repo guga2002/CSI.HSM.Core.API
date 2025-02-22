@@ -13,15 +13,6 @@ namespace Core.Core.Entities.Item
     [Index(nameof(ReservedTill))] 
     public class StaffReserveItem : AbstractEntity
     {
-        [ForeignKey(nameof(StaffMember))]
-        public long StaffId { get; set; }
-
-        public virtual Staffs? StaffMember { get; set; } 
-
-        [ForeignKey(nameof(Item))]
-        public long ItemId { get; set; }
-
-        public virtual Items? Item { get; set; } 
 
         public int Quantity { get; set; }
 
