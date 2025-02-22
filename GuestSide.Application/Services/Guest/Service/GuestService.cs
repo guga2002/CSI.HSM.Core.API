@@ -3,6 +3,7 @@ using Core.Application.DTOs.Request.Guest;
 using Core.Application.DTOs.Response.Guest;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.Guest;
+using Core.Application.Services.Room.DI;
 using Core.Core.Entities.Guest;
 using Core.Core.Entities.Room;
 using Core.Core.Interfaces.AbstractInterface;
@@ -140,6 +141,12 @@ namespace Core.Application.Services.Guest.Service
             }
 
             return await _guestRepository.DeleteGuestPermanentlyAsync(guestId);
+        }
+
+        public async Task<IEnumerable<RoomsResponseDto>> RoomByGuestIdAsync(long GuestId)
+        {
+            var guests = await _guestRepository.RoomByGuestIdAsync(GuestId);
+            return _mapper.Map<IEnumerable<RoomsResponseDto>>(guests);
         }
     }
 }

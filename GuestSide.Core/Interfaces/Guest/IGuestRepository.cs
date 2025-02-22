@@ -15,5 +15,6 @@ namespace Core.Core.Interfaces.Guest
         Task<IEnumerable<Guests>> GetFrequentGuestsAsync();
         Task<bool> AssignRoomToGuestAsync(long guestId, long roomId);
         Task<bool> DeleteGuestPermanentlyAsync(long guestId);
+        Task<IEnumerable<Core.Entities.Room.Room>> RoomByGuestIdAsync(long GuestId);
     }
 }

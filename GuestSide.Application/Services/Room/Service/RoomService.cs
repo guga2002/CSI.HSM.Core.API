@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Application.DTOs.Request.Room;
+using Core.Application.DTOs.Response.Hotel;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.Room;
 using Core.Core.Entities.Room;
@@ -100,6 +101,12 @@ namespace Core.Application.Services.Room.Service
 
             var rooms = await _roomRepository.GetRoomsByHotel(hotelId);
             return _mapper.Map<IEnumerable<RoomsResponseDto>>(rooms);
+        }
+
+        public async Task<HotelResponse> GetHotelForRoomAsync(long roomId)
+        {
+            var rooms = await _roomRepository.GetHotelForRoomAsync(roomId);
+            return _mapper.Map<HotelResponse>(rooms);
         }
     }
 }

@@ -106,5 +106,15 @@ namespace Core.Infrastructure.Repositories.Guest
             await Context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<IEnumerable<Core.Entities.Room.Room>> RoomByGuestIdAsync(long GuestId)
+        {
+            return await DbSet
+                .Include(io=>io.Room)
+                .Where(room => room.Id == GuestId)
+                .OrderBy(room => room.Room.RoomNumber)
+                .Select(room => room.Room)
+                .ToListAsync()??throw new ArgumentNullException("no data found");
+        }
     }
 }

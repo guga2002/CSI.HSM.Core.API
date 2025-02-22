@@ -48,5 +48,7 @@ namespace Core.Application.Interface.Guest
         /// Permanently delete a guest from the system.
         /// </summary>
         Task<bool> DeleteGuestPermanentlyAsync(long guestId, CancellationToken cancellationToken = default);
+
+        Task<IEnumerable<RoomsResponseDto>> RoomByGuestIdAsync(long GuestId);
     }
 }

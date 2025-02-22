@@ -1,6 +1,7 @@
 ﻿using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Room;
+using Core.Application.DTOs.Response.Hotel;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Room;
@@ -23,6 +24,18 @@ namespace Core.API.Controllers.Room
             : base(serviceProvider, additionalFeatures)
         {
             _roomService = roomService;
+        }
+
+        [HttpGet("GetHotelForRoom/{roomId:long}")]
+        [SwaggerOperation(Summary = "Retrieve Available HotelResponse", Description = "Fetches available rooms by hotel, category, and occupancy.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "HotelResponse retrieved successfully.", typeof(Response<HotelResponse>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No available rooms found.")]
+        public async Task<Response<HotelResponse>> GetHotelForRoomAsync([FromRoute]long roomId)
+        {
+            var result = await _roomService.GetHotelForRoomAsync(roomId);
+            return result is not null
+                ? Response<HotelResponse>.SuccessResponse(result)
+                : Response<HotelResponse>.ErrorResponse("No available rooms found.");
         }
 
         [HttpGet("available")]

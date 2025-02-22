@@ -1,10 +1,12 @@
 ﻿using Core.Core.Data;
+using Core.Core.Entities.Hotel;
 using Core.Core.Interfaces.Hotel;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 namespace Core.Infrastructure.Repositories.Hotel

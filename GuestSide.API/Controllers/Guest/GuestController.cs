@@ -1,4 +1,5 @@
-﻿using Core.API.CustomExtendControllerBase;
+﻿using System.Threading;
+using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Guest;
 using Core.Application.DTOs.Response.Guest;
@@ -24,6 +25,7 @@ namespace Core.API.Controllers.Guest
         {
             _guestService = guestService;
         }
+
 
         [HttpGet("room/{guestId:long}")]
         [SwaggerOperation(Summary = "Retrieve guest room", Description = "Returns the room assigned to a guest.")]

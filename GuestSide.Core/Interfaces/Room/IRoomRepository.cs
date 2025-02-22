@@ -9,5 +9,6 @@ namespace Core.Core.Interfaces.Room
         Task<bool> MarkRoomAsUnavailable(long roomId);
         Task<bool> UpdateRoomPrice(long roomId, decimal newPrice);
         Task<IEnumerable<Entities.Room.Room>> GetRoomsByHotel(long hotelId);
+        Task<Core.Entities.Hotel.Hotel> GetHotelForRoomAsync(long roomId);
     }
 }
