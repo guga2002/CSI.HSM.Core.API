@@ -1,6 +1,8 @@
 ﻿using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
+using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Request.Staff;
+using Core.Application.DTOs.Response.Item;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.Staff;
 using Core.Core.Entities.Staff;
@@ -141,5 +143,61 @@ namespace Core.API.Controllers.Staff
                 ? Response<IEnumerable<long>>.SuccessResponse(staffIds)
                 : Response<IEnumerable<long>>.ErrorResponse("No staff members found with sentiment scores below the specified threshold.");
         }
+
+        [HttpGet]
+        [SwaggerOperation(Summary = "Retrieve all Guests", Description = "Returns all guest records.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<StaffSentimentResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+        public override async Task<Response<IEnumerable<StaffSentimentResponseDto>>> GetAllAsync(CancellationToken cancellationToken = default)
+        {
+            return await base.GetAllAsync(cancellationToken);
+        }
+
+        [HttpGet("{id:int}")]
+        [SwaggerOperation(Summary = "Retrieve a Guest by ID", Description = "Fetches a specific guest record by its ID.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Record retrieved successfully.", typeof(Response<StaffSentimentResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
+        public override async Task<Response<StaffSentimentResponseDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        {
+            return await base.GetByIdAsync(id, cancellationToken);
+        }
+
+        [HttpPost]
+        [SwaggerOperation(Summary = "Create a new Guest record", Description = "Adds a new guest record to the system.")]
+        [SwaggerResponse(StatusCodes.Status201Created, "Record created successfully.", typeof(Response<StaffSentimentResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
+        public override async Task<Response<StaffSentimentResponseDto>> CreateAsync([FromBody] StaffSentimentDto entityDto, CancellationToken cancellationToken = default)
+        {
+            return await base.CreateAsync(entityDto, cancellationToken);
+        }
+
+        [HttpPut("{id:int}")]
+        [SwaggerOperation(Summary = "Update an existing Guest record", Description = "Updates an existing guest record by its ID.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Record updated successfully.", typeof(Response<StaffInfoAboutRanOutItemsResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
+        public override async Task<Response<StaffSentimentResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] StaffSentimentDto entityDto, CancellationToken cancellationToken = default)
+        {
+            return await base.UpdateAsync(id, entityDto, cancellationToken);
+        }
+
+        [HttpDelete("{id:int}")]
+        [SwaggerOperation(Summary = "Delete a Guest record", Description = "Deletes a guest record by its ID.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Record deleted successfully.", typeof(Response<StaffInfoAboutRanOutItemsResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found or failed to delete.")]
+        public override async Task<Response<StaffSentimentResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        {
+            return await base.DeleteAsync(id, cancellationToken);
+        }
+
+        [HttpPatch("soft-delete/{id:int}")]
+        [SwaggerOperation(Summary = "Soft delete a Guest record", Description = "Marks a guest record as deleted without removing it from the database.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Record soft deleted successfully.", typeof(Response<StaffInfoAboutRanOutItemsResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
+        public override async Task<Response<StaffSentimentResponseDto>> SoftDeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        {
+            return await base.SoftDeleteAsync(id, cancellationToken);
+        }
+
+
     }
 }

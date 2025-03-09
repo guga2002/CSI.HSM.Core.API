@@ -1,6 +1,8 @@
 ﻿using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
+using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Request.Staff;
+using Core.Application.DTOs.Response.Item;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.Staff;
 using Core.Core.Entities.Staff;
@@ -166,6 +168,34 @@ namespace Core.API.Controllers.Staff
         public override Task<Response<StaffIncidentResponseDto>> CreateAsync([FromBody]StaffIncidentDto entityDto, CancellationToken cancellationToken = default)
         {
             return base.CreateAsync(entityDto, cancellationToken);
+        }
+
+        [HttpGet]
+        [SwaggerOperation(Summary = "Retrieve all Guests", Description = "Returns all guest records.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<StaffIncidentResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No records found.")]
+        public override async Task<Response<IEnumerable<StaffIncidentResponseDto>>> GetAllAsync(CancellationToken cancellationToken = default)
+        {
+            return await base.GetAllAsync(cancellationToken);
+        }
+
+        [HttpGet("{id:int}")]
+        [SwaggerOperation(Summary = "Retrieve a Guest by ID", Description = "Fetches a specific guest record by its ID.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Record retrieved successfully.", typeof(Response<StaffIncidentResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found.")]
+        public override async Task<Response<StaffIncidentResponseDto>> GetByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
+        {
+            return await base.GetByIdAsync(id, cancellationToken);
+        }
+
+
+        [HttpPut("{id:int}")]
+        [SwaggerOperation(Summary = "Update an existing Guest record", Description = "Updates an existing guest record by its ID.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Record updated successfully.", typeof(Response<StaffInfoAboutRanOutItemsResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
+        public override async Task<Response<StaffIncidentResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] StaffIncidentDto entityDto, CancellationToken cancellationToken = default)
+        {
+            return await base.UpdateAsync(id, entityDto, cancellationToken);
         }
     }
 }

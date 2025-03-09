@@ -26,9 +26,10 @@ namespace Core.API.Controllers.Tasks
             _taskService = taskService;
         }
 
+
         [HttpGet("GetTaskItemsByCartId/{cartId:long}")]
         [SwaggerOperation(Summary = "Retrieve Tasks by Cart ID", Description = "Fetches all tasks associated with a specific cart.")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Tasks retrieved successfully.", typeof(Response<IEnumerable<TaskResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Tasks retrieved successfully.", typeof(Response<Dictionary<long, IEnumerable<TaskItem>>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "No tasks found.")]
         public async Task<Response<Dictionary<long, IEnumerable<TaskItem>>>> GetTaskItemsByCartIdAsync([FromRoute]long cartId)
         {

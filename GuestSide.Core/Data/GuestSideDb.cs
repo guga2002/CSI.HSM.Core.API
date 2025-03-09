@@ -62,7 +62,6 @@ public class GuestSideDb : DbContext
     public virtual DbSet<RestaurantItemToCart> RestaurantItemToCarts { get; set; }
     public virtual DbSet<TaskItem> TaskItems { get; set; }
     public virtual DbSet<ItemCategoryToStaffCategory> ItemCategoryToStaffCategories { get; set; }
-
     public virtual DbSet<StaffInfoAboutRanOutItems> StaffInfoAboutRanOutItems { get; set; }
     public virtual DbSet<StaffReserveItem> StaffReserveItems { get; set; }
     public virtual DbSet<StaffIncident> StaffIncidents { get; set; }
@@ -73,12 +72,10 @@ public class GuestSideDb : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-
         var connectionString = _httpContextAccessor.HttpContext?.Items["ConnectionString"]?.ToString();
         if (!string.IsNullOrEmpty(connectionString))
         {
             Console.WriteLine($"connection String changed:{connectionString}");
-
             optionsBuilder.UseSqlServer(connectionString);
         }
         else
