@@ -27,7 +27,6 @@
             }
 
             var connectionString = _configuration.GetConnectionString(hotelId);
-
             if (string.IsNullOrEmpty(connectionString))
             {
                 context.Response.StatusCode = 400;
@@ -36,7 +35,6 @@
             }
 
             context.Items["ConnectionString"] = connectionString;
-
             await _next(context);
         }
     }

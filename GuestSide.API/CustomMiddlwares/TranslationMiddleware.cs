@@ -20,7 +20,7 @@ public class TranslationMiddleware
     {
         var requestedLanguage = context.Request.Headers["Accept-Language"].FirstOrDefault() ?? "en";
 
-        if (requestedLanguage == "en")
+        if (requestedLanguage is "en" or "en-us" or "us-en" or "us" or "en-gb" or "gb-en" or "gb")
         {
             await _next(context);
             return;
@@ -109,7 +109,7 @@ public class TranslationMiddleware
 
         var  translatedText = await _translatorService.TranslateAsync(new TranslationModelLoc
         {
-            From="En-Us",
+            From="en-us",
             Text=text,
             To=targetLanguage
         });
