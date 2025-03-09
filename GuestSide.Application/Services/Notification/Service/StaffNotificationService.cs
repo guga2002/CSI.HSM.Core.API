@@ -5,6 +5,7 @@ using Core.Application.Interface.Notification;
 using Core.Core.Entities.Notification;
 using Core.Core.Interfaces.AbstractInterface;
 using Core.Core.Interfaces.Notification;
+using Core.Infrastructure.Repositories.Notification;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Notification.Service
@@ -81,6 +82,14 @@ namespace Core.Application.Services.Notification.Service
             }
 
             return await _staffNotificationRepository.DeleteStaffNotification(staffId, notificationId);
+        }
+
+        public async Task<IEnumerable<StafNotificationResponseDto>> GetStaffNotifications(long staffId)
+        {
+            ValidatePositiveId(staffId, nameof(staffId));
+            var notifications = await _staffNotificationRepository.GetStaffNotifications(staffId);
+
+            return _mapper.Map<IEnumerable<StafNotificationResponseDto>>(notifications);
         }
     }
 }

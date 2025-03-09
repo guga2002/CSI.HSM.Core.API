@@ -11,5 +11,6 @@ namespace Core.Core.Interfaces.Notification
         Task<IEnumerable<StaffNotification>> GetUnreadNotificationsByStaffId(long staffId);
         Task<IEnumerable<StaffNotification>> GetImportantNotificationsByStaffId(long staffId);
         Task<bool> DeleteStaffNotification(long staffId, long notificationId);
+        Task<IEnumerable<StaffNotification>> GetStaffNotifications(long staffId);
     }
 }
