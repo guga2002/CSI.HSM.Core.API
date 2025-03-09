@@ -11,6 +11,8 @@ namespace Core.Application.DTOs.Response.Staff
 {
     public class StaffIncidentResponseDto
     {
+        public long Id { get; set; }
+
         public long ReportedByStaffId { get; set; }
 
         public required string Title { get; set; }
