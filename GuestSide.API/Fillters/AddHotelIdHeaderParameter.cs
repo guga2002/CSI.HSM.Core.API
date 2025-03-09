@@ -21,5 +21,17 @@ public class AddHotelIdHeaderParameter : IOperationFilter
                 Type = "string"
             }
         });
+
+        operation.Parameters.Add(new OpenApiParameter
+        {
+            Name = "Accept-Language",
+            In = ParameterLocation.Header,
+            Required = false,
+            Description = "Language Code",
+            Schema = new OpenApiSchema
+            {
+                Type = "string"
+            }
+        });
     }
 }
