@@ -25,19 +25,14 @@ namespace Csi.VoicePack
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.2.0.0 (NJsonSchema v11.1.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class CsiVoicePack
     {
-#pragma warning disable 8618
-        private string _baseUrl;
-#pragma warning restore 8618
-
         private System.Net.Http.HttpClient _httpClient;
         private static System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings, true);
         private Newtonsoft.Json.JsonSerializerSettings _instanceSettings;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public CsiVoicePack(string baseUrl, System.Net.Http.HttpClient httpClient)
+        public CsiVoicePack(System.Net.Http.HttpClient httpClient)
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
-            BaseUrl = baseUrl;
             _httpClient = httpClient;
             Initialize();
         }
@@ -47,17 +42,6 @@ namespace Csi.VoicePack
             var settings = new Newtonsoft.Json.JsonSerializerSettings();
             UpdateJsonSerializerSettings(settings);
             return settings;
-        }
-
-        public string BaseUrl
-        {
-            get { return _baseUrl; }
-            set
-            {
-                _baseUrl = value;
-                if (!string.IsNullOrEmpty(_baseUrl) && !_baseUrl.EndsWith("/"))
-                    _baseUrl += '/';
-            }
         }
 
         protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _instanceSettings ?? _settings.Value; } }
@@ -75,7 +59,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The request containing the user's message.</param>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<TalkToAiResponseGenericResponse> GptAsync(TalkToAiRequest body)
         {
             return GptAsync(body, System.Threading.CancellationToken.None);
@@ -87,7 +71,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The request containing the user's message.</param>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<TalkToAiResponseGenericResponse> GptAsync(TalkToAiRequest body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
@@ -104,7 +88,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/ChatToAi/talk/ai/gpt"
                     urlBuilder_.Append("api/ChatToAi/talk/ai/gpt");
 
@@ -136,7 +120,7 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<TalkToAiResponseGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
@@ -146,14 +130,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<TalkToAiResponseGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<TalkToAiResponseGenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<TalkToAiResponseGenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -175,7 +159,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The request containing the user's message.</param>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<TalkToAiResponseGenericResponse> DeepseekAsync(TalkToAiRequest body)
         {
             return DeepseekAsync(body, System.Threading.CancellationToken.None);
@@ -187,7 +171,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The request containing the user's message.</param>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<TalkToAiResponseGenericResponse> DeepseekAsync(TalkToAiRequest body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
@@ -204,7 +188,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/ChatToAi/talk/ai/deepseek"
                     urlBuilder_.Append("api/ChatToAi/talk/ai/deepseek");
 
@@ -236,7 +220,7 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<TalkToAiResponseGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
@@ -246,14 +230,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<TalkToAiResponseGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<TalkToAiResponseGenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<TalkToAiResponseGenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -275,7 +259,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="question">The user's question.</param>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<ChatCacheGenericResponse> ChecksimilarexistAsync(string question)
         {
             return ChecksimilarexistAsync(question, System.Threading.CancellationToken.None);
@@ -287,7 +271,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="question">The user's question.</param>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<ChatCacheGenericResponse> ChecksimilarexistAsync(string question, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
@@ -300,7 +284,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/ChatToAi/talk/checksimilarexist"
                     urlBuilder_.Append("api/ChatToAi/talk/checksimilarexist");
                     urlBuilder_.Append('?');
@@ -338,7 +322,7 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<ChatCacheGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
@@ -348,14 +332,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<ChatCacheGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<ChatCacheGenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<ChatCacheGenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -376,7 +360,7 @@ namespace Csi.VoicePack
         /// Clears the chat history.
         /// </summary>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<Int32GenericResponse> ClearchathistoryAsync()
         {
             return ClearchathistoryAsync(System.Threading.CancellationToken.None);
@@ -387,7 +371,7 @@ namespace Csi.VoicePack
         /// Clears the chat history.
         /// </summary>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<Int32GenericResponse> ClearchathistoryAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
@@ -400,7 +384,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/ChatToAi/talk/clearchathistory"
                     urlBuilder_.Append("api/ChatToAi/talk/clearchathistory");
 
@@ -432,7 +416,7 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<Int32GenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
@@ -442,14 +426,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<Int32GenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<Int32GenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<Int32GenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -470,7 +454,7 @@ namespace Csi.VoicePack
         /// Retrieves all available languages.
         /// </summary>
         /// <returns>Returns the list of languages.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<LanguageModelIEnumerableGenericResponse> LanguagesGETAsync()
         {
             return LanguagesGETAsync(System.Threading.CancellationToken.None);
@@ -481,7 +465,7 @@ namespace Csi.VoicePack
         /// Retrieves all available languages.
         /// </summary>
         /// <returns>Returns the list of languages.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<LanguageModelIEnumerableGenericResponse> LanguagesGETAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
@@ -494,7 +478,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/languages"
                     urlBuilder_.Append("api/languages");
 
@@ -526,14 +510,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<LanguageModelIEnumerableGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -555,7 +539,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The language model to insert.</param>
         /// <returns>If the language was successfully created.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<BooleanGenericResponse> LanguagesPOSTAsync(LanguageModel body)
         {
             return LanguagesPOSTAsync(body, System.Threading.CancellationToken.None);
@@ -567,7 +551,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The language model to insert.</param>
         /// <returns>If the language was successfully created.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<BooleanGenericResponse> LanguagesPOSTAsync(LanguageModel body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
@@ -584,7 +568,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/languages"
                     urlBuilder_.Append("api/languages");
 
@@ -616,7 +600,7 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<BooleanGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
@@ -626,9 +610,9 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<BooleanGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<BooleanGenericResponse>("If the request data is invalid.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<BooleanGenericResponse>("If the request data is invalid.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 500)
@@ -636,14 +620,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<BooleanGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<BooleanGenericResponse>("If the operation fails.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<BooleanGenericResponse>("If the operation fails.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -665,7 +649,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="code">The language code (e.g., "en-US").</param>
         /// <returns>Returns the language.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<LanguageModelGenericResponse> LanguagesGET2Async(string code)
         {
             return LanguagesGET2Async(code, System.Threading.CancellationToken.None);
@@ -677,7 +661,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="code">The language code (e.g., "en-US").</param>
         /// <returns>Returns the language.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<LanguageModelGenericResponse> LanguagesGET2Async(string code, System.Threading.CancellationToken cancellationToken)
         {
             if (code == null)
@@ -693,7 +677,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/languages/{code}"
                     urlBuilder_.Append("api/languages/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(code, System.Globalization.CultureInfo.InvariantCulture)));
@@ -726,7 +710,7 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<LanguageModelGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
@@ -736,9 +720,9 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<LanguageModelGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<LanguageModelGenericResponse>("If the code is empty.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<LanguageModelGenericResponse>("If the code is empty.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 404)
@@ -746,14 +730,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<LanguageModelGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<LanguageModelGenericResponse>("If the language is not found.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<LanguageModelGenericResponse>("If the language is not found.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -776,7 +760,7 @@ namespace Csi.VoicePack
         /// <param name="id">The ID of the language to update.</param>
         /// <param name="body">The updated language data.</param>
         /// <returns>If the language was successfully updated.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<BooleanGenericResponse> LanguagesPUTAsync(long id, LanguageModel body)
         {
             return LanguagesPUTAsync(id, body, System.Threading.CancellationToken.None);
@@ -789,7 +773,7 @@ namespace Csi.VoicePack
         /// <param name="id">The ID of the language to update.</param>
         /// <param name="body">The updated language data.</param>
         /// <returns>If the language was successfully updated.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<BooleanGenericResponse> LanguagesPUTAsync(long id, LanguageModel body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
@@ -809,7 +793,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/languages/{id}"
                     urlBuilder_.Append("api/languages/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
@@ -842,7 +826,7 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<BooleanGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
@@ -852,9 +836,9 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<BooleanGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<BooleanGenericResponse>("If the request data is invalid.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<BooleanGenericResponse>("If the request data is invalid.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 500)
@@ -862,14 +846,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<BooleanGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<BooleanGenericResponse>("If the operation fails.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<BooleanGenericResponse>("If the operation fails.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -891,7 +875,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="id">The ID of the language to delete.</param>
         /// <returns>If the language was successfully deleted.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<BooleanGenericResponse> LanguagesDELETEAsync(long id)
         {
             return LanguagesDELETEAsync(id, System.Threading.CancellationToken.None);
@@ -903,7 +887,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="id">The ID of the language to delete.</param>
         /// <returns>If the language was successfully deleted.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<BooleanGenericResponse> LanguagesDELETEAsync(long id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
@@ -919,7 +903,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/languages/{id}"
                     urlBuilder_.Append("api/languages/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
@@ -952,7 +936,7 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<BooleanGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
@@ -962,9 +946,9 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<BooleanGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<BooleanGenericResponse>("If the ID is invalid.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<BooleanGenericResponse>("If the ID is invalid.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 404)
@@ -972,14 +956,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<BooleanGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<BooleanGenericResponse>("If the language was not found.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<BooleanGenericResponse>("If the language was not found.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1001,7 +985,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">Geolocation request model.</param>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<BooleanGenericResponse> CheckClientAvailabilityAsync(GeoLocationRequest body)
         {
             return CheckClientAvailabilityAsync(body, System.Threading.CancellationToken.None);
@@ -1013,7 +997,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">Geolocation request model.</param>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<BooleanGenericResponse> CheckClientAvailabilityAsync(GeoLocationRequest body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
@@ -1030,7 +1014,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/Location/CheckClientAvailability"
                     urlBuilder_.Append("api/Location/CheckClientAvailability");
 
@@ -1062,7 +1046,7 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<BooleanGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
@@ -1072,9 +1056,9 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<BooleanGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<BooleanGenericResponse>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<BooleanGenericResponse>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 404)
@@ -1082,9 +1066,9 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<BooleanGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<BooleanGenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<BooleanGenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 500)
@@ -1092,14 +1076,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<BooleanGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<BooleanGenericResponse>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<BooleanGenericResponse>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1121,7 +1105,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The request model containing text and language for TTS conversion.</param>
         /// <returns>Returns the generated WAV file.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<FileResponse> ConverttexttospeechAsync(Speachrequest body)
         {
             return ConverttexttospeechAsync(body, System.Threading.CancellationToken.None);
@@ -1133,7 +1117,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The request model containing text and language for TTS conversion.</param>
         /// <returns>Returns the generated WAV file.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<FileResponse> ConverttexttospeechAsync(Speachrequest body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
@@ -1150,7 +1134,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/Speach/converttexttospeech"
                     urlBuilder_.Append("api/Speach/converttexttospeech");
 
@@ -1190,9 +1174,9 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<string>("If the request is invalid.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<string>("If the request is invalid.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 404)
@@ -1200,14 +1184,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<string>("If audio generation fails.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<string>("If audio generation fails.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1229,7 +1213,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The request model containing the neural TTS model details.</param>
         /// <returns>Returns true if the model was successfully added.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<bool> AddnewneuralmodelAsync(NeuralTTsModel body)
         {
             return AddnewneuralmodelAsync(body, System.Threading.CancellationToken.None);
@@ -1241,7 +1225,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The request model containing the neural TTS model details.</param>
         /// <returns>Returns true if the model was successfully added.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<bool> AddnewneuralmodelAsync(NeuralTTsModel body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
@@ -1258,7 +1242,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/Speach/addnewneuralmodel"
                     urlBuilder_.Append("api/Speach/addnewneuralmodel");
 
@@ -1290,7 +1274,7 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<bool>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
@@ -1300,14 +1284,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<string>("If an error occurs while adding the model.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<string>("If an error occurs while adding the model.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1328,7 +1312,7 @@ namespace Csi.VoicePack
         /// Converts text to speech and returns the generated audio file, it is  free version with windows build in feature.
         /// </summary>
         /// <returns>Returns the generated WAV file.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<FileResponse> ConverttexttospeechfreeversionAsync(string text, string model)
         {
             return ConverttexttospeechfreeversionAsync(text, model, System.Threading.CancellationToken.None);
@@ -1339,7 +1323,7 @@ namespace Csi.VoicePack
         /// Converts text to speech and returns the generated audio file, it is  free version with windows build in feature.
         /// </summary>
         /// <returns>Returns the generated WAV file.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<FileResponse> ConverttexttospeechfreeversionAsync(string text, string model, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
@@ -1352,7 +1336,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/Speach/converttexttospeechfreeversion"
                     urlBuilder_.Append("api/Speach/converttexttospeechfreeversion");
                     urlBuilder_.Append('?');
@@ -1402,9 +1386,9 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<string>("If the request is invalid.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<string>("If the request is invalid.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 404)
@@ -1412,14 +1396,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<string>("If audio generation fails.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<string>("If audio generation fails.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1440,7 +1424,7 @@ namespace Csi.VoicePack
         /// get installed voices on system
         /// </summary>
         /// <returns>Returns the generated WAV file.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InstalledVoices>> GetInstalledVoicesOnSystemAsync()
         {
             return GetInstalledVoicesOnSystemAsync(System.Threading.CancellationToken.None);
@@ -1451,7 +1435,7 @@ namespace Csi.VoicePack
         /// get installed voices on system
         /// </summary>
         /// <returns>Returns the generated WAV file.</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InstalledVoices>> GetInstalledVoicesOnSystemAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
@@ -1464,7 +1448,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/Speach/GetInstalledVoicesOnSystem"
                     urlBuilder_.Append("api/Speach/GetInstalledVoicesOnSystem");
 
@@ -1496,7 +1480,7 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<InstalledVoices>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
@@ -1506,9 +1490,9 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<string>("If the request is invalid.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<string>("If the request is invalid.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 404)
@@ -1516,14 +1500,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<string>("If audio generation fails.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<string>("If audio generation fails.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1544,7 +1528,7 @@ namespace Csi.VoicePack
         /// Check words similarity
         /// </summary>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<double> CheckSimilarityAsync(string text1, string text2)
         {
             return CheckSimilarityAsync(text1, text2, System.Threading.CancellationToken.None);
@@ -1555,7 +1539,7 @@ namespace Csi.VoicePack
         /// Check words similarity
         /// </summary>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<double> CheckSimilarityAsync(string text1, string text2, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
@@ -1568,7 +1552,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/TextSimiarity/CheckSimilarity"
                     urlBuilder_.Append("api/TextSimiarity/CheckSimilarity");
                     urlBuilder_.Append('?');
@@ -1610,14 +1594,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<double>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1639,7 +1623,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The translation request.</param>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<TranslationGenericResponse> Gpt2Async(TranslateUsingAi body)
         {
             return Gpt2Async(body, System.Threading.CancellationToken.None);
@@ -1651,7 +1635,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The translation request.</param>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<TranslationGenericResponse> Gpt2Async(TranslateUsingAi body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
@@ -1668,7 +1652,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/Translation/translate/ai/gpt"
                     urlBuilder_.Append("api/Translation/translate/ai/gpt");
 
@@ -1700,7 +1684,7 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<TranslationGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
@@ -1710,14 +1694,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<TranslationGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<TranslationGenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<TranslationGenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1739,7 +1723,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The translation request model.</param>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<TranslationGenericResponse> TranslateAsync(TranslationModelLoc body)
         {
             return TranslateAsync(body, System.Threading.CancellationToken.None);
@@ -1751,7 +1735,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The translation request model.</param>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<TranslationGenericResponse> TranslateAsync(TranslationModelLoc body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
@@ -1768,7 +1752,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/Translation/translate"
                     urlBuilder_.Append("api/Translation/translate");
 
@@ -1800,7 +1784,7 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<TranslationGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
@@ -1810,14 +1794,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<TranslationGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<TranslationGenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<TranslationGenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1839,7 +1823,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The translation request.</param>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<TranslationGenericResponse> Deepseek2Async(TranslateUsingAi body)
         {
             return Deepseek2Async(body, System.Threading.CancellationToken.None);
@@ -1851,7 +1835,7 @@ namespace Csi.VoicePack
         /// </summary>
         /// <param name="body">The translation request.</param>
         /// <returns>OK</returns>
-        /// <exception cref="CsiCommonException">A server side error occurred.</exception>
+        /// <exception cref="CommonException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<TranslationGenericResponse> Deepseek2Async(TranslateUsingAi body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
@@ -1868,7 +1852,7 @@ namespace Csi.VoicePack
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "api/Translation/translate/ai/deepseek"
                     urlBuilder_.Append("api/Translation/translate/ai/deepseek");
 
@@ -1900,7 +1884,7 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<TranslationGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
@@ -1910,14 +1894,14 @@ namespace Csi.VoicePack
                             var objectResponse_ = await ReadObjectResponseAsync<TranslationGenericResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new CsiCommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new CommonException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new CsiCommonException<TranslationGenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new CommonException<TranslationGenericResponse>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new CsiCommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new CommonException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1967,7 +1951,7 @@ namespace Csi.VoicePack
                 catch (Newtonsoft.Json.JsonException exception)
                 {
                     var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
-                    throw new CsiCommonException(message, (int)response.StatusCode, responseText, headers, exception);
+                    throw new CommonException(message, (int)response.StatusCode, responseText, headers, exception);
                 }
             }
             else
@@ -1986,7 +1970,7 @@ namespace Csi.VoicePack
                 catch (Newtonsoft.Json.JsonException exception)
                 {
                     var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
-                    throw new CsiCommonException(message, (int)response.StatusCode, string.Empty, headers, exception);
+                    throw new CommonException(message, (int)response.StatusCode, string.Empty, headers, exception);
                 }
             }
         }
@@ -2523,7 +2507,7 @@ namespace Csi.VoicePack
 
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.2.0.0 (NJsonSchema v11.1.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class CsiCommonException : System.Exception
+    public partial class CommonException : System.Exception
     {
         public int StatusCode { get; private set; }
 
@@ -2531,7 +2515,7 @@ namespace Csi.VoicePack
 
         public System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> Headers { get; private set; }
 
-        public CsiCommonException(string message, int statusCode, string response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Exception innerException)
+        public CommonException(string message, int statusCode, string response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Exception innerException)
             : base(message + "\n\nStatus: " + statusCode + "\nResponse: \n" + ((response == null) ? "(null)" : response.Substring(0, response.Length >= 512 ? 512 : response.Length)), innerException)
         {
             StatusCode = statusCode;
@@ -2546,11 +2530,11 @@ namespace Csi.VoicePack
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.2.0.0 (NJsonSchema v11.1.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class CsiCommonException<TResult> : CsiCommonException
+    public partial class CommonException<TResult> : CommonException
     {
         public TResult Result { get; private set; }
 
-        public CsiCommonException(string message, int statusCode, string response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, TResult result, System.Exception innerException)
+        public CommonException(string message, int statusCode, string response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, TResult result, System.Exception innerException)
             : base(message, statusCode, response, headers, innerException)
         {
             Result = result;

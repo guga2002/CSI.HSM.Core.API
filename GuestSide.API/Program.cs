@@ -114,6 +114,7 @@ builder.Services.AddSwaggerGen(c =>
         c.OperationFilter<AddHotelIdHeaderParameter>();
     });
 
+builder.Services.AddDistributedMemoryCache();
 
     builder.Services.AddRedisCash("127.0.0.1" ?? throw new ArgumentNullException("Redis Key Is not defined"));
 
@@ -203,6 +204,8 @@ var app = builder.Build();
     });
 
 app.UseMiddleware<TenantMiddleware>();
+app.UseMiddleware<TranslationMiddleware>();
+app.UseMiddleware<CashingMiddlwares>();
 //app.UseMiddleware<RequestLoggerMiddleware>();
 //app.UseMiddleware<CashingMiddlwares>();
 
