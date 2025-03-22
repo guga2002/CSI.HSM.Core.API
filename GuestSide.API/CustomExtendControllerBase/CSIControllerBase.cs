@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Swashbuckle.AspNetCore.Annotations;
 using Core.Application.Interface.GenericContracts;
-using MongoDB.Driver;
 using Core.API.Extensions;
 using Core.API.Response;
 
