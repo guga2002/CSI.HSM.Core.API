@@ -6,10 +6,10 @@ using Newtonsoft.Json.Linq;
 public class TranslationMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly VoicePackClient _translatorService;
+    private readonly CsiVoicePack _translatorService;
     private readonly IDistributedCache _cache;
 
-    public TranslationMiddleware(RequestDelegate next, VoicePackClient translatorService, IDistributedCache cache)
+    public TranslationMiddleware(RequestDelegate next, CsiVoicePack translatorService, IDistributedCache cache)
     {
         _next = next;
         _translatorService = translatorService;
