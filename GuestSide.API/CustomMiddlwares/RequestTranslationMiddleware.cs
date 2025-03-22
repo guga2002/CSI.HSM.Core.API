@@ -45,7 +45,7 @@ namespace Core.API.CustomMiddlwares
             }
 
             JObject requestJson = JObject.Parse(body);
-            await TranslateJsonObject(requestJson, requestedLanguage);
+            await TranslateJsonObject(requestJson);
 
             var translatedBody = Encoding.UTF8.GetBytes(requestJson.ToString());
             context.Request.Body = new MemoryStream(translatedBody);
@@ -54,7 +54,7 @@ namespace Core.API.CustomMiddlwares
             await _next(context);
         }
 
-        private async Task TranslateJsonObject(JObject jsonObject, string sourceLanguage)
+        private async Task TranslateJsonObject(JObject jsonObject)
         {
             foreach (var property in jsonObject.Properties().ToList()) 
             {
@@ -64,12 +64,12 @@ namespace Core.API.CustomMiddlwares
                 if (property.Value.Type == JTokenType.String)
                 {
                     string originalText = property.Value.ToString();
-                    string translatedText = await GetOrTranslate(originalText, sourceLanguage);
+                    string translatedText = await GetOrTranslate(originalText);
                     property.Value = translatedText;
                 }
                 else if (property.Value.Type == JTokenType.Object)
                 {
-                    await TranslateJsonObject((JObject)property.Value, sourceLanguage);
+                    await TranslateJsonObject((JObject)property.Value);
                 }
                 else if (property.Value.Type == JTokenType.Array)
                 {
@@ -78,24 +78,24 @@ namespace Core.API.CustomMiddlwares
                         if (item.Type == JTokenType.String)
                         {
                             string originalText = item.ToString();
-                            string translatedText = await GetOrTranslate(originalText, sourceLanguage);
+                            string translatedText = await GetOrTranslate(originalText);
                             item.Replace(translatedText);
                         }
                         else if (item.Type == JTokenType.Object)
                         {
-                            await TranslateJsonObject((JObject)item, sourceLanguage);
+                            await TranslateJsonObject((JObject)item);
                         }
                     }
                 }
             }
         }
 
-        private async Task<string> GetOrTranslate(string text, string sourceLanguage)
+        private async Task<string> GetOrTranslate(string text)
         {
             if (string.IsNullOrWhiteSpace(text))
                 return text;
 
-            string cacheKey = $"translation:{sourceLanguage}:en:{text}";
+            string cacheKey = $"translation:to:en:{text}";
             string cachedTranslation = await _cache.GetStringAsync(cacheKey);
 
             if (!string.IsNullOrEmpty(cachedTranslation))
