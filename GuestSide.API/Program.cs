@@ -34,6 +34,7 @@ using Core.Application.Services.Staff.Incident.DI;
 using Core.Application.Services.Staff.Sentiments.Injection;
 using Core.Application.Services.Staff.StaffSupport.DI;
 using Core.Application.Services.Staff.StaffSupportResponse.DI;
+using Csi.VoicePack;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,7 +53,7 @@ builder.Services.AddDbContext<GuestSideDb>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CSICOnnect"));
 });
 
-
+builder.Services.AddHttpClient<CsiVoicePack>(i => i.BaseAddress = new Uri("http://20.86.134.136:2024/"));
 
 builder.WebHost.ConfigureKestrel(options =>
     {
