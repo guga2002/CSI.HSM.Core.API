@@ -51,7 +51,8 @@ namespace Core.Infrastructure.Repositories.Staff
         public async Task<IEnumerable<TaskToStaff>> GetTasksByStaffIdAsync(long staffId, CancellationToken cancellationToken = default)
         {
             return await DbSet
-                .Where(t => t.StaffId == staffId)
+                .Where(t => t.AssignedByStaff.Id == staffId)
+                .Include (t => t.AssignedByStaff)
                 .Include(t => t.Task)
                 .Include(t => t.Status)
                 .ToListAsync(cancellationToken);
@@ -90,7 +91,6 @@ namespace Core.Infrastructure.Repositories.Staff
             var taskToStaff = await DbSet.FirstOrDefaultAsync(t => t.TaskId == taskId, cancellationToken);
             if (taskToStaff == null) return false;
 
-            taskToStaff.StaffId = staffId;
             taskToStaff.UpdatedAt = DateTime.UtcNow;
             await _context.SaveChangesAsync(cancellationToken);
 
@@ -103,7 +103,8 @@ namespace Core.Infrastructure.Repositories.Staff
         public async Task<IEnumerable<TaskToStaff>> GetActiveTasksByStaffIdAsync(long staffId, CancellationToken cancellationToken = default)
         {
             return await DbSet
-                .Where(t => t.StaffId == staffId && !t.IsCompleted)
+                .Where(t => t.AssignedByStaff.Id == staffId && !t.IsCompleted).
+                Include(t=>t.AssignedByStaff)
                 .Include(t => t.Task)
                 .ToListAsync(cancellationToken);
         }

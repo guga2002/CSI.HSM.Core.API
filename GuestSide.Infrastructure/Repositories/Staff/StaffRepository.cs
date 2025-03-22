@@ -112,7 +112,8 @@ namespace Core.Infrastructure.Repositories.Staff
         public async Task<IEnumerable<TaskToStaff>> GetTasksByStaffIdAsync(long staffId, CancellationToken cancellationToken = default)
         {
             return await _context.Set<TaskToStaff>().AsNoTracking()
-                .Where(t => t.StaffId == staffId)
+                .Where(t => t.AssignedByStaff.Id == staffId)
+                .Include(t=>t.AssignedByStaff)
                 .Include(t => t.Task)
                 .ToListAsync(cancellationToken);
         }
