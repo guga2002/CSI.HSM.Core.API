@@ -2,7 +2,7 @@
 {
     public class RoomsDto
     {
-        public int RoomNumber { get; set; }
+        public int RoomNumber { get; set; } 
 
         public int Floor { get; set; }
 
@@ -13,8 +13,6 @@
         public int MaxOccupancy { get; set; }
 
         public decimal PricePerNight { get; set; }
-
-        public string? PictureUrlsSerialized { get; set; }
 
 
         public List<string>? Pictures

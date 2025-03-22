@@ -204,12 +204,13 @@ var app = builder.Build();
     });
 
 app.UseMiddleware<TenantMiddleware>();
-app.UseMiddleware<TranslationMiddleware>();
+//app.UseMiddleware<TranslationMiddleware>();
 app.UseMiddleware<CashingMiddlwares>();
+app.UseMiddleware<GlobalExceptionMiddleware>();
 //app.UseMiddleware<RequestLoggerMiddleware>();
 //app.UseMiddleware<CashingMiddlwares>();
 
- 
-    app.UseHttpsRedirection();
+
+app.UseHttpsRedirection();
     app.MapControllers();
     await app.RunAsync();

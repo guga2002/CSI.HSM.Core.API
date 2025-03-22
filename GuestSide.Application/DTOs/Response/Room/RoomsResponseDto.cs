@@ -11,6 +11,7 @@ namespace Core.Application.DTOs.Response.Room
     {
         public long Id { get; set; }
 
+        public bool  IsActive { get; set; }
         public int RoomNumber { get; set; }
 
         public int Floor { get; set; }
@@ -22,9 +23,6 @@ namespace Core.Application.DTOs.Response.Room
         public int MaxOccupancy { get; set; }
 
         public decimal PricePerNight { get; set; } 
-
-        public string? PictureUrlsSerialized { get; set; }
-
 
         public List<string>? Pictures
         {
