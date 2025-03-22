@@ -190,8 +190,7 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
         }
 
         var regionName = GetHotelRegion();
-        DbSet.Attach(entity);
-        Context.Entry(entity).State = EntityState.Modified;
+        DbSet.Update(entity);
         await Context.SaveChangesAsync(cancellationToken);
 
         try

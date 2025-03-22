@@ -332,7 +332,7 @@ public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEnt
             var isDeletedProperty = typeof(TDatabaseEntity).GetProperty("IsActive");
             if (isDeletedProperty is not null)
             {
-                isDeletedProperty.SetValue(entity, true);
+                isDeletedProperty.SetValue(entity, false);
             }
             else
             {
