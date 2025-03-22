@@ -4,6 +4,7 @@ using Core.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Core.Migrations
 {
     [DbContext(typeof(GuestSideDb))]
-    partial class GuestSideDbModelSnapshot : ModelSnapshot
+    [Migration("20250311190520_hsjnj")]
+    partial class hsjnj
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -752,6 +755,9 @@ namespace Core.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long?>("AssignedByStaffId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("AssignedDate")
                         .HasColumnType("datetime2");
 
@@ -775,6 +781,8 @@ namespace Core.Core.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AssignedByStaffId");
 
                     b.HasIndex("IsCompleted");
 
@@ -2214,6 +2222,10 @@ namespace Core.Core.Migrations
 
             modelBuilder.Entity("Core.Core.Entities.Item.TaskItem", b =>
                 {
+                    b.HasOne("Core.Core.Entities.Staff.Staffs", "AssignedByStaff")
+                        .WithMany()
+                        .HasForeignKey("AssignedByStaffId");
+
                     b.HasOne("Core.Core.Entities.Item.Items", "Item")
                         .WithMany("TaskItems")
                         .HasForeignKey("ItemId")
@@ -2225,6 +2237,8 @@ namespace Core.Core.Migrations
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AssignedByStaff");
 
                     b.Navigation("Item");
 

@@ -95,5 +95,16 @@ namespace Core.Infrastructure.Repositories.Notification
                 .FirstOrDefaultAsync(cancellationToken);
         }
         #endregion
+
+        #region GetStaffNotifications
+        public async Task<IEnumerable<StaffNotification>> GetStaffNotifications(long staffId)
+        {
+            return await DbSet
+                .Include(io => io.Notifications)
+                .Where(io => io.StaffId == staffId)
+                .OrderByDescending(io => io.SentTime)
+                .ToListAsync();
+        }
+        #endregion
     }
 }

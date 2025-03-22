@@ -8,7 +8,5 @@ public class TaskItemDto
 
     public int Quantity { get; set; }
 
-    public long? AssignedByStaffId { get; set; }
-
     public string? Notes { get; set; }
 }

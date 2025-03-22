@@ -53,20 +53,20 @@ namespace Core.API.Controllers.Staff
         //        : Response<IEnumerable<StaffIncidentResponseDto>>.ErrorResponse("No incidents found for the specified severity level.");
         //}
 
-        /// <summary>
-        /// Retrieve incidents filtered by status.
-        /// </summary>
-        //[HttpGet("status/{status}")]
-        //[SwaggerOperation(Summary = "Get Incidents by Status", Description = "Fetches incidents filtered by status (e.g., Open, In Progress, Resolved).")]
-        //[SwaggerResponse(StatusCodes.Status200OK, "Incidents retrieved successfully.", typeof(Response<IEnumerable<StaffIncidentResponseDto>>))]
-        //[SwaggerResponse(StatusCodes.Status404NotFound, "No incidents found.")]
-        //public async Task<Response<IEnumerable<StaffIncidentResponseDto>>> GetIncidentsByStatusAsync([FromRoute] string status, CancellationToken cancellationToken = default)
-        //{
-        //    var incidents = await _staffIncidentService.GetIncidentsByStatusAsync(status, cancellationToken);
-        //    return incidents.Any()
-        //        ? Response<IEnumerable<StaffIncidentResponseDto>>.SuccessResponse(incidents)
-        //        : Response<IEnumerable<StaffIncidentResponseDto>>.ErrorResponse("No incidents found for the specified status.");
-        //}
+        ////<summary>
+        //// Retrieve incidents filtered by status.
+        //// </summary>
+        [HttpGet("status/{status}")]
+        [SwaggerOperation(Summary = "Get Incidents by Status", Description = "Fetches incidents filtered by status (e.g., Open, In Progress, Resolved).")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Incidents retrieved successfully.", typeof(Response<IEnumerable<StaffIncidentResponseDto>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "No incidents found.")]
+        public async Task<Response<IEnumerable<StaffIncidentResponseDto>>> GetIncidentsByStatusAsync([FromRoute] string status, CancellationToken cancellationToken = default)
+        {
+            var incidents = await _staffIncidentService.GetIncidentsByStatusAsync(status, cancellationToken);
+            return incidents.Any()
+                ? Response<IEnumerable<StaffIncidentResponseDto>>.SuccessResponse(incidents)
+                : Response<IEnumerable<StaffIncidentResponseDto>>.ErrorResponse("No incidents found for the specified status.");
+        }
 
         /// <summary>
         /// Retrieve incidents filtered by type.
