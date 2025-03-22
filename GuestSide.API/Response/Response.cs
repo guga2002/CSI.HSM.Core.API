@@ -48,7 +48,7 @@ namespace Core.API.Response
             return new Response<T>(true, data, message);
         }
 
-        public static Response<T> ErrorResponse(string message, int statusCode = 400)
+        public static Response<T> ErrorResponse(string message, int statusCode = 404)
         {
             return new Response<T>(false, default, message, statusCode: statusCode);
         }

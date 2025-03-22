@@ -53,7 +53,7 @@ builder.Services.AddDbContext<GuestSideDb>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CSICOnnect"));
 });
 
-builder.Services.AddHttpClient<CsiVoicePack>(i => i.BaseAddress = new Uri("http://localhost:2024/"));
+builder.Services.AddHttpClient<CsiVoicePack>(i => i.BaseAddress = new Uri("http://20.86.134.136:2024/"));
 
 builder.WebHost.ConfigureKestrel(options =>
     {
