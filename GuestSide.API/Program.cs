@@ -208,6 +208,7 @@ app.UseMiddleware<TranslationMiddleware>();
 app.UseMiddleware<CashingMiddlwares>();
 app.UseMiddleware<ForceHttp200Except500Middleware>();
 app.UseMiddleware<GlobalExceptionMiddleware>();
+app.UseMiddleware<RequestTranslationMiddleware>();
 //app.UseMiddleware<RequestLoggerMiddleware>();
 //app.UseMiddleware<CashingMiddlwares>();
 
