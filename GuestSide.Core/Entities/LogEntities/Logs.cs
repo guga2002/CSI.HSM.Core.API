@@ -18,10 +18,8 @@ namespace Core.Core.Entities.LogEntities
         /// </summary>
         public long? LoggerId { get; set; }
 
-        [StringLength(50)]
         public required string LogLevel { get; set; }
 
-        [StringLength(500)]
         public required string Message { get; set; }
 
         public Guid CorrelationId { get; set; } 
@@ -31,15 +29,12 @@ namespace Core.Core.Entities.LogEntities
         [Column(TypeName = "nvarchar(max)")] 
         public required string Exception { get; set; }
 
-        [StringLength(45)] 
         public string? IpAddress { get; set; }
 
-        [StringLength(255)] 
         public string? Source { get; set; }
 
         public bool IsEmergency { get; set; } = false;
 
-        [StringLength(100)]
         public string? RequestId { get; set; } 
 
         [Column(TypeName = "nvarchar(max)")]

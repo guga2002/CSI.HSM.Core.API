@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Core.Core.Entities.Language
 {
     [Table("LanguagePacks", Schema = "CSI")]
-    [Index(nameof(Code), IsUnique = true)] 
-    [Index(nameof(Name), IsUnique = true)] 
+    [Index(nameof(Code))] 
+    [Index(nameof(Name))] 
     public class LanguagePack
     {
         [Key]

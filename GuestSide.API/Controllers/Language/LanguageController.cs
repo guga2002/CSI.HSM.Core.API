@@ -79,6 +79,7 @@ namespace Core.API.Controllers.Language
         [HttpPost]
         [SwaggerOperation(Summary = "Create a new Language Pack", Description = "Adds a new language pack record to the system.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Record created successfully.", typeof(Response<LanguagePackResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Record created successfully.", typeof(Response<LanguagePackResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
         public override async Task<Response<LanguagePackResponseDto>> CreateAsync([FromBody] LanguagePackDto entityDto, CancellationToken cancellationToken = default)
         {
