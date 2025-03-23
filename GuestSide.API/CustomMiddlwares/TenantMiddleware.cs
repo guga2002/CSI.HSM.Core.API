@@ -4,11 +4,13 @@
     {
         private readonly RequestDelegate _next;
         private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _env;
 
-        public TenantMiddleware(RequestDelegate next, IConfiguration configuration)
+        public TenantMiddleware(RequestDelegate next, IConfiguration configuration, IWebHostEnvironment env)
         {
             _next = next;
             _configuration = configuration;
+            _env = env;
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -25,8 +27,12 @@
                 await context.Response.WriteAsync("X-Hotel-Id header is required.");
                 return;
             }
-
             var connectionString = _configuration.GetConnectionString(hotelId);
+            if (!_env.IsProduction())
+            {
+                connectionString = _configuration.GetSection("connectionTest:CSICOnnect").Value;
+            }
+         
             if (string.IsNullOrEmpty(connectionString))
             {
                 context.Response.StatusCode = 400;
