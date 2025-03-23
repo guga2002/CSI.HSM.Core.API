@@ -224,7 +224,14 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
 
 
         var regionName = GetHotelRegion();
-        var entityToDelete = await DbSet.FindAsync([(long)id], cancellationToken);
+
+        var idValue = id.GetType().GetProperty("Id")?.GetValue(id) as long?;
+        if (idValue is null)
+        {
+            throw new InvalidOperationException("Id property is missing or not a valid long.");
+        }
+
+        var entityToDelete = await DbSet.FindAsync(idValue, cancellationToken);
 
         if (entityToDelete is null)
         {
