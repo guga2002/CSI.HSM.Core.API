@@ -116,44 +116,44 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddDistributedMemoryCache();
 
-    builder.Services.AddRedisCash("127.0.0.1" ?? throw new ArgumentNullException("Redis Key Is not defined"));
+builder.Services.AddRedisCash("127.0.0.1" ?? throw new ArgumentNullException("Redis Key Is not defined"));
 
-    builder.Services.InjectAdvertisment();
-    builder.Services.AddAdvertisementType();
-    builder.Services.InjectFeadbacks();
+builder.Services.InjectAdvertisment();
+builder.Services.AddAdvertisementType();
+builder.Services.InjectFeadbacks();
 
-    builder.Services.InjectGuest();
+builder.Services.InjectGuest();
 
-    builder.Services.InjectHotel();
-    builder.Services.InjectLocation();
+builder.Services.InjectHotel();
+builder.Services.InjectLocation();
 
-    builder.Services.InjectItemCategory();
-    builder.Services.InjectItem();
+builder.Services.InjectItemCategory();
+builder.Services.InjectItem();
 
-    builder.Services.AddLanguagePack();
+builder.Services.AddLanguagePack();
 
-    builder.Services.InjectLog();
+builder.Services.InjectLog();
 
-    builder.Services.ActiveStaffIncident();
+builder.Services.ActiveStaffIncident();
 
-    builder.Services.ActiveStaffInfoAboutRanOutItems();
+builder.Services.ActiveStaffInfoAboutRanOutItems();
 
-    builder.Services.InjectNotification();
-    builder.Services.InjectGuestNotification();
-    builder.Services.InjectStaffNotification();
+builder.Services.InjectNotification();
+builder.Services.InjectGuestNotification();
+builder.Services.InjectStaffNotification();
 
 builder.Services.InjectItemCategoryToStaffCategory();
 builder.Services.ActiveStaffSentiments();
 builder.Services.ActiveStaffSupport();
 builder.Services.ActiveStaffSupportResponse();
-    builder.Services.InjectPaymentOption();
+builder.Services.InjectPaymentOption();
 
-    builder.Services.InjectRestaurantOrderPaymen();
+builder.Services.InjectRestaurantOrderPaymen();
 
-    builder.Services.AddRestaurantCartServices();
-    builder.Services.AddRestaurantServices();
-    builder.Services.AddRestaurantItemCategory();
-    builder.Services.AddRestaurantItem();
+builder.Services.AddRestaurantCartServices();
+builder.Services.AddRestaurantServices();
+builder.Services.AddRestaurantItemCategory();
+builder.Services.AddRestaurantItem();
 builder.Services.AddRestaurantItemToCart();
 
 builder.Services.InjectQrCode();
@@ -161,7 +161,6 @@ builder.Services.InjectRoomCategory();
 builder.Services.InjectRoom();
 
 builder.Services.InjectCartToStaff();
-
 
 builder.Services.InjectStaffCategory();
 builder.Services.InjectStaffs();
@@ -182,12 +181,10 @@ builder.Services.InjectAudioResponse();
 
 builder.Services.InjectAudioResponseCategory();
 
-
 //builder.Logging.ClearProviders();
 builder.Services.InjectSeriLog();
 
 builder.Services.AddScoped(typeof(IAdditionalFeaturesRepository<>), typeof(AdditionalFeaturesRepository<>));
-
 
 var app = builder.Build();
     app.UseStaticFiles();
@@ -212,7 +209,6 @@ app.UseMiddleware<RequestTranslationMiddleware>();
 //app.UseMiddleware<RequestLoggerMiddleware>();
 //app.UseMiddleware<CashingMiddlwares>();
 
-
 app.UseHttpsRedirection();
-    app.MapControllers();
-    await app.RunAsync();
+app.MapControllers();
+await app.RunAsync();
