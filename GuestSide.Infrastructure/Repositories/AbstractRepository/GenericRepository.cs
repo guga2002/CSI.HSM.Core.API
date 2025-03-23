@@ -222,13 +222,9 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
             throw new ArgumentNullException(nameof(id));
         }
 
-        if (!(id is long longId))
-        {
-            throw new ArgumentException("id must be of type long.", nameof(id));
-        }
 
         var regionName = GetHotelRegion();
-        var entityToDelete = await DbSet.FindAsync(id, cancellationToken);
+        var entityToDelete = await DbSet.FindAsync([(long)id], cancellationToken);
 
         if (entityToDelete is null)
         {

@@ -48,9 +48,9 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddDbContext<GuestSideDb>(options =>
+builder.Services.AddDbContext<GuestSideDb>(options =>//respect testing enviroment
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CSICOnnect"));
+    options.UseSqlServer(!builder.Environment.IsProduction()? builder.Configuration.GetSection("connectionTest:CSICOnnect").Value: builder.Configuration.GetConnectionString("CSICOnnect"));
 });
 
 builder.Services.AddHttpClient<CsiVoicePack>(i => i.BaseAddress = new Uri("http://20.86.134.136:2024/"));

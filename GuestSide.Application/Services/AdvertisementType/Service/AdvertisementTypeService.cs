@@ -112,7 +112,7 @@ namespace Core.Application.Services.AdvertisementType.Service
         {
             ValidatePositiveId(advertisementTypeId, nameof(advertisementTypeId));
 
-            var advertisementType = await _advertisementTypeRepository.GetAdvertisementTypeByNameAsync(advertisementTypeId.ToString());
+            var advertisementType = await _advertisementTypeRepository.FindAsync(i=>i.Id==advertisementTypeId, cancellationToken);
             if (advertisementType is null)
             {
                 _logger.LogWarning("AdvertisementType with ID {Id} does not exist.", advertisementTypeId);
