@@ -4,7 +4,6 @@ using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Infrastructure.Repositories.Room

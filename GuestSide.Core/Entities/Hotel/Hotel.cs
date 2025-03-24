@@ -1,7 +1,5 @@
 ﻿using Core.Core.Entities.AbstractEntities;
 using Core.Core.Entities.Hotel.GeoLocation;
-using Core.Core.Entities.Language;
-using Core.Core.Entities.Room;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
