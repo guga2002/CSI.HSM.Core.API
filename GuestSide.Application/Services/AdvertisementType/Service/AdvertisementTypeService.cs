@@ -91,20 +91,6 @@ namespace Core.Application.Services.AdvertisementType.Service
         {
             ValidatePositiveId(advertisementTypeId, nameof(advertisementTypeId));
             ValidateDescription(newDescription);
-
-            var advertisementType = await _advertisementTypeRepository.GetAdvertisementTypeByNameAsync(advertisementTypeId.ToString());
-            if (advertisementType is null)
-            {
-                _logger.LogWarning("AdvertisementType with ID {Id} does not exist.", advertisementTypeId);
-                throw new ArgumentException($"AdvertisementType with ID {advertisementTypeId} does not exist.");
-            }
-
-            if (advertisementType.Description == newDescription)
-            {
-                _logger.LogInformation("AdvertisementType ID {Id} already has the description set to {Description}.", advertisementTypeId, newDescription);
-                return false; // No update needed
-            }
-
             return await _advertisementTypeRepository.UpdateAdvertisementTypeDescriptionAsync(advertisementTypeId, newDescription);
         }
 
