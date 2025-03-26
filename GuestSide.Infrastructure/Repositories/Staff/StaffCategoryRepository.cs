@@ -55,7 +55,7 @@ namespace Core.Infrastructure.Repositories.Staff
         #region  Staff Category Management
         public async Task<bool> UpdateCategoryNameAsync(long categoryId, string newName, CancellationToken cancellationToken = default)
         {
-            var category = await _context.StaffCategories.FindAsync(new object[] { categoryId }, cancellationToken);
+            var category = await _context.StaffCategories.FirstOrDefaultAsync(io=>io.Id == categoryId, cancellationToken);
             if (category == null) return false;
 
             category.CategoryName = newName;

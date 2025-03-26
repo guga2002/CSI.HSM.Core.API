@@ -78,7 +78,7 @@ namespace Core.API.Controllers.Staff
         [SwaggerOperation(Summary = "Update Staff Category Name", Description = "Updates the name of a specific staff category.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Category name updated successfully.", typeof(Response<bool>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Category not found.")]
-        public async Task<Response<bool>> UpdateCategoryNameAsync([FromRoute] long categoryId, [FromBody] string newName)
+        public async Task<Response<bool>> UpdateCategoryNameAsync([FromRoute] long categoryId, string newName)
         {
             var result = await _staffCategoryService.UpdateCategoryNameAsync(categoryId, newName);
             return result
@@ -90,7 +90,7 @@ namespace Core.API.Controllers.Staff
         [SwaggerOperation(Summary = "Update Staff Category Description", Description = "Updates the description of a specific staff category.")]
         [SwaggerResponse(StatusCodes.Status200OK, "Category description updated successfully.", typeof(Response<bool>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Category not found.")]
-        public async Task<Response<bool>> UpdateCategoryDescriptionAsync([FromRoute] long categoryId, [FromBody] string newDescription)
+        public async Task<Response<bool>> UpdateCategoryDescriptionAsync([FromRoute] long categoryId, string newDescription)
         {
             var result = await _staffCategoryService.UpdateCategoryDescriptionAsync(categoryId, newDescription);
             return result

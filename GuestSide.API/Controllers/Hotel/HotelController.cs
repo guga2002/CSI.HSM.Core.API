@@ -53,7 +53,7 @@ namespace Core.API.Controllers.Hotel
         [HttpPut("update-details/{hotelId:long}")]
         [SwaggerOperation(Summary = "Update hotel details", Description = "Updates hotel details, including address, description, pictures, and facilities.")]
         [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
-        public async Task<Response<bool>> UpdateHotelDetails([FromRoute] long hotelId, [FromBody] HotelRequestDto updateDto, CancellationToken cancellationToken = default)
+        public async Task<Response<bool>> UpdateHotelDetails([FromRoute] long hotelId, [FromBody] HotelLightRequestDto updateDto, CancellationToken cancellationToken = default)
         {
             var result = await _hotelService.UpdateHotelDetails(
                 hotelId, updateDto.Address, updateDto.Description, updateDto.Pictures, updateDto.Facilities, cancellationToken);
