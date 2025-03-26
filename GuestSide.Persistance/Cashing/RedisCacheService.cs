@@ -17,8 +17,9 @@ namespace Core.Persistance.Cashing
 
         public async Task<bool> SetCache<T>(string key, T value, TimeSpan? expiry = null)
         {
-            var serializedValue = JsonConvert.SerializeObject(value);
-            return await database.StringSetAsync(key, serializedValue, expiry);
+            //var serializedValue = JsonConvert.SerializeObject(value);
+            //return await database.StringSetAsync(key, serializedValue, expiry);
+            return true;
         }
 
         public async Task<T> GetCache<T>(string key)

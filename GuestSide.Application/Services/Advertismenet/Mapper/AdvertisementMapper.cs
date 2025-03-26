@@ -9,7 +9,7 @@ public class AdvertisementMapper:Profile
 {
     public AdvertisementMapper()
     {
-        CreateMap<Advertisement, AdvertismentDto>();
-        CreateMap<AdvertismentResponseDto, Advertisement>();
+        CreateMap<Advertisement, AdvertismentDto>().ReverseMap();
+        CreateMap<AdvertismentResponseDto, Advertisement>().ReverseMap();
     }
 }

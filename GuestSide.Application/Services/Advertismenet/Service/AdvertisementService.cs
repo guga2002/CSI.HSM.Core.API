@@ -127,14 +127,6 @@ namespace Core.Application.Services.Advertismenet
         public async Task<bool> DeleteAdvertisementByIdAsync(long id, CancellationToken cancellationToken = default)
         {
             ValidatePositiveId(id, nameof(id));
-
-            var advertisement = await _advertisementRepository.GetAdvertisementByTitleAsync(id.ToString());
-            if (advertisement is null)
-            {
-                _logger.LogWarning("Advertisement with ID {Id} does not exist.", id);
-                throw new ArgumentException($"Advertisement with ID {id} does not exist.");
-            }
-
             return await _advertisementRepository.DeleteAdvertisementByIdAsync(id);
         }
     }

@@ -1,12 +1,9 @@
 ﻿using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Advertisment;
-using Core.Application.DTOs.Response.Advertisment;
 using Core.Application.Interface.Advertisment;
 using Core.Application.Interface.GenericContracts;
 using Core.Core.Data;
-using Core.Core.Entities.Advertisements;
-using global::Core.Application.Interface.Advertisment;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -132,7 +129,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
     public override async Task<Response<AdvertismentResponseDto>> CreateAsync([FromBody] AdvertismentDto entityDto, CancellationToken cancellationToken = default)
     {
-        return await CreateAsync(entityDto, cancellationToken);
+        return await base.CreateAsync(entityDto, cancellationToken);
     }
 
     /// <summary>
@@ -148,12 +145,13 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
     public override async Task<Response<AdvertismentResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] AdvertismentDto entityDto, CancellationToken cancellationToken = default)
     {
-        return await UpdateAsync(id, entityDto, cancellationToken);
+        return await base.UpdateAsync(id, entityDto, cancellationToken);
     }
 
     /// <summary>
     /// Deletes a record by its ID.
     /// </summary>
+    /// 
     /// <param name="id">The unique identifier of the record to delete.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A success or failure response.</returns>
@@ -163,7 +161,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found or failed to delete.")]
     public override async Task<Response<AdvertismentResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
     {
-        return await DeleteAsync(id, cancellationToken);
+        return await base.DeleteAsync(id, cancellationToken);
     }
 
     /// <summary>
@@ -178,7 +176,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data. Collection is empty or null.")]
     public override async Task<IActionResult> BulkDeleteAsync([FromBody] IEnumerable<AdvertismentDto> entities, CancellationToken cancellationToken = default)
     {
-        return await BulkDeleteAsync(entities, cancellationToken);
+        return await base.BulkDeleteAsync(entities, cancellationToken);
     }
 
     /// <summary>
@@ -208,7 +206,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data. Collection is empty or null.")]
     public override async Task<IActionResult> BulkAddAsync([FromBody] IEnumerable<AdvertismentDto> entities, CancellationToken cancellationToken = default)
     {
-        return await BulkAddAsync(entities, cancellationToken);
+        return await base.BulkAddAsync(entities, cancellationToken);
     }
 
     /// <summary>
@@ -223,6 +221,6 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     [ProducesResponseType(typeof(Response<string>), StatusCodes.Status404NotFound)]
     public override async Task<Response<AdvertismentResponseDto>> SoftDeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
     {
-        return await SoftDeleteAsync(id, cancellationToken);
+        return await base.SoftDeleteAsync(id, cancellationToken);
     }
 }

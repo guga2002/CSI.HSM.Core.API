@@ -233,11 +233,6 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
 
         var entityToDelete = await DbSet.FindAsync(idValue, cancellationToken);
 
-        if (entityToDelete is null)
-        {
-            throw new KeyNotFoundException($"Entity with id {id} not found.");
-        }
-
         DbSet.Remove(entityToDelete);
         await Context.SaveChangesAsync(cancellationToken);
         try
