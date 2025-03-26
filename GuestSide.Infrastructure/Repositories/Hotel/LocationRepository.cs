@@ -16,6 +16,18 @@ namespace Core.Infrastructure.Repositories.Hotel
         {
         }
 
+        public override Task<Location> AddAsync(Location entity, CancellationToken cancellationToken = default)
+        {
+            entity.MapUrl= $"https://www.google.com/maps?q={entity.Latitude},{entity.Longitude}";
+            return base.AddAsync(entity, cancellationToken);
+        }
+
+        public override Task<Location> UpdateAsync(Location entity, CancellationToken cancellationToken = default)
+        {
+            entity.MapUrl = $"https://www.google.com/maps?q={entity.Latitude},{entity.Longitude}";
+            return base.UpdateAsync(entity, cancellationToken);
+        }
+
         #region Get All Locations
         public async Task<IEnumerable<Location>> GetAllLocationsAsync()
         {
@@ -32,7 +44,7 @@ namespace Core.Infrastructure.Repositories.Hotel
         {
             var location = await DbSet
                 .Include(l => l.Hotel)
-                .FirstOrDefaultAsync(l => l.HotelId == hotelId);
+                .FirstOrDefaultAsync(l => l.Hotel.Id == hotelId);
 
             return location;
         }
@@ -50,7 +62,7 @@ namespace Core.Infrastructure.Repositories.Hotel
         #region Update Hotel Location
         public async Task<bool> UpdateHotelLocation(long hotelId, double latitude, double longitude)
         {
-            var location = await DbSet.FirstOrDefaultAsync(l => l.HotelId == hotelId);
+            var location = await DbSet.Include(i=>i.Hotel).FirstOrDefaultAsync(l => l.Hotel.Id == hotelId);
 
             if (location == null) return false;
 

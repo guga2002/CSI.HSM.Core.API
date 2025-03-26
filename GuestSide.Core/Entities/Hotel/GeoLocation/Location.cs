@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 namespace Core.Core.Entities.Hotel.GeoLocation
 {
     [Table("Locations", Schema = "CSI")]
-    [Index(nameof(HotelId))] // Optimized for hotel-location joins
     [Index(nameof(Latitude), nameof(Longitude))] // Optimized for geospatial lookups
     public class Location : AbstractEntity
     {
@@ -18,10 +17,6 @@ namespace Core.Core.Entities.Hotel.GeoLocation
         public double Latitude { get; set; }
 
         public double Longitude { get; set; }
-
-        [ForeignKey(nameof(Hotel))]
-        public long HotelId { get; set; }
-
         public virtual Hotel Hotel { get; set; } // Virtual for lazy loading
     }
 }

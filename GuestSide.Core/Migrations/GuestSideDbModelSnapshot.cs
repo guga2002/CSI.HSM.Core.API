@@ -409,9 +409,6 @@ namespace Core.Core.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<long>("HotelId")
-                        .HasColumnType("bigint");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -425,9 +422,6 @@ namespace Core.Core.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HotelId")
-                        .IsUnique();
 
                     b.HasIndex("Latitude", "Longitude");
 
@@ -464,6 +458,9 @@ namespace Core.Core.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
+                    b.Property<long>("LocationId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -480,13 +477,8 @@ namespace Core.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("City");
-
-                    b.HasIndex("LanguageCode");
-
-                    b.HasIndex("Name");
-
-                    b.HasIndex("Stars");
+                    b.HasIndex("LocationId")
+                        .IsUnique();
 
                     b.ToTable("Hotels", "CSI");
                 });
@@ -2136,15 +2128,15 @@ namespace Core.Core.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Hotel.GeoLocation.Location", b =>
+            modelBuilder.Entity("Core.Core.Entities.Hotel.Hotel", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Hotel.Hotel", "Hotel")
-                        .WithOne("Location")
-                        .HasForeignKey("Core.Core.Entities.Hotel.GeoLocation.Location", "HotelId")
+                    b.HasOne("Core.Core.Entities.Hotel.GeoLocation.Location", "Location")
+                        .WithOne("Hotel")
+                        .HasForeignKey("Core.Core.Entities.Hotel.Hotel", "LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Hotel");
+                    b.Navigation("Location");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Item.Cart", b =>
@@ -2480,10 +2472,14 @@ namespace Core.Core.Migrations
                     b.Navigation("GuestsStatuses");
                 });
 
+            modelBuilder.Entity("Core.Core.Entities.Hotel.GeoLocation.Location", b =>
+                {
+                    b.Navigation("Hotel")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Core.Core.Entities.Hotel.Hotel", b =>
                 {
-                    b.Navigation("Location");
-
                     b.Navigation("Rooms");
                 });
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Core.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class migrateNowkfgkj : Migration
+    public partial class dfd : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,9 +21,9 @@ namespace Core.Core.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LanguageCode = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -44,29 +44,6 @@ namespace Core.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AudioResponseCategories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Hotels",
-                schema: "CSI",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Stars = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    PicturesSerialized = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FacilitiesSerialized = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Hotels", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,6 +83,24 @@ namespace Core.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Locations",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    MapUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Latitude = table.Column<double>(type: "float", nullable: false),
+                    Longitude = table.Column<double>(type: "float", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Logs",
                 schema: "CSI",
                 columns: table => new
@@ -113,15 +108,15 @@ namespace Core.Core.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     LoggerId = table.Column<long>(type: "bigint", nullable: true),
-                    LogLevel = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    LogLevel = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CorrelationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Exception = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IpAddress = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: true),
-                    Source = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    IpAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Source = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsEmergency = table.Column<bool>(type: "bit", nullable: false),
-                    RequestId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    RequestId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StackTrace = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
@@ -252,6 +247,29 @@ namespace Core.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "StaffReserveItems",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    FinalUsed = table.Column<bool>(type: "bit", nullable: false),
+                    ReservationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReservedTill = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RequiredDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ReturnDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ReleasedBySystem = table.Column<bool>(type: "bit", nullable: false),
+                    HandledDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StaffReserveItems", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Statuses",
                 schema: "CSI",
                 columns: table => new
@@ -342,32 +360,6 @@ namespace Core.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Locations",
-                schema: "CSI",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    MapUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Latitude = table.Column<double>(type: "float", nullable: false),
-                    Longitude = table.Column<double>(type: "float", nullable: false),
-                    HotelId = table.Column<long>(type: "bigint", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Locations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Locations_Hotels_HotelId",
-                        column: x => x.HotelId,
-                        principalSchema: "CSI",
-                        principalTable: "Hotels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Items",
                 schema: "CSI",
                 columns: table => new
@@ -379,7 +371,6 @@ namespace Core.Core.Migrations
                     Information = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     IsOrderAble = table.Column<bool>(type: "bit", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
                     WhatWillRobotSay = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     ItemCategoryId = table.Column<long>(type: "bigint", nullable: false),
                     LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
@@ -394,6 +385,37 @@ namespace Core.Core.Migrations
                         column: x => x.ItemCategoryId,
                         principalSchema: "CSI",
                         principalTable: "ItemCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Hotels",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Stars = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    LocationId = table.Column<long>(type: "bigint", nullable: false),
+                    PicturesSerialized = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FacilitiesSerialized = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Hotels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Hotels_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalSchema: "CSI",
+                        principalTable: "Locations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -435,45 +457,6 @@ namespace Core.Core.Migrations
                         column: x => x.RestaurantId,
                         principalSchema: "CSI",
                         principalTable: "Restaurants",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Rooms",
-                schema: "CSI",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoomNumber = table.Column<int>(type: "int", nullable: false),
-                    Floor = table.Column<int>(type: "int", nullable: false),
-                    WhatWillRobotSay = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
-                    MaxOccupancy = table.Column<int>(type: "int", nullable: false),
-                    PricePerNight = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
-                    PictureUrlsSerialized = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoomCategoryId = table.Column<long>(type: "bigint", nullable: false),
-                    HotelId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Rooms", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Rooms_Hotels_HotelId",
-                        column: x => x.HotelId,
-                        principalSchema: "CSI",
-                        principalTable: "Hotels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Rooms_RoomCategories_RoomCategoryId",
-                        column: x => x.RoomCategoryId,
-                        principalSchema: "CSI",
-                        principalTable: "RoomCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -549,85 +532,40 @@ namespace Core.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Guests",
+                name: "Rooms",
                 schema: "CSI",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    RoomNumber = table.Column<int>(type: "int", nullable: false),
+                    Floor = table.Column<int>(type: "int", nullable: false),
                     WhatWillRobotSay = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    ProfilePicture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Country = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    CheckInDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CheckOutDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    AdminNotes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    StatusId = table.Column<long>(type: "bigint", nullable: false),
-                    IsFrequentGuest = table.Column<bool>(type: "bit", nullable: false),
-                    EmergencyContactName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    EmergencyContactPhone = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Preferences = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    RoomId = table.Column<long>(type: "bigint", nullable: false),
-                    LanguageId = table.Column<long>(type: "bigint", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Guests", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Guests_LanguagePacks_LanguageId",
-                        column: x => x.LanguageId,
-                        principalSchema: "CSI",
-                        principalTable: "LanguagePacks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Guests_Rooms_RoomId",
-                        column: x => x.RoomId,
-                        principalSchema: "CSI",
-                        principalTable: "Rooms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Guests_Statuses_StatusId",
-                        column: x => x.StatusId,
-                        principalSchema: "CSI",
-                        principalTable: "Statuses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "QRCodes",
-                schema: "CSI",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Text = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    QrCodeImage = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    GeneratedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ScannedCount = table.Column<int>(type: "int", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    MaxOccupancy = table.Column<int>(type: "int", nullable: false),
+                    PricePerNight = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    PictureUrlsSerialized = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoomCategoryId = table.Column<long>(type: "bigint", nullable: false),
+                    HotelId = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RoomId = table.Column<long>(type: "bigint", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_QRCodes", x => x.Id);
+                    table.PrimaryKey("PK_Rooms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_QRCodes_Rooms_RoomId",
-                        column: x => x.RoomId,
+                        name: "FK_Rooms_Hotels_HotelId",
+                        column: x => x.HotelId,
                         principalSchema: "CSI",
-                        principalTable: "Rooms",
+                        principalTable: "Hotels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Rooms_RoomCategories_RoomCategoryId",
+                        column: x => x.RoomCategoryId,
+                        principalSchema: "CSI",
+                        principalTable: "RoomCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -729,45 +667,6 @@ namespace Core.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StaffReserveItems",
-                schema: "CSI",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StaffId = table.Column<long>(type: "bigint", nullable: false),
-                    ItemId = table.Column<long>(type: "bigint", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    FinalUsed = table.Column<bool>(type: "bit", nullable: false),
-                    ReservationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ReservedTill = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RequiredDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ReturnDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ReleasedBySystem = table.Column<bool>(type: "bit", nullable: false),
-                    HandledDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StaffReserveItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_StaffReserveItems_Items_ItemId",
-                        column: x => x.ItemId,
-                        principalSchema: "CSI",
-                        principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_StaffReserveItems_Staffs_StaffId",
-                        column: x => x.StaffId,
-                        principalSchema: "CSI",
-                        principalTable: "Staffs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "StaffSentiments",
                 schema: "CSI",
                 columns: table => new
@@ -825,6 +724,118 @@ namespace Core.Core.Migrations
                         column: x => x.StaffId,
                         principalSchema: "CSI",
                         principalTable: "Staffs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Guests",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    WhatWillRobotSay = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    ProfilePicture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    CheckInDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CheckOutDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AdminNotes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    StatusId = table.Column<long>(type: "bigint", nullable: false),
+                    IsFrequentGuest = table.Column<bool>(type: "bit", nullable: false),
+                    EmergencyContactName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    EmergencyContactPhone = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Preferences = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    RoomId = table.Column<long>(type: "bigint", nullable: false),
+                    LanguageId = table.Column<long>(type: "bigint", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Guests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Guests_LanguagePacks_LanguageId",
+                        column: x => x.LanguageId,
+                        principalSchema: "CSI",
+                        principalTable: "LanguagePacks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Guests_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalSchema: "CSI",
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Guests_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalSchema: "CSI",
+                        principalTable: "Statuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "QRCodes",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    QrCodeImage = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    GeneratedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ScannedCount = table.Column<int>(type: "int", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RoomId = table.Column<long>(type: "bigint", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QRCodes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_QRCodes_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalSchema: "CSI",
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StaffSupportResponses",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TicketId = table.Column<long>(type: "bigint", nullable: false),
+                    ResponderName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    ResponseMessage = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    IsFromSupportTeam = table.Column<bool>(type: "bit", nullable: false),
+                    ResponseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AttachmentUrlsSerialized = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StaffSupportResponses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StaffSupportResponses_StaffSupports_TicketId",
+                        column: x => x.TicketId,
+                        principalSchema: "CSI",
+                        principalTable: "StaffSupports",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -938,34 +949,6 @@ namespace Core.Core.Migrations
                         column: x => x.GuestId,
                         principalSchema: "CSI",
                         principalTable: "Guests",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StaffSupportResponses",
-                schema: "CSI",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TicketId = table.Column<long>(type: "bigint", nullable: false),
-                    ResponderName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    ResponseMessage = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    IsFromSupportTeam = table.Column<bool>(type: "bit", nullable: false),
-                    ResponseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AttachmentUrlsSerialized = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StaffSupportResponses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_StaffSupportResponses_StaffSupports_TicketId",
-                        column: x => x.TicketId,
-                        principalSchema: "CSI",
-                        principalTable: "StaffSupports",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1114,7 +1097,6 @@ namespace Core.Core.Migrations
                     ItemId = table.Column<long>(type: "bigint", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     IsCompleted = table.Column<bool>(type: "bit", nullable: false),
-                    AssignedByStaffId = table.Column<long>(type: "bigint", nullable: true),
                     AssignedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Notes = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
@@ -1129,12 +1111,6 @@ namespace Core.Core.Migrations
                         principalTable: "Items",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TaskItems_Staffs_AssignedByStaffId",
-                        column: x => x.AssignedByStaffId,
-                        principalSchema: "CSI",
-                        principalTable: "Staffs",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TaskItems_Tasks_TaskId",
                         column: x => x.TaskId,
@@ -1153,12 +1129,10 @@ namespace Core.Core.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    StaffId = table.Column<long>(type: "bigint", nullable: false),
                     StatusId = table.Column<long>(type: "bigint", nullable: false),
                     TaskId = table.Column<long>(type: "bigint", nullable: false),
                     IsCompleted = table.Column<bool>(type: "bit", nullable: false),
                     AssignedBy = table.Column<long>(type: "bigint", nullable: true),
-                    Priority = table.Column<int>(type: "int", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StaffCategoryId = table.Column<long>(type: "bigint", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
@@ -1178,13 +1152,6 @@ namespace Core.Core.Migrations
                         principalSchema: "CSI",
                         principalTable: "Staffs",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_TaskToStaffs_Staffs_StaffId",
-                        column: x => x.StaffId,
-                        principalSchema: "CSI",
-                        principalTable: "Staffs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TaskToStaffs_TaskStatus_StatusId",
                         column: x => x.StatusId,
@@ -1402,28 +1369,11 @@ namespace Core.Core.Migrations
                 column: "StatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Hotels_City",
+                name: "IX_Hotels_LocationId",
                 schema: "CSI",
                 table: "Hotels",
-                column: "City");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Hotels_LanguageCode",
-                schema: "CSI",
-                table: "Hotels",
-                column: "LanguageCode");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Hotels_Name",
-                schema: "CSI",
-                table: "Hotels",
-                column: "Name");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Hotels_Stars",
-                schema: "CSI",
-                table: "Hotels",
-                column: "Stars");
+                column: "LocationId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemCategories_CategoryName",
@@ -1472,22 +1422,13 @@ namespace Core.Core.Migrations
                 name: "IX_LanguagePacks_Code",
                 schema: "CSI",
                 table: "LanguagePacks",
-                column: "Code",
-                unique: true);
+                column: "Code");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LanguagePacks_Name",
                 schema: "CSI",
                 table: "LanguagePacks",
-                column: "Name",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Locations_HotelId",
-                schema: "CSI",
-                table: "Locations",
-                column: "HotelId",
-                unique: true);
+                column: "Name");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Locations_Latitude_Longitude",
@@ -1858,22 +1799,10 @@ namespace Core.Core.Migrations
                 column: "FinalUsed");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StaffReserveItems_ItemId",
-                schema: "CSI",
-                table: "StaffReserveItems",
-                column: "ItemId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_StaffReserveItems_ReservedTill",
                 schema: "CSI",
                 table: "StaffReserveItems",
                 column: "ReservedTill");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StaffReserveItems_StaffId",
-                schema: "CSI",
-                table: "StaffReserveItems",
-                column: "StaffId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Staffs_Email",
@@ -2004,12 +1933,6 @@ namespace Core.Core.Migrations
                 column: "StatusName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TaskItems_AssignedByStaffId",
-                schema: "CSI",
-                table: "TaskItems",
-                column: "AssignedByStaffId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TaskItems_IsCompleted",
                 schema: "CSI",
                 table: "TaskItems",
@@ -2101,12 +2024,6 @@ namespace Core.Core.Migrations
                 column: "StaffCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TaskToStaffs_StaffId",
-                schema: "CSI",
-                table: "TaskToStaffs",
-                column: "StaffId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TaskToStaffs_StartDate",
                 schema: "CSI",
                 table: "TaskToStaffs",
@@ -2151,10 +2068,6 @@ namespace Core.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "ItemCategoryToStaffCategory",
-                schema: "CSI");
-
-            migrationBuilder.DropTable(
-                name: "Locations",
                 schema: "CSI");
 
             migrationBuilder.DropTable(
@@ -2291,6 +2204,10 @@ namespace Core.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "RoomCategories",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
+                name: "Locations",
                 schema: "CSI");
         }
     }

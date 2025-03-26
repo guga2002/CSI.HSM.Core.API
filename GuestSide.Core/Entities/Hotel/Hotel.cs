@@ -1,6 +1,5 @@
 ﻿using Core.Core.Entities.AbstractEntities;
 using Core.Core.Entities.Hotel.GeoLocation;
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
@@ -8,10 +7,6 @@ using System.Text.Json;
 namespace Core.Core.Entities.Hotel
 {
     [Table("Hotels", Schema = "CSI")]
-    [Index(nameof(Name))] // Index for quick hotel name lookups
-    [Index(nameof(City))] // Index for searching hotels by city
-    [Index(nameof(Stars))] // Index for filtering by rating
-    [Index(nameof(LanguageCode))] // Optimized for multi-language support
     public class Hotel : AbstractEntity
     {
         [StringLength(100)]
@@ -33,7 +28,9 @@ namespace Core.Core.Entities.Hotel
         [StringLength(10)] // Optimized for storing language codes
         public string? LanguageCode { get; set; }
 
-        public virtual Location? Location { get; set; } 
+        [ForeignKey("Location")]
+        public long LocationId { get; set; }
+        public  Location? Location { get; set; } 
 
         public virtual List<Room.Room> Rooms { get; set; } = new();
 

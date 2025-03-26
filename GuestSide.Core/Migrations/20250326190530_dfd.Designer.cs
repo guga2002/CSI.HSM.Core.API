@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Core.Migrations
 {
     [DbContext(typeof(GuestSideDb))]
-    [Migration("20250216171422_hjs")]
-    partial class hjs
+    [Migration("20250326190530_dfd")]
+    partial class dfd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,20 +83,17 @@ namespace Core.Core.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("LanguageCode")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -415,9 +412,6 @@ namespace Core.Core.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<long>("HotelId")
-                        .HasColumnType("bigint");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -431,9 +425,6 @@ namespace Core.Core.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HotelId")
-                        .IsUnique();
 
                     b.HasIndex("Latitude", "Longitude");
 
@@ -470,6 +461,9 @@ namespace Core.Core.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
+                    b.Property<long>("LocationId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -486,13 +480,8 @@ namespace Core.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("City");
-
-                    b.HasIndex("LanguageCode");
-
-                    b.HasIndex("Name");
-
-                    b.HasIndex("Stars");
+                    b.HasIndex("LocationId")
+                        .IsUnique();
 
                     b.ToTable("Hotels", "CSI");
                 });
@@ -640,9 +629,6 @@ namespace Core.Core.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.Property<string>("WhatWillRobotSay")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
@@ -719,9 +705,6 @@ namespace Core.Core.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<long>("ItemId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Notes")
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
@@ -744,18 +727,11 @@ namespace Core.Core.Migrations
                     b.Property<DateTime?>("ReturnDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("StaffId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FinalUsed");
 
-                    b.HasIndex("ItemId");
-
                     b.HasIndex("ReservedTill");
-
-                    b.HasIndex("StaffId");
 
                     b.ToTable("StaffReserveItems", "CSI");
                 });
@@ -767,9 +743,6 @@ namespace Core.Core.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long?>("AssignedByStaffId")
-                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("AssignedDate")
                         .HasColumnType("datetime2");
@@ -794,8 +767,6 @@ namespace Core.Core.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AssignedByStaffId");
 
                     b.HasIndex("IsCompleted");
 
@@ -835,11 +806,9 @@ namespace Core.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Code")
-                        .IsUnique();
+                    b.HasIndex("Code");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("Name");
 
                     b.ToTable("LanguagePacks", "CSI");
                 });
@@ -863,8 +832,7 @@ namespace Core.Core.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IpAddress")
-                        .HasMaxLength(45)
-                        .HasColumnType("nvarchar(45)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -874,24 +842,20 @@ namespace Core.Core.Migrations
 
                     b.Property<string>("LogLevel")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<long?>("LoggerId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Message")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RequestId")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Source")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StackTrace")
                         .HasColumnType("nvarchar(max)");
@@ -1956,9 +1920,6 @@ namespace Core.Core.Migrations
                     b.Property<long?>("StaffCategoryId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("StaffId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -1978,8 +1939,6 @@ namespace Core.Core.Migrations
                     b.HasIndex("EndDate");
 
                     b.HasIndex("StaffCategoryId");
-
-                    b.HasIndex("StaffId");
 
                     b.HasIndex("StartDate");
 
@@ -2172,15 +2131,15 @@ namespace Core.Core.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Hotel.GeoLocation.Location", b =>
+            modelBuilder.Entity("Core.Core.Entities.Hotel.Hotel", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Hotel.Hotel", "Hotel")
-                        .WithOne("Location")
-                        .HasForeignKey("Core.Core.Entities.Hotel.GeoLocation.Location", "HotelId")
+                    b.HasOne("Core.Core.Entities.Hotel.GeoLocation.Location", "Location")
+                        .WithOne("Hotel")
+                        .HasForeignKey("Core.Core.Entities.Hotel.Hotel", "LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Hotel");
+                    b.Navigation("Location");
                 });
 
             modelBuilder.Entity("Core.Core.Entities.Item.Cart", b =>
@@ -2233,31 +2192,8 @@ namespace Core.Core.Migrations
                     b.Navigation("StaffMember");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.StaffReserveItem", b =>
-                {
-                    b.HasOne("Core.Core.Entities.Item.Items", "Item")
-                        .WithMany("ReservedItems")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Core.Entities.Staff.Staffs", "StaffMember")
-                        .WithMany("StaffReservedItems")
-                        .HasForeignKey("StaffId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Item");
-
-                    b.Navigation("StaffMember");
-                });
-
             modelBuilder.Entity("Core.Core.Entities.Item.TaskItem", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Staff.Staffs", "AssignedByStaff")
-                        .WithMany()
-                        .HasForeignKey("AssignedByStaffId");
-
                     b.HasOne("Core.Core.Entities.Item.Items", "Item")
                         .WithMany("TaskItems")
                         .HasForeignKey("ItemId")
@@ -2269,8 +2205,6 @@ namespace Core.Core.Migrations
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("AssignedByStaff");
 
                     b.Navigation("Item");
 
@@ -2484,12 +2418,6 @@ namespace Core.Core.Migrations
                         .WithMany("TaskToStaff")
                         .HasForeignKey("StaffCategoryId");
 
-                    b.HasOne("Core.Core.Entities.Staff.Staffs", "Staff")
-                        .WithMany()
-                        .HasForeignKey("StaffId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Core.Core.Entities.Task.TasksStatus", "Status")
                         .WithMany("TaskToStaff")
                         .HasForeignKey("StatusId")
@@ -2503,8 +2431,6 @@ namespace Core.Core.Migrations
                         .IsRequired();
 
                     b.Navigation("AssignedByStaff");
-
-                    b.Navigation("Staff");
 
                     b.Navigation("Status");
 
@@ -2549,10 +2475,14 @@ namespace Core.Core.Migrations
                     b.Navigation("GuestsStatuses");
                 });
 
+            modelBuilder.Entity("Core.Core.Entities.Hotel.GeoLocation.Location", b =>
+                {
+                    b.Navigation("Hotel")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Core.Core.Entities.Hotel.Hotel", b =>
                 {
-                    b.Navigation("Location");
-
                     b.Navigation("Rooms");
                 });
 
@@ -2570,8 +2500,6 @@ namespace Core.Core.Migrations
 
             modelBuilder.Entity("Core.Core.Entities.Item.Items", b =>
                 {
-                    b.Navigation("ReservedItems");
-
                     b.Navigation("TaskItems");
                 });
 
@@ -2642,8 +2570,6 @@ namespace Core.Core.Migrations
                     b.Navigation("StaffNotifications");
 
                     b.Navigation("StaffRequestForItemStockRenewal");
-
-                    b.Navigation("StaffReservedItems");
 
                     b.Navigation("StaffSentiments");
                 });

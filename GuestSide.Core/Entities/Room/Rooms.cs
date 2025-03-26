@@ -10,7 +10,6 @@ namespace Core.Core.Entities.Room
     [Table("Rooms", Schema = "CSI")]
     [Index(nameof(RoomNumber))] 
     [Index(nameof(Floor))] 
-    [Index(nameof(HotelId))] 
     [Index(nameof(RoomCategoryId))] 
     [Index(nameof(IsAvailable))] 
     [Index(nameof(CreatedAt))] 

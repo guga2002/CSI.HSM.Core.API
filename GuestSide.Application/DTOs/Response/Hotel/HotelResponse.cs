@@ -25,6 +25,8 @@ public class HotelResponse
 
     public string? LanguageCode { get; set; }
 
+    public long LocationId { get; set; }
+
     public List<string>? Pictures
     {
         get ;

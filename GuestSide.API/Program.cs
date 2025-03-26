@@ -182,7 +182,7 @@ builder.Services.InjectAudioResponse();
 builder.Services.InjectAudioResponseCategory();
 
 //builder.Logging.ClearProviders();
-builder.Services.InjectSeriLog();
+//builder.Services.InjectSeriLog();
 
 builder.Services.AddScoped(typeof(IAdditionalFeaturesRepository<>), typeof(AdditionalFeaturesRepository<>));
 
