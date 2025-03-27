@@ -197,6 +197,8 @@ var app = builder.Build();
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api V1");
         options.RoutePrefix = "swagger";
+        options.InjectStylesheet("CustomJs/swagger-custom.css"); // Optional
+        options.InjectJavascript("/swagger-custom.js");  // Add this line
         //options.InjectJavascript("/swagger-voice-search.js");
     });
 
