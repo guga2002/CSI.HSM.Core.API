@@ -9,19 +9,19 @@ pipeline {
     stages {
         stage('Restore') {
             steps {
-                sh 'dotnet restore Core.API.csproj'
+                sh 'dotnet restore CSI.HSM.Core.API/Core.API.csproj'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'dotnet build Core.API.csproj --configuration Release'
+                sh 'dotnet build  CSI.HSM.Core.API/Core.API.csproj --configuration Release'
             }
         }
 
         stage('Publish') {
             steps {
-                sh 'dotnet publish Core.API.csproj --configuration Release -o ~/apps/CsiApi'
+                sh 'dotnet publish  CSI.HSM.Core.API/Core.API.csproj --configuration Release -o ~/apps/CsiApi'
             }
         }
 
