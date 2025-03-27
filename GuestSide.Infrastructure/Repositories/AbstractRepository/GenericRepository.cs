@@ -21,7 +21,6 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
     private readonly IRedisCash _redisCache;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ILogger<T> _logger;
-    private readonly IExistable<T> _checkExistance;
 
     /// <summary>
     /// Constructor
@@ -31,14 +30,13 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
     /// <param name="httpContextAccessor"></param>
     /// <param name="logger"></param>
     /// <exception cref="ArgumentNullException"></exception>
-    protected GenericRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<T> logger, IExistable<T> checkExistance)
+    protected GenericRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<T> logger)
     {
         Context = context ?? throw new ArgumentNullException(nameof(context));
         DbSet = context.Set<T>();
         _redisCache = redisCache ?? throw new ArgumentNullException(nameof(redisCache));
         _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         _logger = logger;
-        _checkExistance = checkExistance;
     }
     #endregion
 
