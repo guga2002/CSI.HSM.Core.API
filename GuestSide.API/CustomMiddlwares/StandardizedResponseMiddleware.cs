@@ -27,6 +27,8 @@
             context.Response.StatusCode = 200; 
         }
 
+       context.Response.StatusCode = 200;
+
         context.Response.Body = originalBody;
         context.Response.ContentType = "application/json";
         await context.Response.WriteAsync(responseBody);
