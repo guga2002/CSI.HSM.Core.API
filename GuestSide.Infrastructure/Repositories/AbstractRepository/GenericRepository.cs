@@ -1,4 +1,6 @@
 ﻿using Core.Core.Data;
+using Core.Core.Entities.AbstractEntities;
+using Core.Core.Entities.Hotel.GeoLocation;
 using Core.Core.Interfaces.AbstractInterface;
 using Core.Persistance.Cashing;
 using Microsoft.AspNetCore.Http;
@@ -19,6 +21,7 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
     private readonly IRedisCash _redisCache;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ILogger<T> _logger;
+    private readonly IExistable<T> _checkExistance;
 
     /// <summary>
     /// Constructor
@@ -28,13 +31,14 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
     /// <param name="httpContextAccessor"></param>
     /// <param name="logger"></param>
     /// <exception cref="ArgumentNullException"></exception>
-    protected GenericRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<T> logger)
+    protected GenericRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<T> logger, IExistable<T> checkExistance)
     {
         Context = context ?? throw new ArgumentNullException(nameof(context));
         DbSet = context.Set<T>();
         _redisCache = redisCache ?? throw new ArgumentNullException(nameof(redisCache));
         _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         _logger = logger;
+        _checkExistance = checkExistance;
     }
     #endregion
 
@@ -154,6 +158,17 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
         if (entity is null)
         {
             throw new ArgumentNullException(nameof(entity));
+        }
+
+
+        if (entity is IExistable<T> existable)
+        {
+            var predicate = existable.GetExistencePredicate();
+            bool exists = await ExistsAsync(predicate);
+            if (exists)
+            {
+                throw new ArgumentException("Value is already in Db try different value");
+            }
         }
 
         var regionName = GetHotelRegion();
@@ -307,6 +322,11 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
     {
         _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("X-Hotel-Id", out var regionName);
         return regionName.ToString();
+    }
+
+    private Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
+    {
+        return Context.Set<T>().AnyAsync(predicate, cancellationToken);
     }
     #endregion
 }

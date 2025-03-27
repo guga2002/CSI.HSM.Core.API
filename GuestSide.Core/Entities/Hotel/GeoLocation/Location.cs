@@ -2,12 +2,16 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+using Core.Core.Data;
+using System.Threading;
+using System;
 
 namespace Core.Core.Entities.Hotel.GeoLocation
 {
     [Table("Locations", Schema = "CSI")]
     [Index(nameof(Latitude), nameof(Longitude))] // Optimized for geospatial lookups
-    public class Location : AbstractEntity
+    public class Location : AbstractEntity,IExistable<Location>
     {
         [StringLength(255)] // Increased length for better storage of addresses
         public string? Address { get; set; } // Human-friendly name
@@ -18,5 +22,12 @@ namespace Core.Core.Entities.Hotel.GeoLocation
 
         public double Longitude { get; set; }
         public virtual Hotel Hotel { get; set; } // Virtual for lazy loading
+
+        public Expression<Func<Location, bool>> GetExistencePredicate()
+        {
+            return l => l.Latitude == Latitude && l.Longitude == Longitude;
+        }
     }
+
+
 }

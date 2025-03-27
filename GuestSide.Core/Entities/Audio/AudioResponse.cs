@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq.Expressions;
+using Core.Core.Entities.AbstractEntities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Core.Core.Entities.Audio;
@@ -9,7 +11,7 @@ namespace Core.Core.Entities.Audio;
 [Index(nameof(VoiceType))]  
 [Index(nameof(CategoryId))]  
 [Index(nameof(CreatedDate))] 
-public class AudioResponse
+public class AudioResponse:IExistable<AudioResponse>
 {
     [Key]
     public long Id { get; set; }
@@ -34,4 +36,9 @@ public class AudioResponse
     public long CategoryId { get; set; }
 
     public virtual AudioResponseCategory? Category { get; set; }
+
+    public Expression<Func<AudioResponse, bool>> GetExistencePredicate()
+    {
+        return i=>i.AudioFilePath == AudioFilePath;
+    }
 }

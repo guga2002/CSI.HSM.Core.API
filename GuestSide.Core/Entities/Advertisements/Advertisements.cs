@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Core.Core.Entities.Advertisements;
 
@@ -10,7 +11,7 @@ namespace Core.Core.Entities.Advertisements;
 [Index(nameof(StartDate))] 
 [Index(nameof(EndDate))] 
 [Index(nameof(LanguageCode))] 
-public class Advertisement : AbstractEntity
+public class Advertisement : AbstractEntity, IExistable<Advertisement>
 {
     [StringLength(100)]
     public required string Title { get; set; }
@@ -32,4 +33,9 @@ public class Advertisement : AbstractEntity
     public string? LanguageCode { get; set; }
 
     public List<string>? PicturesUrl { get; set; }
+
+    public Expression<Func<Advertisement, bool>> GetExistencePredicate()
+    {
+        return i=>i.Description==Description&&i.AdvertisementTypeId==AdvertisementTypeId;
+    }
 }
