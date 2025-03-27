@@ -32,7 +32,7 @@ namespace Core.Core.Entities.Hotel
         public long LocationId { get; set; }
         public  Location? Location { get; set; } 
 
-        public virtual List<Room.Room> Rooms { get; set; } = new();
+        public virtual List<Room.Room>? Rooms { get; set; }
 
         public string? PicturesSerialized { get; set; }
 

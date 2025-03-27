@@ -160,7 +160,6 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
             throw new ArgumentNullException(nameof(entity));
         }
 
-
         if (entity is IExistable<T> existable)
         {
             var predicate = existable.GetExistencePredicate();

@@ -36,6 +36,6 @@ public class Advertisement : AbstractEntity, IExistable<Advertisement>
 
     public Expression<Func<Advertisement, bool>> GetExistencePredicate()
     {
-        return i=>i.Description==Description&&i.AdvertisementTypeId==AdvertisementTypeId;
+        return i => i.Description == Description && i.AdvertisementTypeId == AdvertisementTypeId;
     }
 }

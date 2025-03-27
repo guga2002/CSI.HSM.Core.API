@@ -22,7 +22,7 @@ namespace Core.Infrastructure.Repositories.Room
                 .Where(room => room.HotelId == hotelId
                             && room.RoomCategoryId == categoryId
                             && room.IsAvailable
-                            && room.MaxOccupancy >= maxOccupancy
+                            && room.MaxOccupancy == maxOccupancy
                             && room.PricePerNight <= maxPrice)
                 .OrderBy(room => room.PricePerNight)
                 .ToListAsync();
