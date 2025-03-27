@@ -2,44 +2,38 @@ pipeline {
     agent any
 
     environment {
-        DOTNET_CLI_TELEMETRY_OPTOUT = '1'
-        AZURE_WEBAPP_NAME = 'your-azure-app-name'
-        AZURE_RESOURCE_GROUP = 'your-azure-rg'
+        DOTNET_ROOT = "/usr/share/dotnet"
+        PATH = "/usr/share/dotnet:${env.PATH}"
     }
 
     stages {
-        stage('Checkout') {
+        stage('Clone Repository') {
             steps {
-                git credentialsId: 'github-token', url: 'https://github.com/username/repo.git'
+                git branch: 'main', url: 'https://github.com/guga2002/CSI.HSM.Core.API.git'
             }
         }
 
         stage('Restore') {
             steps {
-                sh 'dotnet restore'
+                sh 'dotnet restore Core.API.csproj'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'dotnet build --configuration Release'
+                sh 'dotnet build Core.API.csproj --configuration Release'
             }
         }
 
         stage('Publish') {
             steps {
-                sh 'dotnet publish --configuration Release --output ./publish'
+                sh 'dotnet publish Core.API.csproj --configuration Release -o ~/apps/CsiApi'
             }
         }
 
-        stage('Deploy to Azure') {
+        stage('Restart Service') {
             steps {
-                withCredentials([azureServicePrincipal('azure-credentials-id')]) {
-                    sh '''
-                        az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
-                        az webapp deploy --resource-group $AZURE_RESOURCE_GROUP --name $AZURE_WEBAPP_NAME --src-path ./publish --type zip
-                    '''
-                }
+                sh 'sudo systemctl restart csi-core.service'
             }
         }
     }
