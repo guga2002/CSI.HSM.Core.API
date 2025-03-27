@@ -7,12 +7,6 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                git branch: 'main', url: 'https://github.com/guga2002/CSI.HSM.Core.API.git'
-            }
-        }
-
         stage('Restore') {
             steps {
                 sh 'dotnet restore Core.API.csproj'
