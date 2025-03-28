@@ -61,8 +61,4 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interface\Task\Category\" />
-  </ItemGroup>
-
 </Project>

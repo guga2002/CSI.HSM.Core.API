@@ -19,7 +19,7 @@ using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Core.Interfaces.UniteOfWork;
 using Core.Infrastructure.Repositories.UniteOfWork;
 using Core.Application.Services.Guest.Injection;
-using Core.Persistance.LoggingConfigs;
+using Core.Application.Services.Task.TaskLog.Startup;
 using Core.Application.Services.Audio.Injection;
 using Core.Application.Services.Item.DI;
 using Core.Core.Data;
@@ -134,7 +134,7 @@ builder.Services.InjectItem();
 builder.Services.AddLanguagePack();
 
 builder.Services.InjectLog();
-
+builder.Services.ActiveTaskLogs();
 builder.Services.ActiveStaffIncident();
 
 builder.Services.ActiveStaffInfoAboutRanOutItems();
