@@ -9,6 +9,7 @@ using Core.Core.Entities.Language;
 using Core.Core.Entities.LogEntities;
 using Core.Core.Entities.Notification;
 using Core.Core.Entities.Payment;
+using Core.Core.Entities.Promo;
 using Core.Core.Entities.Restaurant;
 using Core.Core.Entities.Room;
 using Core.Core.Entities.Staff;
@@ -68,6 +69,7 @@ public class GuestSideDb : DbContext
     public virtual DbSet<StaffSentiment> StaffSentiments { get; set; }
     public virtual DbSet<StaffSupport> StaffSupports { get; set; }
     public virtual DbSet<StaffSupportResponse> StaffSupportResponses { get; set; }
+    public virtual DbSet<PromoCode> PromoCodes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

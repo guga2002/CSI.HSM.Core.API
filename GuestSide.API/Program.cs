@@ -34,6 +34,7 @@ using Core.Application.Services.Staff.Incident.DI;
 using Core.Application.Services.Staff.Sentiments.Injection;
 using Core.Application.Services.Staff.StaffSupport.DI;
 using Core.Application.Services.Staff.StaffSupportResponse.DI;
+using Core.Application.Services.Promo.Startup;
 using Csi.VoicePack;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -141,7 +142,7 @@ builder.Services.ActiveStaffInfoAboutRanOutItems();
 builder.Services.InjectNotification();
 builder.Services.InjectGuestNotification();
 builder.Services.InjectStaffNotification();
-
+builder.Services.ActivatePromoCode();
 builder.Services.InjectItemCategoryToStaffCategory();
 builder.Services.ActiveStaffSentiments();
 builder.Services.ActiveStaffSupport();
