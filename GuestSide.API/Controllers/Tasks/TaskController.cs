@@ -63,6 +63,18 @@ public class TaskController : CSIControllerBase<TaskDto, TaskResponseDto, long, 
             : Response<bool>.ErrorResponse("Task not found.");
     }
 
+    [HttpPatch("update-priority/{taskId:long}")]
+    [SwaggerOperation(Summary = "Update Task Priority", Description = "Updates the Priority of a specific task.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Task priority updated successfully.", typeof(Response<bool>))]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Task not found.")]
+    public async Task<Response<bool>> UpdateTaskPriorityAsync([FromRoute] long taskId, [FromBody] Core.Entities.Task.TaskPriority newPriority)
+    {
+        var result = await _taskService.UpdateTaskPriority(taskId, newPriority);
+        return result
+            ? Response<bool>.SuccessResponse(true, "Task priority updated successfully.")
+            : Response<bool>.ErrorResponse("Task not found.");
+    }
+
     [HttpGet("by-status/{status}")]
     [SwaggerOperation(Summary = "Retrieve Tasks by Status", Description = "Fetches tasks filtered by status with an optional limit.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Tasks retrieved successfully.", typeof(Response<IEnumerable<TaskResponseDto>>))]
@@ -85,6 +97,16 @@ public class TaskController : CSIControllerBase<TaskDto, TaskResponseDto, long, 
         return result.Any()
             ? Response<IEnumerable<TaskResponseDto>>.SuccessResponse(result)
             : Response<IEnumerable<TaskResponseDto>>.ErrorResponse("No high-priority tasks found.");
+    }
+
+    [HttpPost("filtered-tasks")]
+    [SwaggerOperation(Summary = "Retrieve filtered Tasks", Description = "Fetches filtered tasks")]
+    [SwaggerResponse(StatusCodes.Status200OK, "filtered tasks retrieved successfully.", typeof(Response<IEnumerable<TaskResponseDto>>))]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "No tasks found.")]
+    public async Task<Response<IEnumerable<TaskResponseDto>>> GetFilteredTasksAsync([FromBody]FilterTaskDto filterTask)
+    {
+        var result = await _taskService.GetFilteredTasks(filterTask);
+        return new Response<IEnumerable<TaskResponseDto>>(result.Any() ? true : false, result);
     }
 
     // Standard CRUD Operations

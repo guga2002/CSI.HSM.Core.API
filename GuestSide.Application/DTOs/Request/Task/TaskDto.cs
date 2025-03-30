@@ -17,6 +17,8 @@ public class TaskDto
 
     public TaskStatus Status { get; set; }
 
+    public TaskPriority Priority { get; set; }
+
     public string? LanguageCode { get; set; }
 
     public long CartId { get; set; }
