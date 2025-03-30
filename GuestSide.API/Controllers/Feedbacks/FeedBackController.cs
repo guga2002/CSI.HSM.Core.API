@@ -30,7 +30,7 @@ namespace Core.API.Controllers.Feedbacks
         public async Task<Response<IEnumerable<FeedbackResponseDto>>> GuestFeedbacks([FromRoute] long guestId, CancellationToken cancellationToken = default)
         {
             var result = await _feedbackService.GetFeedbacksByUserId(guestId);
-            return new Response<IEnumerable<FeedbackResponseDto>>(true, result);
+            return new Response<IEnumerable<FeedbackResponseDto>>(result.Any() ? true : false, result);
         }
 
         [HttpGet("task/{taskId:long}")]
@@ -39,7 +39,7 @@ namespace Core.API.Controllers.Feedbacks
         public async Task<Response<IEnumerable<FeedbackResponseDto>>> GetFeedbacksByTaskIdAsync([FromRoute] long taskId, CancellationToken cancellationToken = default)
         {
             var result = await _feedbackService.GetFeedbacksByTaskIdAsync(taskId, cancellationToken);
-            return new Response<IEnumerable<FeedbackResponseDto>>(true,result);
+            return new Response<IEnumerable<FeedbackResponseDto>>(result.Any() ? true : false, result);
         }
 
         [HttpGet("rating-range")]
@@ -48,7 +48,7 @@ namespace Core.API.Controllers.Feedbacks
         public async Task<Response<IEnumerable<FeedbackResponseDto>>> GetFeedbacksByRatingAsync([FromQuery] int minRating, [FromQuery] int maxRating, CancellationToken cancellationToken = default)
         {
             var result = await _feedbackService.GetFeedbacksByRatingAsync(minRating, maxRating, cancellationToken);
-            return new Response<IEnumerable<FeedbackResponseDto>>(true, result);
+            return new Response<IEnumerable<FeedbackResponseDto>>(result.Any() ? true : false, result);
         }
 
         [HttpGet("date-range")]
@@ -57,7 +57,7 @@ namespace Core.API.Controllers.Feedbacks
         public async Task<Response<IEnumerable<FeedbackResponseDto>>> GetFeedbacksByDateRangeAsync([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, CancellationToken cancellationToken = default)
         {
             var result = await _feedbackService.GetFeedbacksByDateRangeAsync(startDate, endDate, cancellationToken);
-            return new Response<IEnumerable<FeedbackResponseDto>>(true, result);
+            return new Response<IEnumerable<FeedbackResponseDto>>(result.Any() ? true : false, result);
         }
 
         [HttpGet("language/{languageCode}")]
@@ -66,7 +66,7 @@ namespace Core.API.Controllers.Feedbacks
         public async Task<Response<IEnumerable<FeedbackResponseDto>>> GetFeedbacksByLanguageAsync([FromRoute] string languageCode, CancellationToken cancellationToken = default)
         {
             var result = await _feedbackService.GetFeedbacksByLanguageAsync(languageCode, cancellationToken);
-            return new Response<IEnumerable<FeedbackResponseDto>>(true,result);
+            return new Response<IEnumerable<FeedbackResponseDto>>(result.Any() ? true : false, result);
         }
 
         [HttpGet("correlation/{correlationId}")]
@@ -75,7 +75,7 @@ namespace Core.API.Controllers.Feedbacks
         public async Task<Response<FeedbackResponseDto?>> GetFeedbackByCorrelationIdAsync([FromRoute] Guid correlationId, CancellationToken cancellationToken = default)
         {
             var result = await _feedbackService.GetFeedbackByCorrelationIdAsync(correlationId, cancellationToken);
-            return new Response<FeedbackResponseDto?>(true, result);
+            return new Response<FeedbackResponseDto?>(result is not null ? true : false, result);
         }
 
         [HttpPut("update-rating/{correlationId}")]
@@ -84,7 +84,7 @@ namespace Core.API.Controllers.Feedbacks
         public async Task<Response<bool>> UpdateFeedbackRatingAsync([FromRoute] Guid correlationId, [FromBody] int newRating, CancellationToken cancellationToken = default)
         {
             var result = await _feedbackService.UpdateFeedbackRatingAsync(correlationId, newRating, cancellationToken);
-            return new Response<bool>(true, result);
+            return new Response<bool>(result ? true : false, result);
         }
 
         [HttpDelete("delete/{correlationId}")]
@@ -93,7 +93,7 @@ namespace Core.API.Controllers.Feedbacks
         public async Task<Response<bool>> DeleteFeedbackByCorrelationIdAsync([FromRoute] Guid correlationId, CancellationToken cancellationToken = default)
         {
             var result = await _feedbackService.DeleteFeedbackByCorrelationIdAsync(correlationId, cancellationToken);
-            return new Response<bool>(true, result);
+            return new Response<bool>(result ? true : false, result);
         }
 
         [HttpGet]

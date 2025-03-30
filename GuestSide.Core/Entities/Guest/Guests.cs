@@ -17,7 +17,6 @@ namespace Core.Core.Entities.Guest
     [Index(nameof(CheckOutDate))] // Optimized for departures filtering
     [Index(nameof(StatusId))] // Index for status-based lookups
     [Index(nameof(RoomId))] // Optimized for guest-room assignments
-    [Index(nameof(LanguageId))] // Optimized for multi-language support
     public class Guests : AbstractEntity
     {
         [StringLength(100)]
@@ -76,12 +75,10 @@ namespace Core.Core.Entities.Guest
         [ForeignKey(nameof(Room))]
         public long RoomId { get; set; }
 
-        [ForeignKey(nameof(LanguagePack))]
-        public long LanguageId { get; set; }
-
-        public virtual LanguagePack? LanguagePack { get; set; } // Virtual for lazy loading
-
         public virtual Room.Room? Room { get; set; } // Virtual navigation
+
+        [StringLength(10)]
+        public string? LanguageCode { get; set; }
 
         public virtual Status? Status { get; set; } // Virtual navigation
 

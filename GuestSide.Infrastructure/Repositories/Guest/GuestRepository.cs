@@ -36,7 +36,6 @@ namespace Core.Infrastructure.Repositories.Guest
         {
             return await DbSet
                 .Include(g => g.Room)
-                .Include(g => g.LanguagePack)
                 .Include(g => g.Status)
                 .Include(g => g.GuestNotifications)
                 .FirstOrDefaultAsync(g => g.Id == guestId);
@@ -55,7 +54,7 @@ namespace Core.Infrastructure.Repositories.Guest
         /// </summary>
         public async Task<bool> CheckGuestExistsAsync(string email, string phoneNumber)
         {
-            return await DbSet.AnyAsync(g => g.Email == email || g.PhoneNumber == phoneNumber);
+            return await DbSet.AnyAsync(g => g.Email == email && g.PhoneNumber == phoneNumber);
         }
 
         /// <summary>

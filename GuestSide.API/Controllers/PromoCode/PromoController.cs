@@ -27,10 +27,10 @@ public class PromoController : CSIControllerBase<PromoCodeDto, PromoCodeResponse
     [HttpGet("validate/{code}")]
     [SwaggerOperation(Summary = "Validate a promo code", Description = "Checks if the provided promo code is valid for the guest and/or cart.")]
     [ProducesResponseType(typeof(Response<PromoCodeResponse>), StatusCodes.Status200OK)]
-    public async Task<Response<PromoCodeResponse>> ValidatePromoCodeAsync([FromRoute] string code, [FromQuery] long? guestId = null, [FromQuery] long? cartId = null, CancellationToken cancellationToken = default)
+    public async Task<Response<PromoCodeResponse?>> ValidatePromoCodeAsync([FromRoute] string code, [FromQuery] long? guestId = null, [FromQuery] long? cartId = null, CancellationToken cancellationToken = default)
     {
         var result = await _promoCodeService.ValidatePromoCodeAsync(code, guestId, cartId, cancellationToken);
-        return new Response<PromoCodeResponse>(true, result);
+        return new Response<PromoCodeResponse?>(result is not null ? true : false, result);
     }
 
     [HttpPost("deactivate-expired")]
@@ -48,7 +48,7 @@ public class PromoController : CSIControllerBase<PromoCodeDto, PromoCodeResponse
     public async Task<Response<IEnumerable<PromoCodeResponse>>> GetAvailableForGuestAsync([FromRoute] long guestId, CancellationToken cancellationToken = default)
     {
         var result = await _promoCodeService.GetAvailableForGuestAsync(guestId, cancellationToken);
-        return new Response<IEnumerable<PromoCodeResponse>>(true, result);
+        return new Response<IEnumerable<PromoCodeResponse>>(result.Any() ? true : false, result);
     }
 
     [HttpGet("available/item/{itemId:long}")]
@@ -57,7 +57,7 @@ public class PromoController : CSIControllerBase<PromoCodeDto, PromoCodeResponse
     public async Task<Response<IEnumerable<PromoCodeResponse>>> GetAvailableForItemAsync([FromRoute] long itemId, CancellationToken cancellationToken = default)
     {
         var result = await _promoCodeService.GetAvailableForItemAsync(itemId, cancellationToken);
-        return new Response<IEnumerable<PromoCodeResponse>>(true, result);
+        return new Response<IEnumerable<PromoCodeResponse>>(result.Any() ? true : false, result);
     }
 
     [HttpGet]

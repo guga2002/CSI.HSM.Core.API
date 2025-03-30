@@ -31,7 +31,7 @@ namespace Core.API.Controllers.Guest
         public async Task<Response<GuestActiveLanguageResponseDto?>> GetActiveLanguageByGuestIdAsync([FromRoute] long guestId, CancellationToken cancellationToken = default)
         {
             var result = await _guestActiveLanguageService.GetActiveLanguageByGuestIdAsync(guestId, cancellationToken);
-            return new Response<GuestActiveLanguageResponseDto?>(true, result);
+            return new Response<GuestActiveLanguageResponseDto?>(result is not null ? true : false, result);
         }
 
         [HttpGet("history/{guestId:long}")]
@@ -40,7 +40,7 @@ namespace Core.API.Controllers.Guest
         public async Task<Response<IEnumerable<GuestActiveLanguageResponseDto>>> GetGuestLanguageHistoryAsync([FromRoute] long guestId, CancellationToken cancellationToken = default)
         {
             var result = await _guestActiveLanguageService.GetGuestLanguageHistoryAsync(guestId, cancellationToken);
-            return new Response<IEnumerable<GuestActiveLanguageResponseDto>>(true, result);
+            return new Response<IEnumerable<GuestActiveLanguageResponseDto>>(result.Any() ? true : false, result);
         }
 
         [HttpPost("set-language/{guestId:long}")]
@@ -49,7 +49,7 @@ namespace Core.API.Controllers.Guest
         public async Task<Response<bool>> SetGuestActiveLanguageAsync([FromRoute] long guestId, [FromBody] string languageCode, CancellationToken cancellationToken = default)
         {
             var result = await _guestActiveLanguageService.SetGuestActiveLanguageAsync(guestId, languageCode, cancellationToken);
-            return new Response<bool>(true, result);
+            return new Response<bool>(result ? true : false, result);
         }
 
         [HttpDelete("remove-language/{guestId:long}")]
@@ -58,7 +58,7 @@ namespace Core.API.Controllers.Guest
         public async Task<Response<bool>> RemoveGuestActiveLanguageAsync([FromRoute] long guestId, CancellationToken cancellationToken = default)
         {
             var result = await _guestActiveLanguageService.RemoveGuestActiveLanguageAsync(guestId, cancellationToken);
-            return new Response<bool>(true, result);
+            return new Response<bool>(result ? true : false, result);
         }
 
         [HttpGet]

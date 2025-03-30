@@ -31,7 +31,7 @@ public class LocationController : CSIControllerBase<LocationrequestDto, Location
     public async Task<Response<LocationResponse?>> GetLocationByHotelId([FromRoute] long hotelId, CancellationToken cancellationToken = default)
     {
         var result = await _locationService.GetLocationByHotelId(hotelId, cancellationToken);
-        return new Response<LocationResponse?>(true, result);
+        return new Response<LocationResponse?>(result is not null ? true : false, result);
     }
 
     [HttpGet("nearest-hotel")]
@@ -40,7 +40,7 @@ public class LocationController : CSIControllerBase<LocationrequestDto, Location
     public async Task<Response<LocationResponse?>> FindNearestHotel([FromQuery] double latitude, [FromQuery] double longitude, CancellationToken cancellationToken = default)
     {
         var result = await _locationService.FindNearestHotel(latitude, longitude, cancellationToken);
-        return new Response<LocationResponse?>(true, result);
+        return new Response<LocationResponse?>(result is not null ? true : false, result);
     }
 
     [HttpPut("update-location/{hotelId:long}")]
@@ -49,7 +49,7 @@ public class LocationController : CSIControllerBase<LocationrequestDto, Location
     public async Task<Response<bool>> UpdateHotelLocation([FromRoute] long hotelId, [FromBody] LocationrequestDto locationDto, CancellationToken cancellationToken = default)
     {
         var result = await _locationService.UpdateHotelLocation(hotelId, locationDto.Latitude, locationDto.Longitude, cancellationToken);
-        return new Response<bool>(true,result);
+        return new Response<bool>(result ? true : false, result);
     }
 
     [HttpGet]

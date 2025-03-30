@@ -31,7 +31,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     public async Task<Response<IEnumerable<AdvertismentResponseDto>>> GetActiveAdvertisementsAsync(CancellationToken cancellationToken = default)
     {
         var result = await _advertisementService.GetActiveAdvertisementsAsync(cancellationToken);
-        return new Response<IEnumerable<AdvertismentResponseDto>>(true,result);
+        return new Response<IEnumerable<AdvertismentResponseDto>>(result.Any() ? true : false, result);
     }
 
     [HttpGet("type/{advertisementTypeId}")]
@@ -40,7 +40,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     public async Task<Response<IEnumerable<AdvertismentResponseDto>>> GetAdvertisementsByTypeAsync([FromRoute] long advertisementTypeId, CancellationToken cancellationToken = default)
     {
         var result = await _advertisementService.GetAdvertisementsByTypeAsync(advertisementTypeId, cancellationToken);
-        return new Response<IEnumerable<AdvertismentResponseDto>>(true,result);
+        return new Response<IEnumerable<AdvertismentResponseDto>>(result.Any() ? true : false, result);
     }
 
     [HttpGet("date-range")]
@@ -49,7 +49,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     public async Task<Response<IEnumerable<AdvertismentResponseDto>>> GetAdvertisementsByDateRangeAsync([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, CancellationToken cancellationToken = default)
     {
         var result = await _advertisementService.GetAdvertisementsByDateRangeAsync(startDate, endDate, cancellationToken);
-        return new Response<IEnumerable<AdvertismentResponseDto>>(true, result);
+        return new Response<IEnumerable<AdvertismentResponseDto>>(result.Any() ? true : false, result);
     }
 
     [HttpGet("language/{languageCode}")]
@@ -58,7 +58,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     public async Task<Response<IEnumerable<AdvertismentResponseDto>>> GetAdvertisementsByLanguageAsync([FromRoute] string languageCode, CancellationToken cancellationToken = default)
     {
         var result = await _advertisementService.GetAdvertisementsByLanguageAsync(languageCode, cancellationToken);
-        return new Response<IEnumerable<AdvertismentResponseDto>>(true,result);
+        return new Response<IEnumerable<AdvertismentResponseDto>>(result.Any() ? true : false, result);
     }
 
     [HttpGet("title/{title}")]
@@ -67,7 +67,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     public async Task<Response<AdvertismentResponseDto?>> GetAdvertisementByTitleAsync([FromRoute] string title, CancellationToken cancellationToken = default)
     {
         var result = await _advertisementService.GetAdvertisementByTitleAsync(title, cancellationToken);
-        return new Response<AdvertismentResponseDto?>(true, result);
+        return new Response<AdvertismentResponseDto?>(result is null ? false : true, result);
     }
 
     [HttpPut("update-dates/{id}")]
@@ -76,7 +76,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     public async Task<Response<bool>> UpdateAdvertisementDatesAsync([FromRoute] long id, [FromQuery] DateTime? newStartDate, [FromQuery] DateTime? newEndDate, CancellationToken cancellationToken = default)
     {
         var result = await _advertisementService.UpdateAdvertisementDatesAsync(id, newStartDate, newEndDate, cancellationToken);
-        return new Response<bool>(true, result);
+        return new Response<bool>(result ? true : false, result);
     }
 
     [HttpDelete("delete/{id}")]
@@ -85,7 +85,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     public async Task<Response<bool>> DeleteAdvertisementByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
     {
         var result = await _advertisementService.DeleteAdvertisementByIdAsync(id, cancellationToken);
-        return new Response<bool>(true, result);
+        return new Response<bool>(result ? true : false, result);
     }
 
     /// <summary>

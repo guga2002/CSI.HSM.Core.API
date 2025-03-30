@@ -1,5 +1,4 @@
 ﻿using Core.API.CustomExtendControllerBase;
-using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Response.Item;
@@ -33,7 +32,7 @@ public class CartController : CSIControllerBase<CartDto, CartResponseDto, long, 
     public async Task<Response<CartResponseDto?>> GetLatestActiveCartForGuestAsync([FromRoute] long guestId, CancellationToken cancellationToken = default)
     {
         var result = await _cartService.GetLatestActiveCartForGuestAsync(guestId, cancellationToken);
-        return new Response<CartResponseDto?>(true, result);
+        return new Response<CartResponseDto?>(result is not null ? true : false, result);
     }
 
     [HttpDelete("clearCart/{cartId:long}")]

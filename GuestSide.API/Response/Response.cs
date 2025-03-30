@@ -2,6 +2,8 @@
 {
     public class Response<T>
     {
+        private bool result;
+
         public bool Success { get; set; } = false;
         public bool HasViewPermission { get; set; } = false;
         public T Data { get; set; }
