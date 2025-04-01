@@ -1,7 +1,4 @@
-﻿
-
-using Core.Core.Entities.Notification;
-using System.ComponentModel.DataAnnotations;
+﻿using Core.Core.Entities.Notification;
 
 namespace Core.Application.DTOs.Response.Notification;
 
@@ -23,7 +20,7 @@ public class NotificationResponseDto
 
     public string? LanguageCode { get; set; }
 
-    public string? NotificationType { get; set; } // Categorizes notifications (e.g., "Reminder", "Offer", "System Alert")
+    public NotificationType NotificationType { get; set; }
 
     public NotificationPriority PriorityLevel { get; set; }
 

@@ -81,7 +81,7 @@ namespace Core.Application.Services.Notification.Service
                 throw new UnauthorizedAccessException($"Notification ID {notificationId} does not belong to Staff ID {staffId}.");
             }
 
-            return await _staffNotificationRepository.DeleteStaffNotification(staffId, notificationId);
+            return await _staffNotificationRepository.DeleteStaffNotification(staffId, notification.NotificationId);
         }
 
         public async Task<IEnumerable<StafNotificationResponseDto>> GetStaffNotifications(long staffId)

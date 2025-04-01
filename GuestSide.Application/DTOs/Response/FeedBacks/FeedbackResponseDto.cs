@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using Core.Application.DTOs.Response.Task;
-using Core.Core.Entities.Task;
+﻿using Core.Application.DTOs.Response.Task;
 
 namespace Core.Application.DTOs.Response.FeedBacks;
 
@@ -13,17 +10,18 @@ public class FeedbackResponseDto
 
     public string? WhatWillRobotSay { get; set; }
 
-    public Guid CorrelationId { get; set; } = Guid.NewGuid();
+    public Guid CorrelationId { get; set; } //= Guid.NewGuid();
 
     public int Rating { get; set; }
 
-    public DateTime FeedbackDate { get; set; } = DateTime.UtcNow;
+    public DateTime FeedbackDate { get; set; } //= DateTime.UtcNow;
 
     public string? LanguageCode { get; set; }
 
     public long TaskId { get; set; }
 
     public virtual TaskResponseDto? Task { get; set; }
+
     public long Id { get; set; }
 
     public bool IsActive { get; set; } 

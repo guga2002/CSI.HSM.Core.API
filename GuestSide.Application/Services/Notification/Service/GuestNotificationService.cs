@@ -88,7 +88,7 @@ namespace Core.Application.Services.Notification.Service
                 throw new UnauthorizedAccessException($"Notification ID {notificationId} does not belong to Guest ID {guestId}.");
             }
 
-            return await _guestNotificationRepository.DeleteGuestNotification(guestId, notificationId);
+            return await _guestNotificationRepository.DeleteGuestNotification(guestId, notification.NotificationId);
         }
     }
 }
