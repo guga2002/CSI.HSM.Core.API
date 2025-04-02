@@ -128,15 +128,23 @@ public class QrCodeController : CSIControllerBase<QRCodeDto, QRCodeResponseDto, 
         return await base.CreateAsync(entityDto);
     }
 
-    [HttpGet("GetQrCode{id:long}")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Record retrieved", typeof(IFormFile))]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-    public async Task<IFormFile> GetQrCode(long id)
+    [HttpGet("GetQrCode/{id:long}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetQrCode(long id)
     {
-        var byId=await GetByIdAsync(id);
+        var byId = await GetByIdAsync(id);
 
-        return BytesToImageFormFile(byId.Data.QrCodeImage, "QrCode");
+        if (byId == null || byId.Data?.QrCodeImage == null)
+            return BadRequest("QR code not found");
+
+        var fileBytes = byId.Data.QrCodeImage;
+        var fileName = $"QrCode_{id}.png";
+        var contentType = "image/png";
+
+        return File(fileBytes, contentType, fileName);
     }
+
 
     [HttpPut("{id:long}")]
     [SwaggerOperation(Summary = "Update an existing QR Code", Description = "Updates an existing QR code record by its ID.")]

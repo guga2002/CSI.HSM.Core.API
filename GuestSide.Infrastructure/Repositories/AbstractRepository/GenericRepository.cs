@@ -89,8 +89,8 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
             return cachedData;
         }
 
-        var entity = await DbSet.Where(e => EF.Property<bool>(e, "IsActive"))
-                            .FirstOrDefaultAsync(e => EF.Property<object>(e, "Id").Equals(id), cancellationToken);
+        var entity = await DbSet
+                            .FirstOrDefaultAsync(e => EF.Property<long>(e, "Id").Equals(id), cancellationToken);
 
         if (entity is null)
         {
