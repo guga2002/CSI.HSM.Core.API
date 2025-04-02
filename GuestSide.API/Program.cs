@@ -36,6 +36,8 @@ using Core.Application.Services.Staff.StaffSupport.DI;
 using Core.Application.Services.Staff.StaffSupportResponse.DI;
 using Core.Application.Services.Promo.Startup;
 using Csi.VoicePack;
+using Core.API.Fillters;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,7 +47,6 @@ builder.Services.AddControllers()
  //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.RolesController).Assembly)
  .AddControllersAsServices();
 builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpContextAccessor();
 
@@ -87,7 +88,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddSwaggerGen(c =>
     {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Core.Api", Version = "v1" });
-
+        c.OperationFilter<FileUploadOperationFilter>();
         c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {
             In = ParameterLocation.Header,
