@@ -1,9 +1,7 @@
-﻿namespace Core.Application.DTOs.Response.Staff;
+﻿namespace Core.Application.DTOs.Request.Staff;
 
-public class StaffSupportResponseResponseDto
+public class StaffSupportResponseRequestDto
 {
-    public long Id { get; set; }
-
     public long TicketId { get; set; }
 
     public string? ResponderName { get; set; }

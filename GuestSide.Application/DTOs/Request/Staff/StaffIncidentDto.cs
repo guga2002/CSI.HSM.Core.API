@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Request.Staff;
+﻿using Core.Core.Entities.Staff;
+
+namespace Core.Application.DTOs.Request.Staff;
 
 public class StaffIncidentDto
 {
@@ -10,9 +12,9 @@ public class StaffIncidentDto
 
     public DateTime ReportedAt { get; set; } = DateTime.UtcNow;
 
-    public required string Severity { get; set; }
+    public Severity Severity { get; set; }
 
-    public required string Status { get; set; }
+    public StaffIncidentStatus Status { get; set; }
 
     public string? ResolutionNotes { get; set; }
 

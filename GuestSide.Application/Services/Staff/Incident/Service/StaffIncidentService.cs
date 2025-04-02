@@ -54,18 +54,14 @@ namespace Core.Application.Services.Staff.Incident.Service
             return _mapper.Map<IEnumerable<StaffIncidentResponseDto>>(incidents);
         }
 
-        public async Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsBySeverityAsync(string severity, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsBySeverityAsync(Severity severity, CancellationToken cancellationToken = default)
         {
-            ValidateStringInput(severity, nameof(severity));
-
             var incidents = await _staffIncidentRepository.GetIncidentsBySeverityAsync(severity, cancellationToken);
             return _mapper.Map<IEnumerable<StaffIncidentResponseDto>>(incidents);
         }
 
-        public async Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsByStatusAsync(string status, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsByStatusAsync(StaffIncidentStatus status, CancellationToken cancellationToken = default)
         {
-            ValidateStringInput(status, nameof(status));
-
             var incidents = await _staffIncidentRepository.GetIncidentsByStatusAsync(status, cancellationToken);
             return _mapper.Map<IEnumerable<StaffIncidentResponseDto>>(incidents);
         }
@@ -84,10 +80,9 @@ namespace Core.Application.Services.Staff.Incident.Service
             return _mapper.Map<IEnumerable<StaffIncidentResponseDto>>(incidents);
         }
 
-        public async Task<bool> UpdateIncidentStatusAsync(long incidentId, string newStatus, CancellationToken cancellationToken = default)
+        public async Task<bool> UpdateIncidentStatusAsync(long incidentId, StaffIncidentStatus newStatus, CancellationToken cancellationToken = default)
         {
             ValidatePositiveId(incidentId, nameof(incidentId));
-            ValidateStringInput(newStatus, nameof(newStatus));
 
             var incident = await _staffIncidentRepository.GetIncidentsByStaffIdAsync(incidentId, cancellationToken);
             if (incident is null)

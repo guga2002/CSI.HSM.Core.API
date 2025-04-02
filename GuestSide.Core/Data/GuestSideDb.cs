@@ -70,7 +70,7 @@ public class GuestSideDb : DbContext
     public virtual DbSet<StaffSupport> StaffSupports { get; set; }
     public virtual DbSet<StaffSupportResponse> StaffSupportResponses { get; set; }
     public virtual DbSet<PromoCode> PromoCodes { get; set; }
-    public TaskLogs TaskLogs { get; set; }
+    public virtual DbSet<TaskLogs> TaskLogs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

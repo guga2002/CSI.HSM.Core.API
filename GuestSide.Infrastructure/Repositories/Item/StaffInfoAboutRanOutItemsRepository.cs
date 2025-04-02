@@ -48,7 +48,7 @@ namespace Core.Infrastructure.Repositories.Item
         public async Task<IEnumerable<StaffInfoAboutRanOutItems>> GetUrgentRequestsAsync(CancellationToken cancellationToken = default)
         {
             return await _context.StaffInfoAboutRanOutItems.AsNoTracking()
-                .Where(r => r.IsUrgent)
+                .Where(r => r.Priority == RefillPriority.High)
                 .ToListAsync(cancellationToken);
         }
         #endregion

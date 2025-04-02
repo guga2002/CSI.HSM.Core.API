@@ -1,6 +1,5 @@
 ﻿using Core.Core.Entities.Staff;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 
 namespace Core.Application.DTOs.Request.Staff;
 

@@ -4,6 +4,7 @@ using Core.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Core.Migrations
 {
     [DbContext(typeof(GuestSideDb))]
-    partial class GuestSideDbModelSnapshot : ModelSnapshot
+    [Migration("20250402161338_updateDatabase")]
+    partial class updateDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1849,7 +1852,8 @@ namespace Core.Core.Migrations
 
                     b.HasIndex("ResponseDate");
 
-                    b.HasIndex("TicketId");
+                    b.HasIndex("TicketId")
+                        .IsUnique();
 
                     b.ToTable("StaffSupportResponses", "CSI");
                 });
@@ -2419,8 +2423,8 @@ namespace Core.Core.Migrations
             modelBuilder.Entity("Core.Core.Entities.Staff.StaffSupportResponse", b =>
                 {
                     b.HasOne("Core.Core.Entities.Staff.StaffSupport", "StaffSupport")
-                        .WithMany("SupportResponse")
-                        .HasForeignKey("TicketId")
+                        .WithOne("SupportResponse")
+                        .HasForeignKey("Core.Core.Entities.Staff.StaffSupportResponse", "TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

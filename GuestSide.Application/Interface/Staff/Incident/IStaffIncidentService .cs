@@ -16,12 +16,12 @@ namespace Core.Application.Interface.Staff
         /// <summary>
         /// Get incidents filtered by severity.
         /// </summary>
-        Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsBySeverityAsync(string severity, CancellationToken cancellationToken = default);
+        Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsBySeverityAsync(Severity severity, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get incidents filtered by status.
         /// </summary>
-        Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsByStatusAsync(string status, CancellationToken cancellationToken = default);
+        Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsByStatusAsync(StaffIncidentStatus status, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get incidents by type.
@@ -36,7 +36,7 @@ namespace Core.Application.Interface.Staff
         /// <summary>
         /// Update incident status.
         /// </summary>
-        Task<bool> UpdateIncidentStatusAsync(long incidentId, string newStatus, CancellationToken cancellationToken = default);
+        Task<bool> UpdateIncidentStatusAsync(long incidentId, StaffIncidentStatus newStatus, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Resolve an incident with resolution notes.

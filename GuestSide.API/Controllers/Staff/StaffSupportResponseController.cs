@@ -1,5 +1,6 @@
 ﻿using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
+using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.Staff;
 using Core.Core.Entities.Staff;
@@ -10,7 +11,7 @@ namespace Core.API.Controllers.Staff;
 
 [Route("api/[controller]")]
 [ApiController]
-public class StaffSupportResponseController : CSIControllerBase<StaffSupportResponseDto, StaffSupportResponseResponseDto, long, StaffSupportResponse>
+public class StaffSupportResponseController : CSIControllerBase<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, StaffSupportResponse>
 {
     private readonly IStaffSupportResponseService _staffSupportResponseService;
 
@@ -163,7 +164,7 @@ public class StaffSupportResponseController : CSIControllerBase<StaffSupportResp
     [SwaggerOperation(Summary = "Create a new Guest record", Description = "Adds a new guest record to the system.")]
     [SwaggerResponse(StatusCodes.Status201Created, "Record created successfully.", typeof(Response<StaffSupportResponseResponseDto>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-    public override async Task<Response<StaffSupportResponseResponseDto>> CreateAsync([FromBody] StaffSupportResponseDto entityDto, CancellationToken cancellationToken = default)
+    public override async Task<Response<StaffSupportResponseResponseDto>> CreateAsync([FromBody] StaffSupportResponseRequestDto entityDto, CancellationToken cancellationToken = default)
     {
         return await base.CreateAsync(entityDto, cancellationToken);
     }
@@ -172,7 +173,7 @@ public class StaffSupportResponseController : CSIControllerBase<StaffSupportResp
     [SwaggerOperation(Summary = "Update an existing Guest record", Description = "Updates an existing guest record by its ID.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Record updated successfully.", typeof(Response<StaffSupportResponseResponseDto>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-    public override async Task<Response<StaffSupportResponseResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] StaffSupportResponseDto entityDto, CancellationToken cancellationToken = default)
+    public override async Task<Response<StaffSupportResponseResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] StaffSupportResponseRequestDto entityDto, CancellationToken cancellationToken = default)
     {
         return await base.UpdateAsync(id, entityDto, cancellationToken);
     }

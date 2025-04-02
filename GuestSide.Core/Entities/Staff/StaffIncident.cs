@@ -24,11 +24,9 @@ public class StaffIncident : AbstractEntity
 
     public DateTime ReportedAt { get; set; } = DateTime.UtcNow; 
 
-    [StringLength(100)]
-    public required string Severity { get; set; } // "Low", "Medium", "High", "Critical"
+    public required Severity Severity { get; set; } 
 
-    [StringLength(100)]
-    public required string Status { get; set; } = "Open"; // "Open", "In Progress", "Resolved", "Closed"
+    public required StaffIncidentStatus Status { get; set; } = StaffIncidentStatus.Open;
 
     public DateTime? ResolvedAt { get; set; } // Timestamp when the incident was resolved
 
@@ -46,4 +44,20 @@ public class StaffIncident : AbstractEntity
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow; // Tracks last modification time
 
     public virtual Staffs? ReportedByStaff { get; set; } // Virtual for lazy loading
+}
+
+public enum StaffIncidentStatus
+{
+    Open,
+    InProgress,
+    Resolved,
+    Closed
+}
+
+public enum Severity
+{
+    Low,
+    Medium,
+    High,
+    Critical
 }
