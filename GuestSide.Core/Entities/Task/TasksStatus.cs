@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq.Expressions;
 using Core.Core.Entities.AbstractEntities;
 using Core.Core.Entities.Staff;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ namespace Core.Core.Entities.Task;
 [Index(nameof(LanguageCode))]
 [Index(nameof(IsActive))]
 [Index(nameof(CreatedAt))]
-public class TasksStatus : AbstractEntity
+public class TasksStatus : AbstractEntity, IExistable<TasksStatus>
 {
     [Column("NameOfStatus")]
     [StringLength(100)]
@@ -26,4 +27,9 @@ public class TasksStatus : AbstractEntity
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     public virtual List<TaskToStaff>? TaskToStaff { get; set; }
+
+    public Expression<Func<TasksStatus, bool>> GetExistencePredicate()
+    {
+        return taskStatus => taskStatus.Name == Name;
+    }
 }

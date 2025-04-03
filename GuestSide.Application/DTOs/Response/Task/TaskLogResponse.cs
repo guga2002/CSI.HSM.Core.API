@@ -1,4 +1,5 @@
 ﻿namespace Core.Application.DTOs.Response.Task;
+
 public class TaskLogResponse
 {
     public long Id { get; set; }

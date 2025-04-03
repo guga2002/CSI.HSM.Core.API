@@ -5,7 +5,7 @@ using Core.Core.Entities.AbstractEntities;
 namespace Core.Core.Entities.Promo;
 
 [Table("PromoCode", Schema = "CSI")]
-public class PromoCode: AbstractEntity,IExistable<PromoCode>
+public class PromoCode : AbstractEntity, IExistable<PromoCode>
 {
     public required string Code { get; set; } // e.g. "WELCOME10", "SPRING2025"
 
@@ -35,6 +35,6 @@ public class PromoCode: AbstractEntity,IExistable<PromoCode>
 
     public Expression<Func<PromoCode, bool>> GetExistencePredicate()
     {
-       return i=>i.Description == Description&&i.Code==Code;
+        return i => i.Description == Description && i.Code == Code;
     }
 }
