@@ -1,10 +1,12 @@
 ﻿using Core.API.CustomExtendControllerBase;
+using Core.API.Models;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Room;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Room;
 using Core.Core.Entities.Room;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -103,14 +105,46 @@ public class QrCodeController : CSIControllerBase<QRCodeDto, QRCodeResponseDto, 
         return await base.GetByIdAsync(id, cancellationToken);
     }
 
-    [HttpPost]
+    [HttpPost("CreateWithImageUpload")]
     [SwaggerOperation(Summary = "Create a new QR Code", Description = "Adds a new QR code record to the system.")]
     [SwaggerResponse(StatusCodes.Status201Created, "Record created successfully.", typeof(Response<QRCodeResponseDto>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-    public override async Task<Response<QRCodeResponseDto>> CreateAsync([FromBody] QRCodeDto entityDto, CancellationToken cancellationToken = default)
+    public async Task<Response<QRCodeResponseDto>> CreateAsync([FromForm] QrCodeCreateDto dto)
     {
-        return await base.CreateAsync(entityDto, cancellationToken);
+        if (dto.QrImage == null || dto.QrImage.Length == 0)
+            return Response<QRCodeResponseDto>.ErrorResponse("FIle is not valid");
+        var entityDto=new QRCodeDto { Code = dto.Code};
+        using (var memoryStream = new MemoryStream())
+        {
+            await dto.QrImage.CopyToAsync(memoryStream);
+            entityDto.QrCodeImage = memoryStream.ToArray();
+        }
+        entityDto.Text = dto.Text;
+        entityDto.ScannedCount = dto.ScannedCount;
+        entityDto.UpdatedAt = dto.UpdatedAt;
+        entityDto.ExpirationDate = dto.ExpirationDate;
+        entityDto.Code = dto.Code;
+        entityDto.RoomId = dto.RoomId;
+        return await base.CreateAsync(entityDto);
     }
+
+    [HttpGet("GetQrCode/{id:long}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetQrCode(long id)
+    {
+        var byId = await GetByIdAsync(id);
+
+        if (byId == null || byId.Data?.QrCodeImage == null)
+            return BadRequest("QR code not found");
+
+        var fileBytes = byId.Data.QrCodeImage;
+        var fileName = $"QrCode_{id}.png";
+        var contentType = "image/png";
+
+        return File(fileBytes, contentType, fileName);
+    }
+
 
     [HttpPut("{id:long}")]
     [SwaggerOperation(Summary = "Update an existing QR Code", Description = "Updates an existing QR code record by its ID.")]
@@ -164,5 +198,29 @@ public class QrCodeController : CSIControllerBase<QRCodeDto, QRCodeResponseDto, 
     public override async Task<Response<QRCodeResponseDto>> SoftDeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
     {
         return await base.SoftDeleteAsync(id, cancellationToken);
+    }
+
+
+    private IFormFile BytesToImageFormFile(byte[] bytes, string fileName)
+    {
+        var stream = new MemoryStream(bytes);
+        return new FormFile(stream, 0, bytes.Length, "image", fileName)
+        {
+            Headers = new HeaderDictionary(),
+            ContentType = GetImageContentType(fileName)
+        };
+    }
+
+    private string GetImageContentType(string fileName)
+    {
+        var ext = Path.GetExtension(fileName).ToLower();
+        return ext switch
+        {
+            ".jpg" or ".jpeg" => "image/jpeg",
+            ".png" => "image/png",
+            ".gif" => "image/gif",
+            ".bmp" => "image/bmp",
+            _ => "application/octet-stream"
+        };
     }
 }

@@ -1,12 +1,11 @@
-﻿namespace Core.Application.DTOs.Request.Room
+﻿namespace Core.API.Models
 {
-    public class QRCodeDto
+    public class QrCodeCreateDto
     {
+        public IFormFile QrImage { get; set; }
         public required string Code { get; set; }
 
         public string Text { get; set; }
-
-        public byte[] QrCodeImage { get; set; }
 
         public DateTime GeneratedDate { get; set; }
 
@@ -18,4 +17,5 @@
 
         public long RoomId { get; set; }
     }
+
 }
