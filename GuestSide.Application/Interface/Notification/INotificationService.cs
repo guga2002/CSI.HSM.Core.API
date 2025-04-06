@@ -1,6 +1,7 @@
 ﻿using Core.Application.DTOs.Request.Notification;
 using Core.Application.DTOs.Response.Notification;
 using Core.Application.Interface.GenericContracts;
+using Core.Core.Entities.Enums;
 using Core.Core.Entities.Notification;
 
 namespace Core.Application.Interface.Notification
@@ -16,7 +17,7 @@ namespace Core.Application.Interface.Notification
         /// <summary>
         /// Get notifications filtered by priority.
         /// </summary>
-        Task<IEnumerable<NotificationResponseDto>> GetNotificationsByPriority(NotificationPriority priority, CancellationToken cancellationToken = default);
+        Task<IEnumerable<NotificationResponseDto>> GetNotificationsByPriority(PriorityEnum priority, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Mark a notification as sent.

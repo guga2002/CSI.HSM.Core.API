@@ -1849,7 +1849,8 @@ namespace Core.Core.Migrations
 
                     b.HasIndex("ResponseDate");
 
-                    b.HasIndex("TicketId");
+                    b.HasIndex("TicketId")
+                        .IsUnique();
 
                     b.ToTable("StaffSupportResponses", "CSI");
                 });
@@ -2454,8 +2455,8 @@ namespace Core.Core.Migrations
             modelBuilder.Entity("Core.Core.Entities.Staff.StaffSupportResponse", b =>
                 {
                     b.HasOne("Core.Core.Entities.Staff.StaffSupport", "StaffSupport")
-                        .WithMany("SupportResponse")
-                        .HasForeignKey("TicketId")
+                        .WithOne("SupportResponse")
+                        .HasForeignKey("Core.Core.Entities.Staff.StaffSupportResponse", "TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

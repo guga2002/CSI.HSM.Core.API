@@ -23,7 +23,7 @@ public class FeedbackRepository : GenericRepository<Feedback>, IFeedbackReposito
     {
         return await DbSet
             .Where(f => f.TaskId == taskId)
-            .OrderByDescending(f => f.FeedbackDate)
+            .OrderByDescending(f => f.CreatedAt)
             .ToListAsync();
     }
 
@@ -34,7 +34,7 @@ public class FeedbackRepository : GenericRepository<Feedback>, IFeedbackReposito
     {
         return await DbSet
             .Where(f => f.Rating >= minRating && f.Rating <= maxRating)
-            .OrderByDescending(f => f.FeedbackDate)
+            .OrderByDescending(f => f.CreatedAt)
             .ToListAsync();
     }
 
@@ -44,8 +44,8 @@ public class FeedbackRepository : GenericRepository<Feedback>, IFeedbackReposito
     public async Task<IEnumerable<Feedback>> GetFeedbacksByDateRangeAsync(DateTime startDate, DateTime endDate)
     {
         return await DbSet
-            .Where(f => f.FeedbackDate >= startDate && f.FeedbackDate <= endDate)
-            .OrderByDescending(f => f.FeedbackDate)
+            .Where(f => f.CreatedAt >= startDate && f.CreatedAt <= endDate)
+            .OrderByDescending(f => f.CreatedAt)
             .ToListAsync();
     }
 
@@ -56,7 +56,7 @@ public class FeedbackRepository : GenericRepository<Feedback>, IFeedbackReposito
     {
         return await DbSet
             .Where(f => f.LanguageCode == languageCode)
-            .OrderByDescending(f => f.FeedbackDate)
+            .OrderByDescending(f => f.CreatedAt)
             .ToListAsync();
     }
 

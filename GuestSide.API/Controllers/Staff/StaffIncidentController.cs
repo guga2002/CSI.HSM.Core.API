@@ -4,6 +4,7 @@ using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Item;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.Staff;
+using Core.Core.Entities.Enums;
 using Core.Core.Entities.Staff;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -59,7 +60,7 @@ public class StaffIncidentController : CSIControllerBase<StaffIncidentDto, Staff
     [SwaggerOperation(Summary = "Get Incidents by Status", Description = "Fetches incidents filtered by status (e.g., Open, In Progress, Resolved).")]
     [SwaggerResponse(StatusCodes.Status200OK, "Incidents retrieved successfully.", typeof(Response<IEnumerable<StaffIncidentResponseDto>>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "No incidents found.")]
-    public async Task<Response<IEnumerable<StaffIncidentResponseDto>>> GetIncidentsByStatusAsync([FromRoute] StaffIncidentStatus status, CancellationToken cancellationToken = default)
+    public async Task<Response<IEnumerable<StaffIncidentResponseDto>>> GetIncidentsByStatusAsync([FromRoute] StatusEnum status, CancellationToken cancellationToken = default)
     {
         var incidents = await _staffIncidentService.GetIncidentsByStatusAsync(status, cancellationToken);
         return incidents.Any()
@@ -104,7 +105,7 @@ public class StaffIncidentController : CSIControllerBase<StaffIncidentDto, Staff
     [SwaggerOperation(Summary = "Update Incident Status", Description = "Updates the status of a specific incident.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Incident status updated successfully.", typeof(Response<bool>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input.")]
-    public async Task<Response<bool>> UpdateIncidentStatusAsync([FromRoute] long incidentId, [FromBody] StaffIncidentStatus newStatus, CancellationToken cancellationToken = default)
+    public async Task<Response<bool>> UpdateIncidentStatusAsync([FromRoute] long incidentId, [FromBody] StatusEnum newStatus, CancellationToken cancellationToken = default)
     {
         var result = await _staffIncidentService.UpdateIncidentStatusAsync(incidentId, newStatus, cancellationToken);
         return result

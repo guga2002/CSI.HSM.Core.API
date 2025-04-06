@@ -47,4 +47,8 @@ public class GuestResponseDto
     public virtual RoomsResponseDto? Room { get; set; }
    
     public string? LanguageCode { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+
+    public DateTime? UpdatedAt { get; set; }
 }

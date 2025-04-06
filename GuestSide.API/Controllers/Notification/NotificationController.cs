@@ -4,6 +4,7 @@ using Core.Application.DTOs.Request.Notification;
 using Core.Application.DTOs.Response.Notification;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Notification;
+using Core.Core.Entities.Enums;
 using Core.Core.Entities.Notification;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -41,7 +42,7 @@ public class NotificationController : CSIControllerBase<NotificationDto, Notific
     [SwaggerOperation(Summary = "Retrieve Notifications by Priority", Description = "Fetches notifications filtered by priority.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Notifications retrieved successfully.", typeof(Response<IEnumerable<NotificationResponseDto>>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "No notifications found for the given priority.")]
-    public async Task<Response<IEnumerable<NotificationResponseDto>>> GetNotificationsByPriority([FromRoute] NotificationPriority priority)
+    public async Task<Response<IEnumerable<NotificationResponseDto>>> GetNotificationsByPriority([FromRoute] PriorityEnum priority)
     {
         var result = await _notificationService.GetNotificationsByPriority(priority);
         return result.Any()

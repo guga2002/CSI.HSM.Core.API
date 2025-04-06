@@ -3,6 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Response.Item;
 using Core.Application.Interface.Item;
+using Core.Core.Entities.Enums;
 using Core.Core.Entities.Item;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -48,7 +49,7 @@ public class StaffInfoAboutRanOutItemsController : CSIControllerBase<
     [SwaggerOperation(Summary = "Get Refill Requests by Priority", Description = "Fetches refill requests based on priority level (e.g., Low, Medium, High).")]
     [SwaggerResponse(StatusCodes.Status200OK, "Requests retrieved successfully.", typeof(Response<IEnumerable<StaffInfoAboutRanOutItemsResponseDto>>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "No requests found.")]
-    public async Task<Response<IEnumerable<StaffInfoAboutRanOutItemsResponseDto>>> GetRequestsByPriorityAsync([FromRoute] RefillPriority priority, CancellationToken cancellationToken = default)
+    public async Task<Response<IEnumerable<StaffInfoAboutRanOutItemsResponseDto>>> GetRequestsByPriorityAsync([FromRoute] PriorityEnum priority, CancellationToken cancellationToken = default)
     {
         var requests = await _ranOutItemsService.GetRequestsByPriorityAsync(priority, cancellationToken);
         return requests.Any()

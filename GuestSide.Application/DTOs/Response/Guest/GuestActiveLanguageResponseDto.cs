@@ -1,15 +1,10 @@
-﻿
-using Core.Core.Entities.Guest;
-using System.ComponentModel.DataAnnotations;
+﻿namespace Core.Application.DTOs.Response.Guest;
 
-namespace Core.Application.DTOs.Response.Guest;
-
-public class GuestActiveLanguageResponseDto
+public class GuestActiveLanguageResponseDto : AbstractResponse
 {
-    public long Id { get; set; }
     public long GuestId { get; set; }
 
     public string? LanguageCode { get; set; }
 
-    public DateTime SetDate { get; set; } 
+    //public DateTime SetDate { get; set; } 
 }

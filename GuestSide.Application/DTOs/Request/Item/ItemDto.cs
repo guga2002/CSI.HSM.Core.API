@@ -2,7 +2,6 @@
 
 public class ItemDto
 {
-
     public required string Name { get; set; }
 
     public string? Description { get; set; }
@@ -18,4 +17,6 @@ public class ItemDto
     public long ItemCategoryId { get; set; }
 
     public string? LanguageCode { get; set; }
+
+    public List<string>? Pictures {  get; set; }
 }

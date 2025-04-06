@@ -1,9 +1,7 @@
 ﻿namespace Core.Application.DTOs.Response.Item;
 
-public class ItemResponseDto
+public class ItemResponseDto : AbstractResponse
 {
-    public long Id { get; set; }
-
     public virtual ItemCategoryResponseDto? ItemCategory { get; set; }
 
     public required string Name { get; set; }
@@ -22,5 +20,5 @@ public class ItemResponseDto
 
     public string? LanguageCode { get; set; }
 
-    public DateTime AddedDate { get; set; } = DateTime.UtcNow; // Default timestamp for item creation
+    public List<string>? Pictures {  get; set; }
 }

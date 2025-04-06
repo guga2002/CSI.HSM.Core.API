@@ -1,4 +1,4 @@
-﻿using Core.Core.Entities.Notification;
+﻿using Core.Core.Entities.Enums;
 
 namespace Core.Application.DTOs.Request.Notification;
 
@@ -12,9 +12,7 @@ public class NotificationDto
 
     public string? LanguageCode { get; set; }
 
-    public NotificationType NotificationType {  get; set; }
+    public NotificationType NotificationType { get; set; }
 
-    public NotificationPriority PriorityLevel { get; set; }
-
-    public DateTime CreatedAt { get; set; }
+    public PriorityEnum PriorityLevel { get; set; }
 }

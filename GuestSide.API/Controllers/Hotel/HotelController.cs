@@ -56,7 +56,7 @@ public class HotelController : CSIControllerBase<HotelRequestDto, HotelResponse,
     public async Task<Response<bool>> UpdateHotelDetails([FromRoute] long hotelId, [FromBody] HotelLightRequestDto updateDto, CancellationToken cancellationToken = default)
     {
         var result = await _hotelService.UpdateHotelDetails(
-            hotelId, updateDto.Address, updateDto.Description, updateDto.Pictures, updateDto.Facilities, cancellationToken);
+            hotelId, updateDto.Description, updateDto.Pictures, updateDto.Facilities, cancellationToken);
         return new Response<bool>(result ? true : false, result);
     }
 

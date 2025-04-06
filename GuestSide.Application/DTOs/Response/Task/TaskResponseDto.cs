@@ -1,34 +1,38 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using Core.Core.Entities.Item;
+using Core.Core.Entities.Enums;
+using Core.Core.Entities.FeedBacks;
+using Core.Core.Entities.Staff;
 using Core.Application.DTOs.Response.Item;
-using Core.Core.Entities.Item;
-using Core.Core.Entities.Task;
-using TaskStatus = Core.Core.Entities.Task.TaskStatus;
+using Core.Application.DTOs.Response.FeedBacks;
+using Core.Application.DTOs.Response.Staff;
 
 namespace Core.Application.DTOs.Response.Task;
 
-public class TaskResponseDto
+public class TaskResponseDto : AbstractResponse
 {
-    public virtual ICollection<TaskItemResponseDto> TaskItems { get; set; }
+    public string? Title { get; set; }
 
-    public required string Title { get; set; }
+    public string? Description { get; set; }
 
-    public required string Description { get; set; }
+    public DateTime? DueDate { get; set; } // Expected completion date
 
-    public DateTime CreatedDate { get; set; }
+    public bool IsCompleted { get; set; } = false; // Indicates whether the task is completed
 
-    public DateTime? DueDate { get; set; }
+    public StatusEnum Status { get; set; } 
 
-    public bool IsCompleted { get; set; }
-
-    public TaskStatus Status { get; set; }
+    public PriorityEnum Priority { get; set; } 
 
     public string? LanguageCode { get; set; }
 
     public long CartId { get; set; }
 
+    public virtual CartResponseDto? Cart { get; set; }
 
     public string? Note { get; set; }
 
-    public DateTime UpdatedAt { get; set; }
+    public virtual List<FeedbackResponseDto>? Feedbacks { get; set; }
+
+    public virtual List<TaskItemResponseDto>? TaskItems { get; set; }
+
+    public virtual TaskToStaffResponseDto? TaskToStaff { get; set; }
 }

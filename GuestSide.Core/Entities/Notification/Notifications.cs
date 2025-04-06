@@ -1,4 +1,5 @@
 ﻿using Core.Core.Entities.AbstractEntities;
+using Core.Core.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -31,9 +32,7 @@ public class Notifications : AbstractEntity
 
     public NotificationType NotificationType {  get; set; }
 
-    public NotificationPriority PriorityLevel { get; set; } = NotificationPriority.Medium; // Default priority
-
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow; // Automatically set when the notification is created
+    public PriorityEnum PriorityLevel { get; set; } = PriorityEnum.Medium; // Default priority
 
     public virtual List<StaffNotification> StaffNotifications { get; set; } = new(); // Proper ORM handling
 
@@ -47,16 +46,3 @@ public class Notifications : AbstractEntity
     }
 }
 
-public enum NotificationPriority
-{
-    High,
-    Medium,
-    Low
-}
-
-public enum NotificationType
-{
-    Reminder,
-    Offer,
-    SystemAlert
-}

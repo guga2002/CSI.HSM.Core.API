@@ -4,6 +4,7 @@ using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Task.Task;
+using Core.Core.Entities.Enums;
 using Core.Core.Entities.Item;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -55,7 +56,7 @@ public class TaskController : CSIControllerBase<TaskDto, TaskResponseDto, long, 
     [SwaggerOperation(Summary = "Update Task Status", Description = "Updates the status of a specific task.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Task status updated successfully.", typeof(Response<bool>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "Task not found.")]
-    public async Task<Response<bool>> UpdateTaskStatusAsync([FromRoute] long taskId, [FromBody] Core.Entities.Task.TaskStatus newStatus)
+    public async Task<Response<bool>> UpdateTaskStatusAsync([FromRoute] long taskId, [FromBody] StatusEnum newStatus)
     {
         var result = await _taskService.UpdateTaskStatus(taskId, newStatus);
         return result
@@ -67,7 +68,7 @@ public class TaskController : CSIControllerBase<TaskDto, TaskResponseDto, long, 
     [SwaggerOperation(Summary = "Update Task Priority", Description = "Updates the Priority of a specific task.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Task priority updated successfully.", typeof(Response<bool>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "Task not found.")]
-    public async Task<Response<bool>> UpdateTaskPriorityAsync([FromRoute] long taskId, [FromBody] Core.Entities.Task.TaskPriority newPriority)
+    public async Task<Response<bool>> UpdateTaskPriorityAsync([FromRoute] long taskId, [FromBody] PriorityEnum newPriority)
     {
         var result = await _taskService.UpdateTaskPriority(taskId, newPriority);
         return result
@@ -79,7 +80,7 @@ public class TaskController : CSIControllerBase<TaskDto, TaskResponseDto, long, 
     [SwaggerOperation(Summary = "Retrieve Tasks by Status", Description = "Fetches tasks filtered by status with an optional limit.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Tasks retrieved successfully.", typeof(Response<IEnumerable<TaskResponseDto>>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "No tasks found.")]
-    public async Task<Response<IEnumerable<TaskResponseDto>>> GetTasksByStatusAsync([FromRoute] Core.Entities.Task.TaskStatus status, [FromQuery] int limit = 50)
+    public async Task<Response<IEnumerable<TaskResponseDto>>> GetTasksByStatusAsync([FromRoute] StatusEnum status, [FromQuery] int limit = 50)
     {
         var result = await _taskService.GetTasksByStatus(status, limit);
         return result.Any()

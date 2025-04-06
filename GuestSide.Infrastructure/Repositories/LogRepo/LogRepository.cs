@@ -22,7 +22,7 @@ namespace Core.Infrastructure.Repositories.LogRepo
 
             var logs = await DbSet
                 .Where(log => log.LogLevel == logLevel)
-                .OrderByDescending(log => log.Timestamp)
+                .OrderByDescending(log => log.CreatedAt)
                 .ToListAsync();
             return logs;
         }
@@ -33,7 +33,7 @@ namespace Core.Infrastructure.Repositories.LogRepo
         {
             var logs = await DbSet
                 .Where(log => log.LoggerId == loggerId)
-                .OrderByDescending(log => log.Timestamp)
+                .OrderByDescending(log => log.CreatedAt)
                 .ToListAsync();
             return logs;
         }
@@ -44,7 +44,7 @@ namespace Core.Infrastructure.Repositories.LogRepo
         {
             var logs = await DbSet
                 .Where(log => log.RequestId == requestId)
-                .OrderByDescending(log => log.Timestamp)
+                .OrderByDescending(log => log.CreatedAt)
                 .ToListAsync();
 
             return logs;
@@ -55,7 +55,7 @@ namespace Core.Infrastructure.Repositories.LogRepo
         public async Task<bool> DeleteOldLogs(int days)
         {
             var cutOffDate = DateTime.UtcNow.AddDays(-days);
-            var oldLogs = await DbSet.Where(log => log.Timestamp < cutOffDate).ToListAsync();
+            var oldLogs = await DbSet.Where(log => log.CreatedAt < cutOffDate).ToListAsync();
 
             if (!oldLogs.Any()) return false;
 
@@ -69,7 +69,7 @@ namespace Core.Infrastructure.Repositories.LogRepo
         public override async Task<IEnumerable<Logs>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return await DbSet
-                .OrderByDescending(log => log.Timestamp)
+                .OrderByDescending(log => log.CreatedAt)
                 .ToListAsync(cancellationToken);
         }
         #endregion

@@ -7,22 +7,22 @@ using Microsoft.EntityFrameworkCore;
 namespace Core.Core.Entities.Audio;
 
 [Table("AudioResponses", Schema = "CSI")]
-[Index(nameof(LanguageCode))] 
-[Index(nameof(VoiceType))]  
-[Index(nameof(CategoryId))]  
-[Index(nameof(CreatedDate))] 
-public class AudioResponse:IExistable<AudioResponse>
+[Index(nameof(LanguageCode))]
+[Index(nameof(VoiceType))]
+[Index(nameof(CategoryId))]
+[Index(nameof(CreatedDate))]
+public class AudioResponse : IExistable<AudioResponse>
 {
     [Key]
     public long Id { get; set; }
 
-    [StringLength(255)] 
+    [StringLength(255)]
     public required string TextContent { get; set; }
 
-    [StringLength(10)] 
+    [StringLength(10)]
     public string? LanguageCode { get; set; }
 
-    [StringLength(50)] 
+    [StringLength(50)]
     public string? VoiceType { get; set; }
 
     [StringLength(255)]
@@ -30,7 +30,7 @@ public class AudioResponse:IExistable<AudioResponse>
 
     public TimeSpan Duration { get; set; }
 
-    public DateTime CreatedDate { get; set; } = DateTime.UtcNow; 
+    public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
     [ForeignKey(nameof(Category))]
     public long CategoryId { get; set; }
@@ -39,6 +39,6 @@ public class AudioResponse:IExistable<AudioResponse>
 
     public Expression<Func<AudioResponse, bool>> GetExistencePredicate()
     {
-        return i=>i.AudioFilePath == AudioFilePath;
+        return i => i.AudioFilePath == AudioFilePath;
     }
 }

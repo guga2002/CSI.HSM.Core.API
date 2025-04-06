@@ -11,19 +11,18 @@ using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Infrastructure.Repositories.Staff;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Application.Services.Staff.Incident.DI
+namespace Core.Application.Services.Staff.Incident.DI;
+
+public static class StaffIncidentInject
 {
-    public static class StaffIncidentInject
+    public static void ActiveStaffIncident(this IServiceCollection services)
     {
-        public static void ActiveStaffIncident(this IServiceCollection services)
-        {
-            services.AddScoped<IGenericRepository<StaffIncident>, StaffIncidentRepository>();
-            services.AddScoped<IStaffIncidentRepository, StaffIncidentRepository>();
-            services.AddScoped<IStaffIncidentService, StaffIncidentService>();
-            services.AddScoped<IService<StaffIncidentDto, StaffIncidentResponseDto, long, StaffIncident>, StaffIncidentService>();
-            services.AddScoped<IAdditionalFeatures<StaffIncidentDto, StaffIncidentResponseDto, long, StaffIncident>, StaffIncidentService>();
-            services.AddAutoMapper(typeof(StaffIncidentMapper));
-            services.AddScoped<IAdditionalFeaturesRepository<StaffIncident>, AdditionalFeaturesRepository<StaffIncident>>();
-        }
+        services.AddScoped<IGenericRepository<StaffIncident>, StaffIncidentRepository>();
+        services.AddScoped<IStaffIncidentRepository, StaffIncidentRepository>();
+        services.AddScoped<IStaffIncidentService, StaffIncidentService>();
+        services.AddScoped<IService<StaffIncidentDto, StaffIncidentResponseDto, long, StaffIncident>, StaffIncidentService>();
+        services.AddScoped<IAdditionalFeatures<StaffIncidentDto, StaffIncidentResponseDto, long, StaffIncident>, StaffIncidentService>();
+        services.AddAutoMapper(typeof(StaffIncidentMapper));
+        services.AddScoped<IAdditionalFeaturesRepository<StaffIncident>, AdditionalFeaturesRepository<StaffIncident>>();
     }
 }

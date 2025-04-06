@@ -21,8 +21,8 @@ public static class LocationDi
         services.AddScoped<ILocationRepository, LocationRepository>();
         services.AddScoped<ILocationService, LocationService>();
         services.AddAutoMapper(typeof(LocationMapper));
-        services.AddScoped<IService<LocationrequestDto, LocationResponse, long, Location>, LocationService>();
-        services.AddScoped<IAdditionalFeatures<LocationrequestDto, LocationResponse, long, Location>, LocationService>();
+        services.AddScoped<IService<LocationRequestDto, LocationResponse, long, Location>, LocationService>();
+        services.AddScoped<IAdditionalFeatures<LocationRequestDto, LocationResponse, long, Location>, LocationService>();
         services.AddScoped<IAdditionalFeaturesRepository<Location>, AdditionalFeaturesRepository<Location>>();
     }
 }

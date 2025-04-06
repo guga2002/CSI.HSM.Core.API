@@ -10,7 +10,7 @@ public class LocationMapper:Profile
 
     public LocationMapper()
     {
-        CreateMap<LocationrequestDto, Location>().ReverseMap();
+        CreateMap<LocationRequestDto, Location>().ReverseMap();
         CreateMap<LocationResponse, Location>().ReverseMap();
     }
 }

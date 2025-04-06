@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace Core.Application.DTOs.Response.Room;
 
-namespace Core.Application.DTOs.Response.Room;
-
-public class RoomCategoryResponseDto
+public class RoomCategoryResponseDto : AbstractResponse
 {
-    public long Id { get; set; }
-
     public required string Name { get; set; }
 
     public string? WhatWillRobotSay { get; set; } 
@@ -13,8 +9,4 @@ public class RoomCategoryResponseDto
     public string? Description { get; set; }
 
     public string? LanguageCode { get; set; }
-
-    public DateTime CreatedAt { get; set; }
-
-    public DateTime UpdatedAt { get; set; }
 }

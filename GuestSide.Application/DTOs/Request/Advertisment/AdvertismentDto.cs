@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace Core.Application.DTOs.Request.Advertisment;
 
-namespace Core.Application.DTOs.Request.Advertisment;
 public class AdvertismentDto
 {
     public required string Title { get; set; }
+
     public string? Description { get; set; }
 
     public long AdvertisementTypeId { get; set; }
@@ -14,5 +14,5 @@ public class AdvertismentDto
 
     public string? LanguageCode { get; set; }
 
-    public List<string>? PicturesUrl { get; set; }
+    public List<string>? Pictures { get; set; }
 }

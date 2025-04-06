@@ -2,10 +2,8 @@
 
 namespace Core.Application.DTOs.Response.Item;
 
-public class ItemCategoryResponseDto
+public class ItemCategoryResponseDto : AbstractResponse
 {
-    public long Id { get; set; }
-
     public required string Name { get; set; }
 
     public string? WhatWillRobotSay { get; set; } 

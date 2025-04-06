@@ -1,4 +1,5 @@
 ﻿using Core.Core.Data;
+using Core.Core.Entities.Enums;
 using Core.Core.Entities.Staff;
 using Core.Core.Interfaces.Staff;
 using Core.Infrastructure.Repositories.AbstractRepository;
@@ -31,24 +32,24 @@ public class StaffIncidentRepository : GenericRepository<StaffIncident>, IStaffI
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<StaffIncident>> GetIncidentsBySeverityAsync(Severity severity, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<StaffIncident>> GetIncidentsBySeverityAsync(PriorityEnum severity, CancellationToken cancellationToken = default)
     {
         return await _context.StaffIncidents.AsNoTracking()
             .Where(i => i.Severity == severity)
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<StaffIncident>> GetIncidentsByStatusAsync(StaffIncidentStatus status, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<StaffIncident>> GetIncidentsByStatusAsync(StatusEnum status, CancellationToken cancellationToken = default)
     {
         return await _context.StaffIncidents.AsNoTracking()
             .Where(i => i.Status == status)
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<StaffIncident>> GetIncidentsByTypeAsync(string incidentType, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<StaffIncident>> GetIncidentsByTypeAsync(long incidentTypeId, CancellationToken cancellationToken = default)
     {
         return await _context.StaffIncidents.AsNoTracking()
-            .Where(i => i.IncidentType == incidentType)
+            .Where(i => i.IncidentTypeId == incidentTypeId)
             .ToListAsync(cancellationToken);
     }
 
@@ -61,7 +62,7 @@ public class StaffIncidentRepository : GenericRepository<StaffIncident>, IStaffI
     #endregion
 
     #region Incident Management
-    public async Task<bool> UpdateIncidentStatusAsync(long incidentId, StaffIncidentStatus newStatus, CancellationToken cancellationToken = default)
+    public async Task<bool> UpdateIncidentStatusAsync(long incidentId, StatusEnum newStatus, CancellationToken cancellationToken = default)
     {
         var incident = await _context.StaffIncidents.FindAsync(new object[] { incidentId }, cancellationToken);
         if (incident == null) return false;
@@ -79,7 +80,7 @@ public class StaffIncidentRepository : GenericRepository<StaffIncident>, IStaffI
         var incident = await _context.StaffIncidents.FindAsync(new object[] { incidentId }, cancellationToken);
         if (incident == null) return false;
 
-        incident.Status = StaffIncidentStatus.Resolved;
+        incident.Status = StatusEnum.Resolved;
         incident.ResolutionNotes = resolutionNotes;
         incident.ResolvedAt = DateTime.UtcNow;
         incident.UpdatedAt = DateTime.UtcNow;
@@ -94,13 +95,13 @@ public class StaffIncidentRepository : GenericRepository<StaffIncident>, IStaffI
     public async Task<int> CountOpenIncidentsAsync(CancellationToken cancellationToken = default)
     {
         return await _context.StaffIncidents
-            .CountAsync(i => i.Status == StaffIncidentStatus.Open, cancellationToken);
+            .CountAsync(i => i.Status == StatusEnum.Open, cancellationToken);
     }
 
     public async Task<int> CountResolvedIncidentsAsync(CancellationToken cancellationToken = default)
     {
         return await _context.StaffIncidents
-            .CountAsync(i => i.Status == StaffIncidentStatus.Resolved, cancellationToken);
+            .CountAsync(i => i.Status == StatusEnum.Resolved, cancellationToken);
     }
 
     public async Task<int> CountUrgentIncidentsAsync(CancellationToken cancellationToken = default)

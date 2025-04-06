@@ -40,8 +40,7 @@ public class Staffs : AbstractEntity
     [Precision(18, 2)]
     public decimal? Salary { get; set; }
 
-    [StringLength(150)]
-    public string? ProfilePictureUrl { get; set; }
+    public byte[]? ProfilePictureUrl { get; set; }
 
     [ForeignKey(nameof(StaffCategory))]
     public long StaffCategoryId { get; set; }
@@ -54,8 +53,6 @@ public class Staffs : AbstractEntity
 
     [StringLength(500)]
     public string? Bio { get; set; }
-
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow; // Tracks last modification time
 
     public virtual StaffCategory? StaffCategory { get; set; }
 

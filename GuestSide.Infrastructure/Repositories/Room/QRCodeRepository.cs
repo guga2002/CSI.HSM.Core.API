@@ -67,7 +67,7 @@ namespace Core.Infrastructure.Repositories.Room
         {
             return await DbSet
                 .Where(qr => qr.ExpirationDate == null || qr.ExpirationDate > DateTime.UtcNow)
-                .OrderByDescending(qr => qr.GeneratedDate)
+                .OrderByDescending(qr => qr.CreatedAt)
                 .ToListAsync();
         }
         #endregion

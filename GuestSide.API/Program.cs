@@ -175,7 +175,9 @@ builder.Services.InjectTaskItem();
 builder.Services.InjectCart();
 
 builder.Services.InjectTaskStatus();
+
 builder.Services.InjectTasks();
+
 builder.Services.AddScoped<IUniteOfWork, UniteOfWorkRepository>();
 //builder.Services.AddCors(options =>
 //{
@@ -196,6 +198,9 @@ builder.Services.InjectAudioResponse();
 
 builder.Services.InjectAudioResponseCategory();
 
+builder.Services.IncidentTypeDI();
+
+builder.Services.IncidentTypeToStaffCategoryDI();
 //builder.Logging.ClearProviders();
 //builder.Services.InjectSeriLog();
 

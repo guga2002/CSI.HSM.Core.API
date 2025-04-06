@@ -42,7 +42,7 @@ namespace Core.Infrastructure.Repositories.Staff
         {
             var fromDate = DateTime.UtcNow.AddDays(-days);
             return await _context.StaffSupportResponses.AsNoTracking()
-                .Where(r => r.ResponseDate >= fromDate)
+                .Where(r => r.CreatedAt >= fromDate)
                 .ToListAsync(cancellationToken);
         }
         #endregion
