@@ -38,6 +38,8 @@ using Core.Application.Services.Promo.Startup;
 using Csi.VoicePack;
 using Core.API.Fillters;
 using Microsoft.Extensions.Options;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,12 +57,13 @@ builder.Services.AddDbContext<GuestSideDb>(options =>//respect testing enviromen
     options.UseSqlServer(!builder.Environment.IsProduction()? builder.Configuration.GetSection("connectionTest:CSICOnnect").Value: builder.Configuration.GetConnectionString("CSICOnnect"));
 });
 
-builder.Services.AddHttpClient<CsiVoicePack>(i => i.BaseAddress = new Uri("http://20.86.134.136:2024/"));
+builder.Services.AddHttpClient<CsiVoicePack>(i => i.BaseAddress = new Uri("http://api.logixplore.com:3333/"));
 
 builder.WebHost.ConfigureKestrel(options =>
-    {
-        options.ListenAnyIP(2044);
-    });
+{
+    options.ListenAnyIP(2044);
+});
+
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"];
@@ -174,6 +177,16 @@ builder.Services.InjectCart();
 builder.Services.InjectTaskStatus();
 builder.Services.InjectTasks();
 builder.Services.AddScoped<IUniteOfWork, UniteOfWorkRepository>();
+//builder.Services.AddCors(options =>
+//{
+//    options.AddDefaultPolicy(policy =>
+//    {
+//        policy.AllowAnyOrigin()
+//              .AllowAnyHeader()
+//              .AllowAnyMethod();
+//    });
+//});
+
 
 builder.Services.AddGuestActiveLanguage();
 
@@ -190,8 +203,6 @@ builder.Services.AddScoped(typeof(IAdditionalFeaturesRepository<>), typeof(Addit
 
 var app = builder.Build();
     app.UseStaticFiles();
-    app.UseAuthentication();
-    app.UseAuthorization();
 
     app.UseSwagger();
 
@@ -207,11 +218,16 @@ var app = builder.Build();
 app.UseMiddleware<TenantMiddleware>();
 app.UseMiddleware<TranslationMiddleware>();
 app.UseMiddleware<CashingMiddlwares>();
-app.UseMiddleware<ForceHttp200Except500Middleware>();
+//app.UseMiddleware<ForceHttp200Except500Middleware>();
 app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseMiddleware<RequestTranslationMiddleware>();
 //app.UseMiddleware<RequestLoggerMiddleware>();
 //app.UseMiddleware<CashingMiddlwares>();
+//app.UseCors(); // No name
+
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseHttpsRedirection();
 app.MapControllers();
