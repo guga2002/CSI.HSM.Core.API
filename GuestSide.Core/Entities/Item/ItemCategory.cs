@@ -1,5 +1,4 @@
 ﻿using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Language;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;

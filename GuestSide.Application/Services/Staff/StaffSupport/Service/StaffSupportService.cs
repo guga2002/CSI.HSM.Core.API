@@ -2,6 +2,7 @@
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.Staff;
+using Core.Core.Entities.Enums;
 using Core.Core.Entities.Staff;
 using Core.Core.Interfaces.AbstractInterface;
 using Core.Core.Interfaces.Staff;
@@ -63,13 +64,13 @@ namespace Core.Application.Services.Staff.StaffSupport.Service
             return _mapper.Map<IEnumerable<StaffSupportResponseDto>>(tickets);
         }
 
-        public async Task<IEnumerable<StaffSupportResponseDto>> GetTicketsByPriorityAsync(SupportTicketPriority priority, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<StaffSupportResponseDto>> GetTicketsByPriorityAsync(PriorityEnum priority, CancellationToken cancellationToken = default)
         {
             var tickets = await _staffSupportRepository.GetTicketsByPriorityAsync(priority, cancellationToken);
             return _mapper.Map<IEnumerable<StaffSupportResponseDto>>(tickets);
         }
 
-        public async Task<IEnumerable<StaffSupportResponseDto>> GetTicketsByStatusAsync(SupportTicketStatus status, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<StaffSupportResponseDto>> GetTicketsByStatusAsync(StatusEnum status, CancellationToken cancellationToken = default)
         {
             var tickets = await _staffSupportRepository.GetTicketsByStatusAsync(status, cancellationToken);
             return _mapper.Map<IEnumerable<StaffSupportResponseDto>>(tickets);
@@ -95,7 +96,7 @@ namespace Core.Application.Services.Staff.StaffSupport.Service
             return _mapper.Map<IEnumerable<StaffSupportResponseDto>>(tickets);
         }
 
-        public async Task<bool> UpdateTicketStatusAsync(long ticketId, SupportTicketStatus newStatus, CancellationToken cancellationToken = default)
+        public async Task<bool> UpdateTicketStatusAsync(long ticketId, StatusEnum newStatus, CancellationToken cancellationToken = default)
         {
             ValidatePositiveId(ticketId, nameof(ticketId));
 

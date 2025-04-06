@@ -3,6 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.Staff;
+using Core.Core.Entities.Enums;
 using Core.Core.Entities.Staff;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -44,7 +45,7 @@ public class StaffSupportController : CSIControllerBase<StaffSupportDto, StaffSu
     [SwaggerOperation(Summary = "Get Support Tickets by Priority", Description = "Fetches all support tickets filtered by priority.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Tickets retrieved successfully.", typeof(Response<IEnumerable<StaffSupportResponseDto>>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "No tickets found.")]
-    public async Task<Response<IEnumerable<StaffSupportResponseDto>>> GetTicketsByPriorityAsync([FromRoute] SupportTicketPriority priority, CancellationToken cancellationToken = default)
+    public async Task<Response<IEnumerable<StaffSupportResponseDto>>> GetTicketsByPriorityAsync([FromRoute] PriorityEnum priority, CancellationToken cancellationToken = default)
     {
         var tickets = await _staffSupportService.GetTicketsByPriorityAsync(priority, cancellationToken);
         return tickets.Any()
@@ -59,7 +60,7 @@ public class StaffSupportController : CSIControllerBase<StaffSupportDto, StaffSu
     [SwaggerOperation(Summary = "Get Support Tickets by Status", Description = "Fetches all support tickets filtered by status.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Tickets retrieved successfully.", typeof(Response<IEnumerable<StaffSupportResponseDto>>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "No tickets found.")]
-    public async Task<Response<IEnumerable<StaffSupportResponseDto>>> GetTicketsByStatusAsync([FromRoute] SupportTicketStatus status, CancellationToken cancellationToken = default)
+    public async Task<Response<IEnumerable<StaffSupportResponseDto>>> GetTicketsByStatusAsync([FromRoute] StatusEnum status, CancellationToken cancellationToken = default)
     {
         var tickets = await _staffSupportService.GetTicketsByStatusAsync(status, cancellationToken);
         return tickets.Any()
@@ -104,7 +105,7 @@ public class StaffSupportController : CSIControllerBase<StaffSupportDto, StaffSu
     [SwaggerOperation(Summary = "Update Ticket Status", Description = "Updates the status of a specific support ticket.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Ticket status updated successfully.", typeof(Response<bool>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input.")]
-    public async Task<Response<bool>> UpdateTicketStatusAsync([FromRoute] long ticketId, [FromBody] SupportTicketStatus newStatus, CancellationToken cancellationToken = default)
+    public async Task<Response<bool>> UpdateTicketStatusAsync([FromRoute] long ticketId, [FromBody] StatusEnum newStatus, CancellationToken cancellationToken = default)
     {
         var result = await _staffSupportService.UpdateTicketStatusAsync(ticketId, newStatus, cancellationToken);
         return result

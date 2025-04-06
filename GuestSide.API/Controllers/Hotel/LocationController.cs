@@ -12,14 +12,14 @@ namespace Core.API.Controllers.Hotel;
 
 [Route("api/[controller]")]
 [ApiController]
-public class LocationController : CSIControllerBase<LocationrequestDto, LocationResponse, long, Location>
+public class LocationController : CSIControllerBase<LocationRequestDto, LocationResponse, long, Location>
 {
     private readonly ILocationService _locationService;
 
     public LocationController(
         ILocationService locationService,
-        IService<LocationrequestDto, LocationResponse, long, Location> serviceProvider,
-        IAdditionalFeatures<LocationrequestDto, LocationResponse, long, Location> additionalFeatures)
+        IService<LocationRequestDto, LocationResponse, long, Location> serviceProvider,
+        IAdditionalFeatures<LocationRequestDto, LocationResponse, long, Location> additionalFeatures)
         : base(serviceProvider, additionalFeatures)
     {
         _locationService = locationService;
@@ -46,7 +46,7 @@ public class LocationController : CSIControllerBase<LocationrequestDto, Location
     [HttpPut("update-location/{hotelId:long}")]
     [SwaggerOperation(Summary = "Update hotel location", Description = "Updates the latitude and longitude of a hotel location.")]
     [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
-    public async Task<Response<bool>> UpdateHotelLocation([FromRoute] long hotelId, [FromBody] LocationrequestDto locationDto, CancellationToken cancellationToken = default)
+    public async Task<Response<bool>> UpdateHotelLocation([FromRoute] long hotelId, [FromBody] LocationRequestDto locationDto, CancellationToken cancellationToken = default)
     {
         var result = await _locationService.UpdateHotelLocation(hotelId, locationDto.Latitude, locationDto.Longitude, cancellationToken);
         return new Response<bool>(result ? true : false, result);
@@ -74,7 +74,7 @@ public class LocationController : CSIControllerBase<LocationrequestDto, Location
     [SwaggerOperation(Summary = "Create a new Location record", Description = "Adds a new location record to the system.")]
     [SwaggerResponse(StatusCodes.Status201Created, "Record created successfully.", typeof(Response<LocationResponse>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-    public override async Task<Response<LocationResponse>> CreateAsync([FromBody] LocationrequestDto entityDto, CancellationToken cancellationToken = default)
+    public override async Task<Response<LocationResponse>> CreateAsync([FromBody] LocationRequestDto entityDto, CancellationToken cancellationToken = default)
     {
         return await base.CreateAsync(entityDto, cancellationToken);
     }
@@ -83,7 +83,7 @@ public class LocationController : CSIControllerBase<LocationrequestDto, Location
     [SwaggerOperation(Summary = "Update an existing Location record", Description = "Updates an existing location record by its ID.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Record updated successfully.", typeof(Response<LocationResponse>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
-    public override async Task<Response<LocationResponse>> UpdateAsync([FromRoute] long id, [FromBody] LocationrequestDto entityDto, CancellationToken cancellationToken = default)
+    public override async Task<Response<LocationResponse>> UpdateAsync([FromRoute] long id, [FromBody] LocationRequestDto entityDto, CancellationToken cancellationToken = default)
     {
         return await base.UpdateAsync(id, entityDto, cancellationToken);
     }
@@ -101,7 +101,7 @@ public class LocationController : CSIControllerBase<LocationrequestDto, Location
     [SwaggerOperation(Summary = "Bulk delete Location records", Description = "Deletes multiple location records in a single operation.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Entities deleted successfully.", typeof(IActionResult))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data. Collection is empty or null.")]
-    public override async Task<IActionResult> BulkDeleteAsync([FromBody] IEnumerable<LocationrequestDto> entities, CancellationToken cancellationToken = default)
+    public override async Task<IActionResult> BulkDeleteAsync([FromBody] IEnumerable<LocationRequestDto> entities, CancellationToken cancellationToken = default)
     {
         return await base.BulkDeleteAsync(entities, cancellationToken);
     }
@@ -110,7 +110,7 @@ public class LocationController : CSIControllerBase<LocationrequestDto, Location
     [SwaggerOperation(Summary = "Bulk update Location records", Description = "Updates multiple location records in a single operation.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Entities updated successfully.", typeof(IActionResult))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data. Collection is empty or null.")]
-    public override async Task<IActionResult> BulkUpdateAsync([FromBody] IEnumerable<LocationrequestDto> entities, CancellationToken cancellationToken = default)
+    public override async Task<IActionResult> BulkUpdateAsync([FromBody] IEnumerable<LocationRequestDto> entities, CancellationToken cancellationToken = default)
     {
         return await base.BulkUpdateAsync(entities, cancellationToken);
     }
@@ -119,7 +119,7 @@ public class LocationController : CSIControllerBase<LocationrequestDto, Location
     [SwaggerOperation(Summary = "Bulk add Location records", Description = "Adds multiple location records in a single operation.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Entities added successfully.", typeof(IActionResult))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data. Collection is empty or null.")]
-    public override async Task<IActionResult> BulkAddAsync([FromBody] IEnumerable<LocationrequestDto> entities, CancellationToken cancellationToken = default)
+    public override async Task<IActionResult> BulkAddAsync([FromBody] IEnumerable<LocationRequestDto> entities, CancellationToken cancellationToken = default)
     {
         return await base.BulkAddAsync(entities, cancellationToken);
     }

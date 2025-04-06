@@ -1,11 +1,9 @@
-﻿using Core.Core.Entities.Staff;
+﻿using Core.Core.Entities.Enums;
 
 namespace Core.Application.DTOs.Response.Staff;
 
-public class StaffIncidentResponseDto
+public class StaffIncidentResponseDto : AbstractResponse
 {
-    public long Id { get; set; }
-
     public long ReportedByStaffId { get; set; }
 
     public required string Title { get; set; }
@@ -14,9 +12,9 @@ public class StaffIncidentResponseDto
 
     public DateTime ReportedAt { get; set; }
 
-    public Severity Severity { get; set; }
+    public required PriorityEnum Severity { get; set; }
 
-    public StaffIncidentStatus Status { get; set; }
+    public required StatusEnum Status { get; set; }
 
     public DateTime? ResolvedAt { get; set; } 
 
@@ -24,11 +22,11 @@ public class StaffIncidentResponseDto
 
     public required string Location { get; set; } 
 
-    public bool RequiresImmediateAction { get; set; } 
+    public bool RequiresImmediateAction { get; set; }
 
-    public string? IncidentType { get; set; } 
+    public long IncidentTypeId { get; set; }
 
-    public DateTime UpdatedAt { get; set; } 
+    public virtual StaffResponseDto? ReportedByStaff { get; set; }
 
-    public virtual Staffs? ReportedByStaff { get; set; }
+    public virtual IncidentTypeResponseDto? IncidentType { get; set; }
 }

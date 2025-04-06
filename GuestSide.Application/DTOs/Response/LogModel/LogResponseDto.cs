@@ -1,12 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿namespace Core.Application.DTOs.Response.LogModel;
 
-namespace Core.Application.DTOs.Response.LogModel;
-
-public class LogResponseDto
+public class LogResponseDto : AbstractResponse
 {
-    public long Id { get; set; }
-
     public long? LoggerId { get; set; }
 
     public required string LogLevel { get; set; }
@@ -28,6 +23,4 @@ public class LogResponseDto
     public string? RequestId { get; set; }
 
     public string? StackTrace { get; set; }
-
-    public DateTime CreatedAt { get; set; } 
 }

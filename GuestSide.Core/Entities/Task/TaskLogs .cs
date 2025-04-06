@@ -10,15 +10,13 @@ public class TaskLogs : AbstractEntity, IExistable<TaskLogs>
     [ForeignKey("Task")]
     public long TaskId { get; set; }
 
-    public Tasks Task { get; set; }
+    public Tasks? Task { get; set; }
 
     public required string Action { get; set; }
 
     public required string PerformedBy { get; set; }
 
     public string? Notes { get; set; }
-
-    public DateTime Timestamp { get; set; }
 
     public Expression<Func<TaskLogs, bool>> GetExistencePredicate()
     {

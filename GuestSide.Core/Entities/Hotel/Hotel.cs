@@ -13,12 +13,6 @@ public class Hotel : AbstractEntity, IExistable<Hotel>
     [StringLength(100)]
     public required string Name { get; set; }
 
-    [StringLength(100)]
-    public string? City { get; set; }
-
-    [StringLength(255)] // Extended length for detailed addresses
-    public string? Address { get; set; }
-
     public DateTime RegistrationDate { get; set; } = DateTime.UtcNow; // Ensures consistent timestamping
 
     public int Stars { get; set; }
@@ -56,6 +50,6 @@ public class Hotel : AbstractEntity, IExistable<Hotel>
 
     public Expression<Func<Hotel, bool>> GetExistencePredicate()
     {
-        return i => i.Name == Name && i.Address == Address && i.City == City;
+        return i => i.LocationId == LocationId && i.Name == Name;
     }
 }

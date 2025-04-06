@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 namespace Core.Core.Entities.Advertisements;
 
 [Table("AdvertisementTypes", Schema = "CSI")]
-[Index(nameof(Name))] 
+[Index(nameof(Name))]
 [Index(nameof(LanguageCode))]
 public class AdvertisementType : AbstractEntity, IExistable<AdvertisementType>
 {
@@ -20,6 +20,6 @@ public class AdvertisementType : AbstractEntity, IExistable<AdvertisementType>
 
     public Expression<Func<AdvertisementType, bool>> GetExistencePredicate()
     {
-        return i=>i.Name == Name&&i.LanguageCode==LanguageCode;
+        return i => i.Name == Name && i.LanguageCode == LanguageCode;
     }
 }

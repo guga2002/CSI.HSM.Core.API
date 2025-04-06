@@ -8,7 +8,6 @@ namespace Core.Core.Entities.Guest;
 [Table("GuestLanguages", Schema = "CSI")]
 [Index(nameof(GuestId))] 
 [Index(nameof(LanguageCode))] 
-[Index(nameof(SetDate))] 
 public class GuestActiveLanguage : AbstractEntity
 {
     [ForeignKey(nameof(Guest))]
@@ -19,5 +18,5 @@ public class GuestActiveLanguage : AbstractEntity
 
     public DateTime SetDate { get; set; } = DateTime.UtcNow; 
 
-    public virtual Guests Guest { get; set; } 
+    public virtual Guests? Guest { get; set; } 
 }

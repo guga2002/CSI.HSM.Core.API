@@ -1,6 +1,7 @@
 ﻿using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.GenericContracts;
+using Core.Core.Entities.Enums;
 using Core.Core.Entities.Item;
 using Core.Core.Entities.Task;
 
@@ -23,7 +24,7 @@ public interface ITaskService : IService<TaskDto, TaskResponseDto, long, Tasks>,
     /// <param name="taskId">Task ID</param>
     /// <param name="newStatus">New Task Status</param>
     /// <returns>True if update is successful</returns>
-    Task<bool> UpdateTaskStatus(long taskId, Core.Entities.Task.TaskStatus newStatus);
+    Task<bool> UpdateTaskStatus(long taskId, StatusEnum newStatus);
 
     /// <summary>
     /// Updates the priority of a specific task.
@@ -31,7 +32,7 @@ public interface ITaskService : IService<TaskDto, TaskResponseDto, long, Tasks>,
     /// <param name="taskId"></param>
     /// <param name="newPriority"></param>
     /// <returns></returns>
-    Task<bool> UpdateTaskPriority(long taskId, Core.Entities.Task.TaskPriority newPriority);
+    Task<bool> UpdateTaskPriority(long taskId, PriorityEnum newPriority);
 
     /// <summary>
     /// Retrieves tasks filtered by status with an optional limit.
@@ -39,7 +40,7 @@ public interface ITaskService : IService<TaskDto, TaskResponseDto, long, Tasks>,
     /// <param name="status">Task Status</param>
     /// <param name="limit">Max number of tasks (default: 50)</param>
     /// <returns>List of TaskResponseDto</returns>
-    Task<IEnumerable<TaskResponseDto>> GetTasksByStatus(Core.Entities.Task.TaskStatus status, int limit = 50);
+    Task<IEnumerable<TaskResponseDto>> GetTasksByStatus(StatusEnum status, int limit = 50);
 
     /// <summary>
     /// Retrieves high-priority tasks with a specified limit.

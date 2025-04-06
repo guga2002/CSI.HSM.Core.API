@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Core.Core.Entities.AbstractEntities;
+using Core.Core.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Core.Core.Entities.Staff;
@@ -10,7 +11,6 @@ namespace Core.Core.Entities.Staff;
 [Index(nameof(Severity))] 
 [Index(nameof(Status))] 
 [Index(nameof(RequiresImmediateAction))] 
-[Index(nameof(ReportedAt))] 
 public class StaffIncident : AbstractEntity
 {
     [ForeignKey(nameof(ReportedByStaff))]
@@ -22,11 +22,9 @@ public class StaffIncident : AbstractEntity
     [StringLength(500)]
     public string? Description { get; set; }
 
-    public DateTime ReportedAt { get; set; } = DateTime.UtcNow; 
+    public required PriorityEnum Severity { get; set; } 
 
-    public required Severity Severity { get; set; } 
-
-    public required StaffIncidentStatus Status { get; set; } = StaffIncidentStatus.Open;
+    public required StatusEnum Status { get; set; } = StatusEnum.Open;
 
     public DateTime? ResolvedAt { get; set; } // Timestamp when the incident was resolved
 
@@ -38,26 +36,10 @@ public class StaffIncident : AbstractEntity
 
     public bool RequiresImmediateAction { get; set; } = false; // Marks if urgent attention is needed
 
-    [StringLength(100)]
-    public string? IncidentType { get; set; } // Categorizes the type of incident (e.g., "Safety", "Technical", "HR")
+    [ForeignKey(nameof(IncidentType))]
+    public long IncidentTypeId {  get; set; }
 
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow; // Tracks last modification time
+    public virtual IncidentType? IncidentType { get; set; }
 
     public virtual Staffs? ReportedByStaff { get; set; } // Virtual for lazy loading
-}
-
-public enum StaffIncidentStatus
-{
-    Open,
-    InProgress,
-    Resolved,
-    Closed
-}
-
-public enum Severity
-{
-    Low,
-    Medium,
-    High,
-    Critical
 }

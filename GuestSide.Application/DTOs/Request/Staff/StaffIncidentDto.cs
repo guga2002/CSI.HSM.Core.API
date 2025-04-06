@@ -1,4 +1,4 @@
-﻿using Core.Core.Entities.Staff;
+﻿using Core.Core.Entities.Enums;
 
 namespace Core.Application.DTOs.Request.Staff;
 
@@ -10,18 +10,13 @@ public class StaffIncidentDto
 
     public string? Description { get; set; }
 
-    public DateTime ReportedAt { get; set; } = DateTime.UtcNow;
+    public required PriorityEnum Severity { get; set; }
 
-    public Severity Severity { get; set; }
-
-    public StaffIncidentStatus Status { get; set; }
+    public required StatusEnum Status { get; set; }
 
     public string? ResolutionNotes { get; set; }
 
-    public required string Location { get; set; } 
+    public required string Location { get; set; }
 
-    public string? IncidentType { get; set; } 
-
-    public DateTime UpdatedAt { get; set; } 
-
+    public long IncidentTypeId { get; set; }
 }

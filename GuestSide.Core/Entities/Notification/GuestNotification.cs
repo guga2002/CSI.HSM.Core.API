@@ -15,12 +15,12 @@ public class GuestNotification : AbstractEntity
     [ForeignKey(nameof(Guest))]
     public long GuestId { get; set; }
 
-    public virtual Guests Guest { get; set; }
+    public virtual Guests? Guest { get; set; }
 
     [ForeignKey(nameof(Notifications))]
     public long NotificationId { get; set; }
 
-    public virtual Notifications Notifications { get; set; }
+    public virtual Notifications? Notifications { get; set; }
 
     public bool IsRead { get; set; } = false;
 

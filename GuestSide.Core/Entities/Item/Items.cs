@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
+using System.Text.Json;
 using Core.Core.Entities.AbstractEntities;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,8 +41,14 @@ public class Items : AbstractEntity, IExistable<Items>
 
     public virtual List<TaskItem> TaskItems { get; set; } = new(); // Proper ORM handling
 
-    public DateTime AddedDate { get; set; } = DateTime.UtcNow; // Default timestamp for item creation
+    public string? PicturesSerialized { get; set; }
 
+    [NotMapped]
+    public List<string>? Pictures
+    {
+        get => PicturesSerialized == null ? new List<string>() : JsonSerializer.Deserialize<List<string>>(PicturesSerialized);
+        set => PicturesSerialized = value == null ? null : JsonSerializer.Serialize(value);
+    }
 
     public Items() { }
 

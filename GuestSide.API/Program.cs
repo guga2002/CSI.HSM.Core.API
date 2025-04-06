@@ -172,7 +172,9 @@ builder.Services.InjectTaskItem();
 builder.Services.InjectCart();
 
 builder.Services.InjectTaskStatus();
+
 builder.Services.InjectTasks();
+
 builder.Services.AddScoped<IUniteOfWork, UniteOfWorkRepository>();
 
 builder.Services.AddGuestActiveLanguage();
@@ -183,6 +185,9 @@ builder.Services.InjectAudioResponse();
 
 builder.Services.InjectAudioResponseCategory();
 
+builder.Services.IncidentTypeDI();
+
+builder.Services.IncidentTypeToStaffCategoryDI();
 //builder.Logging.ClearProviders();
 //builder.Services.InjectSeriLog();
 

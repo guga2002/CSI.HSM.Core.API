@@ -19,5 +19,4 @@ public class TaskToStaffDto
     public long StatusId { get; set; }
 
     public long TaskId { get; set; }
-
 }

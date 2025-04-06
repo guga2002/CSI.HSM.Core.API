@@ -1,5 +1,4 @@
 ﻿using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Language;
 using Core.Core.Entities.Task;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,7 +9,6 @@ namespace Core.Core.Entities.FeedBacks;
 [Table("Feedbacks", Schema = "CSI")]
 [Index(nameof(CorrelationId))]
 [Index(nameof(Rating))] 
-[Index(nameof(FeedbackDate))] 
 [Index(nameof(LanguageCode))] 
 [Index(nameof(TaskId))]
 public class Feedback : AbstractEntity
@@ -27,8 +25,6 @@ public class Feedback : AbstractEntity
     public Guid CorrelationId { get; set; } = Guid.NewGuid();
 
     public int Rating { get; set; }
-
-    public DateTime FeedbackDate { get; set; } = DateTime.UtcNow; 
 
     [StringLength(10)] 
     public string? LanguageCode { get; set; }

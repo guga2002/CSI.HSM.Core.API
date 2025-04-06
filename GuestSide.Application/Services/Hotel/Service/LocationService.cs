@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Hotel.Service
 {
-    public class LocationService : GenericService<LocationrequestDto, LocationResponse, long, Location>, ILocationService
+    public class LocationService : GenericService<LocationRequestDto, LocationResponse, long, Location>, ILocationService
     {
         private readonly IUniteOfWork _uniteOfWork;
         private readonly ILocationRepository _locationRepository;

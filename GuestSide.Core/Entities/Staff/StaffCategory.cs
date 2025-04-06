@@ -19,15 +19,13 @@ public class StaffCategory : AbstractEntity, IExistable<StaffCategory>
     [StringLength(255)]
     public string? Description { get; set; }
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-
     public virtual List<Staffs>? Staff { get; set; }
 
     public virtual List<TaskToStaff>? TaskToStaff { get; set; }
 
     public virtual List<ItemCategoryToStaffCategory>? ItemCategoryToStaff { get; set; }
+
+    public virtual List<IncidentTypeToStaffCategory>? StaffIncidentTypeToStaffCategories { get; set; }
 
     public Expression<Func<StaffCategory, bool>> GetExistencePredicate()
     {

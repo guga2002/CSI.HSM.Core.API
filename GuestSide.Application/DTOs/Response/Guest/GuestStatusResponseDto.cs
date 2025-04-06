@@ -2,12 +2,10 @@
 
 namespace Core.Application.DTOs.Response.Guest;
 
-public class GuestStatusResponseDto
+public class GuestStatusResponseDto : AbstractResponse
 {
-    public long Id { get; set; }
-
     public string? StatusName { get; set; }
 
-    [StringLength(10)] 
+    [StringLength(10)]
     public string? LanguageCode { get; set; }
 }

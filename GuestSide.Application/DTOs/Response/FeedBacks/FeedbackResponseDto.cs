@@ -2,7 +2,7 @@
 
 namespace Core.Application.DTOs.Response.FeedBacks;
 
-public class FeedbackResponseDto
+public class FeedbackResponseDto : AbstractResponse
 {
     public required string Title { get; set; }
 
@@ -21,9 +21,4 @@ public class FeedbackResponseDto
     public long TaskId { get; set; }
 
     public virtual TaskResponseDto? Task { get; set; }
-
-    public long Id { get; set; }
-
-    public bool IsActive { get; set; } 
-
 }

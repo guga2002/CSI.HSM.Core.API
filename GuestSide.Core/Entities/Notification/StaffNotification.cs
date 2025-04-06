@@ -1,7 +1,6 @@
 ﻿using Core.Core.Entities.AbstractEntities;
 using Core.Core.Entities.Staff;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Core.Entities.Notification;
@@ -15,12 +14,12 @@ public class StaffNotification : AbstractEntity
     [ForeignKey(nameof(StaffMember))]
     public long StaffId { get; set; }
 
-    public virtual Staffs StaffMember { get; set; } 
+    public virtual Staffs? StaffMember { get; set; } 
 
     [ForeignKey(nameof(Notifications))]
     public long NotificationId { get; set; }
 
-    public virtual Notifications Notifications { get; set; }
+    public virtual Notifications? Notifications { get; set; }
 
     public bool IsRead { get; set; } = false; 
 
@@ -29,7 +28,4 @@ public class StaffNotification : AbstractEntity
     public DateTime? ReadTime { get; set; } 
 
     public bool IsImportant { get; set; } = false; // Marks high-priority notifications
-
-    [StringLength(50)]
-    public string? NotificationType { get; set; } // Categorizes notifications (e.g., "System Alert", "Task Reminder")
 }

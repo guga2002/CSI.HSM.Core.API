@@ -1,9 +1,7 @@
 ﻿namespace Core.Application.DTOs.Response.Promo;
 
-public class PromoCodeResponse
+public class PromoCodeResponse : AbstractResponse
 {
-    public long Id { get; set; }
-
     public required string Code { get; set; }
 
     public required string Description { get; set; }
@@ -29,6 +27,4 @@ public class PromoCodeResponse
     public bool IsSingleUse { get; set; }
 
     public int TimesUsed { get; set; }
-
-    public bool IsActive { get; set; }
 }

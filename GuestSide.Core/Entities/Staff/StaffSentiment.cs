@@ -45,7 +45,5 @@ public class StaffSentiment : AbstractEntity
     [StringLength(500)]
     public string? SuggestedAction { get; set; }  // Suggested action based on sentiment analysis
 
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow; // Tracks last modification time
-
     public virtual Staffs? StaffMember { get; set; } // Virtual for lazy loading
 }

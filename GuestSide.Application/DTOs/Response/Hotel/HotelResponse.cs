@@ -1,14 +1,9 @@
-﻿
-using Core.Core.Entities.Hotel.GeoLocation;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Core.Application.DTOs.Response.Hotel;
 
-public class HotelResponse
+public class HotelResponse : AbstractResponse
 {
-    public long Id { get; set; }
-
     public required string Name { get; set; }
 
     [StringLength(100)]
@@ -29,14 +24,14 @@ public class HotelResponse
 
     public List<string>? Pictures
     {
-        get ;
-        set ;
+        get;
+        set;
     }
 
     public List<string>? Facilities
     {
-        get ;
-        set ;
+        get;
+        set;
     }
 
     public virtual LocationResponse? Location { get; set; }

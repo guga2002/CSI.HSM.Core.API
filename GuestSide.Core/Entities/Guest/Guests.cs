@@ -82,7 +82,7 @@ public class Guests : AbstractEntity
 
     public virtual GuestActiveLanguage ActiveLanguage { get; set; } // Virtual navigation
 
-    public virtual List<Cart>? Tasks { get; set; } 
+    public virtual List<Cart>? Carts { get; set; } 
 
     public virtual List<GuestNotification> GuestNotifications { get; set; } = new(); // Optimized
 

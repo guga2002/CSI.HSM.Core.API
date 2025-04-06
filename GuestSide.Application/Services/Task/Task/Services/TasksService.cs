@@ -7,6 +7,7 @@ using Core.Core.Entities.Task;
 using Core.Core.Interfaces.AbstractInterface;
 using Core.Core.Interfaces.Task;
 using Core.Core.Entities.Item;
+using Core.Core.Entities.Enums;
 
 namespace Core.Application.Services.Task.Task.Services;
 
@@ -32,17 +33,17 @@ public class TasksService : GenericService<TaskDto, TaskResponseDto, long, Tasks
         return _mapper.Map<IEnumerable<TaskResponseDto>>(tasks);
     }
 
-    public async Task<bool> UpdateTaskStatus(long taskId, Core.Entities.Task.TaskStatus newStatus)
+    public async Task<bool> UpdateTaskStatus(long taskId, StatusEnum newStatus)
     {
         return await _taskRepository.UpdateTaskStatus(taskId, newStatus);
     }
 
-    public async Task<bool> UpdateTaskPriority(long taskId, TaskPriority newPriority)
+    public async Task<bool> UpdateTaskPriority(long taskId, PriorityEnum newPriority)
     {
         return await _taskRepository.UpdateTaskPriority(taskId, newPriority);
     }
 
-    public async Task<IEnumerable<TaskResponseDto>> GetTasksByStatus(Core.Entities.Task.TaskStatus status, int limit = 50)
+    public async Task<IEnumerable<TaskResponseDto>> GetTasksByStatus(StatusEnum status, int limit = 50)
     {
         var tasks = await _taskRepository.GetTasksByStatus(status, limit);
         return _mapper.Map<IEnumerable<TaskResponseDto>>(tasks);

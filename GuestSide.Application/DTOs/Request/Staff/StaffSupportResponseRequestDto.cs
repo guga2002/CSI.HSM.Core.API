@@ -10,5 +10,5 @@ public class StaffSupportResponseRequestDto
 
     public bool IsFromSupportTeam { get; set; } = false;
 
-    public string? AttachmentUrlsSerialized { get; set; }
+    public List<string>? AttachmentUrls { get; set; }
 }

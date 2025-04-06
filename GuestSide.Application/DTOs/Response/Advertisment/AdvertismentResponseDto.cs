@@ -1,14 +1,13 @@
 ﻿
-public class AdvertismentResponseDto
-{
-    public long Id { get; set; }
+using Core.Application.DTOs.Response;
 
-    public bool IsActive { get; set; } 
+public class AdvertismentResponseDto : AbstractResponse
+{
     public required string Title { get; set; }
+
     public string? Description { get; set; }
 
     public long AdvertisementTypeId { get; set; }
-
 
     public DateTime? StartDate { get; set; }
 
@@ -16,6 +15,5 @@ public class AdvertismentResponseDto
 
     public string? LanguageCode { get; set; }
 
-    public List<string>? PicturesUrl { get; set; }
+    public List<string>? Pictures { get; set; }
 }
-

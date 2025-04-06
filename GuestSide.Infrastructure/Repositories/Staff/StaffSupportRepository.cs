@@ -1,4 +1,5 @@
 ﻿using Core.Core.Data;
+using Core.Core.Entities.Enums;
 using Core.Core.Entities.Staff;
 using Core.Core.Interfaces.Staff;
 using Core.Infrastructure.Repositories.AbstractRepository;
@@ -31,14 +32,14 @@ namespace Core.Infrastructure.Repositories.Staff
                 .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<StaffSupport>> GetTicketsByPriorityAsync(SupportTicketPriority priority, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<StaffSupport>> GetTicketsByPriorityAsync(PriorityEnum priority, CancellationToken cancellationToken = default)
         {
             return await _context.StaffSupports.AsNoTracking()
                 .Where(s => s.Priority == priority)
                 .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<StaffSupport>> GetTicketsByStatusAsync(SupportTicketStatus status, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<StaffSupport>> GetTicketsByStatusAsync(StatusEnum status, CancellationToken cancellationToken = default)
         {
             return await _context.StaffSupports.AsNoTracking()
                 .Where(s => s.Status == status)
@@ -56,13 +57,13 @@ namespace Core.Infrastructure.Repositories.Staff
         {
             var fromDate = DateTime.UtcNow.AddDays(-days);
             return await _context.StaffSupports.AsNoTracking()
-                .Where(s => s.CreatedDate >= fromDate)
+                .Where(s => s.CreatedAt >= fromDate)
                 .ToListAsync(cancellationToken);
         }
         #endregion
 
         #region Ticket Management
-        public async Task<bool> UpdateTicketStatusAsync(long ticketId, SupportTicketStatus newStatus, CancellationToken cancellationToken = default)
+        public async Task<bool> UpdateTicketStatusAsync(long ticketId, StatusEnum newStatus, CancellationToken cancellationToken = default)
         {
             var ticket = await _context.StaffSupports.FindAsync(new object[] { ticketId }, cancellationToken);
             if (ticket == null) return false;
@@ -80,7 +81,7 @@ namespace Core.Infrastructure.Repositories.Staff
             var ticket = await _context.StaffSupports.FindAsync(new object[] { ticketId }, cancellationToken);
             if (ticket == null) return false;
 
-            ticket.Status = SupportTicketStatus.Resolved;
+            ticket.Status = StatusEnum.Resolved;
             ticket.UpdatedAt = DateTime.UtcNow;
             ticket.ResolvedDate = DateTime.UtcNow;
             await _context.SaveChangesAsync(cancellationToken);
@@ -107,19 +108,19 @@ namespace Core.Infrastructure.Repositories.Staff
         public async Task<int> CountOpenTicketsAsync(CancellationToken cancellationToken = default)
         {
             return await _context.StaffSupports
-                .CountAsync(s => s.Status == SupportTicketStatus.Open, cancellationToken);
+                .CountAsync(s => s.Status == StatusEnum.Open, cancellationToken);
         }
 
         public async Task<int> CountResolvedTicketsAsync(CancellationToken cancellationToken = default)
         {
             return await _context.StaffSupports
-                .CountAsync(s => s.Status == SupportTicketStatus.Resolved, cancellationToken);
+                .CountAsync(s => s.Status == StatusEnum.Resolved, cancellationToken);
         }
 
         public async Task<int> CountHighPriorityTicketsAsync(CancellationToken cancellationToken = default)
         {
             return await _context.StaffSupports
-                .CountAsync(s => s.Priority == SupportTicketPriority.High || s.Priority == SupportTicketPriority.Critical, cancellationToken);
+                .CountAsync(s => s.Priority == PriorityEnum.High || s.Priority == PriorityEnum.Critical, cancellationToken);
         }
         #endregion
 

@@ -1,6 +1,4 @@
-﻿using Core.Application.DTOs.Request.Task;
-
-namespace Core.Application.DTOs.Request.Item;
+﻿namespace Core.Application.DTOs.Request.Item;
 
 public class CartDto
 {

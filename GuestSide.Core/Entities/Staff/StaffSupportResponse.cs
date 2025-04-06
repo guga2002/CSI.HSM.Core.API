@@ -8,12 +8,11 @@ namespace Core.Core.Entities.Staff;
 
 [Table("StaffSupportResponses", Schema = "CSI")]
 [Index(nameof(TicketId))] 
-[Index(nameof(ResponseDate))] 
 [Index(nameof(IsFromSupportTeam))] 
 public class StaffSupportResponse : AbstractEntity
 {
     [ForeignKey(nameof(StaffSupport))]
-    public long TicketId { get; set; }
+    public long TicketId { get; set; } //staffSupportId
 
     public virtual StaffSupport? StaffSupport { get; set; } // Virtual for lazy loading
 
@@ -24,10 +23,6 @@ public class StaffSupportResponse : AbstractEntity
     public string? ResponseMessage { get; set; } // Detailed message response
 
     public bool IsFromSupportTeam { get; set; } = false; // Indicates if response is from support team
-
-    public DateTime ResponseDate { get; set; } = DateTime.UtcNow; // Automatically set when response is created
-
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     [Column(TypeName = "nvarchar(max)")] 
     public string? AttachmentUrlsSerialized { get; set; }

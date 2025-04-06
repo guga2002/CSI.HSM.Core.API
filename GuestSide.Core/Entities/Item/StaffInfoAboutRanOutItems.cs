@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Core.Core.Entities.AbstractEntities;
+using Core.Core.Entities.Enums;
 using Core.Core.Entities.Staff;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,23 +30,16 @@ public class StaffInfoAboutRanOutItems : AbstractEntity
 
     public DateTime RequestTime { get; set; } = DateTime.UtcNow;
 
-    public RefillPriority Priority { get; set; }
+    public PriorityEnum Priority { get; set; } 
 
     public bool Resolved { get; set; } = false;
 
     [StringLength(200)]
     public string? Notes { get; set; }
 
-
     public DateTime? HandledDate { get; set; }
 
     [NotMapped]
-    public bool IsUrgent => Priority == RefillPriority.High;
+    public bool IsUrgent => Priority == PriorityEnum.High;
 }
 
-public enum RefillPriority
-{
-    High,
-    Medium,
-    Low
-}

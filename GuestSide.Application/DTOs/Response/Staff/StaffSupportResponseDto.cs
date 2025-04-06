@@ -1,8 +1,9 @@
-﻿using Core.Core.Entities.Staff;
+﻿using Core.Core.Entities.Enums;
+using Core.Core.Entities.Staff;
 
 namespace Core.Application.DTOs.Response.Staff;
 
-public class StaffSupportResponseDto
+public class StaffSupportResponseDto : AbstractResponse
 {
     public long StaffId { get; set; }
 
@@ -10,17 +11,17 @@ public class StaffSupportResponseDto
 
     public string? Description { get; set; }
 
-    public string? Category { get; set; }
+    public string? Category { get; set; } // Categorizes the support request (e.g., "IT", "HR", "Facilities")
 
-    public SupportTicketPriority Priority { get; set; } 
+    public PriorityEnum Priority { get; set; }
 
-    public SupportTicketStatus Status { get; set; }
-
-    public DateTime CreatedDate { get; set; }
+    public StatusEnum Status { get; set; } 
 
     public DateTime? ResolvedDate { get; set; }
 
-    public DateTime UpdatedAt { get; set; } 
+    public List<string>? AttachmentUrls { get; set; }
 
-    public string? AttachmentUrlsSerialized { get; set; }
+    public virtual StaffSupportResponse? SupportResponse { get; set; } // Virtual for lazy loading
+
+    public virtual StaffResponseDto? StaffMember { get; set; }
 }

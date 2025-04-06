@@ -1,12 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace Core.Application.DTOs.Response.Advertisment;
 
-namespace Core.Application.DTOs.Response.Advertisment;
-
-public class AdvertisementTypeResponseDto
+public class AdvertisementTypeResponseDto: AbstractResponse
 {
-    public long Id { get; set; }
-
-    public bool IsActive { get; set; } = true;
     public required string Name { get; set; }
 
     public string? Description { get; set; }

@@ -8,9 +8,8 @@ namespace Core.Core.Entities.Item;
 [Table("StaffReserveItems", Schema = "CSI")]
 [Index(nameof(FinalUsed))] 
 [Index(nameof(ReservedTill))] 
-public class StaffReserveItem : AbstractEntity
+public class StaffReserveItem : AbstractEntity //ar viyenebt am cxrils am etapze
 {
-
     public int Quantity { get; set; }
 
     public bool FinalUsed { get; set; } = false; // Indicates if the reservation was used

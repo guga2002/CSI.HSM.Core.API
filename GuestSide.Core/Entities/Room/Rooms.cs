@@ -54,10 +54,6 @@ public class Room : AbstractEntity, IExistable<Room>
 
     public virtual QRCode? QRCode { get; set; }
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-
     public Room() { }
 
     public Room(string pattern = "You are on floor {0}, and your room number is {1}.")

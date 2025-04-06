@@ -2,6 +2,7 @@
 using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Response.Item;
 using Core.Application.Interface.Item;
+using Core.Core.Entities.Enums;
 using Core.Core.Entities.Item;
 using Core.Core.Interfaces.AbstractInterface;
 using Core.Core.Interfaces.Item;
@@ -45,7 +46,7 @@ namespace Core.Application.Services.Item
             return _mapper.Map<IEnumerable<StaffInfoAboutRanOutItemsResponseDto>>(requests);
         }
 
-        public async Task<IEnumerable<StaffInfoAboutRanOutItemsResponseDto>> GetRequestsByPriorityAsync(RefillPriority priority, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<StaffInfoAboutRanOutItemsResponseDto>> GetRequestsByPriorityAsync(PriorityEnum priority, CancellationToken cancellationToken = default)
         {
             var requests = await _staffInfoRepository.GetRequestsByPriorityAsync(priority, cancellationToken);
             return _mapper.Map<IEnumerable<StaffInfoAboutRanOutItemsResponseDto>>(requests);

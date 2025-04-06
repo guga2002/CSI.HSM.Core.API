@@ -8,7 +8,6 @@ namespace Core.Core.Entities.LogEntities;
 [Index(nameof(LoggerId))] 
 [Index(nameof(LogLevel))] 
 [Index(nameof(CorrelationId))] 
-[Index(nameof(Timestamp))] 
 [Index(nameof(IsEmergency))] 
 public class Logs : AbstractEntity
 {
@@ -23,8 +22,6 @@ public class Logs : AbstractEntity
 
     public Guid CorrelationId { get; set; } 
 
-    public DateTime Timestamp { get; set; } = DateTime.UtcNow;
-
     [Column(TypeName = "nvarchar(max)")] 
     public required string Exception { get; set; }
 
@@ -38,6 +35,4 @@ public class Logs : AbstractEntity
 
     [Column(TypeName = "nvarchar(max)")]
     public string? StackTrace { get; set; } 
-
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }

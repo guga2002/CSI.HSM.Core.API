@@ -25,9 +25,25 @@ public class PromoCode : AbstractEntity, IExistable<PromoCode>
 
     public int? UsageLimitPerGuest { get; set; } // Max per user
 
-    public List<long>? ApplicableItemIds { get; set; } // Optional: restrict to specific products
+    [Column(TypeName = "nvarchar(max)")] // Stores JSON-formatted string in the database
+    public string? ApplicableItemIdsSerialized { get; set; }
 
-    public List<long>? ApplicableGuestIds { get; set; } // Optional: target guests
+    [NotMapped]
+    public List<long> ApplicableItemIds
+    {
+        get => ApplicableItemIdsSerialized == null ? new List<long>() : System.Text.Json.JsonSerializer.Deserialize<List<long>>(ApplicableItemIdsSerialized);
+        set => ApplicableItemIdsSerialized = value == null ? null : System.Text.Json.JsonSerializer.Serialize(value);
+    }
+
+    [Column(TypeName = "nvarchar(max)")] // Stores JSON-formatted string in the database
+    public string? ApplicableGuestIdsSerialized { get; set; }
+
+    [NotMapped]
+    public List<long> ApplicableGuestIds
+    {
+        get => ApplicableGuestIdsSerialized == null ? new List<long>() : System.Text.Json.JsonSerializer.Deserialize<List<long>>(ApplicableGuestIdsSerialized);
+        set => ApplicableGuestIdsSerialized = value == null ? null : System.Text.Json.JsonSerializer.Serialize(value);
+    }
 
     public bool IsSingleUse { get; set; } // true if only usable once
 

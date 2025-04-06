@@ -24,9 +24,9 @@ public class TaskItem : AbstractEntity
 
     public int Quantity { get; set; }
 
-    public bool IsCompleted { get; set; } = false; 
+    public bool IsCompleted { get; set; } = false;
 
-    public DateTime AssignedDate { get; set; } = DateTime.UtcNow;
+    public DateTime? AssignedDate { get; set; }
 
     [StringLength(300)]
     public string? Notes { get; set; } 

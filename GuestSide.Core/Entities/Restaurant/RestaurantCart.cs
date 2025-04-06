@@ -37,10 +37,6 @@ public class RestaurantCart : AbstractEntity
 
     public bool IsPaid { get; set; } = false; 
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow; 
-
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow; 
-
     public virtual List<RestaurantItemToCart>? RestaurantItemToCarts { get; set; } 
 
     public virtual RestaurantOrderPayment? RestaurantOrderPayment { get; set; } 
