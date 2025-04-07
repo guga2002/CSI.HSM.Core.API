@@ -2,6 +2,8 @@
 using Core.Core.Entities.Item;
 using Core.Persistance.MailServices;
 using Core.Persistance.PtmsCsi;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -23,7 +25,7 @@ public class ItemMonitoring : IHostedService,IDisposable
     public Task StartAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("NotifyUsersService started.");
-        _timer = new Timer(async _ => await ExecuteAsync(), null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
+        _timer = new Timer(async _ => await ExecuteAsync(), null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
         return Task.CompletedTask;
     }
 
@@ -37,6 +39,35 @@ public class ItemMonitoring : IHostedService,IDisposable
             List<Items> items=new List<Items> { };
             _isProcessing = true;
             var scope= _serviceProvider.CreateScope();
+            var httpContextAccessor = scope.ServiceProvider.GetRequiredService<IHttpContextAccessor>();
+            if (httpContextAccessor.HttpContext == null)
+            {
+                httpContextAccessor.HttpContext = new DefaultHttpContext();
+            }
+            var httpContext = httpContextAccessor.HttpContext;
+            if (httpContext != null && httpContext.Request.Headers.TryGetValue("X-Hotel-Id", out var hotelId))
+            {
+                var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+                if (config != null)
+                {
+                    var hotel = (string)hotelId;
+                    if (!string.IsNullOrEmpty(hotel))
+                    {
+                        {
+                            var connection = config.GetConnectionString(hotel);
+                            if (connection != null)
+                            {
+                                httpContextAccessor.HttpContext.Items["ConnectionString"] = connection;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Hotel ID header not found.will take default Db");
+            }
+
             var dbcontext = scope.ServiceProvider.GetRequiredService<GuestSideDb>();
             foreach (var item in dbcontext.Items)
             {
