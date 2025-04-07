@@ -6,6 +6,8 @@ using Core.Core.Entities.Notification;
 using Core.Persistance.PtmsCsi;
 using Core.Persistance.MailServices;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace Core.Persistance.BackgroundServices
 {
@@ -39,6 +41,40 @@ namespace Core.Persistance.BackgroundServices
                 _isProcessing = true;
 
                 using var scope = _serviceProvider.CreateScope();
+
+                var httpContextAccessor = scope.ServiceProvider.GetRequiredService<IHttpContextAccessor>();
+
+
+                if (httpContextAccessor.HttpContext == null)
+                {
+                    httpContextAccessor.HttpContext = new DefaultHttpContext();
+                }
+
+                var httpContext = httpContextAccessor.HttpContext;
+
+                if (httpContext != null && httpContext.Request.Headers.TryGetValue("X-Hotel-Id", out var hotelId))
+                {
+                    var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+                    if (config != null)
+                    {
+                        var hotel = (string)hotelId;
+                        if (!string.IsNullOrEmpty(hotel))
+                        {
+                            {
+                                var connection = config.GetConnectionString(hotel);
+                                if (connection != null)
+                                {
+                                    httpContextAccessor.HttpContext.Items["ConnectionString"] = connection;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Hotel ID header not found.will take default Db");
+                }
+
                 var context = scope.ServiceProvider.GetRequiredService<GuestSideDb>();
                 var smtpService = scope.ServiceProvider.GetRequiredService<SmtpService>();
                 var templateGatewayService = scope.ServiceProvider.GetRequiredService<ITemplateGatewayService>();
