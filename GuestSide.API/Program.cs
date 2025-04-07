@@ -69,6 +69,15 @@ builder.WebHost.ConfigureKestrel(options =>
 
 builder.Services.AddHostedService<NotifyUsersService>();
 builder.Services.AddHostedService<ItemMonitoring>();
+builder.Services.AddHostedService<PromoCodeMonitoring>();
+builder.Services.AddHostedService<TaskDeadlineMonitor>();
+builder.Services.AddHostedService<DailyStatisticWorker>();
+builder.Services.AddHostedService<TaskReassignmentWorker>();
+builder.Services.AddHostedService<IncidentRiskClassifierWorker>();
+builder.Services.AddHostedService<StaleCartCleanerWorker>();
+builder.Services.AddHostedService<RoomStatusAutoResetWorker>();
+builder.Services.AddHostedService<AutoTaskAssignerWorker>();
+builder.Services.AddHostedService<GuestCheckOutFinalizerWorker>();
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"];
 builder.Services.AddAuthentication(options =>

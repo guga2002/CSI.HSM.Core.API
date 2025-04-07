@@ -70,7 +70,7 @@ public class Guests : AbstractEntity
 
     [ForeignKey(nameof(Room))]
     public long RoomId { get; set; }
-
+    public bool HasBeenFinalized { get; set; } = false;
     public virtual Room.Room? Room { get; set; } // Virtual navigation
     public virtual Status? Status { get; set; } // Virtual navigation
 

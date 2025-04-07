@@ -25,7 +25,7 @@ public class ItemMonitoring : IHostedService,IDisposable
     public Task StartAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("NotifyUsersService started.");
-        _timer = new Timer(async _ => await ExecuteAsync(), null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
+        _timer = new Timer(async _ => await ExecuteAsync(), null, TimeSpan.Zero, TimeSpan.FromMinutes(30));
         return Task.CompletedTask;
     }
 

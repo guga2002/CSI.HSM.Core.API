@@ -13,6 +13,7 @@ using Core.Core.Entities.Promo;
 using Core.Core.Entities.Restaurant;
 using Core.Core.Entities.Room;
 using Core.Core.Entities.Staff;
+using Core.Core.Entities.Statistic;
 using Core.Core.Entities.Task;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,8 @@ public class GuestSideDb : DbContext
     public virtual DbSet<Advertisement> Advertisements { get; set; }
 
     public virtual DbSet<AdvertisementType> AdvertisementTypes { get; set; }
+
+    public virtual DbSet<DailyStatistic> DailyStatistics { get; set; }
 
     public virtual DbSet<Feedback> Feedbacks { get; set; }
 
