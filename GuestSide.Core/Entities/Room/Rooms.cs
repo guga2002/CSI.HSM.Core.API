@@ -13,7 +13,6 @@ namespace Core.Core.Entities.Room;
 [Index(nameof(Floor))]
 [Index(nameof(RoomCategoryId))]
 [Index(nameof(IsAvailable))]
-[Index(nameof(CreatedAt))]
 public class Room : AbstractEntity, IExistable<Room>
 {
     public int RoomNumber { get; set; }

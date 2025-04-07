@@ -7,20 +7,13 @@ using Microsoft.EntityFrameworkCore;
 namespace Core.Core.Entities.Audio;
 
 [Table("AudioResponses", Schema = "CSI")]
-[Index(nameof(LanguageCode))]
 [Index(nameof(VoiceType))]
 [Index(nameof(CategoryId))]
-[Index(nameof(CreatedDate))]
-public class AudioResponse : IExistable<AudioResponse>
+public class AudioResponse :AbstractEntity, IExistable<AudioResponse>
 {
-    [Key]
-    public long Id { get; set; }
 
     [StringLength(255)]
     public required string TextContent { get; set; }
-
-    [StringLength(10)]
-    public string? LanguageCode { get; set; }
 
     [StringLength(50)]
     public string? VoiceType { get; set; }

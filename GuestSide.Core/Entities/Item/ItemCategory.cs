@@ -8,7 +8,6 @@ namespace Core.Core.Entities.Item;
 
 [Table("ItemCategories", Schema = "CSI")]
 [Index(nameof(Name))] // Optimized for fast lookups
-[Index(nameof(LanguageCode))] // Optimized for multi-language filtering
 public class ItemCategory : AbstractEntity, IExistable<ItemCategory>
 {
     [Column("CategoryName")]
@@ -20,9 +19,6 @@ public class ItemCategory : AbstractEntity, IExistable<ItemCategory>
 
     [StringLength(255)]
     public string? Description { get; set; }
-
-    [StringLength(10)] // Optimized for language code storage
-    public string? LanguageCode { get; set; }
 
     public virtual List<Items> Items { get; set; } = new(); // Proper ORM handling
 

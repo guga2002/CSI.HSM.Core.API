@@ -8,8 +8,6 @@ namespace Core.Core.Entities.FeedBacks;
 
 [Table("Feedbacks", Schema = "CSI")]
 [Index(nameof(CorrelationId))]
-[Index(nameof(Rating))] 
-[Index(nameof(LanguageCode))] 
 [Index(nameof(TaskId))]
 public class Feedback : AbstractEntity
 {
@@ -25,9 +23,6 @@ public class Feedback : AbstractEntity
     public Guid CorrelationId { get; set; } = Guid.NewGuid();
 
     public int Rating { get; set; }
-
-    [StringLength(10)] 
-    public string? LanguageCode { get; set; }
 
     [ForeignKey(nameof(Task))]
     public long TaskId { get; set; }

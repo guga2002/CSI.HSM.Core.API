@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 namespace Core.Core.Entities.Staff;
 
 [Table("StaffIncidents", Schema = "CSI")]
-[Index(nameof(ReportedByStaffId))] 
 [Index(nameof(Severity))] 
 [Index(nameof(Status))] 
 [Index(nameof(RequiresImmediateAction))] 

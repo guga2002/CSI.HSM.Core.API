@@ -27,5 +27,5 @@ public class StaffNotification : AbstractEntity
 
     public DateTime? ReadTime { get; set; } 
 
-    public bool IsImportant { get; set; } = false; // Marks high-priority notifications
+    public bool IsImportant { get; set; } = false;
 }

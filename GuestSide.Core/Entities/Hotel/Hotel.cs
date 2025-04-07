@@ -20,9 +20,6 @@ public class Hotel : AbstractEntity, IExistable<Hotel>
     [StringLength(1000)] // Increased for longer descriptions
     public string? Description { get; set; }
 
-    [StringLength(10)] // Optimized for storing language codes
-    public string? LanguageCode { get; set; }
-
     [ForeignKey("Location")]
     public long LocationId { get; set; }
 

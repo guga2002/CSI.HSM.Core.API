@@ -9,9 +9,6 @@ namespace Core.Core.Entities.Advertisements;
 
 [Table("Advertisements", Schema = "CSI")]
 [Index(nameof(AdvertisementTypeId))]
-[Index(nameof(StartDate))]
-[Index(nameof(EndDate))]
-[Index(nameof(LanguageCode))]
 public class Advertisement : AbstractEntity, IExistable<Advertisement>
 {
     [StringLength(100)]
@@ -30,9 +27,6 @@ public class Advertisement : AbstractEntity, IExistable<Advertisement>
 
     [DataType(DataType.Date)]
     public DateTime? EndDate { get; set; }
-
-    [StringLength(100)]
-    public string? LanguageCode { get; set; }
 
     [Column(TypeName = "nvarchar(max)")]
     public string? PictureUrlsSerialized { get; set; }

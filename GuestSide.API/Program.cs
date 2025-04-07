@@ -40,6 +40,9 @@ using Core.API.Fillters;
 using Microsoft.Extensions.Options;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography;
+using Core.Persistance.PtmsCsi;
+using Core.Persistance.MailServices;
+using Core.Persistance.BackgroundServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,7 +67,7 @@ builder.WebHost.ConfigureKestrel(options =>
     options.ListenAnyIP(2044);
 });
 
-
+builder.Services.AddHostedService<NotifyUsersService>();
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"];
 builder.Services.AddAuthentication(options =>
@@ -152,9 +155,9 @@ builder.Services.ActiveStaffSentiments();
 builder.Services.ActiveStaffSupport();
 builder.Services.ActiveStaffSupportResponse();
 builder.Services.InjectPaymentOption();
-
+builder.Services.AddScoped<ITemplateGatewayService, TemplateGatewayService>();
 builder.Services.InjectRestaurantOrderPaymen();
-
+builder.Services.AddScoped<SmtpService>();
 builder.Services.AddRestaurantCartServices();
 builder.Services.AddRestaurantServices();
 builder.Services.AddRestaurantItemCategory();

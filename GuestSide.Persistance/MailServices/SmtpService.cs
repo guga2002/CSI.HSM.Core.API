@@ -11,7 +11,7 @@ namespace Core.Persistance.MailServices
         public SmtpService(IConfiguration configuration)
         {
             _settings = new SmtpSettings();
-            configuration.GetSection("SmtpSettings").Bind(_settings);
+            configuration.GetSection("Smtp").Bind(_settings);
         }
 
         public void SendMessage(string to, string subject, string body)

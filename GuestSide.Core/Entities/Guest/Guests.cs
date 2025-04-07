@@ -13,8 +13,6 @@ namespace Core.Core.Entities.Guest;
 [Index(nameof(PhoneNumber))] // Helps search guests by phone
 [Index(nameof(CheckInDate))] // Optimized for date-range queries
 [Index(nameof(CheckOutDate))] // Optimized for departures filtering
-[Index(nameof(StatusId))] // Index for status-based lookups
-[Index(nameof(RoomId))] // Optimized for guest-room assignments
 public class Guests : AbstractEntity
 {
     [StringLength(100)]
@@ -74,10 +72,6 @@ public class Guests : AbstractEntity
     public long RoomId { get; set; }
 
     public virtual Room.Room? Room { get; set; } // Virtual navigation
-
-    [StringLength(10)]
-    public string? LanguageCode { get; set; }
-
     public virtual Status? Status { get; set; } // Virtual navigation
 
     public virtual GuestActiveLanguage ActiveLanguage { get; set; } // Virtual navigation

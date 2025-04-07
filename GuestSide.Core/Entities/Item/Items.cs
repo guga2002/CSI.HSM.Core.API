@@ -8,8 +8,6 @@ using Microsoft.EntityFrameworkCore;
 namespace Core.Core.Entities.Item;
 
 [Table("Items", Schema = "CSI")]
-[Index(nameof(ItemCategoryId))]
-[Index(nameof(LanguageCode))]
 [Index(nameof(IsOrderAble))]
 public class Items : AbstractEntity, IExistable<Items>
 {
@@ -35,9 +33,6 @@ public class Items : AbstractEntity, IExistable<Items>
     public long ItemCategoryId { get; set; }
 
     public virtual ItemCategory? ItemCategory { get; set; } // Virtual for lazy loading
-
-    [StringLength(10)] // Optimized for storing language codes
-    public string? LanguageCode { get; set; }
 
     public virtual List<TaskItem> TaskItems { get; set; } = new(); // Proper ORM handling
 

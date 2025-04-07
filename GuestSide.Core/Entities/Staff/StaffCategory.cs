@@ -10,7 +10,6 @@ namespace Core.Core.Entities.Staff;
 [Table("StaffCategories", Schema = "CSI")]
 [Index(nameof(CategoryName), IsUnique = true)]
 [Index(nameof(IsActive))]
-[Index(nameof(CreatedAt))]
 public class StaffCategory : AbstractEntity, IExistable<StaffCategory>
 {
     [StringLength(100)]

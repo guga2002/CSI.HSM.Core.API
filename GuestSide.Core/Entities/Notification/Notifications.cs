@@ -27,9 +27,6 @@ public class Notifications : AbstractEntity
 
     public DateTime? SentDate { get; set; } // Stores when the notification was actually sent
 
-    [StringLength(10)] // Optimized for storing language codes
-    public string? LanguageCode { get; set; }
-
     public NotificationType NotificationType {  get; set; }
 
     public PriorityEnum PriorityLevel { get; set; } = PriorityEnum.Medium; // Default priority

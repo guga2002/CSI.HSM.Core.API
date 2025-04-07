@@ -8,9 +8,7 @@ namespace Core.Core.Entities.Room;
 
 [Table("RoomCategories", Schema = "CSI")]
 [Index(nameof(Name), IsUnique = true)]
-[Index(nameof(LanguageCode))]
 [Index(nameof(IsActive))]
-[Index(nameof(CreatedAt))]
 public class RoomCategory : AbstractEntity, IExistable<RoomCategory>
 {
     [StringLength(100)]
@@ -21,9 +19,6 @@ public class RoomCategory : AbstractEntity, IExistable<RoomCategory>
 
     [StringLength(255)]
     public string? Description { get; set; }
-
-    [StringLength(10)]
-    public string? LanguageCode { get; set; }
 
     public virtual List<Room>? Rooms { get; set; }
 

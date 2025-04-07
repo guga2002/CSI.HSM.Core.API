@@ -11,7 +11,6 @@ namespace Core.Core.Entities.Task;
 
 [Table("Tasks", Schema = "CSI")]
 [Index(nameof(CartId))] 
-[Index(nameof(LanguageCode))] 
 [Index(nameof(IsCompleted))] 
 [Index(nameof(DueDate))] 
 public class Tasks : AbstractEntity
@@ -29,9 +28,6 @@ public class Tasks : AbstractEntity
     public StatusEnum Status { get; set; } = StatusEnum.Pending; // More detailed status tracking
 
     public PriorityEnum Priority { get; set; } = PriorityEnum.Medium; // Task priority level
-
-    [StringLength(10)]
-    public string? LanguageCode { get; set; }
 
     [ForeignKey(nameof(Cart))]
     public long CartId { get; set; }
