@@ -68,6 +68,7 @@ builder.WebHost.ConfigureKestrel(options =>
 });
 
 builder.Services.AddHostedService<NotifyUsersService>();
+builder.Services.AddHostedService<ItemMonitoring>();
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"];
 builder.Services.AddAuthentication(options =>

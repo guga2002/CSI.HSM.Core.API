@@ -14,7 +14,7 @@ namespace Core.Core.Entities.Item;
 public class StaffInfoAboutRanOutItems : AbstractEntity
 {
     [ForeignKey(nameof(StaffMember))]
-    public long StaffId { get; set; }
+    public long? StaffId { get; set; }
 
     public virtual Staffs? StaffMember { get; set; } // Virtual for lazy loading
 
