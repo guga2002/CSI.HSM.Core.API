@@ -68,7 +68,7 @@ namespace Core.Persistance.BackgroundServices
                 }
 
                 await context.SaveChangesAsync();
-                _logger.LogInformation("Users notified successfully.");
+                _logger.LogInformation("Itteration Done, CorrelationId:{Id}",Guid.NewGuid());
             }
             catch (Exception ex)
             {
