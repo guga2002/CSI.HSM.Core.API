@@ -87,7 +87,7 @@ namespace Core.Persistance.BackgroundServices
             { "Title", user.Notifications?.Title??"" },
             { "Message", user.Notifications?.Message??"" },
             { "SentTime", user.SentTime.ToString()},
-            { "CompanyName", "LogiXPlore LLC" },
+            { "CompanyName", "LogiXplore LLC" },
         };
 
             var res = await templateGatewayService.RenderTemplateAsFileAsync(new Models.TemplateRenderRequest
