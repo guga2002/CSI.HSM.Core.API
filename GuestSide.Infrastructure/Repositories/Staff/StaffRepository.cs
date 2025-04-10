@@ -141,6 +141,25 @@ namespace Core.Infrastructure.Repositories.Staff
         }
         #endregion
 
+        #region StaffStatus
+        public async Task<bool> CheckIsOnDute(long staffId, bool Status, CancellationToken cancellationToken = default)
+        {
+            var staff = await _context.Staffs.FirstOrDefaultAsync(id => id.Id == staffId);
+            if (staff == null) return false;
+            staff.IsOnDuty = Status;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<(long, DateTime)> GetLastLoginDate(long staffId, CancellationToken cancellationToken = default)
+        {
+            var staff = await _context.Staffs.FirstOrDefaultAsync(id => id.Id == staffId);
+            if (staff is null) return (0, DateTime.MinValue);
+
+            return (staff.Id, staff.LastCheckedLoginTime ?? DateTime.MinValue);
+        }
+        #endregion
+
         #region Caching Helpers
         private async Task<bool> InvalidateCache(long staffId)
         {

@@ -34,6 +34,10 @@ public class StaffResponseDto : AbstractResponse
 
     public string? Bio { get; set; }
 
+    public bool IsOnDuty { get; set; }
+
+    public DateTime? LastCheckedLoginTime { get; set; }
+
     public virtual StaffCategoryResponseDto? StaffCategory { get; set; }
 
     public virtual StaffResponseDto? Supervisor { get; set; } 

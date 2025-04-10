@@ -16,6 +16,8 @@ namespace Core.Core.Interfaces.Staff
         Task<bool> UpdatePositionAsync(long staffId, string newPosition, CancellationToken cancellationToken = default);
         Task<bool> UpdateSalaryAsync(long staffId, decimal newSalary, CancellationToken cancellationToken = default);
         Task<bool> AssignSupervisorAsync(long staffId, long newSupervisorId, CancellationToken cancellationToken = default);
+        Task<bool> CheckIsOnDute(long staffId, bool Status, CancellationToken cancellationToken = default);
+        Task<(long, DateTime)> GetLastLoginDate(long staffId, CancellationToken cancellationToken = default);
 
         Task<IEnumerable<TaskToStaff>> GetTasksByStaffIdAsync(long staffId, CancellationToken cancellationToken = default);
         Task<IEnumerable<StaffReserveItem>> GetReservedItemsByStaffIdAsync(long staffId, CancellationToken cancellationToken = default);

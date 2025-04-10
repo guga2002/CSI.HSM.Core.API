@@ -165,5 +165,25 @@ namespace Core.Application.Services.Staff.Staff.Services
 
             return await _staffRepository.GetStaffSentimentScoreAsync(staffId, cancellationToken);
         }
+
+        public async Task<bool> CheckIsOnDuteAsync(long staffId, bool Status, CancellationToken cancellationToken = default)
+        {
+            ValidatePositiveId(staffId, nameof(staffId));
+
+            return await _staffRepository.CheckIsOnDute(staffId, Status, cancellationToken);
+        }
+
+        public async Task<StaffLoginDate> GetLastLoginDateAsync(long staffId, CancellationToken cancellationToken = default)
+        {
+            ValidatePositiveId(staffId, nameof(staffId));
+
+            var result = await _staffRepository.GetLastLoginDate(staffId, cancellationToken);
+
+            return new StaffLoginDate
+            {
+                Id = result.Item1,
+                LastLoginTime = result.Item2
+            };
+        }
     }
 }

@@ -54,6 +54,10 @@ public class Staffs : AbstractEntity
     [StringLength(500)]
     public string? Bio { get; set; }
 
+    public bool IsOnDuty {  get; set; } = false;
+
+    public DateTime? LastCheckedLoginTime { get; set; }
+
     public virtual StaffCategory? StaffCategory { get; set; }
 
     public virtual Staffs? Supervisor { get; set; } // Tracks reporting hierarchy

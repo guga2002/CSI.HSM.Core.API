@@ -50,7 +50,7 @@ public class MonthlyReportWorker : IHostedService, IDisposable
             worksheet.Cell(1, 4).Value = "Completed Tasks";
             worksheet.Cell(1, 5).Value = "Open Tasks";
 
-            var taskToStaff =  db.TaskToStaffs.GroupBy(staff => staff.Id);
+            var taskToStaff = db.TaskToStaffs.Where(date => date.CreatedAt >= lastMonth && date.CreatedAt <= today).GroupBy(staff => staff.Id);
             var staffs = db.Staffs.Where(staff => staff.IsActive).ToList();
 
             int currectRow = 2;
@@ -73,7 +73,7 @@ public class MonthlyReportWorker : IHostedService, IDisposable
 
             var smtpService = scoped.ServiceProvider.GetRequiredService<SmtpService>();
 
-            var to = "raya.badalova@gmail.com";
+            var to = "raya.badalova@gmail.com"; //cxrili shevqmna da mailebi iq chavyaro
             var subject = "Monthly reports";
             var body = "Please find the attached monthly report.";
 
