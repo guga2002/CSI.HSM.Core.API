@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Item;
-using Core.Core.Entities.Notification;
-using Core.Core.Entities.Restaurant;
+using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Item;
+using Domain.Core.Entities.Notification;
+using Domain.Core.Entities.Restaurant;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Guest;
+namespace Domain.Core.Entities.Guest;
 
 [Table("Guests", Schema = "CSI")]
 [Index(nameof(Email), IsUnique = true)] // Unique index for quick lookups
@@ -76,7 +76,7 @@ public class Guests : AbstractEntity
 
     public virtual GuestActiveLanguage ActiveLanguage { get; set; } // Virtual navigation
 
-    public virtual List<Cart>? Carts { get; set; } 
+    public virtual List<Cart>? Carts { get; set; }
 
     public virtual List<GuestNotification> GuestNotifications { get; set; } = new(); // Optimized
 

@@ -1,8 +1,8 @@
-﻿using Core.Core.Entities.Task;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Task;
+using Domain.Core.Interfaces.AbstractInterface;
 
-namespace Core.Core.Interfaces.Task;
+namespace Domain.Core.Interfaces.Task;
 
-public interface ITaskLogsRepository: IGenericRepository<TaskLogs>
+public interface ITaskLogsRepository : IGenericRepository<TaskLogs>
 {
 }

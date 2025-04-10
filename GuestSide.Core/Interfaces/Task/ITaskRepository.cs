@@ -1,9 +1,9 @@
-﻿using Core.Core.Entities.Enums;
-using Core.Core.Entities.Item;
-using Core.Core.Entities.Task;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Enums;
+using Domain.Core.Entities.Item;
+using Domain.Core.Entities.Task;
+using Domain.Core.Interfaces.AbstractInterface;
 
-namespace Core.Core.Interfaces.Task;
+namespace Domain.Core.Interfaces.Task;
 
 public interface ITaskRepository : IGenericRepository<Tasks>
 {

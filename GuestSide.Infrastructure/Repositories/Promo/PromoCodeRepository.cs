@@ -1,8 +1,8 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.Promo;
-using Core.Core.Interfaces.Promo;
-using Core.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
+using Domain.Core.Data;
+using Domain.Core.Entities.Promo;
+using Domain.Core.Interfaces.Promo;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

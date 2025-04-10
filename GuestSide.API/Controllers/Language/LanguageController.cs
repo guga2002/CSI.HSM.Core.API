@@ -4,7 +4,7 @@ using Core.Application.DTOs.Request.Language;
 using Core.Application.DTOs.Response.Language;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Language;
-using Core.Core.Entities.Language;
+using Domain.Core.Entities.Language;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

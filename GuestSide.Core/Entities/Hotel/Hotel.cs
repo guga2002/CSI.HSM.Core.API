@@ -1,11 +1,11 @@
-﻿using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Hotel.GeoLocation;
+﻿using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Hotel.GeoLocation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
 using System.Text.Json;
 
-namespace Core.Core.Entities.Hotel;
+namespace Domain.Core.Entities.Hotel;
 
 [Table("Hotels", Schema = "CSI")]
 public class Hotel : AbstractEntity, IExistable<Hotel>
@@ -23,7 +23,7 @@ public class Hotel : AbstractEntity, IExistable<Hotel>
     [ForeignKey("Location")]
     public long LocationId { get; set; }
 
-    public  Location? Location { get; set; } 
+    public Location? Location { get; set; }
 
     public virtual List<Room.Room>? Rooms { get; set; }
 

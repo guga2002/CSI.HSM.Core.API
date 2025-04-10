@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.Application.DTOs.Request.Promo;
 using Core.Application.DTOs.Response.Promo;
-using Core.Core.Entities.Promo;
+using Domain.Core.Entities.Promo;
 
 namespace Core.Application.Services.Promo.Mapper;
 

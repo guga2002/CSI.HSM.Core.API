@@ -1,6 +1,6 @@
 ﻿using Core.Application.DTOs.Response.Task;
-using Core.Core.Entities.Staff;
-using Core.Core.Entities.Task;
+using Domain.Core.Entities.Staff;
+using Domain.Core.Entities.Task;
 
 namespace Core.Application.DTOs.Response.Staff;
 

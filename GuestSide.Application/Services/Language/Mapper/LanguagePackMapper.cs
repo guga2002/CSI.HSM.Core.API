@@ -3,7 +3,7 @@
 using AutoMapper;
 using Core.Application.DTOs.Request.Language;
 using Core.Application.DTOs.Response.Language;
-using Core.Core.Entities.Language;
+using Domain.Core.Entities.Language;
 
 namespace Core.Application.Services.Language.Mapper;
 

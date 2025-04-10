@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
 using System.Text.Json;
-using Core.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.AbstractEntities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Item;
+namespace Domain.Core.Entities.Item;
 
 [Table("Items", Schema = "CSI")]
 [Index(nameof(IsOrderAble))]

@@ -1,10 +1,10 @@
-﻿using Core.Core.Entities.Language;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Language;
+using Domain.Core.Interfaces.AbstractInterface;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Core.Core.Interfaces.Language
+namespace Domain.Core.Interfaces.Language
 {
     public interface ILanguagePackRepository : IGenericRepository<LanguagePack>
     {

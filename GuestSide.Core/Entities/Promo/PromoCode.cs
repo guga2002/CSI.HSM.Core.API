@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
-using Core.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.AbstractEntities;
 
-namespace Core.Core.Entities.Promo;
+namespace Domain.Core.Entities.Promo;
 
 [Table("PromoCode", Schema = "CSI")]
 public class PromoCode : AbstractEntity, IExistable<PromoCode>

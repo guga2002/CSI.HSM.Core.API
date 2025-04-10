@@ -2,9 +2,9 @@
 using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.Task.Status;
-using Core.Core.Entities.Task;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Task;
+using Domain.Core.Entities.Task;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Task;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Task.Status.Services

@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Task;
+using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Task;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Staff;
+namespace Domain.Core.Entities.Staff;
 
 [Table("TaskToStaffs", Schema = "CSI")]
 [Index(nameof(AssignedBy))]

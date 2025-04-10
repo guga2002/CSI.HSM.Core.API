@@ -3,11 +3,11 @@ using Microsoft.Extensions.Logging;
 using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.Task.Task;
-using Core.Core.Entities.Task;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Task;
-using Core.Core.Entities.Item;
-using Core.Core.Entities.Enums;
+using Domain.Core.Entities.Enums;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Task;
+using Domain.Core.Entities.Task;
+using Domain.Core.Entities.Item;
 
 namespace Core.Application.Services.Task.Task.Services;
 

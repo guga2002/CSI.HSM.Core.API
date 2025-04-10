@@ -2,8 +2,8 @@
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.Staff.Incident;
-using Core.Core.Entities.Staff;
-using Core.Core.Interfaces.AbstractInterface;
+using Domain.Core.Entities.Staff;
+using Domain.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Staff.Incident.Service;

@@ -1,5 +1,5 @@
-﻿using Core.Core.Entities.Enums;
-using Core.Core.Entities.Staff;
+﻿using Domain.Core.Entities.Enums;
+using Domain.Core.Entities.Staff;
 
 namespace Core.Application.DTOs.Response.Staff;
 

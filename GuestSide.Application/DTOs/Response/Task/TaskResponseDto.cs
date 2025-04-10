@@ -1,10 +1,10 @@
-﻿using Core.Core.Entities.Item;
-using Core.Core.Entities.Enums;
-using Core.Core.Entities.FeedBacks;
-using Core.Core.Entities.Staff;
+﻿using Domain.Core.Entities.Item;
+using Domain.Core.Entities.FeedBacks;
+using Domain.Core.Entities.Staff;
 using Core.Application.DTOs.Response.Item;
 using Core.Application.DTOs.Response.FeedBacks;
 using Core.Application.DTOs.Response.Staff;
+using Domain.Core.Entities.Enums;
 
 namespace Core.Application.DTOs.Response.Task;
 

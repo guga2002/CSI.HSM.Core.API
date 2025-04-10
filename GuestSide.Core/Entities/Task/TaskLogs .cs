@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
-using Core.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.AbstractEntities;
 
-namespace Core.Core.Entities.Task;
+namespace Domain.Core.Entities.Task;
 
 [Table("TaskLogs", Schema = "CSI")]
 public class TaskLogs : AbstractEntity, IExistable<TaskLogs>

@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
-using Core.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.AbstractEntities;
 
-namespace Core.Core.Entities.Staff;
+namespace Domain.Core.Entities.Staff;
 
-[Table("IncidentTypes",Schema ="CSI")]
+[Table("IncidentTypes", Schema = "CSI")]
 public class IncidentType : AbstractEntity, IExistable<IncidentType>
 {
     public required string Type { get; set; }

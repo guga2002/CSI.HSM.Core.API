@@ -14,15 +14,12 @@ using Core.Application.Services.Staff.Category.DI;
 using Core.Application.Services.Staff.Staff.DI;
 using Core.Application.Services.Task.Status.DI;
 using Core.Application.Services.Task.Task.DI;
-using Core.Core.Interfaces.AbstractInterface;
 using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Core.Interfaces.UniteOfWork;
 using Core.Infrastructure.Repositories.UniteOfWork;
 using Core.Application.Services.Guest.Injection;
 using Core.Application.Services.Task.TaskLog.Startup;
 using Core.Application.Services.Audio.Injection;
 using Core.Application.Services.Item.DI;
-using Core.Core.Data;
 using Core.Application.Services.Notification.DI;
 using Core.Application.Services.Room.DI;
 using Core.API.CustomMiddlwares;
@@ -37,25 +34,25 @@ using Core.Application.Services.Staff.StaffSupportResponse.DI;
 using Core.Application.Services.Promo.Startup;
 using Csi.VoicePack;
 using Core.API.Fillters;
-using Microsoft.Extensions.Options;
-using System.Security.Cryptography.X509Certificates;
-using System.Security.Cryptography;
 using Core.Persistance.PtmsCsi;
 using Core.Persistance.MailServices;
 using Core.Persistance.BackgroundServices;
+using Domain.Core.Data;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.UniteOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers()
- //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.AuthorizationController).Assembly)
- //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.UsersController).Assembly)
- //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.RolesController).Assembly)
- .AddControllersAsServices();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<SetHttpStatusCodeFilter>();
+}).AddControllersAsServices();
+
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddDbContext<GuestSideDb>(options =>//respect testing enviroment
+builder.Services.AddDbContext<GuestSideDb>(options =>
 {
     options.UseSqlServer(!builder.Environment.IsProduction()? builder.Configuration.GetSection("connectionTest:CSICOnnect").Value: builder.Configuration.GetConnectionString("CSICOnnect"));
 });
@@ -192,16 +189,6 @@ builder.Services.InjectTaskStatus();
 builder.Services.InjectTasks();
 
 builder.Services.AddScoped<IUniteOfWork, UniteOfWorkRepository>();
-//builder.Services.AddCors(options =>
-//{
-//    options.AddDefaultPolicy(policy =>
-//    {
-//        policy.AllowAnyOrigin()
-//              .AllowAnyHeader()
-//              .AllowAnyMethod();
-//    });
-//});
-
 
 builder.Services.AddGuestActiveLanguage();
 
@@ -228,25 +215,18 @@ var app = builder.Build();
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api V1");
         options.RoutePrefix = "swagger";
-        options.InjectStylesheet("CustomJs/swagger-custom.css"); // Optional
-        options.InjectJavascript("/swagger-custom.js");  // Add this line
-        //options.InjectJavascript("/swagger-voice-search.js");
+        options.InjectStylesheet("CustomJs/swagger-custom.css");
+        options.InjectJavascript("/swagger-custom.js");
     });
 
 app.UseMiddleware<TenantMiddleware>();
 app.UseMiddleware<TranslationMiddleware>();
 app.UseMiddleware<CashingMiddlwares>();
-//app.UseMiddleware<ForceHttp200Except500Middleware>();
 app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseMiddleware<RequestTranslationMiddleware>();
-//app.UseMiddleware<RequestLoggerMiddleware>();
-//app.UseMiddleware<CashingMiddlwares>();
-//app.UseCors(); // No name
-
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.UseHttpsRedirection();
 app.MapControllers();
 await app.RunAsync();

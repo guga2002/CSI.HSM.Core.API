@@ -2,10 +2,10 @@
 using Core.Application.DTOs.Request.Hotel;
 using Core.Application.DTOs.Response.Hotel;
 using Core.Application.Interface.Hotel;
-using Core.Core.Entities.Hotel.GeoLocation;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Hotel;
-using Core.Core.Interfaces.UniteOfWork;
+using Domain.Core.Entities.Hotel.GeoLocation;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Hotel;
+using Domain.Core.Interfaces.UniteOfWork;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Hotel.Service

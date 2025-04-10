@@ -1,8 +1,8 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.LogEntities;
-using Core.Core.Interfaces.LogEntities;
-using Core.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
+using Domain.Core.Data;
+using Domain.Core.Entities.LogEntities;
+using Domain.Core.Interfaces.LogInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

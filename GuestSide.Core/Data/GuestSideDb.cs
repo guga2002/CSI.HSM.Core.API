@@ -1,24 +1,24 @@
-﻿using Core.Core.Entities.Advertisements;
-using Core.Core.Entities.Audio;
-using Core.Core.Entities.FeedBacks;
-using Core.Core.Entities.Guest;
-using Core.Core.Entities.Hotel;
-using Core.Core.Entities.Hotel.GeoLocation;
-using Core.Core.Entities.Item;
-using Core.Core.Entities.Language;
-using Core.Core.Entities.LogEntities;
-using Core.Core.Entities.Notification;
-using Core.Core.Entities.Payment;
-using Core.Core.Entities.Promo;
-using Core.Core.Entities.Restaurant;
-using Core.Core.Entities.Room;
-using Core.Core.Entities.Staff;
-using Core.Core.Entities.Statistic;
-using Core.Core.Entities.Task;
+﻿using Domain.Core.Entities.Advertisements;
+using Domain.Core.Entities.Audio;
+using Domain.Core.Entities.FeedBacks;
+using Domain.Core.Entities.Guest;
+using Domain.Core.Entities.Hotel;
+using Domain.Core.Entities.Hotel.GeoLocation;
+using Domain.Core.Entities.Item;
+using Domain.Core.Entities.Language;
+using Domain.Core.Entities.LogEntities;
+using Domain.Core.Entities.Notification;
+using Domain.Core.Entities.Payment;
+using Domain.Core.Entities.Promo;
+using Domain.Core.Entities.Restaurant;
+using Domain.Core.Entities.Room;
+using Domain.Core.Entities.Staff;
+using Domain.Core.Entities.Statistic;
+using Domain.Core.Entities.Task;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Data;
+namespace Domain.Core.Data;
 
 public class GuestSideDb : DbContext
 {

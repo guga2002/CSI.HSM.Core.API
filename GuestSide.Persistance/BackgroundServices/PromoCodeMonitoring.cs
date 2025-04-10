@@ -1,4 +1,4 @@
-﻿using Core.Core.Data;
+﻿using Domain.Core.Data;
 using Core.Persistance.MailServices;
 using Core.Persistance.PtmsCsi;
 using Microsoft.AspNetCore.Http;

@@ -1,9 +1,9 @@
-﻿using Core.Core.Entities.Hotel.GeoLocation;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Hotel.GeoLocation;
+using Domain.Core.Interfaces.AbstractInterface;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Core.Core.Interfaces.Hotel
+namespace Domain.Core.Interfaces.Hotel
 {
     public interface ILocationRepository : IGenericRepository<Location>
     {

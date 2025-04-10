@@ -1,8 +1,8 @@
 ﻿using Core.Application.DTOs.Response.Item;
 using Core.Application.DTOs.Response.Notification;
-using Core.Core.Entities.Item;
-using Core.Core.Entities.Notification;
-using Core.Core.Entities.Staff;
+using Domain.Core.Entities.Item;
+using Domain.Core.Entities.Notification;
+using Domain.Core.Entities.Staff;
 
 namespace Core.Application.DTOs.Response.Staff;
 

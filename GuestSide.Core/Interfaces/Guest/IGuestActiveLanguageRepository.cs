@@ -1,9 +1,9 @@
-﻿using Core.Core.Entities.Guest;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Guest;
+using Domain.Core.Interfaces.AbstractInterface;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Core.Core.Interfaces.Guest
+namespace Domain.Core.Interfaces.Guest
 {
     public interface IGuestActiveLanguageRepository : IGenericRepository<GuestActiveLanguage>
     {

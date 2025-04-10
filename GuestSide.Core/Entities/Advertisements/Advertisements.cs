@@ -1,11 +1,11 @@
-﻿using Core.Core.Entities.AbstractEntities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using System.Text.Json;
+using Domain.Core.Entities.AbstractEntities;
 
-namespace Core.Core.Entities.Advertisements;
+namespace Domain.Core.Entities.Advertisements;
 
 [Table("Advertisements", Schema = "CSI")]
 [Index(nameof(AdvertisementTypeId))]

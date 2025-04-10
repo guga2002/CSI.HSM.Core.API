@@ -1,7 +1,7 @@
-﻿using Core.Core.Entities.FeedBacks;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.FeedBacks;
+using Domain.Core.Interfaces.AbstractInterface;
 
-namespace Core.Core.Interfaces.FeedBack
+namespace Domain.Core.Interfaces.FeedBack
 {
     public interface IFeedbackRepository : IGenericRepository<Feedback>
     {

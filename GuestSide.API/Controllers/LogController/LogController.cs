@@ -4,7 +4,7 @@ using Core.Application.DTOs.Request.LogModel;
 using Core.Application.DTOs.Response.LogModel;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.LogInterfaces;
-using Core.Core.Entities.LogEntities;
+using Domain.Core.Entities.LogEntities;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

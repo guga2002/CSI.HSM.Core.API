@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Core.Core.Interfaces.AbstractInterface;
+namespace Domain.Core.Interfaces.AbstractInterface;
 public interface IAdditionalFeaturesRepository<T> where T : class
 {
 

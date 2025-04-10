@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Guest;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using System.Linq.Expressions;
+using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Guest;
 
-namespace Core.Core.Entities.Room;
+namespace Domain.Core.Entities.Room;
 
 [Table("Rooms", Schema = "CSI")]
 [Index(nameof(RoomNumber))]

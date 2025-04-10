@@ -1,7 +1,7 @@
-﻿using Core.Core.Entities.Advertisements;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Advertisements;
+using Domain.Core.Interfaces.AbstractInterface;
 
-namespace Core.Core.Interfaces.Advertisement;
+namespace Domain.Core.Interfaces.Advertisement;
 
 public interface IAdvertisementTypeRepository : IGenericRepository<AdvertisementType>
 {

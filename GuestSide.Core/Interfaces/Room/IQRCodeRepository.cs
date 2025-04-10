@@ -1,7 +1,7 @@
-﻿using Core.Core.Entities.Room;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Room;
+using Domain.Core.Interfaces.AbstractInterface;
 
-namespace Core.Core.Interfaces.Room
+namespace Domain.Core.Interfaces.Room
 {
     public interface IQRCodeRepository : IGenericRepository<QRCode>
     {

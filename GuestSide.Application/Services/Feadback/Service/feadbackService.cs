@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using Core.Application.DTOs.Request.FeedBacks;
 using Core.Application.DTOs.Response.FeedBacks;
-using Core.Application.Interface.FeedBack;
-using Core.Core.Entities.FeedBacks;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.FeedBack;
+using Core.Application.Interface.Feadback;
+using Domain.Core.Entities.FeedBacks;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.FeedBack;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 
-namespace Core.Application.Services.Feadback
+namespace Core.Application.Services.Feadback.Service
 {
     public class FeedbackService : GenericService<FeedbackDto, FeedbackResponseDto, long, Feedback>, IFeadbackService
     {

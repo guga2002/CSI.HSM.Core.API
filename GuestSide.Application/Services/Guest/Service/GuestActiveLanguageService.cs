@@ -2,9 +2,9 @@
 using Core.Application.DTOs.Request.Guest;
 using Core.Application.DTOs.Response.Guest;
 using Core.Application.Interface.Guest;
-using Core.Core.Entities.Guest;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Guest;
+using Domain.Core.Entities.Guest;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Guest;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 

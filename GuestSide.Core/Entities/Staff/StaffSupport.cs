@@ -1,28 +1,28 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.AbstractEntities;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
-using Core.Core.Entities.Enums;
+using Domain.Core.Entities.Enums;
+using Domain.Core.Entities.AbstractEntities;
 
-namespace Core.Core.Entities.Staff;
+namespace Domain.Core.Entities.Staff;
 
 [Table("StaffSupports", Schema = "CSI")]
 [Index(nameof(StaffId))]
-[Index(nameof(Priority))] 
-[Index(nameof(Status))] 
+[Index(nameof(Priority))]
+[Index(nameof(Status))]
 public class StaffSupport : AbstractEntity
 {
     [ForeignKey(nameof(StaffMember))]
     public long StaffId { get; set; }
 
-    public virtual Staffs? StaffMember { get; set; } 
+    public virtual Staffs? StaffMember { get; set; }
 
     [StringLength(200)]
-    public string? Subject { get; set; } 
+    public string? Subject { get; set; }
 
     [StringLength(1000)]
-    public string? Description { get; set; } 
+    public string? Description { get; set; }
 
     [StringLength(100)]
     public string? Category { get; set; } // Categorizes the support request (e.g., "IT", "HR", "Facilities")
@@ -33,7 +33,7 @@ public class StaffSupport : AbstractEntity
 
     public DateTime? ResolvedDate { get; set; }
 
-    [Column(TypeName = "nvarchar(max)")] 
+    [Column(TypeName = "nvarchar(max)")]
     public string? AttachmentUrlsSerialized { get; set; }
 
     [NotMapped]

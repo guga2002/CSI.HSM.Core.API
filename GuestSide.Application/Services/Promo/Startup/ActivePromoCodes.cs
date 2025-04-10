@@ -4,11 +4,11 @@ using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Promo;
 using Core.Application.Services.Promo.Mapper;
 using Core.Application.Services.Promo.Service;
-using Core.Core.Entities.Promo;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Promo;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Infrastructure.Repositories.Promo;
+using Domain.Core.Entities.Promo;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Promo;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Application.Services.Promo.Startup;

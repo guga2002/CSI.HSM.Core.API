@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
-using Core.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.AbstractEntities;
 
-namespace Core.Core.Entities.Staff;
+namespace Domain.Core.Entities.Staff;
 
 [Table("IncidentTypeToStaffCategories", Schema = "CSI")]
 public class IncidentTypeToStaffCategory : AbstractEntity, IExistable<IncidentTypeToStaffCategory>

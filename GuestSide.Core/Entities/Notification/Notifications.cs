@@ -1,15 +1,15 @@
-﻿using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Enums;
+﻿using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Core.Entities.Notification;
+namespace Domain.Core.Entities.Notification;
 
 [Table("Notifications", Schema = "CSI")]
-[Index(nameof(NotificationDate))] 
+[Index(nameof(NotificationDate))]
 [Index(nameof(IsSent))]
-[Index(nameof(LanguageCode))] 
+[Index(nameof(LanguageCode))]
 public class Notifications : AbstractEntity
 {
     [StringLength(150)]
@@ -27,7 +27,7 @@ public class Notifications : AbstractEntity
 
     public DateTime? SentDate { get; set; } // Stores when the notification was actually sent
 
-    public NotificationType NotificationType {  get; set; }
+    public NotificationType NotificationType { get; set; }
 
     public PriorityEnum PriorityLevel { get; set; } = PriorityEnum.Medium; // Default priority
 

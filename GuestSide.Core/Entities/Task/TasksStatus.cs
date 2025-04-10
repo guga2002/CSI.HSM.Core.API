@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
-using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Staff;
+using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Staff;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Task;
+namespace Domain.Core.Entities.Task;
 
 [Table("TaskStatus", Schema = "CSI")]
 [Index(nameof(Name), IsUnique = true)]
@@ -15,7 +15,7 @@ public class TasksStatus : AbstractEntity, IExistable<TasksStatus>
     [StringLength(100)]
     public required string Name { get; set; }
 
-    [StringLength(255)] 
+    [StringLength(255)]
     public string? Description { get; set; }
 
     public virtual List<TaskToStaff>? TaskToStaff { get; set; }

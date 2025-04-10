@@ -2,8 +2,8 @@
 using Core.Application.DTOs.Request.Guest;
 using Core.Application.DTOs.Response.Guest;
 using Core.Application.Interface.Guest;
-using Core.Core.Entities.Guest;
-using Core.Core.Interfaces.AbstractInterface;
+using Domain.Core.Entities.Guest;
+using Domain.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Guest.Service;

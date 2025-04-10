@@ -1,4 +1,4 @@
-﻿using Core.Core.Entities.Enums;
+﻿using Domain.Core.Entities.Enums;
 
 namespace Core.Application.DTOs.Response.Notification;
 

@@ -4,11 +4,11 @@ using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Guest;
 using Core.Application.Services.Guest.Mapper;
 using Core.Application.Services.Guest.Service;
-using Core.Core.Entities.Guest;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Guest;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Infrastructure.Repositories.Guest;
+using Domain.Core.Entities.Guest;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Guest;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Application.Services.Guest.Injection;

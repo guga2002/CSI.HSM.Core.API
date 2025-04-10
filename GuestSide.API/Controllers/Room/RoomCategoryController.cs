@@ -4,7 +4,7 @@ using Core.Application.DTOs.Request.Room;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Room;
-using Core.Core.Entities.Room;
+using Domain.Core.Entities.Room;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

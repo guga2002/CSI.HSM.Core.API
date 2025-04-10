@@ -1,11 +1,11 @@
-﻿using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Guest;
-using Core.Core.Entities.Task;
+﻿using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Guest;
+using Domain.Core.Entities.Task;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Core.Entities.Item;
+namespace Domain.Core.Entities.Item;
 
 [Table("Carts", Schema = "CSI")]
 [Index(nameof(GuestId))] // Optimized for guest-cart joins

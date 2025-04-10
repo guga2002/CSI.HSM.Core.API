@@ -3,8 +3,8 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Item;
 using Core.Application.DTOs.Response.Staff;
-using Core.Application.Interface.Staff;
-using Core.Core.Entities.Staff;
+using Core.Application.Interface.Staff.Sentiments;
+using Domain.Core.Entities.Staff;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

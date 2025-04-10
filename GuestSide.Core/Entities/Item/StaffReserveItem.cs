@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.AbstractEntities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Item;
+namespace Domain.Core.Entities.Item;
 
 [Table("StaffReserveItems", Schema = "CSI")]
-[Index(nameof(FinalUsed))] 
-[Index(nameof(ReservedTill))] 
+[Index(nameof(FinalUsed))]
+[Index(nameof(ReservedTill))]
 public class StaffReserveItem : AbstractEntity //ar viyenebt am cxrils am etapze
 {
     public int Quantity { get; set; }
@@ -25,7 +25,7 @@ public class StaffReserveItem : AbstractEntity //ar viyenebt am cxrils am etapze
     [NotMapped]
     public bool IsExpired => DateTime.UtcNow > ReservedTill && !FinalUsed; // Automatically calculated field
 
-    public bool ReleasedBySystem { get; set; } = false; 
+    public bool ReleasedBySystem { get; set; } = false;
 
     public DateTime? HandledDate { get; set; } // Stores when the reservation was finalized
 

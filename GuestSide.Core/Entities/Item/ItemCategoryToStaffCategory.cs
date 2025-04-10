@@ -1,9 +1,9 @@
-﻿using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Staff;
+﻿using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Staff;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Core.Entities.Item;
+namespace Domain.Core.Entities.Item;
 
 [Table("ItemCategoryToStaffCategory", Schema = "CSI")]
 [Index(nameof(ItemCategoryId))] // Optimized for joins with ItemCategory

@@ -3,14 +3,13 @@ using Core.Application.DTOs.Request.Room;
 using Core.Application.DTOs.Response.Hotel;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.Room;
-using Core.Core.Entities.Room;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Room;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Room;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Room.Service
 {
-    public class RoomService : GenericService<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room>, IRoomService
+    public class RoomService : GenericService<RoomsDto, RoomsResponseDto, long, Domain.Core.Entities.Room.Room>, IRoomService
     {
         private readonly IRoomRepository _roomRepository;
         private readonly IMapper _mapper;
@@ -19,9 +18,9 @@ namespace Core.Application.Services.Room.Service
         public RoomService(
             IRoomRepository roomRepository,
             IMapper mapper,
-            IGenericRepository<Core.Entities.Room.Room> repository,
+            IGenericRepository<Domain.Core.Entities.Room.Room> repository,
             ILogger<RoomService> logger,
-            IAdditionalFeaturesRepository<Core.Entities.Room.Room> additionalFeatures)
+            IAdditionalFeaturesRepository<Domain.Core.Entities.Room.Room> additionalFeatures)
             : base(mapper, repository, logger, additionalFeatures)
         {
             _mapper = mapper;

@@ -1,8 +1,8 @@
-﻿using Core.Core.Entities.Staff;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Sheared;
+﻿using Domain.Core.Entities.Staff;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Sheared;
 
-namespace Core.Core.Interfaces.Staff
+namespace Domain.Core.Interfaces.Staff
 {
     public interface ITaskToStaffRepository : IGenericRepository<TaskToStaff>
     {

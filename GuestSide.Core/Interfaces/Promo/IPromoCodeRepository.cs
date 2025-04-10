@@ -1,9 +1,9 @@
-﻿using Core.Core.Entities.Promo;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Promo;
+using Domain.Core.Interfaces.AbstractInterface;
 
-namespace Core.Core.Interfaces.Promo
+namespace Domain.Core.Interfaces.Promo
 {
-    public interface IPromoCodeRepository:IGenericRepository<PromoCode>,IAdditionalFeaturesRepository<PromoCode>
+    public interface IPromoCodeRepository : IGenericRepository<PromoCode>, IAdditionalFeaturesRepository<PromoCode>
     {
         Task<PromoCode> ValidatePromoCodeAsync(string code, long? guestId = null, long? cartId = null, CancellationToken cancellationToken = default);
         Task<int> DeactivateExpiredPromoCodesAsync(CancellationToken cancellationToken = default);

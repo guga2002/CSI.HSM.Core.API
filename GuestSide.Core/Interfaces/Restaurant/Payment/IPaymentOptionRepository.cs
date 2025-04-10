@@ -1,8 +1,8 @@
-﻿using Core.Core.Entities.Payment;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Payment;
+using Domain.Core.Interfaces.AbstractInterface;
 
-namespace Core.Core.Interfaces.Restaurant.Payment;
+namespace Domain.Core.Interfaces.Restaurant.Payment;
 
-public interface IPaymentOptionRepository:IGenericRepository<PaymentOption>
+public interface IPaymentOptionRepository : IGenericRepository<PaymentOption>
 {
 }

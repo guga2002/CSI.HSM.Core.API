@@ -1,4 +1,4 @@
-﻿using Core.Core.Entities.Staff;
+﻿using Domain.Core.Entities.Staff;
 
 namespace Core.Application.DTOs.Response.Staff;
 

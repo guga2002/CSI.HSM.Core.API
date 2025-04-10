@@ -1,8 +1,8 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.FeedBacks;
-using Core.Core.Interfaces.FeedBack;
-using Core.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
+using Domain.Core.Data;
+using Domain.Core.Entities.FeedBacks;
+using Domain.Core.Interfaces.FeedBack;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

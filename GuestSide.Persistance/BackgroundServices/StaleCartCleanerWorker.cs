@@ -1,5 +1,5 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.Item;
+﻿using Domain.Core.Data;
+using Domain.Core.Entities.Item;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

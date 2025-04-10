@@ -1,11 +1,11 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.Task;
-using Core.Core.Entities.Notification;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Core.Core.Entities.Item;
+using Domain.Core.Data;
+using Domain.Core.Entities.Task;
+using Domain.Core.Entities.Notification;
+using Domain.Core.Entities.Item;
 
 namespace Core.Persistance.BackgroundServices;
 
@@ -71,8 +71,8 @@ public class GuestCheckOutFinalizerWorker : IHostedService, IDisposable
                     Description = $"Auto-generated cleaning task for room {guest.Room?.RoomNumber} after guest {guest.FirstName} {guest.LastName} checked out.",
                     CartId = cart.Id,
                     DueDate = now.AddHours(2),
-                    Status = Core.Entities.Enums.StatusEnum.Pending,
-                    Priority = Core.Entities.Enums.PriorityEnum.Medium,
+                    Status =Domain.Core.Entities.Enums.StatusEnum.Pending,
+                    Priority = Domain.Core.Entities.Enums.PriorityEnum.Medium,
                     Note = "Auto-cleaning task after guest checkout",
                     IsCompleted = false
                 };
@@ -88,8 +88,8 @@ public class GuestCheckOutFinalizerWorker : IHostedService, IDisposable
                     UpdatedAt = now,
                     SentDate = now,
                     IsActive = true,
-                    NotificationType = Core.Entities.Enums.NotificationType.Reminder,
-                    PriorityLevel = Core.Entities.Enums.PriorityEnum.Low,
+                    NotificationType = Domain.Core.Entities.Enums.NotificationType.Reminder,
+                    PriorityLevel = Domain.Core.Entities.Enums.PriorityEnum.Low,
                     Message = "We hope you enjoyed your stay. Please leave feedback or contact support if needed."
                 };
                 await db.Notifications.AddAsync(notification);

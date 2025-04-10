@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Core.Application.ErrorSuccessKeys;
-using Core.Core.Interfaces.AbstractInterface;
 using Core.Application.Interface.GenericContracts;
 using System.Linq.Expressions;
 using Core.Application.CustomExceptions;
 using InvalidOperationException = Core.Application.CustomExceptions.InvalidOperationException;
+using Domain.Core.Interfaces.AbstractInterface;
 
 namespace Core.Application.Services;
 

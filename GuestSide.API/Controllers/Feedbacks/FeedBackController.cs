@@ -2,9 +2,9 @@
 using Core.API.Response;
 using Core.Application.DTOs.Request.FeedBacks;
 using Core.Application.DTOs.Response.FeedBacks;
-using Core.Application.Interface.FeedBack;
+using Core.Application.Interface.Feadback;
 using Core.Application.Interface.GenericContracts;
-using Core.Core.Entities.FeedBacks;
+using Domain.Core.Entities.FeedBacks;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

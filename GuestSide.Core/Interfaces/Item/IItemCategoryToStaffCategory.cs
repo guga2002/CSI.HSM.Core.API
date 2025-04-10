@@ -1,7 +1,7 @@
-﻿using Core.Core.Entities.Item;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Item;
+using Domain.Core.Interfaces.AbstractInterface;
 
-namespace Core.Core.Interfaces.Item
+namespace Domain.Core.Interfaces.Item
 {
     public interface IItemCategoryToStaffCategoryRepository : IGenericRepository<ItemCategoryToStaffCategory>
     {

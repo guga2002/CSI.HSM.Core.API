@@ -1,12 +1,12 @@
 ﻿using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.GenericContracts;
-using Core.Core.Entities.Staff;
+using Domain.Core.Entities.Staff;
 
-namespace Core.Application.Interface.Staff;
+namespace Core.Application.Interface.Staff.StaffSupportResponse;
 
-public interface IStaffSupportResponseService : IService<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, StaffSupportResponse>,
-    IAdditionalFeatures<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, StaffSupportResponse>
+public interface IStaffSupportResponseService : IService<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, Domain.Core.Entities.Staff.StaffSupportResponse>,
+    IAdditionalFeatures<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, Domain.Core.Entities.Staff.StaffSupportResponse>
 {
     /// <summary>
     /// Get support responses by ticket ID.

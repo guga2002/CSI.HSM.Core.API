@@ -9,7 +9,7 @@ public class HotelMapper:Profile
 
     public HotelMapper()
     {
-        CreateMap<HotelRequestDto, Core.Entities.Hotel.Hotel>().ReverseMap();
-        CreateMap<HotelResponse, Core.Entities.Hotel.Hotel>().ReverseMap();
+        CreateMap<HotelRequestDto, Domain.Core.Entities.Hotel.Hotel>().ReverseMap();
+        CreateMap<HotelResponse, Domain.Core.Entities.Hotel.Hotel>().ReverseMap();
     }
 }

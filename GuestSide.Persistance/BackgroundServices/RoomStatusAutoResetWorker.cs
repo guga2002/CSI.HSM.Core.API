@@ -1,5 +1,5 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.Room;
+﻿using Domain.Core.Data;
+using Domain.Core.Entities.Room;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

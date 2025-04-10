@@ -1,20 +1,20 @@
-﻿using Core.Core.Entities.AbstractEntities;
+﻿using Domain.Core.Entities.AbstractEntities;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
 
-namespace Core.Core.Entities.Restaurant;
+namespace Domain.Core.Entities.Restaurant;
 
 [Table("RestaurantItems", Schema = "CSI")]
-[Index(nameof(IsAvailable))] 
+[Index(nameof(IsAvailable))]
 [Index(nameof(Price))]
 public class RestaurantItem : AbstractEntity
 {
     [StringLength(100)]
     public required string Title { get; set; }
 
-    [Column(TypeName = "nvarchar(max)")] 
+    [Column(TypeName = "nvarchar(max)")]
     public string? PhotoUrlSerialized { get; set; }
 
     [NotMapped]
@@ -24,10 +24,10 @@ public class RestaurantItem : AbstractEntity
         set => PhotoUrlSerialized = value == null ? null : JsonSerializer.Serialize(value);
     }
 
-    [StringLength(255)] 
+    [StringLength(255)]
     public string? Description { get; set; }
 
-    [StringLength(255)] 
+    [StringLength(255)]
     public string? Allergens { get; set; }
 
     [Column(TypeName = "nvarchar(max)")]
@@ -40,12 +40,12 @@ public class RestaurantItem : AbstractEntity
         set => IngredientsSerialized = value == null ? null : JsonSerializer.Serialize(value);
     }
 
-    [Precision(18, 2)] 
+    [Precision(18, 2)]
     public decimal? Price { get; set; }
 
-    public bool IsAvailable { get; set; } = true; 
+    public bool IsAvailable { get; set; } = true;
 
-    public int? Calories { get; set; } 
+    public int? Calories { get; set; }
 
     public int? PreparationTimeMinutes { get; set; }
 
@@ -56,12 +56,12 @@ public class RestaurantItem : AbstractEntity
     [ForeignKey(nameof(RestaurantItemCategory))]
     public long RestaurantItemCategoryId { get; set; }
 
-    public virtual RestaurantItemCategory? RestaurantItemCategory { get; set; } 
+    public virtual RestaurantItemCategory? RestaurantItemCategory { get; set; }
 
     [ForeignKey(nameof(Restaurant))]
     public long RestaurantId { get; set; }
 
-    public virtual Restaurants? Restaurant { get; set; } 
+    public virtual Restaurants? Restaurant { get; set; }
 
-    public virtual List<RestaurantItemToCart>? RestaurantItemToCarts { get; set; } 
+    public virtual List<RestaurantItemToCart>? RestaurantItemToCarts { get; set; }
 }

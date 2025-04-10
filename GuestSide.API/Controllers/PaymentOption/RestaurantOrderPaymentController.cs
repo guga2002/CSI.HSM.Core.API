@@ -3,7 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Payment;
 using Core.Application.DTOs.Response.Payment;
 using Core.Application.Interface.GenericContracts;
-using Core.Core.Entities.Payment;
+using Domain.Core.Entities.Payment;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

@@ -1,16 +1,15 @@
 ﻿using AutoMapper;
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
-using Core.Application.Interface.Staff;
-using Core.Core.Entities.Enums;
-using Core.Core.Entities.Staff;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Staff;
+using Core.Application.Interface.Staff.StaffSupport;
+using Domain.Core.Entities.Enums;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Staff;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Staff.StaffSupport.Service
 {
-    public class StaffSupportService : GenericService<StaffSupportDto, StaffSupportResponseDto, long, Core.Entities.Staff.StaffSupport>, IStaffSupportService
+    public class StaffSupportService : GenericService<StaffSupportDto, StaffSupportResponseDto, long, Domain.Core.Entities.Staff.StaffSupport>, IStaffSupportService
     {
         private readonly IStaffSupportRepository _staffSupportRepository;
         private readonly IMapper _mapper;
@@ -20,8 +19,8 @@ namespace Core.Application.Services.Staff.StaffSupport.Service
             IMapper mapper,
             IStaffSupportRepository staffSupportRepository,
             ILogger<StaffSupportService> logger,
-            IGenericRepository<Core.Entities.Staff.StaffSupport> repository,
-            IAdditionalFeaturesRepository<Core.Entities.Staff.StaffSupport> additionalFeatures)
+            IGenericRepository<Domain.Core.Entities.Staff.StaffSupport> repository,
+            IAdditionalFeaturesRepository<Domain.Core.Entities.Staff.StaffSupport> additionalFeatures)
             : base(mapper, repository, logger, additionalFeatures)
         {
             _staffSupportRepository = staffSupportRepository;

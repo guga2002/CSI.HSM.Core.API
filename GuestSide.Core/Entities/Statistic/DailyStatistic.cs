@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using Core.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.AbstractEntities;
 
-namespace Core.Core.Entities.Statistic;
+namespace Domain.Core.Entities.Statistic;
 [Table("DailyStatistics", Schema = "CSI")]
 public class DailyStatistic : AbstractEntity
 {

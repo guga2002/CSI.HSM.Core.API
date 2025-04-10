@@ -2,10 +2,10 @@
 using Core.Application.DTOs.Request.Notification;
 using Core.Application.DTOs.Response.Notification;
 using Core.Application.Interface.Notification;
-using Core.Core.Entities.Enums;
-using Core.Core.Entities.Notification;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Notification;
+using Domain.Core.Entities.Enums;
+using Domain.Core.Entities.Notification;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Notification;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Notification.Service

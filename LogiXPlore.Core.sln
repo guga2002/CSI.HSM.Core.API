@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Core", "GuestSide.Core\Core.Core.csproj", "{033F74D8-C494-476D-8850-391A225D1522}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Core", "GuestSide.Core\Domain.Core.csproj", "{033F74D8-C494-476D-8850-391A225D1522}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Infrastructure", "GuestSide.Infrastructure\Core.Infrastructure.csproj", "{E107395B-6F52-4334-972A-ADDEAE803971}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Application", "GuestSi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.API", "GuestSide.API\Core.API.csproj", "{CE4F9CAD-B709-431E-8B60-7153368ACF9C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{9A16CFBB-C436-4F26-B4DC-DEB4F7DA0E7C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{9A16CFBB-C436-4F26-B4DC-DEB4F7DA0E7C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{B238B74A-994E-42B4-ABE6-9AE5E04719EA}"
 EndProject
@@ -28,6 +28,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{2E3C931D-CB2A-4974-A300-CA6FC6E99927}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Csi.VoicePack", "Csi.VoicePack\Csi.VoicePack.csproj", "{A217A077-394E-4AEC-B779-0FA9B712F5DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{21295F7B-D8E5-4CCF-A815-4F385AB56B68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSI.UniteTests", "CSI.UniteTestCaes\CSI.UniteTests.csproj", "{8027D227-8C1E-4B74-B86F-22CD8F4A268C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +63,10 @@ Global
 		{A217A077-394E-4AEC-B779-0FA9B712F5DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A217A077-394E-4AEC-B779-0FA9B712F5DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A217A077-394E-4AEC-B779-0FA9B712F5DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8027D227-8C1E-4B74-B86F-22CD8F4A268C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8027D227-8C1E-4B74-B86F-22CD8F4A268C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8027D227-8C1E-4B74-B86F-22CD8F4A268C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8027D227-8C1E-4B74-B86F-22CD8F4A268C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +79,7 @@ Global
 		{CE4F9CAD-B709-431E-8B60-7153368ACF9C} = {265AF401-B0EC-4D15-9B2C-553BC00E027B}
 		{2E3C931D-CB2A-4974-A300-CA6FC6E99927} = {5B80AD05-2834-45A3-813D-7DEB0DAD008A}
 		{A217A077-394E-4AEC-B779-0FA9B712F5DD} = {2E3C931D-CB2A-4974-A300-CA6FC6E99927}
+		{8027D227-8C1E-4B74-B86F-22CD8F4A268C} = {21295F7B-D8E5-4CCF-A815-4F385AB56B68}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1AB89616-51C5-4FF3-A804-7AFF4A134B4D}

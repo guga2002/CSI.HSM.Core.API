@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
-using Core.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.AbstractEntities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Room;
+namespace Domain.Core.Entities.Room;
 
 [Table("RoomCategories", Schema = "CSI")]
 [Index(nameof(Name), IsUnique = true)]

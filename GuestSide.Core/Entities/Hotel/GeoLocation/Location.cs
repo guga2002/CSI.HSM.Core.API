@@ -1,10 +1,10 @@
-﻿using Core.Core.Entities.AbstractEntities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Domain.Core.Entities.AbstractEntities;
 
-namespace Core.Core.Entities.Hotel.GeoLocation;
+namespace Domain.Core.Entities.Hotel.GeoLocation;
 
 [Table("Locations", Schema = "CSI")]
 [Index(nameof(Latitude), nameof(Longitude))] // Optimized for geospatial lookups

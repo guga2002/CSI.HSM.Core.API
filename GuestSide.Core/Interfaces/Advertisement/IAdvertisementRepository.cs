@@ -1,6 +1,6 @@
-﻿using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Interfaces.AbstractInterface;
 
-namespace Core.Core.Interfaces.Advertisement
+namespace Domain.Core.Interfaces.Advertisement
 {
     public interface IAdvertisementRepository : IGenericRepository<Entities.Advertisements.Advertisement>
     {

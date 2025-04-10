@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
-using Core.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.AbstractEntities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Audio;
+namespace Domain.Core.Entities.Audio;
 
 [Table("AudioResponses", Schema = "CSI")]
 [Index(nameof(VoiceType))]
 [Index(nameof(CategoryId))]
-public class AudioResponse :AbstractEntity, IExistable<AudioResponse>
+public class AudioResponse : AbstractEntity, IExistable<AudioResponse>
 {
 
     [StringLength(255)]

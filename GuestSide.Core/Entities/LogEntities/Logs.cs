@@ -1,14 +1,14 @@
-﻿using Core.Core.Entities.AbstractEntities;
+﻿using Domain.Core.Entities.AbstractEntities;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Core.Entities.LogEntities;
+namespace Domain.Core.Entities.LogEntities;
 
 [Table("Logs", Schema = "CSI")]
-[Index(nameof(LoggerId))] 
-[Index(nameof(LogLevel))] 
-[Index(nameof(CorrelationId))] 
-[Index(nameof(IsEmergency))] 
+[Index(nameof(LoggerId))]
+[Index(nameof(LogLevel))]
+[Index(nameof(CorrelationId))]
+[Index(nameof(IsEmergency))]
 public class Logs : AbstractEntity
 {
     /// <summary>
@@ -20,9 +20,9 @@ public class Logs : AbstractEntity
 
     public required string Message { get; set; }
 
-    public Guid CorrelationId { get; set; } 
+    public Guid CorrelationId { get; set; }
 
-    [Column(TypeName = "nvarchar(max)")] 
+    [Column(TypeName = "nvarchar(max)")]
     public required string Exception { get; set; }
 
     public string? IpAddress { get; set; }
@@ -31,8 +31,8 @@ public class Logs : AbstractEntity
 
     public bool IsEmergency { get; set; } = false;
 
-    public string? RequestId { get; set; } 
+    public string? RequestId { get; set; }
 
     [Column(TypeName = "nvarchar(max)")]
-    public string? StackTrace { get; set; } 
+    public string? StackTrace { get; set; }
 }

@@ -1,15 +1,15 @@
-﻿using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Guest;
+﻿using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Guest;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Core.Entities.Notification;
+namespace Domain.Core.Entities.Notification;
 
 [Table("GuestNotifications", Schema = "CSI")]
-[Index(nameof(GuestId))] 
-[Index(nameof(NotificationId))] 
-[Index(nameof(IsRead))] 
-[Index(nameof(SentTime))] 
+[Index(nameof(GuestId))]
+[Index(nameof(NotificationId))]
+[Index(nameof(IsRead))]
+[Index(nameof(SentTime))]
 public class GuestNotification : AbstractEntity
 {
     [ForeignKey(nameof(Guest))]
@@ -24,9 +24,9 @@ public class GuestNotification : AbstractEntity
 
     public bool IsRead { get; set; } = false;
 
-    public DateTime SentTime { get; set; } = DateTime.UtcNow; 
+    public DateTime SentTime { get; set; } = DateTime.UtcNow;
 
-    public DateTime? ReadTime { get; set; } 
+    public DateTime? ReadTime { get; set; }
 
-    public bool IsImportant { get; set; } = false; 
+    public bool IsImportant { get; set; } = false;
 }
