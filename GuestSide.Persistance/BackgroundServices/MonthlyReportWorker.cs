@@ -60,8 +60,8 @@ public class MonthlyReportWorker : IHostedService, IDisposable
                 worksheet.Cell(currectRow, 1).Value = staff.Key;
                 worksheet.Cell(currectRow, 2).Value = staffs.FirstOrDefault(id => id.Id == staff.Key)?.FirstName ?? "Unknown";
                 worksheet.Cell(currectRow, 3).Value = staffs.FirstOrDefault(id => id.Id == staff.Key)?.LastName ?? "Unknown";
-                worksheet.Cell(currectRow, 4).Value = staff.Count(id => id.IsCompleted);
-                worksheet.Cell(currectRow, 5).Value = staff.Count(id => id.StatusId == 1); //open tasksId
+                worksheet.Cell(currectRow, 4).Value = staff.Where(date => date.CreatedAt >= lastMonth && date.CreatedAt <= today).Count(id => id.IsCompleted);
+                worksheet.Cell(currectRow, 5).Value = staff.Where(date => date.CreatedAt >= lastMonth && date.CreatedAt <= today).Count(id => id.StatusId == 1); //open tasksId
                 currectRow++;
             }
 
