@@ -1,8 +1,8 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.Guest;
-using Core.Core.Interfaces.Guest;
-using Core.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
+using Domain.Core.Data;
+using Domain.Core.Entities.Guest;
+using Domain.Core.Interfaces.Guest;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -19,7 +19,7 @@ namespace Core.Infrastructure.Repositories.Guest
         /// <summary>
         /// Get the room assigned to a specific guest
         /// </summary>
-        public async Task<Core.Entities.Room.Room> GetRoomByGuestIdAsync(long guestId)
+        public async Task<Domain.Core.Entities.Room.Room> GetRoomByGuestIdAsync(long guestId)
         {
             return await DbSet
                 .Where(g => g.Id == guestId)
@@ -106,7 +106,7 @@ namespace Core.Infrastructure.Repositories.Guest
             return true;
         }
 
-        public async Task<IEnumerable<Core.Entities.Room.Room>> RoomByGuestIdAsync(long GuestId)
+        public async Task<IEnumerable<Domain.Core.Entities.Room.Room>> RoomByGuestIdAsync(long GuestId)
         {
             return await DbSet
                 .Include(io=>io.Room)

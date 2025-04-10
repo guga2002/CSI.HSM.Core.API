@@ -1,22 +1,22 @@
-﻿using Core.Core.Data;
-using Core.Core.Interfaces.Room;
-using Core.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
+using Domain.Core.Data;
+using Domain.Core.Interfaces.Room;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Infrastructure.Repositories.Room
 {
-    public class RoomRepository : GenericRepository<Core.Entities.Room.Room>, IRoomRepository
+    public class RoomRepository : GenericRepository<Domain.Core.Entities.Room.Room>, IRoomRepository
     {
-        public RoomRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Core.Entities.Room.Room> logger)
+        public RoomRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Domain.Core.Entities.Room.Room> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
         }
 
         #region Get Available Rooms
-        public async Task<IEnumerable<Core.Entities.Room.Room>> GetAvailableRooms(long hotelId, long categoryId, int maxOccupancy, decimal maxPrice)
+        public async Task<IEnumerable<Domain.Core.Entities.Room.Room>> GetAvailableRooms(long hotelId, long categoryId, int maxOccupancy, decimal maxPrice)
         {
             return await DbSet
                 .Where(room => room.HotelId == hotelId
@@ -58,7 +58,7 @@ namespace Core.Infrastructure.Repositories.Room
         #endregion
 
         #region Get Rooms by Hotel
-        public async Task<IEnumerable<Core.Entities.Room.Room>> GetRoomsByHotel(long hotelId)
+        public async Task<IEnumerable<Domain.Core.Entities.Room.Room>> GetRoomsByHotel(long hotelId)
         {
             return await DbSet
                 .Where(room => room.HotelId == hotelId)
@@ -67,7 +67,7 @@ namespace Core.Infrastructure.Repositories.Room
         }
         #endregion
 
-        public async Task<Core.Entities.Hotel.Hotel> GetHotelForRoomAsync(long roomId)
+        public async Task<Domain.Core.Entities.Hotel.Hotel> GetHotelForRoomAsync(long roomId)
         {
            return await DbSet.Include(io=>io.Hotel).Where(io => io.Id == roomId).Select(io => io.Hotel).FirstOrDefaultAsync();
         }

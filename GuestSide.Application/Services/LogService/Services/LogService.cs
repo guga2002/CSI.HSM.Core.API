@@ -2,9 +2,9 @@
 using Core.Application.DTOs.Request.LogModel;
 using Core.Application.DTOs.Response.LogModel;
 using Core.Application.Interface.LogInterfaces;
-using Core.Core.Entities.LogEntities;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.LogEntities;
+using Domain.Core.Entities.LogEntities;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.LogInterfaces;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 

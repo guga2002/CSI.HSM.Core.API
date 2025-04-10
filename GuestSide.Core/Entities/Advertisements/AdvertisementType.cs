@@ -1,9 +1,9 @@
-﻿using Core.Core.Entities.AbstractEntities;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Domain.Core.Entities.AbstractEntities;
 
-namespace Core.Core.Entities.Advertisements;
+namespace Domain.Core.Entities.Advertisements;
 
 [Table("AdvertisementTypes", Schema = "CSI")]
 [Index(nameof(Name))]

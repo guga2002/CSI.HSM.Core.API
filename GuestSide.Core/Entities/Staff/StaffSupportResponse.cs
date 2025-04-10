@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.AbstractEntities;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+using Domain.Core.Entities.AbstractEntities;
 
-namespace Core.Core.Entities.Staff;
+namespace Domain.Core.Entities.Staff;
 
 [Table("StaffSupportResponses", Schema = "CSI")]
-[Index(nameof(TicketId))] 
-[Index(nameof(IsFromSupportTeam))] 
+[Index(nameof(TicketId))]
+[Index(nameof(IsFromSupportTeam))]
 public class StaffSupportResponse : AbstractEntity
 {
     [ForeignKey(nameof(StaffSupport))]
@@ -24,7 +24,7 @@ public class StaffSupportResponse : AbstractEntity
 
     public bool IsFromSupportTeam { get; set; } = false; // Indicates if response is from support team
 
-    [Column(TypeName = "nvarchar(max)")] 
+    [Column(TypeName = "nvarchar(max)")]
     public string? AttachmentUrlsSerialized { get; set; }
 
     [NotMapped]

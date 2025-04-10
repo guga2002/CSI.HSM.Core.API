@@ -2,9 +2,9 @@
 using Core.Application.DTOs.Request.Language;
 using Core.Application.DTOs.Response.Language;
 using Core.Application.Interface.Language;
-using Core.Core.Entities.Language;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Language;
+using Domain.Core.Entities.Language;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Language;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 

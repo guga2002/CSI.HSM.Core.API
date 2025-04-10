@@ -1,5 +1,5 @@
 ﻿using ClosedXML.Excel;
-using Core.Core.Data;
+using Domain.Core.Data;
 using Core.Persistance.MailServices;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

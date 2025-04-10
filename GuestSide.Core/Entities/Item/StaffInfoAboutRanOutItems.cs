@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Enums;
-using Core.Core.Entities.Staff;
+using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Enums;
+using Domain.Core.Entities.Staff;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Item;
+namespace Domain.Core.Entities.Item;
 
 [Table("StaffAboutRanOutItems", Schema = "CSI")]
-[Index(nameof(StaffId))] 
+[Index(nameof(StaffId))]
 [Index(nameof(Resolved))]
-[Index(nameof(Priority))] 
+[Index(nameof(Priority))]
 public class StaffInfoAboutRanOutItems : AbstractEntity
 {
     [ForeignKey(nameof(StaffMember))]
@@ -30,7 +30,7 @@ public class StaffInfoAboutRanOutItems : AbstractEntity
 
     public DateTime RequestTime { get; set; } = DateTime.UtcNow;
 
-    public PriorityEnum Priority { get; set; } 
+    public PriorityEnum Priority { get; set; }
 
     public bool Resolved { get; set; } = false;
 

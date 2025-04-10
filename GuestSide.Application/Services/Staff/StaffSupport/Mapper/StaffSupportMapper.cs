@@ -9,7 +9,7 @@ public class StaffSupportMapper:Profile
 
     public StaffSupportMapper()
     {
-        CreateMap<Core.Entities.Staff.StaffSupport, StaffSupportDto>().ReverseMap();
-        CreateMap<Core.Entities.Staff.StaffSupport, StaffSupportResponseDto>().ReverseMap();
+        CreateMap<Domain.Core.Entities.Staff.StaffSupport, StaffSupportDto>().ReverseMap();
+        CreateMap<Domain.Core.Entities.Staff.StaffSupport, StaffSupportResponseDto>().ReverseMap();
     }
 }

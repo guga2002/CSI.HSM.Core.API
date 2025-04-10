@@ -1,9 +1,6 @@
-﻿using Core.Core.Entities.Hotel;
-using Core.Core.Interfaces.AbstractInterface;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Domain.Core.Interfaces.AbstractInterface;
 
-namespace Core.Core.Interfaces.Hotel
+namespace Domain.Core.Interfaces.Hotel
 {
     public interface IHotelRepository : IGenericRepository<Entities.Hotel.Hotel>
     {

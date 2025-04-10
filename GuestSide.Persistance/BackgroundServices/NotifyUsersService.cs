@@ -1,8 +1,8 @@
-﻿using Core.Core.Data;
+﻿using Domain.Core.Data;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using Core.Core.Entities.Notification;
+using Domain.Core.Entities.Notification;
 using Core.Persistance.PtmsCsi;
 using Core.Persistance.MailServices;
 using Microsoft.Extensions.DependencyInjection;

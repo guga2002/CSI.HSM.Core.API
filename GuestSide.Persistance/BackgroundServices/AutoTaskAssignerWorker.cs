@@ -1,10 +1,10 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.Staff;
-using Core.Core.Entities.Task;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Domain.Core.Entities.Staff;
+using Domain.Core.Data;
+using Domain.Core.Entities.Task;
 
 namespace Core.Persistance.BackgroundServices;
 
@@ -21,11 +21,11 @@ public class AutoTaskAssignerWorker : IHostedService, IDisposable
         _logger = logger;
     }
 
-    public Task StartAsync(CancellationToken cancellationToken)
+    public System.Threading.Tasks.Task StartAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("AutoTaskAssignerWorker started.");
         _timer = new Timer(async _ => await ExecuteAsync(), null, TimeSpan.Zero, TimeSpan.FromMinutes(15));
-        return Task.CompletedTask;
+        return System.Threading.Tasks.Task.CompletedTask;
     }
 
     private async Task ExecuteAsync()
@@ -113,11 +113,11 @@ public class AutoTaskAssignerWorker : IHostedService, IDisposable
         }
     }
 
-    public Task StopAsync(CancellationToken cancellationToken)
+    public System.Threading.Tasks.Task StopAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("AutoTaskAssignerWorker stopped.");
         _timer?.Change(Timeout.Infinite, 0);
-        return Task.CompletedTask;
+        return System.Threading.Tasks.Task.CompletedTask;
     }
 
     public void Dispose() => _timer?.Dispose();

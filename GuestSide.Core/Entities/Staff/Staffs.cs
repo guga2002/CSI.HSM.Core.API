@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Item;
-using Core.Core.Entities.Notification;
+using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Item;
+using Domain.Core.Entities.Notification;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Staff;
+namespace Domain.Core.Entities.Staff;
 
 [Table("Staffs", Schema = "CSI")]
 [Index(nameof(Email), IsUnique = true)]

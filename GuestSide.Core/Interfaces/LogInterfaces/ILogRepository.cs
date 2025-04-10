@@ -1,10 +1,10 @@
-﻿using Core.Core.Entities.LogEntities;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.LogEntities;
+using Domain.Core.Interfaces.AbstractInterface;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Core.Core.Interfaces.LogEntities
+namespace Domain.Core.Interfaces.LogInterfaces
 {
     public interface ILogsRepository : IGenericRepository<Logs>
     {

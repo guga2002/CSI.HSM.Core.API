@@ -1,9 +1,9 @@
-﻿using Core.Core.Entities.Audio;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Audio;
+using Domain.Core.Interfaces.AbstractInterface;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Core.Core.Interfaces.Audio
+namespace Domain.Core.Interfaces.Audio
 {
     public interface IAudioResponseCategoryRepository : IGenericRepository<AudioResponseCategory>
     {

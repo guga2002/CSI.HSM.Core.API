@@ -1,10 +1,10 @@
-﻿using Core.Core.Entities.AbstractEntities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Domain.Core.Entities.AbstractEntities;
 
-namespace Core.Core.Entities.Item;
+namespace Domain.Core.Entities.Item;
 
 [Table("ItemCategories", Schema = "CSI")]
 [Index(nameof(Name))] // Optimized for fast lookups

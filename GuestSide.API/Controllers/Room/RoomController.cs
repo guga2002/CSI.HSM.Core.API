@@ -5,7 +5,6 @@ using Core.Application.DTOs.Response.Hotel;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Room;
-using Core.Core.Entities.Room;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -13,14 +12,14 @@ namespace Core.API.Controllers.Room;
 
 [Route("api/[controller]")]
 [ApiController]
-public class RoomController : CSIControllerBase<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room>
+public class RoomController : CSIControllerBase<RoomsDto, RoomsResponseDto, long, Domain.Core.Entities.Room.Room>
 {
     private readonly IRoomService _roomService;
 
     public RoomController(
         IRoomService roomService,
-        IService<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room> serviceProvider,
-        IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room> additionalFeatures)
+        IService<RoomsDto, RoomsResponseDto, long, Domain.Core.Entities.Room.Room> serviceProvider,
+        IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Domain.Core.Entities.Room.Room> additionalFeatures)
         : base(serviceProvider, additionalFeatures)
     {
         _roomService = roomService;

@@ -1,10 +1,10 @@
-﻿using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Task;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using Domain.Core.Entities.Task;
+using Domain.Core.Entities.AbstractEntities;
 
-namespace Core.Core.Entities.FeedBacks;
+namespace Domain.Core.Entities.FeedBacks;
 
 [Table("Feedbacks", Schema = "CSI")]
 [Index(nameof(CorrelationId))]

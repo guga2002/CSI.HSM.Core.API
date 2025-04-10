@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.AbstractEntities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Guest;
+namespace Domain.Core.Entities.Guest;
 
 [Table("Statuses", Schema = "CSI")]
 [Index(nameof(StatusName))] // Improves filtering by status

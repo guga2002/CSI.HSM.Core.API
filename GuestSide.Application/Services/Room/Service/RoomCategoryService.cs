@@ -2,9 +2,9 @@
 using Core.Application.DTOs.Request.Room;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.Room;
-using Core.Core.Entities.Room;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Room;
+using Domain.Core.Entities.Room;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Room;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Room.Service

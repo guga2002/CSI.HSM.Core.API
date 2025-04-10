@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Core.Core.Entities.Enums;
+namespace Domain.Core.Entities.Enums;
 
 public enum StatusEnum
 {

@@ -1,13 +1,13 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.Advertisements;
-using Core.Core.Interfaces.Advertisement;
-using Core.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
+using Domain.Core.Data;
+using Domain.Core.Entities.Advertisements;
+using Domain.Core.Interfaces.Advertisement;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace Core.Infrastructure.Repositories.Advertisements
+namespace Core.Infrastructure.Repositories.Advertisement
 {
     public class AdvertisementTypeRepository : GenericRepository<AdvertisementType>, IAdvertisementTypeRepository
     {

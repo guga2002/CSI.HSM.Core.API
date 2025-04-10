@@ -3,8 +3,8 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Response.Item;
 using Core.Application.Interface.Item;
-using Core.Core.Entities.Enums;
-using Core.Core.Entities.Item;
+using Domain.Core.Entities.Enums;
+using Domain.Core.Entities.Item;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

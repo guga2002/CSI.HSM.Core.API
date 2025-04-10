@@ -1,9 +1,9 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.Enums;
-using Core.Core.Entities.Staff;
-using Core.Core.Interfaces.Staff;
-using Core.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
+using Domain.Core.Data;
+using Domain.Core.Entities.Enums;
+using Domain.Core.Entities.Staff;
+using Domain.Core.Interfaces.Staff;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

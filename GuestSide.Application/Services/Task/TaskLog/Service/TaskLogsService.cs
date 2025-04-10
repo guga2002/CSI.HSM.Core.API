@@ -2,8 +2,8 @@
 using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.Task.TaskLogs;
-using Core.Core.Entities.Task;
-using Core.Core.Interfaces.AbstractInterface;
+using Domain.Core.Entities.Task;
+using Domain.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Task.TaskLog.Service;

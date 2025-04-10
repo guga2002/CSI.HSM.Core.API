@@ -4,11 +4,11 @@ using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Language;
 using Core.Application.Services.Language.Mapper;
 using Core.Application.Services.Language.Service;
-using Core.Core.Entities.Language;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Language;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Infrastructure.Repositories.Language;
+using Domain.Core.Entities.Language;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Language;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Application.Services.Language.Di;

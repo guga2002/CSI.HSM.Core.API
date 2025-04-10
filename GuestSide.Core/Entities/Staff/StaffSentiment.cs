@@ -1,17 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.AbstractEntities;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+using Domain.Core.Entities.AbstractEntities;
 
-namespace Core.Core.Entities.Staff;
+namespace Domain.Core.Entities.Staff;
 
 [Table("StaffSentiments", Schema = "CSI")]
 [Index(nameof(StaffId))]
-[Index(nameof(SentimentScore))] 
+[Index(nameof(SentimentScore))]
 [Index(nameof(SentimentLabel))]
-[Index(nameof(Emotion))] 
-[Index(nameof(AnalysisDate))] 
+[Index(nameof(Emotion))]
+[Index(nameof(AnalysisDate))]
 public class StaffSentiment : AbstractEntity
 {
     [ForeignKey(nameof(StaffMember))]
@@ -24,7 +24,7 @@ public class StaffSentiment : AbstractEntity
     [StringLength(100)]
     public string? SentimentLabel { get; set; }  // "Positive", "Neutral", "Negative"
 
-    [Column(TypeName = "nvarchar(max)")] 
+    [Column(TypeName = "nvarchar(max)")]
     public string? KeyPhrasesSerialized { get; set; }
 
     [NotMapped]

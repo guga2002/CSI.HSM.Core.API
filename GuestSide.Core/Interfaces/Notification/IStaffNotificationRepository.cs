@@ -1,9 +1,9 @@
-﻿using Core.Core.Entities.Notification;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Notification;
+using Domain.Core.Interfaces.AbstractInterface;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Core.Core.Interfaces.Notification
+namespace Domain.Core.Interfaces.Notification
 {
     public interface IStaffNotificationRepository : IGenericRepository<StaffNotification>
     {

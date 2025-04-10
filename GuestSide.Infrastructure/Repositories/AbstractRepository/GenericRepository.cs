@@ -1,8 +1,8 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Hotel.GeoLocation;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Hotel.GeoLocation;
 using Core.Persistance.Cashing;
+using Domain.Core.Data;
+using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Interfaces.AbstractInterface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

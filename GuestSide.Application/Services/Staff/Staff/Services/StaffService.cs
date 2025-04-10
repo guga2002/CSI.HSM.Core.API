@@ -2,10 +2,10 @@
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.Staff.staf;
-using Core.Core.Entities.Item;
-using Core.Core.Entities.Staff;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Staff;
+using Domain.Core.Entities.Item;
+using Domain.Core.Entities.Staff;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Staff;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Staff.Staff.Services

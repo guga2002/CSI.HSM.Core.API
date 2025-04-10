@@ -1,5 +1,5 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.Enums;
+﻿using Domain.Core.Data;
+using Domain.Core.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

@@ -14,15 +14,12 @@ using Core.Application.Services.Staff.Category.DI;
 using Core.Application.Services.Staff.Staff.DI;
 using Core.Application.Services.Task.Status.DI;
 using Core.Application.Services.Task.Task.DI;
-using Core.Core.Interfaces.AbstractInterface;
 using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Core.Interfaces.UniteOfWork;
 using Core.Infrastructure.Repositories.UniteOfWork;
 using Core.Application.Services.Guest.Injection;
 using Core.Application.Services.Task.TaskLog.Startup;
 using Core.Application.Services.Audio.Injection;
 using Core.Application.Services.Item.DI;
-using Core.Core.Data;
 using Core.Application.Services.Notification.DI;
 using Core.Application.Services.Room.DI;
 using Core.API.CustomMiddlwares;
@@ -40,6 +37,9 @@ using Core.API.Fillters;
 using Core.Persistance.PtmsCsi;
 using Core.Persistance.MailServices;
 using Core.Persistance.BackgroundServices;
+using Domain.Core.Data;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.UniteOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CSI.UniteTestCaes
+namespace CSI.UniteTests
 {
     public class TaskItemControllerTests
     {

@@ -1,27 +1,27 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Enums;
+using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Staff;
+namespace Domain.Core.Entities.Staff;
 
 [Table("StaffIncidents", Schema = "CSI")]
-[Index(nameof(Severity))] 
-[Index(nameof(Status))] 
-[Index(nameof(RequiresImmediateAction))] 
+[Index(nameof(Severity))]
+[Index(nameof(Status))]
+[Index(nameof(RequiresImmediateAction))]
 public class StaffIncident : AbstractEntity
 {
     [ForeignKey(nameof(ReportedByStaff))]
-    public long ReportedByStaffId { get; set; } 
+    public long ReportedByStaffId { get; set; }
 
     [StringLength(100)]
-    public required string Title { get; set; } 
+    public required string Title { get; set; }
 
     [StringLength(500)]
     public string? Description { get; set; }
 
-    public required PriorityEnum Severity { get; set; } 
+    public required PriorityEnum Severity { get; set; }
 
     public required StatusEnum Status { get; set; } = StatusEnum.Open;
 
@@ -36,7 +36,7 @@ public class StaffIncident : AbstractEntity
     public bool RequiresImmediateAction { get; set; } = false; // Marks if urgent attention is needed
 
     [ForeignKey(nameof(IncidentType))]
-    public long IncidentTypeId {  get; set; }
+    public long IncidentTypeId { get; set; }
 
     public virtual IncidentType? IncidentType { get; set; }
 

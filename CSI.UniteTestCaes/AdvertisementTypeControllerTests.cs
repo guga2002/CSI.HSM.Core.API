@@ -4,7 +4,7 @@ using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.DTOs.Response.Advertisment;
 using Core.Application.Interface.AdvertiementType;
 using Core.Application.Interface.GenericContracts;
-using Core.Core.Entities.Advertisements;
+using Domain.Core.Entities.Advertisements;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Core.UnitTests.Controllers
+namespace CSI.UniteTests
 {
     public class AdvertisementTypeControllerTests
     {

@@ -1,5 +1,5 @@
-﻿using Core.Core.Entities.LogEntities;
-using Core.Core.Interfaces.LogEntities;
+﻿using Domain.Core.Entities.LogEntities;
+using Domain.Core.Interfaces.LogInterfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Persistance.LoggingConfigs

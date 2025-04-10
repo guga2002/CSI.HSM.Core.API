@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.DTOs.Response.Advertisment;
-using Core.Core.Entities.Advertisements;
+using Domain.Core.Entities.Advertisements;
 
 namespace Core.Application.Services.Advertismenet.Mapper;
 

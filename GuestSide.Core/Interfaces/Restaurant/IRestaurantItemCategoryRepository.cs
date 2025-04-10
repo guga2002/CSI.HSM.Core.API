@@ -1,7 +1,7 @@
-﻿using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Interfaces.AbstractInterface;
 
-namespace Core.Core.Interfaces.Restaurant;
+namespace Domain.Core.Interfaces.Restaurant;
 
-public interface IRestaurantItemCategoryRepository:IGenericRepository<Core.Entities.Restaurant.RestaurantItemCategory>
+public interface IRestaurantItemCategoryRepository : IGenericRepository<Entities.Restaurant.RestaurantItemCategory>
 {
 }

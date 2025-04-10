@@ -3,7 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Guest;
 using Core.Application.DTOs.Response.Guest;
 using Core.Application.Interface.GenericContracts;
-using Core.Core.Entities.Guest;
+using Domain.Core.Entities.Guest;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

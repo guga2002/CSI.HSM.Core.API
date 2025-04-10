@@ -1,7 +1,7 @@
 ﻿using Core.Application.DTOs.Request.Hotel;
 using Core.Application.DTOs.Response.Hotel;
 using Core.Application.Interface.GenericContracts;
-using Core.Core.Entities.Hotel.GeoLocation;
+using Domain.Core.Entities.Hotel.GeoLocation;
 
 namespace Core.Application.Interface.Hotel
 {

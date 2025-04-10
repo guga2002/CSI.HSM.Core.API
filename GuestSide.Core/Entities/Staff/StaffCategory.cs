@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
-using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Item;
+using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Item;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Staff;
+namespace Domain.Core.Entities.Staff;
 
 [Table("StaffCategories", Schema = "CSI")]
 [Index(nameof(CategoryName), IsUnique = true)]

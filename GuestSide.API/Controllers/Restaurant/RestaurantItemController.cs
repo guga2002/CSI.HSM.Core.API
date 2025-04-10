@@ -3,7 +3,7 @@ using Core.API.Response;
 using Core.Application.DTOs.Request.Restaurant;
 using Core.Application.DTOs.Response.Restaurant;
 using Core.Application.Interface.GenericContracts;
-using Core.Core.Entities.Restaurant;
+using Domain.Core.Entities.Restaurant;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

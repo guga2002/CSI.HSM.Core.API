@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.Application.DTOs.Request.Hotel;
 using Core.Application.DTOs.Response.Hotel;
-using Core.Core.Entities.Hotel.GeoLocation;
+using Domain.Core.Entities.Hotel.GeoLocation;
 
 namespace Core.Application.Services.Hotel.Mapper;
 

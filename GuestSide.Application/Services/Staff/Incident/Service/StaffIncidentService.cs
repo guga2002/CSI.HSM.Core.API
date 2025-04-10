@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
-using Core.Application.Interface.Staff;
-using Core.Core.Entities.Enums;
-using Core.Core.Entities.Staff;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Staff;
+using Core.Application.Interface.Staff.Incident;
+using Domain.Core.Entities.Enums;
+using Domain.Core.Entities.Staff;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Staff;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Staff.Incident.Service

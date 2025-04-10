@@ -2,14 +2,14 @@
 using Core.Application.Services.Staff.Staff.Services;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.Staff.Staff.Mapper;
-using Core.Core.Interfaces.AbstractInterface;
 using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Core.Entities.Staff;
-using Core.Core.Interfaces.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.Interface.Staff.staf;
 using Core.Infrastructure.Repositories.Staff;
+using Domain.Core.Entities.Staff;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Staff;
 
 namespace Core.Application.Services.Staff.Staff.DI;
 

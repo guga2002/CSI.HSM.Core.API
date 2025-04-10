@@ -1,18 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Enums;
-using Core.Core.Entities.FeedBacks;
-using Core.Core.Entities.Item;
-using Core.Core.Entities.Staff;
+using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Enums;
+using Domain.Core.Entities.FeedBacks;
+using Domain.Core.Entities.Item;
+using Domain.Core.Entities.Staff;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Task;
+namespace Domain.Core.Entities.Task;
 
 [Table("Tasks", Schema = "CSI")]
-[Index(nameof(CartId))] 
-[Index(nameof(IsCompleted))] 
-[Index(nameof(DueDate))] 
+[Index(nameof(CartId))]
+[Index(nameof(IsCompleted))]
+[Index(nameof(DueDate))]
 public class Tasks : AbstractEntity
 {
     [StringLength(100)]
@@ -32,7 +32,7 @@ public class Tasks : AbstractEntity
     [ForeignKey(nameof(Cart))]
     public long CartId { get; set; }
 
-    public virtual Cart? Cart { get; set; } 
+    public virtual Cart? Cart { get; set; }
 
     [StringLength(255)]
     public string? Note { get; set; }

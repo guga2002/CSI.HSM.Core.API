@@ -1,19 +1,19 @@
-﻿using Core.Core.Data;
-using Core.Core.Interfaces.Advertisement;
-using Core.Core.Interfaces.Audio;
-using Core.Core.Interfaces.FeedBack;
-using Core.Core.Interfaces.Guest;
-using Core.Core.Interfaces.Hotel;
-using Core.Core.Interfaces.Item;
-using Core.Core.Interfaces.Language;
-using Core.Core.Interfaces.LogEntities;
-using Core.Core.Interfaces.Notification;
-using Core.Core.Interfaces.Restaurant;
-using Core.Core.Interfaces.Restaurant.Payment;
-using Core.Core.Interfaces.Room;
-using Core.Core.Interfaces.Staff;
-using Core.Core.Interfaces.Task;
-using Core.Core.Interfaces.UniteOfWork;
+﻿using Domain.Core.Data;
+using Domain.Core.Interfaces.Advertisement;
+using Domain.Core.Interfaces.Audio;
+using Domain.Core.Interfaces.FeedBack;
+using Domain.Core.Interfaces.Guest;
+using Domain.Core.Interfaces.Hotel;
+using Domain.Core.Interfaces.Item;
+using Domain.Core.Interfaces.Language;
+using Domain.Core.Interfaces.LogInterfaces;
+using Domain.Core.Interfaces.Notification;
+using Domain.Core.Interfaces.Restaurant;
+using Domain.Core.Interfaces.Restaurant.Payment;
+using Domain.Core.Interfaces.Room;
+using Domain.Core.Interfaces.Staff;
+using Domain.Core.Interfaces.Task;
+using Domain.Core.Interfaces.UniteOfWork;
 
 namespace Core.Infrastructure.Repositories.UniteOfWork;
 

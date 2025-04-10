@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Core.Core.Entities.AbstractEntities;
+namespace Domain.Core.Entities.AbstractEntities;
 
 public interface IExistable<TEntity>
 {

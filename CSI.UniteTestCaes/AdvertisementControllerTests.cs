@@ -4,7 +4,7 @@ using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.DTOs.Response.Advertisment;
 using Core.Application.Interface.Advertisment;
 using Core.Application.Interface.GenericContracts;
-using Core.Core.Entities.Advertisements;
+using Domain.Core.Entities.Advertisements;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Core.UnitTests.Controllers
+namespace CSI.UniteTests
 {
     public class AdvertisementControllerTests
     {
@@ -39,7 +39,7 @@ namespace Core.UnitTests.Controllers
         [Fact]
         public async Task GetActiveAdvertisementsAsync_ReturnsSuccess_WhenDataExists()
         {
-            var data = new List<AdvertismentResponseDto> { new AdvertismentResponseDto { Id = 1, Title="GugaTest" } };
+            var data = new List<AdvertismentResponseDto> { new AdvertismentResponseDto { Id = 1, Title = "GugaTest" } };
             _advertisementServiceMock.Setup(s => s.GetActiveAdvertisementsAsync(It.IsAny<CancellationToken>()))
                                      .ReturnsAsync(data);
 
@@ -52,7 +52,7 @@ namespace Core.UnitTests.Controllers
         [Fact]
         public async Task GetAdvertisementsByTypeAsync_ReturnsSuccess_WhenDataExists()
         {
-            var data = new List<AdvertismentResponseDto> { new AdvertismentResponseDto { Id = 2,Title= "GugaTest" } };
+            var data = new List<AdvertismentResponseDto> { new AdvertismentResponseDto { Id = 2, Title = "GugaTest" } };
             _advertisementServiceMock.Setup(s => s.GetAdvertisementsByTypeAsync(2, It.IsAny<CancellationToken>()))
                                      .ReturnsAsync(data);
 
@@ -65,7 +65,7 @@ namespace Core.UnitTests.Controllers
         [Fact]
         public async Task GetAdvertisementsByDateRangeAsync_ReturnsSuccess_WhenFound()
         {
-            var data = new List<AdvertismentResponseDto> { new AdvertismentResponseDto { Id = 3 ,Title="GugaTest"} };
+            var data = new List<AdvertismentResponseDto> { new AdvertismentResponseDto { Id = 3, Title = "GugaTest" } };
             var start = DateTime.UtcNow.AddDays(-5);
             var end = DateTime.UtcNow;
 
@@ -82,7 +82,7 @@ namespace Core.UnitTests.Controllers
         public async Task GetAdvertisementsByLanguageAsync_ReturnsSuccess_WhenDataExists()
         {
             var language = "en";
-            var data = new List<AdvertismentResponseDto> { new AdvertismentResponseDto { Id = 4,Title="GugaTest" } };
+            var data = new List<AdvertismentResponseDto> { new AdvertismentResponseDto { Id = 4, Title = "GugaTest" } };
 
             _advertisementServiceMock.Setup(s => s.GetAdvertisementsByLanguageAsync(language, It.IsAny<CancellationToken>()))
                                      .ReturnsAsync(data);

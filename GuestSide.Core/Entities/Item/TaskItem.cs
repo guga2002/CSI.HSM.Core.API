@@ -1,10 +1,10 @@
-﻿using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Task;
+﻿using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Task;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Core.Entities.Item;
+namespace Domain.Core.Entities.Item;
 
 [Table("TaskItems", Schema = "CSI")]
 [Index(nameof(TaskId))] // Optimized for task-item lookups
@@ -15,12 +15,12 @@ public class TaskItem : AbstractEntity
     [ForeignKey(nameof(Task))]
     public long TaskId { get; set; }
 
-    public virtual Tasks Task { get; set; } 
+    public virtual Tasks Task { get; set; }
 
     [ForeignKey(nameof(Item))]
     public long ItemId { get; set; }
 
-    public virtual Items Item { get; set; } 
+    public virtual Items Item { get; set; }
 
     public int Quantity { get; set; }
 
@@ -29,5 +29,5 @@ public class TaskItem : AbstractEntity
     public DateTime? AssignedDate { get; set; }
 
     [StringLength(300)]
-    public string? Notes { get; set; } 
+    public string? Notes { get; set; }
 }

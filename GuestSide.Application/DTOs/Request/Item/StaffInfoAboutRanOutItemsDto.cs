@@ -1,5 +1,5 @@
 ﻿using Core.Application.DTOs.Response;
-using Core.Core.Entities.Enums;
+using Domain.Core.Entities.Enums;
 
 namespace Core.Application.DTOs.Request.Item;
 

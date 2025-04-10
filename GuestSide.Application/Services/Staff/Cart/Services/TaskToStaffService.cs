@@ -3,10 +3,10 @@ using Core.Application.CustomExceptions;
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.Staff.Task;
-using Core.Core.Entities.Staff;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Staff;
-using Core.Core.Sheared;
+using Domain.Core.Entities.Staff;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Staff;
+using Domain.Core.Sheared;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Staff.Cart.Services
