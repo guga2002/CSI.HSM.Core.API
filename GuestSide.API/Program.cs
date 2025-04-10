@@ -59,10 +59,10 @@ builder.Services.AddDbContext<GuestSideDb>(options =>
 
 builder.Services.AddHttpClient<CsiVoicePack>(i => i.BaseAddress = new Uri("http://api.logixplore.com:3333/"));
 
-//builder.WebHost.ConfigureKestrel(options =>
-//{
-//    options.ListenAnyIP(2044);
-//});
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(2044);
+});
 
 builder.Services.AddHostedService<NotifyUsersService>();
 builder.Services.AddHostedService<ItemMonitoring>();
