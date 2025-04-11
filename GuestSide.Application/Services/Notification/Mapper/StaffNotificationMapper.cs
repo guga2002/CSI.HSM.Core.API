@@ -5,7 +5,7 @@ using Domain.Core.Entities.Notification;
 
 namespace Core.Application.Services.Notification.Mapper;
 
-public class StaffNotificationMapper:Profile
+public class StaffNotificationMapper : Profile
 {
     public StaffNotificationMapper()
     {

@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Response.Staff;
+﻿using Core.Application.DTOs.Response;
+
+namespace Core.Application.DTOs.Response.Staff;
 
 public class IncidentTypeResponseDto : AbstractResponse
 {

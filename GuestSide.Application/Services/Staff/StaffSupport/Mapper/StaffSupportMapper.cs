@@ -4,12 +4,12 @@ using Core.Application.DTOs.Response.Staff;
 
 namespace Core.Application.Services.Staff.StaffSupport.Mapper;
 
-public class StaffSupportMapper:Profile
+public class StaffSupportMapper : Profile
 {
 
     public StaffSupportMapper()
     {
-        CreateMap<Domain.Core.Entities.Staff.StaffSupport, StaffSupportDto>().ReverseMap();
-        CreateMap<Domain.Core.Entities.Staff.StaffSupport, StaffSupportResponseDto>().ReverseMap();
+        CreateMap<Core.Entities.Staff.StaffSupport, StaffSupportDto>().ReverseMap();
+        CreateMap<Core.Entities.Staff.StaffSupport, StaffSupportResponseDto>().ReverseMap();
     }
 }

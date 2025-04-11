@@ -16,5 +16,5 @@ public class QRCodeDto
 
     public long RoomId { get; set; }
 
-    public DateTime? UpdatedAt {  get; set; }
+    public DateTime? UpdatedAt { get; set; }
 }

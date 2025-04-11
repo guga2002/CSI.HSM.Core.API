@@ -18,12 +18,12 @@ public static class RestaurantItemToCartDi
 
     public static void AddRestaurantItemToCart(this IServiceCollection services)
     {
-        services.AddScoped<IGenericRepository<RestaurantItemToCart>, RestaurantItemToCartRepository>();
+        services.AddScoped<IGenericRepository<Core.Entities.Restaurant.RestaurantItemToCart>, RestaurantItemToCartRepository>();
         services.AddScoped<IRestaurantItemToCartRepository, RestaurantItemToCartRepository>();
         services.AddScoped<IRestaurantItemToCartService, RestaurantItemToCartService>();
-        services.AddScoped<IService<RestaurantItemToCartDto, RestaurantItemToCartResponseDto, long, RestaurantItemToCart>, RestaurantItemToCartService>();
-        services.AddScoped<IAdditionalFeatures<RestaurantItemToCartDto, RestaurantItemToCartResponseDto, long, RestaurantItemToCart>, RestaurantItemToCartService>();
+        services.AddScoped<IService<RestaurantItemToCartDto, RestaurantItemToCartResponseDto, long, Core.Entities.Restaurant.RestaurantItemToCart>, RestaurantItemToCartService>();
+        services.AddScoped<IAdditionalFeatures<RestaurantItemToCartDto, RestaurantItemToCartResponseDto, long, Core.Entities.Restaurant.RestaurantItemToCart>, RestaurantItemToCartService>();
         services.AddAutoMapper(typeof(RestaurantItemToCartMapper));
-        services.AddScoped<IAdditionalFeaturesRepository<RestaurantItemToCart>, AdditionalFeaturesRepository<RestaurantItemToCart>>();
+        services.AddScoped<IAdditionalFeaturesRepository<Core.Entities.Restaurant.RestaurantItemToCart>, AdditionalFeaturesRepository<Core.Entities.Restaurant.RestaurantItemToCart>>();
     }
 }

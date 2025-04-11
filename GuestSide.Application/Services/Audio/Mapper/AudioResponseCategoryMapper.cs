@@ -5,11 +5,11 @@ using Domain.Core.Entities.Audio;
 
 namespace Core.Application.Services.Audio.Mapper;
 
-public class AudioResponseCategoryMapper:Profile
+public class AudioResponseCategoryMapper : Profile
 {
     public AudioResponseCategoryMapper()
     {
-        CreateMap<AudioResponseCategoryRequestDto,AudioResponseCategory>().ReverseMap();
-        CreateMap<AudioResponseCategoryResponseDto,AudioResponseCategory>().ReverseMap();
+        CreateMap<AudioResponseCategoryRequestDto, AudioResponseCategory>().ReverseMap();
+        CreateMap<AudioResponseCategoryResponseDto, AudioResponseCategory>().ReverseMap();
     }
 }

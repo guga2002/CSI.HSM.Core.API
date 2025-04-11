@@ -169,7 +169,7 @@ public class StaffInfoAboutRanOutItemsController : CSIControllerBase<
     public override async Task<Response<StaffInfoAboutRanOutItemsResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
     {
         return await base.DeleteAsync(id, cancellationToken);
-    }  
+    }
 
     [HttpPatch("soft-delete/{id:int}")]
     [SwaggerOperation(Summary = "Soft delete a Guest record", Description = "Marks a guest record as deleted without removing it from the database.")]

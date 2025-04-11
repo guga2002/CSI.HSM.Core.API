@@ -3,11 +3,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Domain.Core.Entities.Notification;
-using Core.Persistance.PtmsCsi;
-using Core.Persistance.MailServices;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Core.Persistance.PtmsCsi;
+using Core.Persistance.MailServices;
 
 namespace Core.Persistance.BackgroundServices;
 
@@ -104,7 +104,7 @@ public class NotifyUsersService : IHostedService, IDisposable
             }
 
             await context.SaveChangesAsync();
-            _logger.LogInformation("Itteration Done, CorrelationId:{Id}",Guid.NewGuid());
+            _logger.LogInformation("Itteration Done, CorrelationId:{Id}", Guid.NewGuid());
         }
         catch (Exception ex)
         {

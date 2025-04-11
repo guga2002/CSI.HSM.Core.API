@@ -1,4 +1,5 @@
-﻿using Domain.Core.Entities.Enums;
+﻿using Core.Application.DTOs.Response;
+using Domain.Core.Entities.Enums;
 
 namespace Core.Application.DTOs.Response.Staff;
 
@@ -16,11 +17,11 @@ public class StaffIncidentResponseDto : AbstractResponse
 
     public required StatusEnum Status { get; set; }
 
-    public DateTime? ResolvedAt { get; set; } 
+    public DateTime? ResolvedAt { get; set; }
 
     public string? ResolutionNotes { get; set; }
 
-    public required string Location { get; set; } 
+    public required string Location { get; set; }
 
     public bool RequiresImmediateAction { get; set; }
 

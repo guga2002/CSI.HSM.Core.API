@@ -56,7 +56,7 @@ namespace Core.API.CustomMiddlwares
 
         private async Task TranslateJsonObject(JObject jsonObject)
         {
-            foreach (var property in jsonObject.Properties().ToList()) 
+            foreach (var property in jsonObject.Properties().ToList())
             {
                 if (property.Name.Equals("languageCode", StringComparison.OrdinalIgnoreCase))
                     continue;

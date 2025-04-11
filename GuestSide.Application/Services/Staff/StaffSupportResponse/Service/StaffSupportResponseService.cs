@@ -2,13 +2,14 @@
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.Staff.StaffSupportResponse;
+using Core.Application.Services;
 using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.Staff;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Staff.StaffSupportResponse.Service;
 
-public class StaffSupportResponseService : GenericService<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, Domain.Core.Entities.Staff.StaffSupportResponse>, IStaffSupportResponseService
+public class StaffSupportResponseService : GenericService<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, Core.Entities.Staff.StaffSupportResponse>, IStaffSupportResponseService
 {
     private readonly IStaffSupportResponseRepository _staffSupportResponseRepository;
     private readonly IMapper _mapper;
@@ -18,8 +19,8 @@ public class StaffSupportResponseService : GenericService<StaffSupportResponseRe
         IMapper mapper,
         IStaffSupportResponseRepository staffSupportResponseRepository,
         ILogger<StaffSupportResponseService> logger,
-        IGenericRepository<Domain.Core.Entities.Staff.StaffSupportResponse> repository,
-        IAdditionalFeaturesRepository<Domain.Core.Entities.Staff.StaffSupportResponse> additionalFeatures)
+        IGenericRepository<Core.Entities.Staff.StaffSupportResponse> repository,
+        IAdditionalFeaturesRepository<Core.Entities.Staff.StaffSupportResponse> additionalFeatures)
         : base(mapper, repository, logger, additionalFeatures)
     {
         _staffSupportResponseRepository = staffSupportResponseRepository;

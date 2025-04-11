@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
-using Core.Application.DTOs.Request.Task;
-using Core.Application.DTOs.Response.Task;
-using Core.Application.Interface.Task.Task;
-using Domain.Core.Entities.Enums;
+using Domain.Core.Entities.Task;
 using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.Task;
-using Domain.Core.Entities.Task;
 using Domain.Core.Entities.Item;
+using Domain.Core.Entities.Enums;
+using Core.Application.DTOs.Response.Task;
+using Core.Application.Interface.Task.Task;
+using Core.Application.Services;
+using Core.Application.DTOs.Request.Task;
 
 namespace Core.Application.Services.Task.Task.Services;
 

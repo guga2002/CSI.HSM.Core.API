@@ -14,5 +14,5 @@ public class StaffSupportDto
 
     public PriorityEnum Priority { get; set; } = PriorityEnum.Medium;
 
-    public List<string>? AttachmentUrls {  get; set; }
+    public List<string>? AttachmentUrls { get; set; }
 }

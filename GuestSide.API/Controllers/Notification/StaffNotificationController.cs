@@ -41,7 +41,7 @@ public class StaffNotificationController : CSIControllerBase<StafNotificationDto
     [SwaggerOperation(Summary = "Retrieve all Notifications for Staff", Description = "Fetches all notifications for a specific staff member.")]
     [SwaggerResponse(StatusCodes.Status200OK, "notifications retrieved successfully.", typeof(Response<IEnumerable<StafNotificationResponseDto>>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "No notifications found.")]
-    public async Task<Response<IEnumerable<StafNotificationResponseDto>>> GetStaffNotifications([FromRoute]long staffId)
+    public async Task<Response<IEnumerable<StafNotificationResponseDto>>> GetStaffNotifications([FromRoute] long staffId)
     {
         var result = await _staffNotificationService.GetStaffNotifications(staffId);
         return result.Any()

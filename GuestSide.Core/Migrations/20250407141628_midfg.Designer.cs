@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Core.Core.Migrations
+namespace Domain.Core.Migrations
 {
     [DbContext(typeof(GuestSideDb))]
     [Migration("20250407141628_midfg")]

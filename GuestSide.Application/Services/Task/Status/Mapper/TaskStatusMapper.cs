@@ -5,7 +5,7 @@ using Domain.Core.Entities.Task;
 
 namespace Core.Application.Services.Task.Status.Mapper;
 
-public class TaskStatusMapper:Profile
+public class TaskStatusMapper : Profile
 {
     public TaskStatusMapper()
     {

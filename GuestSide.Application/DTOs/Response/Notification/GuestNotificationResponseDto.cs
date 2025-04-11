@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Response.Notification;
+﻿using Core.Application.DTOs.Response;
+
+namespace Core.Application.DTOs.Response.Notification;
 
 public class GuestNotificationResponseDto : AbstractResponse
 {
@@ -8,7 +10,7 @@ public class GuestNotificationResponseDto : AbstractResponse
 
     public bool IsRead { get; set; } = false;
 
-    public DateTime SentTime { get; set; } 
+    public DateTime SentTime { get; set; }
 
     public DateTime? ReadTime { get; set; }
 

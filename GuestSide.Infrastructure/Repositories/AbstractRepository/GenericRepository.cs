@@ -1,12 +1,11 @@
-﻿using Domain.Core.Entities.Hotel.GeoLocation;
-using Core.Persistance.Cashing;
-using Domain.Core.Data;
+﻿using Domain.Core.Data;
 using Domain.Core.Entities.AbstractEntities;
 using Domain.Core.Interfaces.AbstractInterface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
+using Core.Persistance.Cashing;
 
 namespace Core.Infrastructure.Repositories.AbstractRepository;
 /// <summary>

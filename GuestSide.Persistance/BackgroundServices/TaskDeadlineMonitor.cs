@@ -1,6 +1,6 @@
-﻿using Domain.Core.Data;
-using Core.Persistance.MailServices;
+﻿using Core.Persistance.MailServices;
 using Core.Persistance.PtmsCsi;
+using Domain.Core.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

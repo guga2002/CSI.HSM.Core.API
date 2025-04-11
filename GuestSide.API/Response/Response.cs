@@ -1,10 +1,9 @@
-﻿using Core.Application.Interface;
-
-namespace Core.API.Response
+﻿namespace Core.API.Response
 {
-    public class Response<T>: IHasStatusCode
+    public class Response<T>
     {
         private bool result;
+
         public bool Success { get; set; } = false;
         public bool HasViewPermission { get; set; } = false;
         public T Data { get; set; }

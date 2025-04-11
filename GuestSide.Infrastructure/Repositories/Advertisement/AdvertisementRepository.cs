@@ -1,10 +1,10 @@
-﻿using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Persistance.Cashing;
-using Domain.Core.Data;
+﻿using Domain.Core.Data;
 using Domain.Core.Interfaces.Advertisement;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Persistance.Cashing;
 
 namespace Core.Infrastructure.Repositories.Advertisement
 {

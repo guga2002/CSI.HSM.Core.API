@@ -3,11 +3,11 @@ using StackExchange.Redis;
 
 namespace Core.Persistance.Cashing
 {
-    public class RedisCasheService:IRedisCash
+    public class RedisCasheService : IRedisCash
     {
 
-        public  readonly ConnectionMultiplexer redisConnection;
-        private  readonly StackExchange.Redis.IDatabase database;
+        public readonly ConnectionMultiplexer redisConnection;
+        private readonly IDatabase database;
 
         public RedisCasheService(string redisConnectionString)
         {

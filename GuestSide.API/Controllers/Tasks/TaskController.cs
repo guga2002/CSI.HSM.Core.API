@@ -13,14 +13,14 @@ namespace Core.API.Controllers.Tasks;
 
 [Route("api/[controller]")]
 [ApiController]
-public class TaskController : CSIControllerBase<TaskDto, TaskResponseDto, long, Domain.Core.Entities.Task.Tasks>
+public class TaskController : CSIControllerBase<TaskDto, TaskResponseDto, long, Core.Entities.Task.Tasks>
 {
     private readonly ITaskService _taskService;
 
     public TaskController(
         ITaskService taskService,
-        IService<TaskDto, TaskResponseDto, long, Domain.Core.Entities.Task.Tasks> serviceProvider,
-        IAdditionalFeatures<TaskDto, TaskResponseDto, long, Domain.Core.Entities.Task.Tasks> additionalFeatures)
+        IService<TaskDto, TaskResponseDto, long, Core.Entities.Task.Tasks> serviceProvider,
+        IAdditionalFeatures<TaskDto, TaskResponseDto, long, Core.Entities.Task.Tasks> additionalFeatures)
         : base(serviceProvider, additionalFeatures)
     {
         _taskService = taskService;
@@ -31,12 +31,12 @@ public class TaskController : CSIControllerBase<TaskDto, TaskResponseDto, long, 
     [SwaggerOperation(Summary = "Retrieve Tasks by Cart ID", Description = "Fetches all tasks associated with a specific cart.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Tasks retrieved successfully.", typeof(Response<Dictionary<long, IEnumerable<TaskItem>>>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "No tasks found.")]
-    public async Task<Response<Dictionary<long, IEnumerable<TaskItem>>>> GetTaskItemsByCartIdAsync([FromRoute]long cartId)
+    public async Task<Response<Dictionary<long, IEnumerable<TaskItem>>>> GetTaskItemsByCartIdAsync([FromRoute] long cartId)
     {
         var result = await _taskService.GetTaskItemsByCartIdAsync(cartId);
         return result.Any()
-            ? Response < Dictionary<long, IEnumerable<TaskItem>>>.SuccessResponse(result)
-            : Response < Dictionary<long, IEnumerable<TaskItem>>>.ErrorResponse("No tasks found.");
+            ? Response<Dictionary<long, IEnumerable<TaskItem>>>.SuccessResponse(result)
+            : Response<Dictionary<long, IEnumerable<TaskItem>>>.ErrorResponse("No tasks found.");
     }
 
 
@@ -104,7 +104,7 @@ public class TaskController : CSIControllerBase<TaskDto, TaskResponseDto, long, 
     [SwaggerOperation(Summary = "Retrieve filtered Tasks", Description = "Fetches filtered tasks")]
     [SwaggerResponse(StatusCodes.Status200OK, "filtered tasks retrieved successfully.", typeof(Response<IEnumerable<TaskResponseDto>>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "No tasks found.")]
-    public async Task<Response<IEnumerable<TaskResponseDto>>> GetFilteredTasksAsync([FromBody]FilterTaskDto filterTask)
+    public async Task<Response<IEnumerable<TaskResponseDto>>> GetFilteredTasksAsync([FromBody] FilterTaskDto filterTask)
     {
         var result = await _taskService.GetFilteredTasks(filterTask);
         return new Response<IEnumerable<TaskResponseDto>>(result.Any() ? true : false, result);

@@ -1,24 +1,24 @@
-﻿using Core.API.CustomExtendControllerBase;
-using Core.API.Response;
-using Core.Application.DTOs.Request.Promo;
-using Core.Application.DTOs.Response.Promo;
-using Core.Application.Interface.Promo;
-using Core.Application.Interface.GenericContracts;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using Core.API.Response;
+using Core.API.CustomExtendControllerBase;
+using Core.Application.Interface.GenericContracts;
+using Core.Application.Interface.Promo;
+using Core.Application.DTOs.Response.Promo;
+using Core.Application.DTOs.Request.Promo;
 
 namespace Core.API.Controllers.PromoCode;
 
 [ApiController]
 [Route("api/[controller]")]
-public class PromoController : CSIControllerBase<PromoCodeDto, PromoCodeResponse, long, Domain.Core.Entities.Promo.PromoCode>
+public class PromoController : CSIControllerBase<PromoCodeDto, PromoCodeResponse, long, Core.Entities.Promo.PromoCode>
 {
     private readonly IPromoCodeService _promoCodeService;
 
     public PromoController(
         IPromoCodeService promoCodeService,
-        IService<PromoCodeDto, PromoCodeResponse, long, Domain.Core.Entities.Promo.PromoCode> serviceProvider,
-        IAdditionalFeatures<PromoCodeDto, PromoCodeResponse, long, Domain.Core.Entities.Promo.PromoCode> additionalFeatures)
+        IService<PromoCodeDto, PromoCodeResponse, long, Core.Entities.Promo.PromoCode> serviceProvider,
+        IAdditionalFeatures<PromoCodeDto, PromoCodeResponse, long, Core.Entities.Promo.PromoCode> additionalFeatures)
         : base(serviceProvider, additionalFeatures)
     {
         _promoCodeService = promoCodeService;

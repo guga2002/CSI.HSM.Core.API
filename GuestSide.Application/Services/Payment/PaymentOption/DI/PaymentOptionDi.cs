@@ -16,13 +16,13 @@ public static class PaymentOptionDi
 {
     public static void InjectPaymentOption(this IServiceCollection services)
     {
-        services.AddScoped<IGenericRepository<Domain.Core.Entities.Payment.PaymentOption>, PaymentOptionRepository>();
+        services.AddScoped<IGenericRepository<Core.Entities.Payment.PaymentOption>, PaymentOptionRepository>();
         services.AddScoped<IPaymentOptionRepository, PaymentOptionRepository>();
         services.AddScoped<IPaymentOption, PaymentOptionService>();
-        services.AddScoped<IService<PaymentOptionDto, PaymentOptionResponseDto, long, Domain.Core.Entities.Payment.PaymentOption>, PaymentOptionService>();
-        services.AddScoped<IAdditionalFeatures<PaymentOptionDto, PaymentOptionResponseDto, long, Domain.Core.Entities.Payment.PaymentOption>, PaymentOptionService>();
+        services.AddScoped<IService<PaymentOptionDto, PaymentOptionResponseDto, long, Core.Entities.Payment.PaymentOption>, PaymentOptionService>();
+        services.AddScoped<IAdditionalFeatures<PaymentOptionDto, PaymentOptionResponseDto, long, Core.Entities.Payment.PaymentOption>, PaymentOptionService>();
         services.AddAutoMapper(typeof(PaymentOptionMapper));
-        services.AddScoped<IAdditionalFeaturesRepository<Domain.Core.Entities.Payment.PaymentOption>, AdditionalFeaturesRepository<Domain.Core.Entities.Payment.PaymentOption>>();
+        services.AddScoped<IAdditionalFeaturesRepository<Core.Entities.Payment.PaymentOption>, AdditionalFeaturesRepository<Core.Entities.Payment.PaymentOption>>();
 
     }
 }

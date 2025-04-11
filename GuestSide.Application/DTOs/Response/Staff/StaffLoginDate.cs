@@ -2,7 +2,7 @@
 
 public class StaffLoginDate
 {
-    public long Id {  get; set; }
+    public long Id { get; set; }
 
     public DateTime LastLoginTime { get; set; }
 }

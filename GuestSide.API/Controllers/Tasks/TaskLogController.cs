@@ -11,7 +11,7 @@ namespace Core.API.Controllers.Tasks;
 
 [Route("api/[controller]")]
 [ApiController]
-public class TaskLogController : CSIControllerBase<TaskLogDto,TaskLogResponse,long,TaskLogs>
+public class TaskLogController : CSIControllerBase<TaskLogDto, TaskLogResponse, long, TaskLogs>
 {
     public TaskLogController(IService<TaskLogDto, TaskLogResponse, long, TaskLogs> serviceProvider, IAdditionalFeatures<TaskLogDto, TaskLogResponse, long, TaskLogs> additionalFeatures) : base(serviceProvider, additionalFeatures)
     {

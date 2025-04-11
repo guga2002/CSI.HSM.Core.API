@@ -5,12 +5,12 @@ using Domain.Core.Entities.Guest;
 
 namespace Core.Application.Services.Guest.Mapper;
 
-public class GuestActiveLanguageMapper:Profile
+public class GuestActiveLanguageMapper : Profile
 {
     public GuestActiveLanguageMapper()
     {
-        CreateMap<GuestActiveLanguageDto,GuestActiveLanguage>().ReverseMap();
-        CreateMap<GuestActiveLanguageResponseDto,GuestActiveLanguage>().ReverseMap();
+        CreateMap<GuestActiveLanguageDto, GuestActiveLanguage>().ReverseMap();
+        CreateMap<GuestActiveLanguageResponseDto, GuestActiveLanguage>().ReverseMap();
 
     }
 }

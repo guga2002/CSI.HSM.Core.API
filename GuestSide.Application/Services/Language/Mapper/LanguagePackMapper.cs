@@ -7,12 +7,12 @@ using Domain.Core.Entities.Language;
 
 namespace Core.Application.Services.Language.Mapper;
 
-public class LanguagePackMapper:Profile
+public class LanguagePackMapper : Profile
 {
 
     public LanguagePackMapper()
     {
-            CreateMap<LanguagePackDto, LanguagePack>().ReverseMap();
+        CreateMap<LanguagePackDto, LanguagePack>().ReverseMap();
         CreateMap<LanguagePackResponseDto, LanguagePack>().ReverseMap();
     }
 }

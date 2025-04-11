@@ -1,12 +1,12 @@
-﻿using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Persistance.Cashing;
-using Domain.Core.Data;
+﻿using Domain.Core.Data;
 using Domain.Core.Entities.Item;
 using Domain.Core.Entities.Staff;
 using Domain.Core.Interfaces.Staff;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Persistance.Cashing;
 
 namespace Core.Infrastructure.Repositories.Staff
 {
@@ -113,7 +113,7 @@ namespace Core.Infrastructure.Repositories.Staff
         {
             return await _context.Set<TaskToStaff>().AsNoTracking()
                 .Where(t => t.AssignedByStaff.Id == staffId)
-                .Include(t=>t.AssignedByStaff)
+                .Include(t => t.AssignedByStaff)
                 .Include(t => t.Task)
                 .ToListAsync(cancellationToken);
         }

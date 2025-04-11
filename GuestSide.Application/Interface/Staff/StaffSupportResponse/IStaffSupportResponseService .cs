@@ -5,8 +5,8 @@ using Domain.Core.Entities.Staff;
 
 namespace Core.Application.Interface.Staff.StaffSupportResponse;
 
-public interface IStaffSupportResponseService : IService<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, Domain.Core.Entities.Staff.StaffSupportResponse>,
-    IAdditionalFeatures<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, Domain.Core.Entities.Staff.StaffSupportResponse>
+public interface IStaffSupportResponseService : IService<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, StaffSupportResponse>,
+    IAdditionalFeatures<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, StaffSupportResponse>
 {
     /// <summary>
     /// Get support responses by ticket ID.

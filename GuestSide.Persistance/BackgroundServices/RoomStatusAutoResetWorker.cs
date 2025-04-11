@@ -38,7 +38,7 @@ public class RoomStatusAutoResetWorker : IHostedService, IDisposable
             var db = scope.ServiceProvider.GetRequiredService<GuestSideDb>();
             var now = DateTime.UtcNow;
             var roomsToReset = db.Rooms.
-                Include(i=>i.Guests)
+                Include(i => i.Guests)
                 .Where(r => !r.IsAvailable && r.Guests.All(g => g.CheckOutDate != null && g.CheckOutDate < now))
                 .ToList();
 

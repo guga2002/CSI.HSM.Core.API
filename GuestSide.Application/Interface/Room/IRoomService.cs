@@ -1,13 +1,14 @@
-﻿using Core.Application.DTOs.Request.Hotel;
-using Core.Application.DTOs.Request.Room;
+﻿using Core.Application.DTOs.Request.Room;
 using Core.Application.DTOs.Response.Hotel;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.GenericContracts;
+using Domain.Application.DTOs.Request.Hotel;
+using Domain.Core.Entities.Room;
 
 namespace Core.Application.Interface.Room
 {
-    public interface IRoomService : IService<RoomsDto, RoomsResponseDto, long, Domain.Core.Entities.Room.Room>,
-        IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Domain.Core.Entities.Room.Room>
+    public interface IRoomService : IService<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room>,
+        IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room>
     {
         /// <summary>
         /// Get available rooms by hotel and category.

@@ -1,6 +1,8 @@
-﻿namespace Core.Application.DTOs.Response.Advertisment;
+﻿using Core.Application.DTOs.Response;
 
-public class AdvertisementTypeResponseDto: AbstractResponse
+namespace Core.Application.DTOs.Response.Advertisment;
+
+public class AdvertisementTypeResponseDto : AbstractResponse
 {
     public required string Name { get; set; }
 

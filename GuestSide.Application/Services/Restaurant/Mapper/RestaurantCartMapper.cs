@@ -5,11 +5,11 @@ using Domain.Core.Entities.Restaurant;
 
 namespace Core.Application.Services.Restaurant.Mapper;
 
-public class RestaurantCartMapper:Profile
+public class RestaurantCartMapper : Profile
 {
     public RestaurantCartMapper()
     {
-        CreateMap<RestaurantCartDto,RestaurantCart>().ReverseMap();
+        CreateMap<RestaurantCartDto, RestaurantCart>().ReverseMap();
         CreateMap<RestaurantCart, RestaurantCartResponseDto>().ReverseMap();
     }
 }

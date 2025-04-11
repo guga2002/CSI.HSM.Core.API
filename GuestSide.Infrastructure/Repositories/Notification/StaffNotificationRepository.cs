@@ -80,7 +80,7 @@ namespace Core.Infrastructure.Repositories.Notification
             return await DbSet
                 .Include(io => io.StaffMember)
                 .Include(io => io.Notifications)
-                .Where(io => io.IsActive) 
+                .Where(io => io.IsActive)
                 .ToListAsync(cancellationToken);
         }
         #endregion

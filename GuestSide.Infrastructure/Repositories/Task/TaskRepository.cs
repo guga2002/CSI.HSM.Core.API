@@ -108,7 +108,7 @@ public class TaskRepository : GenericRepository<Tasks>, ITaskRepository
             (!priority.HasValue || t.Priority == priority.Value) &&
             (!isCompleted.HasValue || t.IsCompleted == isCompleted.Value) &&
             (!startDate.HasValue || t.CreatedAt >= startDate.Value) &&
-            (!endDate.HasValue || t.CreatedAt <= endDate.Value)) 
+            (!endDate.HasValue || t.CreatedAt <= endDate.Value))
         .Include(t => t.TaskItems)
         .ToListAsync();
     }

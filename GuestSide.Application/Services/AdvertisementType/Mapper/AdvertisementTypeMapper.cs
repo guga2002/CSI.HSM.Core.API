@@ -4,11 +4,11 @@ using Core.Application.DTOs.Response.Advertisment;
 
 namespace Core.Application.Services.AdvertisementType.Mapper;
 
-public class AdvertisementTypeMapper:Profile
+public class AdvertisementTypeMapper : Profile
 {
     public AdvertisementTypeMapper()
     {
-        CreateMap<AdvertisementTypeDto, Domain.Core.Entities.Advertisements.AdvertisementType>().ReverseMap();
-        CreateMap<Domain.Core.Entities.Advertisements.AdvertisementType, AdvertisementTypeResponseDto>().ReverseMap();
+        CreateMap<AdvertisementTypeDto, Core.Entities.Advertisements.AdvertisementType>().ReverseMap();
+        CreateMap<Core.Entities.Advertisements.AdvertisementType, AdvertisementTypeResponseDto>().ReverseMap();
     }
 }

@@ -1,11 +1,11 @@
 ﻿using Core.Application.DTOs.Request.Advertisment;
-using Core.Application.DTOs.Response.Advertisment;
 using Core.Application.Interface.Advertisment;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.Advertismenet.Mapper;
 using Core.Application.Services.Advertismenet.Service;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Infrastructure.Repositories.Advertisement;
+using Domain.Application.DTOs.Response.Advertisment;
 using Domain.Core.Entities.Advertisements;
 using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.Advertisement;

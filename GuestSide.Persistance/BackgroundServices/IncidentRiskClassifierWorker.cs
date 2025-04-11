@@ -40,7 +40,7 @@ public class IncidentRiskClassifierWorker : IHostedService, IDisposable
             var now = DateTime.UtcNow;
             var criticalThreshold = now.AddDays(-7);
 
-            var flaggedStaff =await  db.StaffIncidents
+            var flaggedStaff = await db.StaffIncidents
                 .Where(i =>
                     (i.Severity == PriorityEnum.High || i.RequiresImmediateAction) &&
                     i.CreatedAt >= criticalThreshold)

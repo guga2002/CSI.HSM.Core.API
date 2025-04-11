@@ -5,11 +5,11 @@ using Domain.Core.Entities.Item;
 
 namespace Core.Application.Services.Item.Mapper;
 
-public class ItemCategoryMapper:Profile
+public class ItemCategoryMapper : Profile
 {
     public ItemCategoryMapper()
     {
-        CreateMap<ItemCategoryDto,ItemCategory>().ReverseMap();
-        CreateMap<ItemCategory,ItemCategoryResponseDto>().ReverseMap();
+        CreateMap<ItemCategoryDto, ItemCategory>().ReverseMap();
+        CreateMap<ItemCategory, ItemCategoryResponseDto>().ReverseMap();
     }
 }

@@ -1,10 +1,11 @@
 ﻿using Domain.Core.Entities.Item;
+using Domain.Core.Entities.Enums;
 using Domain.Core.Entities.FeedBacks;
 using Domain.Core.Entities.Staff;
+using Core.Application.DTOs.Response;
 using Core.Application.DTOs.Response.Item;
-using Core.Application.DTOs.Response.FeedBacks;
 using Core.Application.DTOs.Response.Staff;
-using Domain.Core.Entities.Enums;
+using Core.Application.DTOs.Response.FeedBacks;
 
 namespace Core.Application.DTOs.Response.Task;
 
@@ -18,9 +19,9 @@ public class TaskResponseDto : AbstractResponse
 
     public bool IsCompleted { get; set; } = false; // Indicates whether the task is completed
 
-    public StatusEnum Status { get; set; } 
+    public StatusEnum Status { get; set; }
 
-    public PriorityEnum Priority { get; set; } 
+    public PriorityEnum Priority { get; set; }
 
     public string? LanguageCode { get; set; }
 

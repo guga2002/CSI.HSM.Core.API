@@ -14,7 +14,7 @@ namespace Core.Persistance.LoggingConfigs
         }
         public IDisposable? BeginScope<TState>(TState state) where TState : notnull
         {
-            return null; 
+            return null;
         }
 
         public bool IsEnabled(LogLevel logLevel)

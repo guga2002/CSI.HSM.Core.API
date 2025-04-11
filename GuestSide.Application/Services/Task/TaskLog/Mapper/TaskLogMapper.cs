@@ -5,11 +5,11 @@ using Domain.Core.Entities.Task;
 
 namespace Core.Application.Services.Task.TaskLog.Mapper;
 
-public class TaskLogMapper:Profile
+public class TaskLogMapper : Profile
 {
     public TaskLogMapper()
     {
-        CreateMap<TaskLogs,TaskLogDto>().ReverseMap();
-        CreateMap<TaskLogs,TaskLogResponse>().ReverseMap();
+        CreateMap<TaskLogs, TaskLogDto>().ReverseMap();
+        CreateMap<TaskLogs, TaskLogResponse>().ReverseMap();
     }
 }

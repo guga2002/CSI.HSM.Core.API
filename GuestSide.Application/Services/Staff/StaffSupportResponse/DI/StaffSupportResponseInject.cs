@@ -16,12 +16,12 @@ public static class StaffSupportResponseInject
 {
     public static void ActiveStaffSupportResponse(this IServiceCollection services)
     {
-        services.AddScoped<IGenericRepository<Domain.Core.Entities.Staff.StaffSupportResponse>, StaffSupportResponseRepository>();
-        services.AddScoped<IAdditionalFeaturesRepository<Domain.Core.Entities.Staff.StaffSupportResponse>, AdditionalFeaturesRepository<Domain.Core.Entities.Staff.StaffSupportResponse>>();
+        services.AddScoped<IGenericRepository<Core.Entities.Staff.StaffSupportResponse>, StaffSupportResponseRepository>();
+        services.AddScoped<IAdditionalFeaturesRepository<Core.Entities.Staff.StaffSupportResponse>, AdditionalFeaturesRepository<Core.Entities.Staff.StaffSupportResponse>>();
         services.AddScoped<IStaffSupportResponseRepository, StaffSupportResponseRepository>();
         services.AddScoped<IStaffSupportResponseService, StaffSupportResponseService>();
-        services.AddScoped<IService<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, Domain.Core.Entities.Staff.StaffSupportResponse>, StaffSupportResponseService>();
-        services.AddScoped<IAdditionalFeatures<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, Domain.Core.Entities.Staff.StaffSupportResponse>, StaffSupportResponseService>();
+        services.AddScoped<IService<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, Core.Entities.Staff.StaffSupportResponse>, StaffSupportResponseService>();
+        services.AddScoped<IAdditionalFeatures<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, Core.Entities.Staff.StaffSupportResponse>, StaffSupportResponseService>();
         services.AddAutoMapper(typeof(StaffSupportResponseMapper));
     }
 }

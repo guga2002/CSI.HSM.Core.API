@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Response.Item;
+﻿using Core.Application.DTOs.Response;
+
+namespace Core.Application.DTOs.Response.Item;
 
 public class ItemResponseDto : AbstractResponse
 {
@@ -20,5 +22,5 @@ public class ItemResponseDto : AbstractResponse
 
     public string? LanguageCode { get; set; }
 
-    public List<string>? Pictures {  get; set; }
+    public List<string>? Pictures { get; set; }
 }

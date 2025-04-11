@@ -4,11 +4,11 @@ using Core.Application.DTOs.Response.Room;
 
 namespace Core.Application.Services.Room.Mapper;
 
-public class RoomMapper:Profile
+public class RoomMapper : Profile
 {
     public RoomMapper()
     {
-        CreateMap<RoomsDto, Domain.Core.Entities.Room.Room>().ReverseMap();
-        CreateMap<Domain.Core.Entities.Room.Room, RoomsResponseDto>().ReverseMap();
+        CreateMap<RoomsDto, Core.Entities.Room.Room>().ReverseMap();
+        CreateMap<Core.Entities.Room.Room, RoomsResponseDto>().ReverseMap();
     }
 }

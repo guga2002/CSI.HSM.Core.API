@@ -5,7 +5,7 @@ using Domain.Core.Entities.Staff;
 
 namespace Core.Application.Services.Staff.Category.Mapper;
 
-public class StaffCategoryMapper:Profile
+public class StaffCategoryMapper : Profile
 {
     public StaffCategoryMapper()
     {

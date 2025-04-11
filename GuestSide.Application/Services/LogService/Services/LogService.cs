@@ -4,7 +4,7 @@ using Core.Application.DTOs.Response.LogModel;
 using Core.Application.Interface.LogInterfaces;
 using Domain.Core.Entities.LogEntities;
 using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.LogInterfaces;
+using Domain.Core.Interfaces.LogEntities;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 

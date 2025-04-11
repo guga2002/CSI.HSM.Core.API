@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
-using Core.API.Response;
+using Domain.API.Response;
 
 namespace Core.API.CustomMiddlwares;
 

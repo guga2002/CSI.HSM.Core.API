@@ -19,7 +19,7 @@ namespace Core.Infrastructure.Repositories.Guest
         /// <summary>
         /// Get the room assigned to a specific guest
         /// </summary>
-        public async Task<Domain.Core.Entities.Room.Room> GetRoomByGuestIdAsync(long guestId)
+        public async Task<Core.Entities.Room.Room> GetRoomByGuestIdAsync(long guestId)
         {
             return await DbSet
                 .Where(g => g.Id == guestId)
@@ -106,14 +106,14 @@ namespace Core.Infrastructure.Repositories.Guest
             return true;
         }
 
-        public async Task<IEnumerable<Domain.Core.Entities.Room.Room>> RoomByGuestIdAsync(long GuestId)
+        public async Task<IEnumerable<Core.Entities.Room.Room>> RoomByGuestIdAsync(long GuestId)
         {
             return await DbSet
-                .Include(io=>io.Room)
+                .Include(io => io.Room)
                 .Where(room => room.Id == GuestId)
                 .OrderBy(room => room.Room.RoomNumber)
                 .Select(room => room.Room)
-                .ToListAsync()??throw new ArgumentNullException("no data found");
+                .ToListAsync() ?? throw new ArgumentNullException("no data found");
         }
     }
 }

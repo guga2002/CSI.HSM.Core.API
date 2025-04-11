@@ -52,7 +52,7 @@ namespace Core.Infrastructure.Repositories.Staff
         {
             return await DbSet
                 .Where(t => t.AssignedByStaff.Id == staffId)
-                .Include (t => t.AssignedByStaff)
+                .Include(t => t.AssignedByStaff)
                 .Include(t => t.Task)
                 .Include(t => t.Status)
                 .ToListAsync(cancellationToken);
@@ -104,7 +104,7 @@ namespace Core.Infrastructure.Repositories.Staff
         {
             return await DbSet
                 .Where(t => t.AssignedByStaff.Id == staffId && !t.IsCompleted).
-                Include(t=>t.AssignedByStaff)
+                Include(t => t.AssignedByStaff)
                 .Include(t => t.Task)
                 .ToListAsync(cancellationToken);
         }

@@ -1,6 +1,6 @@
 ﻿using ClosedXML.Excel;
-using Domain.Core.Data;
 using Core.Persistance.MailServices;
+using Domain.Core.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -69,7 +69,7 @@ public class MonthlyReportWorker : IHostedService, IDisposable
             using var stream = new MemoryStream();
             workBook.SaveAs(stream);
 
-            var excelFileBytes = stream.ToArray(); 
+            var excelFileBytes = stream.ToArray();
 
             var smtpService = scoped.ServiceProvider.GetRequiredService<SmtpService>();
 

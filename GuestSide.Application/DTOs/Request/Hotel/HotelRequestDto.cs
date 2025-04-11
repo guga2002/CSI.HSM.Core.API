@@ -9,7 +9,7 @@ public class HotelRequestDto
     [StringLength(100)]
     public string? City { get; set; }
 
-    [StringLength(255)] 
+    [StringLength(255)]
     public string? Address { get; set; }
 
     public int Stars { get; set; }

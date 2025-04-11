@@ -5,6 +5,7 @@ using Core.Application.DTOs.Response.Hotel;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Room;
+using Domain.Core.Entities.Room;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -12,14 +13,14 @@ namespace Core.API.Controllers.Room;
 
 [Route("api/[controller]")]
 [ApiController]
-public class RoomController : CSIControllerBase<RoomsDto, RoomsResponseDto, long, Domain.Core.Entities.Room.Room>
+public class RoomController : CSIControllerBase<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room>
 {
     private readonly IRoomService _roomService;
 
     public RoomController(
         IRoomService roomService,
-        IService<RoomsDto, RoomsResponseDto, long, Domain.Core.Entities.Room.Room> serviceProvider,
-        IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Domain.Core.Entities.Room.Room> additionalFeatures)
+        IService<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room> serviceProvider,
+        IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room> additionalFeatures)
         : base(serviceProvider, additionalFeatures)
     {
         _roomService = roomService;
@@ -29,7 +30,7 @@ public class RoomController : CSIControllerBase<RoomsDto, RoomsResponseDto, long
     [SwaggerOperation(Summary = "Retrieve Available HotelResponse", Description = "Fetches available rooms by hotel, category, and occupancy.")]
     [SwaggerResponse(StatusCodes.Status200OK, "HotelResponse retrieved successfully.", typeof(Response<HotelResponse>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "No available rooms found.")]
-    public async Task<Response<HotelResponse>> GetHotelForRoomAsync([FromRoute]long roomId)
+    public async Task<Response<HotelResponse>> GetHotelForRoomAsync([FromRoute] long roomId)
     {
         var result = await _roomService.GetHotelForRoomAsync(roomId);
         return result is not null

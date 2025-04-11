@@ -2,6 +2,7 @@
 using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.DTOs.Response.Advertisment;
 using Core.Application.Interface.AdvertiementType;
+using Core.Application.Services;
 using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.Advertisement;
 using Microsoft.Extensions.Logging;
@@ -9,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace Core.Application.Services.AdvertisementType.Service
 {
-    public class AdvertisementTypeService : GenericService<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, Domain.Core.Entities.Advertisements.AdvertisementType>, IAdvertisementTypeService
+    public class AdvertisementTypeService : GenericService<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, Core.Entities.Advertisements.AdvertisementType>, IAdvertisementTypeService
     {
         private readonly IAdvertisementTypeRepository _advertisementTypeRepository;
         private readonly IMapper _mapper;
@@ -20,8 +21,8 @@ namespace Core.Application.Services.AdvertisementType.Service
             IMapper mapper,
             IAdvertisementTypeRepository advertisementTypeRepository,
             ILogger<AdvertisementTypeService> logger,
-            IGenericRepository<Domain.Core.Entities.Advertisements.AdvertisementType> repository,
-            IAdditionalFeaturesRepository<Domain.Core.Entities.Advertisements.AdvertisementType> additionalFeatures)
+            IGenericRepository<Core.Entities.Advertisements.AdvertisementType> repository,
+            IAdditionalFeaturesRepository<Core.Entities.Advertisements.AdvertisementType> additionalFeatures)
             : base(mapper, repository, logger, additionalFeatures)
         {
             _advertisementTypeRepository = advertisementTypeRepository;
@@ -98,7 +99,7 @@ namespace Core.Application.Services.AdvertisementType.Service
         {
             ValidatePositiveId(advertisementTypeId, nameof(advertisementTypeId));
 
-            var advertisementType = await _advertisementTypeRepository.FindAsync(i=>i.Id==advertisementTypeId, cancellationToken);
+            var advertisementType = await _advertisementTypeRepository.FindAsync(i => i.Id == advertisementTypeId, cancellationToken);
             if (advertisementType is null)
             {
                 _logger.LogWarning("AdvertisementType with ID {Id} does not exist.", advertisementTypeId);

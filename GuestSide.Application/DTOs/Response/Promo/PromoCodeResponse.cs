@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Response.Promo;
+﻿using Core.Application.DTOs.Response;
+
+namespace Core.Application.DTOs.Response.Promo;
 
 public class PromoCodeResponse : AbstractResponse
 {

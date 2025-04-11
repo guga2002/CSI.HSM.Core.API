@@ -5,7 +5,7 @@ using Domain.Core.Entities.Restaurant;
 
 namespace Core.Application.Services.Restaurant.Mapper;
 
-public class RestaurantItemToCartMapper:Profile
+public class RestaurantItemToCartMapper : Profile
 {
     public RestaurantItemToCartMapper()
     {

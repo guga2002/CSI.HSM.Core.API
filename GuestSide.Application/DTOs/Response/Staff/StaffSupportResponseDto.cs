@@ -1,4 +1,5 @@
-﻿using Domain.Core.Entities.Enums;
+﻿using Core.Application.DTOs.Response;
+using Domain.Core.Entities.Enums;
 using Domain.Core.Entities.Staff;
 
 namespace Core.Application.DTOs.Response.Staff;
@@ -15,7 +16,7 @@ public class StaffSupportResponseDto : AbstractResponse
 
     public PriorityEnum Priority { get; set; }
 
-    public StatusEnum Status { get; set; } 
+    public StatusEnum Status { get; set; }
 
     public DateTime? ResolvedDate { get; set; }
 

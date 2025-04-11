@@ -5,7 +5,7 @@ using Domain.Core.Entities.Restaurant;
 
 namespace Core.Application.Interface.Restaurant;
 
-public interface IRestaurantItemCategoryService:IService<RestaurantItemCategoryDto,RestaurantItemCategoryResponseDto,long,RestaurantItemCategory>,
+public interface IRestaurantItemCategoryService : IService<RestaurantItemCategoryDto, RestaurantItemCategoryResponseDto, long, RestaurantItemCategory>,
     IAdditionalFeatures<RestaurantItemCategoryDto, RestaurantItemCategoryResponseDto, long, RestaurantItemCategory>
 {
 }

@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Domain.Core.Data;
+using Domain.Core.Entities.Staff;
+using Domain.Core.Entities.Task;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using Domain.Core.Entities.Staff;
-using Domain.Core.Data;
-using Domain.Core.Entities.Task;
 
 namespace Core.Persistance.BackgroundServices;
 
@@ -21,11 +21,11 @@ public class AutoTaskAssignerWorker : IHostedService, IDisposable
         _logger = logger;
     }
 
-    public System.Threading.Tasks.Task StartAsync(CancellationToken cancellationToken)
+    public Task StartAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("AutoTaskAssignerWorker started.");
         _timer = new Timer(async _ => await ExecuteAsync(), null, TimeSpan.Zero, TimeSpan.FromMinutes(15));
-        return System.Threading.Tasks.Task.CompletedTask;
+        return Task.CompletedTask;
     }
 
     private async Task ExecuteAsync()
@@ -55,7 +55,7 @@ public class AutoTaskAssignerWorker : IHostedService, IDisposable
                     var category = db.ItemCategoryToStaffCategories.FirstOrDefault(i => i.ItemCategoryId == itemId.ItemCategoryId);
 
                     var staffWithLeastTasks = activeStaffs
-                        .Where(i=>i.StaffCategoryId==category?.StaffCategoryId)
+                        .Where(i => i.StaffCategoryId == category?.StaffCategoryId)
                         .Select(staff => new
                         {
                             Staff = staff,
@@ -78,8 +78,8 @@ public class AutoTaskAssignerWorker : IHostedService, IDisposable
                         IsCompleted = false,
                         StatusId = db.TaskStatuses.FirstOrDefault()?.Id ?? 1,
                         CreatedAt = DateTime.UtcNow,
-                        IsActive=true,
-                        LanguageCode="En",
+                        IsActive = true,
+                        LanguageCode = "En",
                         UpdatedAt = DateTime.UtcNow,
                     };
 
@@ -91,10 +91,10 @@ public class AutoTaskAssignerWorker : IHostedService, IDisposable
                         Action = "AutoAssigned",
                         PerformedBy = "System",
                         Notes = $"Assigned to staff ID {staffWithLeastTasks.Staff.Id}",
-                        CreatedAt= DateTime.UtcNow,
+                        CreatedAt = DateTime.UtcNow,
                         IsActive = true,
-                        LanguageCode="En",
-                        UpdatedAt=DateTime.UtcNow,
+                        LanguageCode = "En",
+                        UpdatedAt = DateTime.UtcNow,
                     });
 
                     _logger.LogInformation("Task {0} assigned to staff {1}", task.Id, staffWithLeastTasks.Staff.Id);
@@ -113,11 +113,11 @@ public class AutoTaskAssignerWorker : IHostedService, IDisposable
         }
     }
 
-    public System.Threading.Tasks.Task StopAsync(CancellationToken cancellationToken)
+    public Task StopAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("AutoTaskAssignerWorker stopped.");
         _timer?.Change(Timeout.Infinite, 0);
-        return System.Threading.Tasks.Task.CompletedTask;
+        return Task.CompletedTask;
     }
 
     public void Dispose() => _timer?.Dispose();

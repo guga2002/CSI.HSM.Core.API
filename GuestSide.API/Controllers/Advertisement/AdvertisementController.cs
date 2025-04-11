@@ -11,15 +11,15 @@ namespace Core.API.Controllers.Advertisement;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AdvertisementController : CSIControllerBase<AdvertismentDto, AdvertismentResponseDto, long, Domain.Core.Entities.Advertisements.Advertisement>
+public class AdvertisementController : CSIControllerBase<AdvertismentDto, AdvertismentResponseDto, long, Core.Entities.Advertisements.Advertisement>
 {
     private readonly IAdvertisementService _advertisementService;
 
     public AdvertisementController(
         IAdvertisementService advertisementService,
-        IService<AdvertismentDto, AdvertismentResponseDto, long, Domain.Core.Entities.Advertisements.Advertisement> serviceProvider,
+        IService<AdvertismentDto, AdvertismentResponseDto, long, Core.Entities.Advertisements.Advertisement> serviceProvider,
         GuestSideDb db,
-        IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Domain.Core.Entities.Advertisements.Advertisement> feat)
+        IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Core.Entities.Advertisements.Advertisement> feat)
         : base(serviceProvider, feat)
     {
         _advertisementService = advertisementService;

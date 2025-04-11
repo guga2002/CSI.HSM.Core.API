@@ -18,5 +18,5 @@ public class ItemDto
 
     public string? LanguageCode { get; set; }
 
-    public List<string>? Pictures {  get; set; }
+    public List<string>? Pictures { get; set; }
 }

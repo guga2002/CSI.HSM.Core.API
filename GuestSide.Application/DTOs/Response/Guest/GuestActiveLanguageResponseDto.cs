@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Response.Guest;
+﻿using Core.Application.DTOs.Response;
+
+namespace Core.Application.DTOs.Response.Guest;
 
 public class GuestActiveLanguageResponseDto : AbstractResponse
 {

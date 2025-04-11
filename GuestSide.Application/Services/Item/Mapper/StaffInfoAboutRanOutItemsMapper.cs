@@ -5,7 +5,7 @@ using Domain.Core.Entities.Item;
 
 namespace Core.Application.Services.Item.Mapper
 {
-    public  class StaffInfoAboutRanOutItemsMapper: Profile
+    public class StaffInfoAboutRanOutItemsMapper : Profile
     {
         public StaffInfoAboutRanOutItemsMapper()
         {

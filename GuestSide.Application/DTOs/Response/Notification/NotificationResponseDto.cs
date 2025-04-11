@@ -1,4 +1,5 @@
-﻿using Domain.Core.Entities.Enums;
+﻿using Core.Application.DTOs.Response;
+using Domain.Core.Entities.Enums;
 
 namespace Core.Application.DTOs.Response.Notification;
 
@@ -8,7 +9,7 @@ public class NotificationResponseDto : AbstractResponse
 
     public required string Message { get; set; }
 
-    public string? WhatWillRobotSay { get; set; } 
+    public string? WhatWillRobotSay { get; set; }
 
     public DateTime NotificationDate { get; set; }
 

@@ -2,6 +2,7 @@
 using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.Task.Status;
+using Core.Application.Services;
 using Domain.Core.Entities.Task;
 using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.Task;
@@ -19,7 +20,7 @@ namespace Core.Application.Services.Task.Status.Services
             ITaskStatusRepository taskStatusRepository,
             ILogger<GenericService<TaskStatusDto, TaskStatusResponseDto, long, TasksStatus>> logger,
             IAdditionalFeaturesRepository<TasksStatus> additionalFeatures)
-            : base(mapper, taskStatusRepository, logger, additionalFeatures) 
+            : base(mapper, taskStatusRepository, logger, additionalFeatures)
         {
             _taskStatusRepository = taskStatusRepository;
             _mapper = mapper;
