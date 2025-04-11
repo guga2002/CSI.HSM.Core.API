@@ -1,8 +1,8 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.Notification;
-using Core.Core.Interfaces.Notification;
-using Core.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
+using Domain.Core.Data;
+using Domain.Core.Entities.Notification;
+using Domain.Core.Interfaces.Notification;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -93,6 +93,17 @@ namespace Core.Infrastructure.Repositories.Notification
                 .Include(io => io.Notifications)
                 .Where(io => io.IsActive && io.Id == long.Parse(id.ToString()))
                 .FirstOrDefaultAsync(cancellationToken);
+        }
+        #endregion
+
+        #region GetStaffNotifications
+        public async Task<IEnumerable<StaffNotification>> GetStaffNotifications(long staffId)
+        {
+            return await DbSet
+                .Include(io => io.Notifications)
+                .Where(io => io.StaffId == staffId)
+                .OrderByDescending(io => io.SentTime)
+                .ToListAsync();
         }
         #endregion
     }

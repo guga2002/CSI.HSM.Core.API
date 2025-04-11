@@ -1,37 +1,44 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Core.Core.Entities.Staff;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Application.DTOs.Request.Staff;
 
 public class StaffDto
 {
-    [StringLength(100)] public required string FirstName { get; set; }
+    [StringLength(100)] 
+    public required string FirstName { get; set; }
 
-    [StringLength(100)] public required string LastName { get; set; }
+    [StringLength(100)] 
+    public required string LastName { get; set; }
 
-    [StringLength(100)] public required string Email { get; set; }
+    [StringLength(100)] 
+    public required string Email { get; set; }
 
-    [StringLength(100)] public required string PhoneNumber { get; set; }
+    [StringLength(100)] 
+    public required string PhoneNumber { get; set; }
 
-    [StringLength(50)] public required string Position { get; set; }
+    [StringLength(50)] 
+    public required string Position { get; set; }
 
-    [DataType(DataType.Date)] public DateTime? DateOfBirth { get; set; }
+    [DataType(DataType.Date)] 
+    public DateTime? DateOfBirth { get; set; }
 
-    [DataType(DataType.Date)] public DateTime? HireDate { get; set; } = DateTime.UtcNow;
+    [DataType(DataType.Date)] 
+    public DateTime? HireDate { get; set; } = DateTime.UtcNow;
 
-    [Precision(18, 2)] public decimal? Salary { get; set; }
+    [Precision(18, 2)] 
+    public decimal? Salary { get; set; }
 
-    [StringLength(150)] public string? ProfilePictureUrl { get; set; }
+    [StringLength(150)] 
+    public string? ProfilePictureUrl { get; set; }
 
     public long StaffCategoryId { get; set; }
 
     public long? SupervisorId { get; set; }
 
-    [StringLength(200)] public string? EmergencyContact { get; set; }
+    [StringLength(200)] 
+    public string? EmergencyContact { get; set; }
 
-    [StringLength(500)] public string? Bio { get; set; }
-
-
+    [StringLength(500)] 
+    public string? Bio { get; set; }
 }

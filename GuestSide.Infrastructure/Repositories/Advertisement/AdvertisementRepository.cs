@@ -1,16 +1,16 @@
-﻿using Core.Core.Data;
-using Core.Core.Interfaces.Advertisement;
-using Core.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
+using Domain.Core.Data;
+using Domain.Core.Interfaces.Advertisement;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Infrastructure.Repositories.Advertisement
 {
-    public class AdvertisementRepository : GenericRepository<Core.Entities.Advertisements.Advertisement>, IAdvertisementRepository
+    public class AdvertisementRepository : GenericRepository<Domain.Core.Entities.Advertisements.Advertisement>, IAdvertisementRepository
     {
-        public AdvertisementRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Core.Entities.Advertisements.Advertisement> logger)
+        public AdvertisementRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Domain.Core.Entities.Advertisements.Advertisement> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
         }
@@ -18,7 +18,7 @@ namespace Core.Infrastructure.Repositories.Advertisement
         /// <summary>
         /// Get all active advertisements (current date falls within the start and end date)
         /// </summary>
-        public async Task<IEnumerable<Core.Entities.Advertisements.Advertisement>> GetActiveAdvertisementsAsync()
+        public async Task<IEnumerable<Domain.Core.Entities.Advertisements.Advertisement>> GetActiveAdvertisementsAsync()
         {
             var currentDate = DateTime.UtcNow;
             return await DbSet
@@ -30,7 +30,7 @@ namespace Core.Infrastructure.Repositories.Advertisement
         /// <summary>
         /// Get advertisements by type
         /// </summary>
-        public async Task<IEnumerable<Core.Entities.Advertisements.Advertisement>> GetAdvertisementsByTypeAsync(long advertisementTypeId)
+        public async Task<IEnumerable<Domain.Core.Entities.Advertisements.Advertisement>> GetAdvertisementsByTypeAsync(long advertisementTypeId)
         {
             return await DbSet
                 .Where(a => a.AdvertisementTypeId == advertisementTypeId)
@@ -41,7 +41,7 @@ namespace Core.Infrastructure.Repositories.Advertisement
         /// <summary>
         /// Get advertisements within a specific date range
         /// </summary>
-        public async Task<IEnumerable<Core.Entities.Advertisements.Advertisement>> GetAdvertisementsByDateRangeAsync(DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<Domain.Core.Entities.Advertisements.Advertisement>> GetAdvertisementsByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
             return await DbSet
                 .Where(a => a.StartDate >= startDate && a.EndDate <= endDate)
@@ -52,7 +52,7 @@ namespace Core.Infrastructure.Repositories.Advertisement
         /// <summary>
         /// Get advertisements by language
         /// </summary>
-        public async Task<IEnumerable<Core.Entities.Advertisements.Advertisement>> GetAdvertisementsByLanguageAsync(string languageCode)
+        public async Task<IEnumerable<Domain.Core.Entities.Advertisements.Advertisement>> GetAdvertisementsByLanguageAsync(string languageCode)
         {
             return await DbSet
                 .Where(a => a.LanguageCode == languageCode)
@@ -63,7 +63,7 @@ namespace Core.Infrastructure.Repositories.Advertisement
         /// <summary>
         /// Get an advertisement by its title
         /// </summary>
-        public async Task<Core.Entities.Advertisements.Advertisement> GetAdvertisementByTitleAsync(string title)
+        public async Task<Domain.Core.Entities.Advertisements.Advertisement> GetAdvertisementByTitleAsync(string title)
         {
             return await DbSet.FirstOrDefaultAsync(a => a.Title == title);
         }

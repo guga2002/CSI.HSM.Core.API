@@ -2,10 +2,10 @@
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.Staff.staf;
-using Core.Core.Entities.Item;
-using Core.Core.Entities.Staff;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Staff;
+using Domain.Core.Entities.Item;
+using Domain.Core.Entities.Staff;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Staff;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Staff.Staff.Services
@@ -164,6 +164,26 @@ namespace Core.Application.Services.Staff.Staff.Services
             ValidatePositiveId(staffId, nameof(staffId));
 
             return await _staffRepository.GetStaffSentimentScoreAsync(staffId, cancellationToken);
+        }
+
+        public async Task<bool> CheckIsOnDuteAsync(long staffId, bool Status, CancellationToken cancellationToken = default)
+        {
+            ValidatePositiveId(staffId, nameof(staffId));
+
+            return await _staffRepository.CheckIsOnDute(staffId, Status, cancellationToken);
+        }
+
+        public async Task<StaffLoginDate> GetLastLoginDateAsync(long staffId, CancellationToken cancellationToken = default)
+        {
+            ValidatePositiveId(staffId, nameof(staffId));
+
+            var result = await _staffRepository.GetLastLoginDate(staffId, cancellationToken);
+
+            return new StaffLoginDate
+            {
+                Id = result.Item1,
+                LastLoginTime = result.Item2
+            };
         }
     }
 }

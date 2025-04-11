@@ -1,7 +1,7 @@
-﻿using Core.Core.Entities.Notification;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Notification;
+using Domain.Core.Interfaces.AbstractInterface;
 
-namespace Core.Core.Interfaces.Notification
+namespace Domain.Core.Interfaces.Notification
 {
     public interface IGuestNotificationRepository : IGenericRepository<GuestNotification>
     {

@@ -1,9 +1,10 @@
 ﻿using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.GenericContracts;
-using Core.Core.Entities.Staff;
+using Domain.Core.Entities.Enums;
+using Domain.Core.Entities.Staff;
 
-namespace Core.Application.Interface.Staff
+namespace Core.Application.Interface.Staff.Incident
 {
     public interface IStaffIncidentService : IService<StaffIncidentDto, StaffIncidentResponseDto, long, StaffIncident>,
         IAdditionalFeatures<StaffIncidentDto, StaffIncidentResponseDto, long, StaffIncident>
@@ -16,17 +17,17 @@ namespace Core.Application.Interface.Staff
         /// <summary>
         /// Get incidents filtered by severity.
         /// </summary>
-        Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsBySeverityAsync(string severity, CancellationToken cancellationToken = default);
+        Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsBySeverityAsync(PriorityEnum severity, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get incidents filtered by status.
         /// </summary>
-        Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsByStatusAsync(string status, CancellationToken cancellationToken = default);
+        Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsByStatusAsync(StatusEnum status, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get incidents by type.
         /// </summary>
-        Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsByTypeAsync(string incidentType, CancellationToken cancellationToken = default);
+        Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsByTypeAsync(long incidentTypeId, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get urgent incidents.
@@ -36,7 +37,7 @@ namespace Core.Application.Interface.Staff
         /// <summary>
         /// Update incident status.
         /// </summary>
-        Task<bool> UpdateIncidentStatusAsync(long incidentId, string newStatus, CancellationToken cancellationToken = default);
+        Task<bool> UpdateIncidentStatusAsync(long incidentId, StatusEnum newStatus, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Resolve an incident with resolution notes.

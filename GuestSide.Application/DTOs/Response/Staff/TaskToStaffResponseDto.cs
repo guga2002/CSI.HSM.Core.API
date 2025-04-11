@@ -1,24 +1,26 @@
 ﻿using Core.Application.DTOs.Response.Task;
-using System.ComponentModel.DataAnnotations;
+using Domain.Core.Entities.Staff;
+using Domain.Core.Entities.Task;
 
 namespace Core.Application.DTOs.Response.Staff;
 
-public class TaskToStaffResponseDto
+public class TaskToStaffResponseDto : AbstractResponse
 {
-    //date when the task is assigned to staff
-    [DataType(DataType.Date)]
-    public DateTime? StartDate { get; set; }
+    public DateTime? StartDate { get; set; } 
 
-    //date when the task is completed
-    [DataType(DataType.Date)]
     public DateTime? EndDate { get; set; }
 
-    public long StaffId { get; set; }
-
-    //carts status
     public long StatusId { get; set; }
 
     public long TaskId { get; set; }
 
-    public TaskStatusResponseDto Status { get; set; }
+    public bool IsCompleted { get; set; } = false;
+
+    public long? AssignedBy { get; set; }
+
+    public virtual StaffResponseDto? AssignedByStaff { get; set; }
+
+    public virtual TaskStatusResponseDto? Status { get; set; }
+
+    public virtual TaskResponseDto? Task { get; set; }
 }

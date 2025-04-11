@@ -1,9 +1,8 @@
-﻿using Core.Core.Entities.Guest;
-using Core.Core.Entities.Room;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Guest;
+using Domain.Core.Interfaces.AbstractInterface;
 using System.Threading.Tasks;
 
-namespace Core.Core.Interfaces.Guest
+namespace Domain.Core.Interfaces.Guest
 {
     public interface IGuestRepository : IGenericRepository<Guests>
     {
@@ -15,6 +14,6 @@ namespace Core.Core.Interfaces.Guest
         Task<IEnumerable<Guests>> GetFrequentGuestsAsync();
         Task<bool> AssignRoomToGuestAsync(long guestId, long roomId);
         Task<bool> DeleteGuestPermanentlyAsync(long guestId);
-        Task<IEnumerable<Core.Entities.Room.Room>> RoomByGuestIdAsync(long GuestId);
+        Task<IEnumerable<Entities.Room.Room>> RoomByGuestIdAsync(long GuestId);
     }
 }

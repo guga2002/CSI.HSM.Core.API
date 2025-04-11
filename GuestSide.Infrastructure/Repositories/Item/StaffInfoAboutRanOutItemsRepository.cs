@@ -1,8 +1,9 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.Item;
-using Core.Core.Interfaces.Item;
-using Core.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
+using Domain.Core.Data;
+using Domain.Core.Entities.Enums;
+using Domain.Core.Entities.Item;
+using Domain.Core.Interfaces.Item;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -31,7 +32,7 @@ namespace Core.Infrastructure.Repositories.Item
                 .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<StaffInfoAboutRanOutItems>> GetRequestsByPriorityAsync(RefillPriority priority, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<StaffInfoAboutRanOutItems>> GetRequestsByPriorityAsync(PriorityEnum priority, CancellationToken cancellationToken = default)
         {
             return await _context.StaffInfoAboutRanOutItems.AsNoTracking()
                 .Where(r => r.Priority == priority)
@@ -48,7 +49,7 @@ namespace Core.Infrastructure.Repositories.Item
         public async Task<IEnumerable<StaffInfoAboutRanOutItems>> GetUrgentRequestsAsync(CancellationToken cancellationToken = default)
         {
             return await _context.StaffInfoAboutRanOutItems.AsNoTracking()
-                .Where(r => r.IsUrgent)
+                .Where(r => r.Priority == PriorityEnum.High)
                 .ToListAsync(cancellationToken);
         }
         #endregion
@@ -79,7 +80,7 @@ namespace Core.Infrastructure.Repositories.Item
         public async Task<int> CountHighPriorityRequestsAsync(CancellationToken cancellationToken = default)
         {
             return await _context.StaffInfoAboutRanOutItems
-                .CountAsync(r => r.Priority == RefillPriority.High, cancellationToken);
+                .CountAsync(r => r.Priority == PriorityEnum.High, cancellationToken);
         }
         #endregion
 

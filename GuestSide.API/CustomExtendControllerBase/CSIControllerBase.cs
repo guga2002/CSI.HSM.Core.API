@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Swashbuckle.AspNetCore.Annotations;
 using Core.Application.Interface.GenericContracts;
-using MongoDB.Driver;
 using Core.API.Extensions;
 using Core.API.Response;
 
@@ -15,7 +14,7 @@ namespace Core.API.CustomExtendControllerBase;
 /// <typeparam name="RsponseDto">The DTO type for responses.</typeparam>
 /// <typeparam name="TKey">The type of the entity identifier.</typeparam>
 /// <typeparam name="TDatabase">The type of the database context.</typeparam>
-[AllowAnonymous]
+[Authorize]
 public class CSIControllerBase<RequestDto, RsponseDto, TKey, TDatabase> : ControllerBase
     where RequestDto : class
     where RsponseDto : class

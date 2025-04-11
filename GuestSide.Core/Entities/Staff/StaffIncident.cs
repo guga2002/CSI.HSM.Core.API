@@ -1,50 +1,44 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Staff
+namespace Domain.Core.Entities.Staff;
+
+[Table("StaffIncidents", Schema = "CSI")]
+[Index(nameof(Severity))]
+[Index(nameof(Status))]
+[Index(nameof(RequiresImmediateAction))]
+public class StaffIncident : AbstractEntity
 {
-    [Table("StaffIncidents", Schema = "CSI")]
-    [Index(nameof(ReportedByStaffId))] 
-    [Index(nameof(Severity))] 
-    [Index(nameof(Status))] 
-    [Index(nameof(RequiresImmediateAction))] 
-    [Index(nameof(ReportedAt))] 
-    public class StaffIncident : AbstractEntity
-    {
-        [ForeignKey(nameof(ReportedByStaff))]
-        public long ReportedByStaffId { get; set; } 
+    [ForeignKey(nameof(ReportedByStaff))]
+    public long ReportedByStaffId { get; set; }
 
-        [StringLength(100)]
-        public required string Title { get; set; } 
+    [StringLength(100)]
+    public required string Title { get; set; }
 
-        [StringLength(500)]
-        public string? Description { get; set; }
+    [StringLength(500)]
+    public string? Description { get; set; }
 
-        public DateTime ReportedAt { get; set; } = DateTime.UtcNow; 
+    public required PriorityEnum Severity { get; set; }
 
-        [StringLength(100)]
-        public required string Severity { get; set; } // "Low", "Medium", "High", "Critical"
+    public required StatusEnum Status { get; set; } = StatusEnum.Open;
 
-        [StringLength(100)]
-        public required string Status { get; set; } = "Open"; // "Open", "In Progress", "Resolved", "Closed"
+    public DateTime? ResolvedAt { get; set; } // Timestamp when the incident was resolved
 
-        public DateTime? ResolvedAt { get; set; } // Timestamp when the incident was resolved
+    [StringLength(300)]
+    public string? ResolutionNotes { get; set; } // Notes or steps taken to resolve the incident
 
-        [StringLength(300)]
-        public string? ResolutionNotes { get; set; } // Notes or steps taken to resolve the incident
+    [StringLength(100)]
+    public required string Location { get; set; } // Location of the incident (e.g., "Room 203", "Lobby")
 
-        [StringLength(100)]
-        public required string Location { get; set; } // Location of the incident (e.g., "Room 203", "Lobby")
+    public bool RequiresImmediateAction { get; set; } = false; // Marks if urgent attention is needed
 
-        public bool RequiresImmediateAction { get; set; } = false; // Marks if urgent attention is needed
+    [ForeignKey(nameof(IncidentType))]
+    public long IncidentTypeId { get; set; }
 
-        [StringLength(100)]
-        public string? IncidentType { get; set; } // Categorizes the type of incident (e.g., "Safety", "Technical", "HR")
+    public virtual IncidentType? IncidentType { get; set; }
 
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow; // Tracks last modification time
-
-        public virtual Staffs? ReportedByStaff { get; set; } // Virtual for lazy loading
-    }
+    public virtual Staffs? ReportedByStaff { get; set; } // Virtual for lazy loading
 }

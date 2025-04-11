@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.Application.DTOs.Request.Audio;
 using Core.Application.DTOs.Response.Audio;
-using Core.Core.Entities.Audio;
+using Domain.Core.Entities.Audio;
 
 namespace Core.Application.Services.Audio.Mapper;
 

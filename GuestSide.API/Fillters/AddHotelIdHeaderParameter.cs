@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 public class AddHotelIdHeaderParameter : IOperationFilter
@@ -18,7 +19,21 @@ public class AddHotelIdHeaderParameter : IOperationFilter
             Description = "Hotel identifier (unique per tenant)",
             Schema = new OpenApiSchema
             {
-                Type = "string"
+                Type = "string",
+                Default = new OpenApiString("CSIConnect") 
+            }
+        });
+
+        operation.Parameters.Add(new OpenApiParameter
+        {
+            Name = "Accept-Language",
+            In = ParameterLocation.Header,
+            Required = false,
+            Description = "Language Code",
+            Schema = new OpenApiSchema
+            {
+                Type = "string",
+                Default = new OpenApiString("En")
             }
         });
     }

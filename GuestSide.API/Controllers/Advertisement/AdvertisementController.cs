@@ -1,12 +1,9 @@
 ﻿using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Advertisment;
-using Core.Application.DTOs.Response.Advertisment;
 using Core.Application.Interface.Advertisment;
 using Core.Application.Interface.GenericContracts;
-using Core.Core.Data;
-using Core.Core.Entities.Advertisements;
-using global::Core.Application.Interface.Advertisment;
+using Domain.Core.Data;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -14,15 +11,15 @@ namespace Core.API.Controllers.Advertisement;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AdvertisementController : CSIControllerBase<AdvertismentDto, AdvertismentResponseDto, long, Core.Entities.Advertisements.Advertisement>
+public class AdvertisementController : CSIControllerBase<AdvertismentDto, AdvertismentResponseDto, long, Domain.Core.Entities.Advertisements.Advertisement>
 {
     private readonly IAdvertisementService _advertisementService;
 
     public AdvertisementController(
         IAdvertisementService advertisementService,
-        IService<AdvertismentDto, AdvertismentResponseDto, long, Core.Entities.Advertisements.Advertisement> serviceProvider,
+        IService<AdvertismentDto, AdvertismentResponseDto, long, Domain.Core.Entities.Advertisements.Advertisement> serviceProvider,
         GuestSideDb db,
-        IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Core.Entities.Advertisements.Advertisement> feat)
+        IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Domain.Core.Entities.Advertisements.Advertisement> feat)
         : base(serviceProvider, feat)
     {
         _advertisementService = advertisementService;
@@ -34,7 +31,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     public async Task<Response<IEnumerable<AdvertismentResponseDto>>> GetActiveAdvertisementsAsync(CancellationToken cancellationToken = default)
     {
         var result = await _advertisementService.GetActiveAdvertisementsAsync(cancellationToken);
-        return new Response<IEnumerable<AdvertismentResponseDto>>(true,result);
+        return new Response<IEnumerable<AdvertismentResponseDto>>(result.Any() ? true : false, result);
     }
 
     [HttpGet("type/{advertisementTypeId}")]
@@ -43,7 +40,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     public async Task<Response<IEnumerable<AdvertismentResponseDto>>> GetAdvertisementsByTypeAsync([FromRoute] long advertisementTypeId, CancellationToken cancellationToken = default)
     {
         var result = await _advertisementService.GetAdvertisementsByTypeAsync(advertisementTypeId, cancellationToken);
-        return new Response<IEnumerable<AdvertismentResponseDto>>(true,result);
+        return new Response<IEnumerable<AdvertismentResponseDto>>(result.Any() ? true : false, result);
     }
 
     [HttpGet("date-range")]
@@ -52,7 +49,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     public async Task<Response<IEnumerable<AdvertismentResponseDto>>> GetAdvertisementsByDateRangeAsync([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, CancellationToken cancellationToken = default)
     {
         var result = await _advertisementService.GetAdvertisementsByDateRangeAsync(startDate, endDate, cancellationToken);
-        return new Response<IEnumerable<AdvertismentResponseDto>>(true, result);
+        return new Response<IEnumerable<AdvertismentResponseDto>>(result.Any() ? true : false, result);
     }
 
     [HttpGet("language/{languageCode}")]
@@ -61,7 +58,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     public async Task<Response<IEnumerable<AdvertismentResponseDto>>> GetAdvertisementsByLanguageAsync([FromRoute] string languageCode, CancellationToken cancellationToken = default)
     {
         var result = await _advertisementService.GetAdvertisementsByLanguageAsync(languageCode, cancellationToken);
-        return new Response<IEnumerable<AdvertismentResponseDto>>(true,result);
+        return new Response<IEnumerable<AdvertismentResponseDto>>(result.Any() ? true : false, result);
     }
 
     [HttpGet("title/{title}")]
@@ -70,7 +67,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     public async Task<Response<AdvertismentResponseDto?>> GetAdvertisementByTitleAsync([FromRoute] string title, CancellationToken cancellationToken = default)
     {
         var result = await _advertisementService.GetAdvertisementByTitleAsync(title, cancellationToken);
-        return new Response<AdvertismentResponseDto?>(true, result);
+        return new Response<AdvertismentResponseDto?>(result is null ? false : true, result);
     }
 
     [HttpPut("update-dates/{id}")]
@@ -79,7 +76,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     public async Task<Response<bool>> UpdateAdvertisementDatesAsync([FromRoute] long id, [FromQuery] DateTime? newStartDate, [FromQuery] DateTime? newEndDate, CancellationToken cancellationToken = default)
     {
         var result = await _advertisementService.UpdateAdvertisementDatesAsync(id, newStartDate, newEndDate, cancellationToken);
-        return new Response<bool>(true, result);
+        return new Response<bool>(result ? true : false, result);
     }
 
     [HttpDelete("delete/{id}")]
@@ -88,7 +85,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     public async Task<Response<bool>> DeleteAdvertisementByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
     {
         var result = await _advertisementService.DeleteAdvertisementByIdAsync(id, cancellationToken);
-        return new Response<bool>(true, result);
+        return new Response<bool>(result ? true : false, result);
     }
 
     /// <summary>
@@ -132,7 +129,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
     public override async Task<Response<AdvertismentResponseDto>> CreateAsync([FromBody] AdvertismentDto entityDto, CancellationToken cancellationToken = default)
     {
-        return await CreateAsync(entityDto, cancellationToken);
+        return await base.CreateAsync(entityDto, cancellationToken);
     }
 
     /// <summary>
@@ -148,12 +145,13 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data.")]
     public override async Task<Response<AdvertismentResponseDto>> UpdateAsync([FromRoute] long id, [FromBody] AdvertismentDto entityDto, CancellationToken cancellationToken = default)
     {
-        return await UpdateAsync(id, entityDto, cancellationToken);
+        return await base.UpdateAsync(id, entityDto, cancellationToken);
     }
 
     /// <summary>
     /// Deletes a record by its ID.
     /// </summary>
+    /// 
     /// <param name="id">The unique identifier of the record to delete.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A success or failure response.</returns>
@@ -163,7 +161,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     [SwaggerResponse(StatusCodes.Status404NotFound, "Record not found or failed to delete.")]
     public override async Task<Response<AdvertismentResponseDto>> DeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
     {
-        return await DeleteAsync(id, cancellationToken);
+        return await base.DeleteAsync(id, cancellationToken);
     }
 
     /// <summary>
@@ -178,7 +176,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data. Collection is empty or null.")]
     public override async Task<IActionResult> BulkDeleteAsync([FromBody] IEnumerable<AdvertismentDto> entities, CancellationToken cancellationToken = default)
     {
-        return await BulkDeleteAsync(entities, cancellationToken);
+        return await base.BulkDeleteAsync(entities, cancellationToken);
     }
 
     /// <summary>
@@ -208,7 +206,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input data. Collection is empty or null.")]
     public override async Task<IActionResult> BulkAddAsync([FromBody] IEnumerable<AdvertismentDto> entities, CancellationToken cancellationToken = default)
     {
-        return await BulkAddAsync(entities, cancellationToken);
+        return await base.BulkAddAsync(entities, cancellationToken);
     }
 
     /// <summary>
@@ -223,6 +221,6 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     [ProducesResponseType(typeof(Response<string>), StatusCodes.Status404NotFound)]
     public override async Task<Response<AdvertismentResponseDto>> SoftDeleteAsync([FromRoute] long id, CancellationToken cancellationToken = default)
     {
-        return await SoftDeleteAsync(id, cancellationToken);
+        return await base.SoftDeleteAsync(id, cancellationToken);
     }
 }

@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
-using Core.Application.Interface.Staff;
-using Core.Core.Entities.Staff;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Staff;
+using Core.Application.Interface.Staff.StaffSupport;
+using Domain.Core.Entities.Enums;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Staff;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Staff.StaffSupport.Service
 {
-    public class StaffSupportService : GenericService<StaffSupportDto, StaffSupportResponseDto, long, Core.Entities.Staff.StaffSupport>, IStaffSupportService
+    public class StaffSupportService : GenericService<StaffSupportDto, StaffSupportResponseDto, long, Domain.Core.Entities.Staff.StaffSupport>, IStaffSupportService
     {
         private readonly IStaffSupportRepository _staffSupportRepository;
         private readonly IMapper _mapper;
@@ -19,8 +19,8 @@ namespace Core.Application.Services.Staff.StaffSupport.Service
             IMapper mapper,
             IStaffSupportRepository staffSupportRepository,
             ILogger<StaffSupportService> logger,
-            IGenericRepository<Core.Entities.Staff.StaffSupport> repository,
-            IAdditionalFeaturesRepository<Core.Entities.Staff.StaffSupport> additionalFeatures)
+            IGenericRepository<Domain.Core.Entities.Staff.StaffSupport> repository,
+            IAdditionalFeaturesRepository<Domain.Core.Entities.Staff.StaffSupport> additionalFeatures)
             : base(mapper, repository, logger, additionalFeatures)
         {
             _staffSupportRepository = staffSupportRepository;
@@ -63,13 +63,13 @@ namespace Core.Application.Services.Staff.StaffSupport.Service
             return _mapper.Map<IEnumerable<StaffSupportResponseDto>>(tickets);
         }
 
-        public async Task<IEnumerable<StaffSupportResponseDto>> GetTicketsByPriorityAsync(SupportTicketPriority priority, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<StaffSupportResponseDto>> GetTicketsByPriorityAsync(PriorityEnum priority, CancellationToken cancellationToken = default)
         {
             var tickets = await _staffSupportRepository.GetTicketsByPriorityAsync(priority, cancellationToken);
             return _mapper.Map<IEnumerable<StaffSupportResponseDto>>(tickets);
         }
 
-        public async Task<IEnumerable<StaffSupportResponseDto>> GetTicketsByStatusAsync(SupportTicketStatus status, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<StaffSupportResponseDto>> GetTicketsByStatusAsync(StatusEnum status, CancellationToken cancellationToken = default)
         {
             var tickets = await _staffSupportRepository.GetTicketsByStatusAsync(status, cancellationToken);
             return _mapper.Map<IEnumerable<StaffSupportResponseDto>>(tickets);
@@ -95,7 +95,7 @@ namespace Core.Application.Services.Staff.StaffSupport.Service
             return _mapper.Map<IEnumerable<StaffSupportResponseDto>>(tickets);
         }
 
-        public async Task<bool> UpdateTicketStatusAsync(long ticketId, SupportTicketStatus newStatus, CancellationToken cancellationToken = default)
+        public async Task<bool> UpdateTicketStatusAsync(long ticketId, StatusEnum newStatus, CancellationToken cancellationToken = default)
         {
             ValidatePositiveId(ticketId, nameof(ticketId));
 

@@ -1,12 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿namespace Core.Application.DTOs.Response.Room;
 
-namespace Core.Application.DTOs.Response.Room;
-
-public class QRCodeResponseDto
+public class QRCodeResponseDto : AbstractResponse
 {
-    public long Id { get; set; }
-
     public required string Code { get; set; }
 
     public string? Text { get; set; }
@@ -19,9 +14,5 @@ public class QRCodeResponseDto
 
     public int ScannedCount { get; set; }
 
-
-    public DateTime UpdatedAt { get; set; } 
-
     public long RoomId { get; set; }
-
 }

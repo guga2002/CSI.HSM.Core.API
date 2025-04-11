@@ -1,7 +1,6 @@
-﻿using Core.Core.Entities.Room;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Interfaces.AbstractInterface;
 
-namespace Core.Core.Interfaces.Room
+namespace Domain.Core.Interfaces.Room
 {
     public interface IRoomRepository : IGenericRepository<Entities.Room.Room>
     {
@@ -9,6 +8,6 @@ namespace Core.Core.Interfaces.Room
         Task<bool> MarkRoomAsUnavailable(long roomId);
         Task<bool> UpdateRoomPrice(long roomId, decimal newPrice);
         Task<IEnumerable<Entities.Room.Room>> GetRoomsByHotel(long hotelId);
-        Task<Core.Entities.Hotel.Hotel> GetHotelForRoomAsync(long roomId);
+        Task<Entities.Hotel.Hotel> GetHotelForRoomAsync(long roomId);
     }
 }

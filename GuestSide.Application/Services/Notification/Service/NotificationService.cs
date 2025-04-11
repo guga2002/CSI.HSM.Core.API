@@ -2,9 +2,10 @@
 using Core.Application.DTOs.Request.Notification;
 using Core.Application.DTOs.Response.Notification;
 using Core.Application.Interface.Notification;
-using Core.Core.Entities.Notification;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Notification;
+using Domain.Core.Entities.Enums;
+using Domain.Core.Entities.Notification;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Notification;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Notification.Service
@@ -61,7 +62,7 @@ namespace Core.Application.Services.Notification.Service
             return _mapper.Map<IEnumerable<NotificationResponseDto>>(notifications);
         }
 
-        public async Task<IEnumerable<NotificationResponseDto>> GetNotificationsByPriority(NotificationPriority priority, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<NotificationResponseDto>> GetNotificationsByPriority(PriorityEnum priority, CancellationToken cancellationToken = default)
         {
             var notifications = await _notificationRepository.GetNotificationsByPriority(priority);
             return _mapper.Map<IEnumerable<NotificationResponseDto>>(notifications);

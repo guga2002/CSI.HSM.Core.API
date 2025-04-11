@@ -14,16 +14,12 @@ using Core.Application.Services.Staff.Category.DI;
 using Core.Application.Services.Staff.Staff.DI;
 using Core.Application.Services.Task.Status.DI;
 using Core.Application.Services.Task.Task.DI;
-using Core.Core.Interfaces.AbstractInterface;
 using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Core.Interfaces.UniteOfWork;
 using Core.Infrastructure.Repositories.UniteOfWork;
 using Core.Application.Services.Guest.Injection;
-using Core.Persistance.LoggingConfigs;
-using AuthorizationHelper.Injection.CommonServices;
+using Core.Application.Services.Task.TaskLog.Startup;
 using Core.Application.Services.Audio.Injection;
 using Core.Application.Services.Item.DI;
-using Core.Core.Data;
 using Core.Application.Services.Notification.DI;
 using Core.Application.Services.Room.DI;
 using Core.API.CustomMiddlwares;
@@ -35,31 +31,50 @@ using Core.Application.Services.Staff.Incident.DI;
 using Core.Application.Services.Staff.Sentiments.Injection;
 using Core.Application.Services.Staff.StaffSupport.DI;
 using Core.Application.Services.Staff.StaffSupportResponse.DI;
+using Core.Application.Services.Promo.Startup;
+using Csi.VoicePack;
+using Core.API.Fillters;
+using Core.Persistance.PtmsCsi;
+using Core.Persistance.MailServices;
+using Core.Persistance.BackgroundServices;
+using Domain.Core.Data;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.UniteOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers()
- //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.AuthorizationController).Assembly)
- //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.UsersController).Assembly)
- //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.RolesController).Assembly)
- .AddControllersAsServices();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<SetHttpStatusCodeFilter>();
+}).AddControllersAsServices();
+
 builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<GuestSideDb>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CSICOnnect"));
+    options.UseSqlServer(!builder.Environment.IsProduction()? builder.Configuration.GetSection("connectionTest:CSICOnnect").Value: builder.Configuration.GetConnectionString("CSICOnnect"));
 });
 
+builder.Services.AddHttpClient<CsiVoicePack>(i => i.BaseAddress = new Uri("http://api.logixplore.com:3333/"));
 
 builder.WebHost.ConfigureKestrel(options =>
-    {
-        options.ListenAnyIP(2044);
-        options.ListenAnyIP(2045, listenOptions => listenOptions.UseHttps());
-    });
+{
+    options.ListenAnyIP(2044);
+});
 
+builder.Services.AddHostedService<NotifyUsersService>();
+builder.Services.AddHostedService<ItemMonitoring>();
+builder.Services.AddHostedService<PromoCodeMonitoring>();
+builder.Services.AddHostedService<TaskDeadlineMonitor>();
+builder.Services.AddHostedService<DailyStatisticWorker>();
+builder.Services.AddHostedService<TaskReassignmentWorker>();
+builder.Services.AddHostedService<IncidentRiskClassifierWorker>();
+builder.Services.AddHostedService<StaleCartCleanerWorker>();
+builder.Services.AddHostedService<RoomStatusAutoResetWorker>();
+builder.Services.AddHostedService<AutoTaskAssignerWorker>();
+builder.Services.AddHostedService<GuestCheckOutFinalizerWorker>();
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"];
 builder.Services.AddAuthentication(options =>
@@ -86,7 +101,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddSwaggerGen(c =>
     {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Core.Api", Version = "v1" });
-
+        c.OperationFilter<FileUploadOperationFilter>();
         c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {
             In = ParameterLocation.Header,
@@ -114,45 +129,46 @@ builder.Services.AddSwaggerGen(c =>
         c.OperationFilter<AddHotelIdHeaderParameter>();
     });
 
+builder.Services.AddDistributedMemoryCache();
 
-    builder.Services.AddRedisCash("127.0.0.1" ?? throw new ArgumentNullException("Redis Key Is not defined"));
+builder.Services.AddRedisCash("127.0.0.1" ?? throw new ArgumentNullException("Redis Key Is not defined"));
 
-    builder.Services.InjectAdvertisment();
-    builder.Services.AddAdvertisementType();
-    builder.Services.InjectFeadbacks();
+builder.Services.InjectAdvertisment();
+builder.Services.AddAdvertisementType();
+builder.Services.InjectFeadbacks();
 
-    builder.Services.InjectGuest();
+builder.Services.InjectGuest();
 
-    builder.Services.InjectHotel();
-    builder.Services.InjectLocation();
+builder.Services.InjectHotel();
+builder.Services.InjectLocation();
 
-    builder.Services.InjectItemCategory();
-    builder.Services.InjectItem();
+builder.Services.InjectItemCategory();
+builder.Services.InjectItem();
 
-    builder.Services.AddLanguagePack();
+builder.Services.AddLanguagePack();
 
-    builder.Services.InjectLog();
+builder.Services.InjectLog();
+builder.Services.ActiveTaskLogs();
+builder.Services.ActiveStaffIncident();
 
-    builder.Services.ActiveStaffIncident();
+builder.Services.ActiveStaffInfoAboutRanOutItems();
 
-    builder.Services.ActiveStaffInfoAboutRanOutItems();
-
-    builder.Services.InjectNotification();
-    builder.Services.InjectGuestNotification();
-    builder.Services.InjectStaffNotification();
-
+builder.Services.InjectNotification();
+builder.Services.InjectGuestNotification();
+builder.Services.InjectStaffNotification();
+builder.Services.ActivatePromoCode();
 builder.Services.InjectItemCategoryToStaffCategory();
 builder.Services.ActiveStaffSentiments();
 builder.Services.ActiveStaffSupport();
 builder.Services.ActiveStaffSupportResponse();
-    builder.Services.InjectPaymentOption();
-
-    builder.Services.InjectRestaurantOrderPaymen();
-
-    builder.Services.AddRestaurantCartServices();
-    builder.Services.AddRestaurantServices();
-    builder.Services.AddRestaurantItemCategory();
-    builder.Services.AddRestaurantItem();
+builder.Services.InjectPaymentOption();
+builder.Services.AddScoped<ITemplateGatewayService, TemplateGatewayService>();
+builder.Services.InjectRestaurantOrderPaymen();
+builder.Services.AddScoped<SmtpService>();
+builder.Services.AddRestaurantCartServices();
+builder.Services.AddRestaurantServices();
+builder.Services.AddRestaurantItemCategory();
+builder.Services.AddRestaurantItem();
 builder.Services.AddRestaurantItemToCart();
 
 builder.Services.InjectQrCode();
@@ -160,7 +176,6 @@ builder.Services.InjectRoomCategory();
 builder.Services.InjectRoom();
 
 builder.Services.InjectCartToStaff();
-
 
 builder.Services.InjectStaffCategory();
 builder.Services.InjectStaffs();
@@ -170,7 +185,9 @@ builder.Services.InjectTaskItem();
 builder.Services.InjectCart();
 
 builder.Services.InjectTaskStatus();
+
 builder.Services.InjectTasks();
+
 builder.Services.AddScoped<IUniteOfWork, UniteOfWorkRepository>();
 
 builder.Services.AddGuestActiveLanguage();
@@ -181,18 +198,16 @@ builder.Services.InjectAudioResponse();
 
 builder.Services.InjectAudioResponseCategory();
 
-builder.Services.InjectCommonServices(builder.Configuration);
+builder.Services.IncidentTypeDI();
 
+builder.Services.IncidentTypeToStaffCategoryDI();
 //builder.Logging.ClearProviders();
-builder.Services.InjectSeriLog();
+//builder.Services.InjectSeriLog();
 
 builder.Services.AddScoped(typeof(IAdditionalFeaturesRepository<>), typeof(AdditionalFeaturesRepository<>));
 
-
 var app = builder.Build();
     app.UseStaticFiles();
-    app.UseAuthentication();
-    app.UseAuthorization();
 
     app.UseSwagger();
 
@@ -200,14 +215,18 @@ var app = builder.Build();
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api V1");
         options.RoutePrefix = "swagger";
-        //options.InjectJavascript("/swagger-voice-search.js");
+        options.InjectStylesheet("CustomJs/swagger-custom.css");
+        options.InjectJavascript("/swagger-custom.js");
     });
 
 app.UseMiddleware<TenantMiddleware>();
-//app.UseMiddleware<RequestLoggerMiddleware>();
-//app.UseMiddleware<CashingMiddlwares>();
+app.UseMiddleware<TranslationMiddleware>();
+app.UseMiddleware<CashingMiddlwares>();
+app.UseMiddleware<GlobalExceptionMiddleware>();
+app.UseMiddleware<RequestTranslationMiddleware>();
 
- 
-    app.UseHttpsRedirection();
-    app.MapControllers();
-    await app.RunAsync();
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseHttpsRedirection();
+app.MapControllers();
+await app.RunAsync();

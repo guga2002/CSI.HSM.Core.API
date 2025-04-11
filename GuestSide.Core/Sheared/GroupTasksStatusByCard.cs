@@ -1,6 +1,6 @@
-﻿using Core.Core.Entities.Task;
+﻿using Domain.Core.Entities.Task;
 
-namespace Core.Core.Sheared
+namespace Domain.Core.Sheared
 {
     public class GroupTasksStatusByCard
     {

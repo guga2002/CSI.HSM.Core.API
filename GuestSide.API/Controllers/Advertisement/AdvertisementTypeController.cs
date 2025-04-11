@@ -4,7 +4,7 @@ using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.DTOs.Response.Advertisment;
 using Core.Application.Interface.AdvertiementType;
 using Core.Application.Interface.GenericContracts;
-using Core.Core.Entities.Advertisements;
+using Domain.Core.Entities.Advertisements;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -31,7 +31,7 @@ namespace Core.API.Controllers.Advertisement
         public async Task<Response<AdvertisementTypeResponseDto?>> GetAdvertisementTypeByNameAsync([FromRoute] string name, CancellationToken cancellationToken = default)
         {
             var result = await _advertisementTypeService.GetAdvertisementTypeByNameAsync(name, cancellationToken);
-            return new Response<AdvertisementTypeResponseDto?>(true, result);
+            return new Response<AdvertisementTypeResponseDto?>(result is not null?true:false, result);
         }
 
         [HttpGet("all")]
@@ -40,7 +40,7 @@ namespace Core.API.Controllers.Advertisement
         public async Task<Response<IEnumerable<AdvertisementTypeResponseDto>>> GetAllAdvertisementTypesAsync(CancellationToken cancellationToken = default)
         {
             var result = await _advertisementTypeService.GetAllAdvertisementTypesAsync(cancellationToken);
-            return new Response<IEnumerable<AdvertisementTypeResponseDto>>(true,result);
+            return new Response<IEnumerable<AdvertisementTypeResponseDto>>(result.Any()?true:false,result);
         }
 
         [HttpGet("by-language/{languageCode}")]
@@ -49,7 +49,7 @@ namespace Core.API.Controllers.Advertisement
         public async Task<Response<IEnumerable<AdvertisementTypeResponseDto>>> GetAdvertisementTypesByLanguageAsync([FromRoute] string languageCode, CancellationToken cancellationToken = default)
         {
             var result = await _advertisementTypeService.GetAdvertisementTypesByLanguageAsync(languageCode, cancellationToken);
-            return new Response<IEnumerable<AdvertisementTypeResponseDto>>(true, result);
+            return new Response<IEnumerable<AdvertisementTypeResponseDto>>(result.Any()?true:false, result);
         }
 
         [HttpPut("update-description/{id}")]
@@ -58,7 +58,7 @@ namespace Core.API.Controllers.Advertisement
         public async Task<Response<bool>> UpdateAdvertisementTypeDescriptionAsync([FromRoute] long id, [FromQuery] string newDescription, CancellationToken cancellationToken = default)
         {
             var result = await _advertisementTypeService.UpdateAdvertisementTypeDescriptionAsync(id, newDescription, cancellationToken);
-            return new Response<bool>(true,result);
+            return new Response<bool>(result ?true:false,result);
         }
 
         [HttpDelete("delete/{id}")]
@@ -67,7 +67,7 @@ namespace Core.API.Controllers.Advertisement
         public async Task<Response<bool>> DeleteAdvertisementTypeByIdAsync([FromRoute] long id, CancellationToken cancellationToken = default)
         {
             var result = await _advertisementTypeService.DeleteAdvertisementTypeByIdAsync(id, cancellationToken);
-            return new Response<bool>(true, result);
+            return new Response<bool>(result ?true:false, result);
         }
 
         [HttpGet]

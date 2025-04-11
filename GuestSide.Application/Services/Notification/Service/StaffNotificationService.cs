@@ -2,9 +2,10 @@
 using Core.Application.DTOs.Request.Notification;
 using Core.Application.DTOs.Response.Notification;
 using Core.Application.Interface.Notification;
-using Core.Core.Entities.Notification;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Notification;
+using Core.Infrastructure.Repositories.Notification;
+using Domain.Core.Entities.Notification;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Notification;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Notification.Service
@@ -80,7 +81,15 @@ namespace Core.Application.Services.Notification.Service
                 throw new UnauthorizedAccessException($"Notification ID {notificationId} does not belong to Staff ID {staffId}.");
             }
 
-            return await _staffNotificationRepository.DeleteStaffNotification(staffId, notificationId);
+            return await _staffNotificationRepository.DeleteStaffNotification(staffId, notification.NotificationId);
+        }
+
+        public async Task<IEnumerable<StafNotificationResponseDto>> GetStaffNotifications(long staffId)
+        {
+            ValidatePositiveId(staffId, nameof(staffId));
+            var notifications = await _staffNotificationRepository.GetStaffNotifications(staffId);
+
+            return _mapper.Map<IEnumerable<StafNotificationResponseDto>>(notifications);
         }
     }
 }

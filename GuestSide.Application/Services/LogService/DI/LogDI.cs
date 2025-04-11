@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.LogService.Mapper;
-using Core.Core.Interfaces.AbstractInterface;
 using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Core.Entities.LogEntities;
 using Core.Application.DTOs.Response.LogModel;
 using Core.Application.DTOs.Request.LogModel;
 using Core.Application.Interface.LogInterfaces;
 using Core.Infrastructure.Repositories.LogRepo;
-using Core.Core.Interfaces.LogEntities;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.LogInterfaces;
+using Domain.Core.Entities.LogEntities;
 
 namespace Core.Application.Services.LogService.DI;
 

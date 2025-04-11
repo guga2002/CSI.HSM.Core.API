@@ -4,11 +4,11 @@ using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Item;
 using Core.Application.Services.Item.Mapper;
 using Core.Application.Services.Item.Services;
-using Core.Core.Entities.Item;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Item;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Infrastructure.Repositories.Item;
+using Domain.Core.Entities.Item;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Item;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Application.Services.Item.DI

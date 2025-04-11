@@ -1,8 +1,8 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.Staff;
-using Core.Core.Interfaces.Staff;
-using Core.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
+using Domain.Core.Data;
+using Domain.Core.Entities.Staff;
+using Domain.Core.Interfaces.Staff;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -55,7 +55,7 @@ namespace Core.Infrastructure.Repositories.Staff
         #region  Staff Category Management
         public async Task<bool> UpdateCategoryNameAsync(long categoryId, string newName, CancellationToken cancellationToken = default)
         {
-            var category = await _context.StaffCategories.FindAsync(new object[] { categoryId }, cancellationToken);
+            var category = await _context.StaffCategories.FirstOrDefaultAsync(io=>io.Id == categoryId, cancellationToken);
             if (category == null) return false;
 
             category.CategoryName = newName;
@@ -97,7 +97,6 @@ namespace Core.Infrastructure.Repositories.Staff
         public async Task<IEnumerable<TaskToStaff>> GetTasksByCategoryIdAsync(long categoryId, CancellationToken cancellationToken = default)
         {
             return await _context.Set<TaskToStaff>().AsNoTracking()
-                .Where(t => t.Staff.StaffCategoryId == categoryId)
                 .Include(t => t.Task)
                 .ToListAsync(cancellationToken);
         }

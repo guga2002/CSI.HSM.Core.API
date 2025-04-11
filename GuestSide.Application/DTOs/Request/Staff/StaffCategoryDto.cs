@@ -3,5 +3,8 @@
 public class StaffCategoryDto
 {
     public required string CategoryName { get; set; }
-    public long LanguageId { get; set; }
+
+    public string? Description { get; set; }
+
+    public string? LanguageCode { get; set; }
 }

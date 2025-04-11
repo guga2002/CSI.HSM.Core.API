@@ -6,6 +6,7 @@
 	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
 	  <NoWarn>$(NoWarn);1591</NoWarn>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>8337d9e7-ca3c-46c1-899e-a927a418fde2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,15 +31,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CSI.AuthorizationHelper.MinimalApi\AuthorizationHelper.Injection\AuthorizationHelper.Injection.csproj" />
-    <ProjectReference Include="..\..\CSI.AuthorizationHelper.MinimalApi\AuthorizationHelper.Minimal\AuthorizationHelper.Minimal.csproj" />
+    <ProjectReference Include="..\Csi.VoicePack\Csi.VoicePack.csproj" />
     <ProjectReference Include="..\GuestSide.Application\Core.Application.csproj" />
-    <ProjectReference Include="..\GuestSide.Core\Core.Core.csproj" />
+    <ProjectReference Include="..\GuestSide.Core\Domain.Core.csproj" />
     <ProjectReference Include="..\GuestSide.Persistance\Core.Persistance.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="CustomJs\" />
   </ItemGroup>
 
   <ItemGroup>

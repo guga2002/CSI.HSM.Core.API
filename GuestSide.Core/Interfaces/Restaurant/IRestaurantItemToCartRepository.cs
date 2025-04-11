@@ -1,8 +1,8 @@
-﻿using Core.Core.Entities.Restaurant;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Restaurant;
+using Domain.Core.Interfaces.AbstractInterface;
 
-namespace Core.Core.Interfaces.Restaurant;
+namespace Domain.Core.Interfaces.Restaurant;
 
-public interface IRestaurantItemToCartRepository:IGenericRepository<RestaurantItemToCart>
+public interface IRestaurantItemToCartRepository : IGenericRepository<RestaurantItemToCart>
 {
 }

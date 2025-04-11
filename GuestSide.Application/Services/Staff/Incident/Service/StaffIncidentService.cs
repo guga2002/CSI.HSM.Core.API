@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
-using Core.Application.Interface.Staff;
-using Core.Core.Entities.Staff;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Staff;
+using Core.Application.Interface.Staff.Incident;
+using Domain.Core.Entities.Enums;
+using Domain.Core.Entities.Staff;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Staff;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Staff.Incident.Service
@@ -54,27 +55,21 @@ namespace Core.Application.Services.Staff.Incident.Service
             return _mapper.Map<IEnumerable<StaffIncidentResponseDto>>(incidents);
         }
 
-        public async Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsBySeverityAsync(string severity, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsBySeverityAsync(PriorityEnum severity, CancellationToken cancellationToken = default)
         {
-            ValidateStringInput(severity, nameof(severity));
-
             var incidents = await _staffIncidentRepository.GetIncidentsBySeverityAsync(severity, cancellationToken);
             return _mapper.Map<IEnumerable<StaffIncidentResponseDto>>(incidents);
         }
 
-        public async Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsByStatusAsync(string status, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsByStatusAsync(StatusEnum status, CancellationToken cancellationToken = default)
         {
-            ValidateStringInput(status, nameof(status));
-
             var incidents = await _staffIncidentRepository.GetIncidentsByStatusAsync(status, cancellationToken);
             return _mapper.Map<IEnumerable<StaffIncidentResponseDto>>(incidents);
         }
 
-        public async Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsByTypeAsync(string incidentType, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<StaffIncidentResponseDto>> GetIncidentsByTypeAsync(long incidentTypeId, CancellationToken cancellationToken = default)
         {
-            ValidateStringInput(incidentType, nameof(incidentType));
-
-            var incidents = await _staffIncidentRepository.GetIncidentsByTypeAsync(incidentType, cancellationToken);
+            var incidents = await _staffIncidentRepository.GetIncidentsByTypeAsync(incidentTypeId, cancellationToken);
             return _mapper.Map<IEnumerable<StaffIncidentResponseDto>>(incidents);
         }
 
@@ -84,10 +79,9 @@ namespace Core.Application.Services.Staff.Incident.Service
             return _mapper.Map<IEnumerable<StaffIncidentResponseDto>>(incidents);
         }
 
-        public async Task<bool> UpdateIncidentStatusAsync(long incidentId, string newStatus, CancellationToken cancellationToken = default)
+        public async Task<bool> UpdateIncidentStatusAsync(long incidentId, StatusEnum newStatus, CancellationToken cancellationToken = default)
         {
             ValidatePositiveId(incidentId, nameof(incidentId));
-            ValidateStringInput(newStatus, nameof(newStatus));
 
             var incident = await _staffIncidentRepository.GetIncidentsByStaffIdAsync(incidentId, cancellationToken);
             if (incident is null)

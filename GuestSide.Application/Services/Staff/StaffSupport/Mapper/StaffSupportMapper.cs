@@ -2,15 +2,14 @@
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 
-namespace Core.Application.Services.Staff.StaffSupport.Mapper
-{
-    public class StaffSupportMapper:Profile
-    {
+namespace Core.Application.Services.Staff.StaffSupport.Mapper;
 
-        public StaffSupportMapper()
-        {
-            CreateMap<Core.Entities.Staff.StaffSupport, StaffSentimentDto>().ReverseMap();
-            CreateMap<Core.Entities.Staff.StaffSupport, StaffSupportResponseDto>().ReverseMap();
-        }
+public class StaffSupportMapper:Profile
+{
+
+    public StaffSupportMapper()
+    {
+        CreateMap<Domain.Core.Entities.Staff.StaffSupport, StaffSupportDto>().ReverseMap();
+        CreateMap<Domain.Core.Entities.Staff.StaffSupport, StaffSupportResponseDto>().ReverseMap();
     }
 }

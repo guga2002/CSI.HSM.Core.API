@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Core.Application.ErrorSuccessKeys;
-using Core.Core.Interfaces.AbstractInterface;
 using Core.Application.Interface.GenericContracts;
 using System.Linq.Expressions;
 using Core.Application.CustomExceptions;
 using InvalidOperationException = Core.Application.CustomExceptions.InvalidOperationException;
+using Domain.Core.Interfaces.AbstractInterface;
 
 namespace Core.Application.Services;
 
@@ -332,7 +332,7 @@ public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEnt
             var isDeletedProperty = typeof(TDatabaseEntity).GetProperty("IsActive");
             if (isDeletedProperty is not null)
             {
-                isDeletedProperty.SetValue(entity, true);
+                isDeletedProperty.SetValue(entity, false);
             }
             else
             {

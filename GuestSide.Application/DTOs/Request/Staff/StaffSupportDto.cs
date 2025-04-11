@@ -1,6 +1,4 @@
-﻿using Core.Core.Entities.Staff;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using Domain.Core.Entities.Enums;
 
 namespace Core.Application.DTOs.Request.Staff;
 
@@ -12,10 +10,9 @@ public class StaffSupportDto
 
     public string? Description { get; set; }
 
-    public string? Category { get; set; } 
+    public string? Category { get; set; }
 
-    public SupportTicketPriority Priority { get; set; } = SupportTicketPriority.Medium; 
+    public PriorityEnum Priority { get; set; } = PriorityEnum.Medium;
 
-    [Column(TypeName = "nvarchar(max)")]
-    public string? AttachmentUrlsSerialized { get; set; }
+    public List<string>? AttachmentUrls {  get; set; }
 }

@@ -1,14 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿namespace Core.Application.DTOs.Response.Hotel;
 
-namespace Core.Application.DTOs.Response.Hotel;
-
-public class LocationResponse
+public class LocationResponse : AbstractResponse
 {
-    public long Id { get; set; }
-
-    public bool IsActive { get; set; } 
-
     public string? Address { get; set; } 
+
+    public string? City { get; set; }
 
     public string? MapUrl { get; set; }
 
@@ -16,5 +12,5 @@ public class LocationResponse
 
     public double Longitude { get; set; }
 
-    public long HotelId { get; set; }
+    public virtual HotelResponse? Hotel { get; set; } // Virtual for lazy loading
 }

@@ -12,12 +12,13 @@ public class HotelRequestDto
     [StringLength(255)] 
     public string? Address { get; set; }
 
-
     public int Stars { get; set; }
 
     public string? Description { get; set; }
 
     public string? LanguageCode { get; set; }
+
+    public long LocationId { get; set; }
 
     public List<string>? Pictures
     {

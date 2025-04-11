@@ -1,8 +1,8 @@
-﻿using Core.Core.Data;
-using Core.Core.Entities.Hotel.GeoLocation;
-using Core.Core.Interfaces.Hotel;
-using Core.Infrastructure.Repositories.AbstractRepository;
+﻿using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
+using Domain.Core.Data;
+using Domain.Core.Entities.Hotel.GeoLocation;
+using Domain.Core.Interfaces.Hotel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -14,6 +14,18 @@ namespace Core.Infrastructure.Repositories.Hotel
         public LocationRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Location> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
+        }
+
+        public override Task<Location> AddAsync(Location entity, CancellationToken cancellationToken = default)
+        {
+            entity.MapUrl= $"https://www.google.com/maps?q={entity.Latitude},{entity.Longitude}";
+            return base.AddAsync(entity, cancellationToken);
+        }
+
+        public override Task<Location> UpdateAsync(Location entity, CancellationToken cancellationToken = default)
+        {
+            entity.MapUrl = $"https://www.google.com/maps?q={entity.Latitude},{entity.Longitude}";
+            return base.UpdateAsync(entity, cancellationToken);
         }
 
         #region Get All Locations
@@ -32,7 +44,7 @@ namespace Core.Infrastructure.Repositories.Hotel
         {
             var location = await DbSet
                 .Include(l => l.Hotel)
-                .FirstOrDefaultAsync(l => l.HotelId == hotelId);
+                .FirstOrDefaultAsync(l => l.Hotel.Id == hotelId);
 
             return location;
         }
@@ -50,7 +62,7 @@ namespace Core.Infrastructure.Repositories.Hotel
         #region Update Hotel Location
         public async Task<bool> UpdateHotelLocation(long hotelId, double latitude, double longitude)
         {
-            var location = await DbSet.FirstOrDefaultAsync(l => l.HotelId == hotelId);
+            var location = await DbSet.Include(i=>i.Hotel).FirstOrDefaultAsync(l => l.Hotel.Id == hotelId);
 
             if (location == null) return false;
 

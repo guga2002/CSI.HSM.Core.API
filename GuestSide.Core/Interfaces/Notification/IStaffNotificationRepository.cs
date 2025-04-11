@@ -1,9 +1,9 @@
-﻿using Core.Core.Entities.Notification;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Notification;
+using Domain.Core.Interfaces.AbstractInterface;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Core.Core.Interfaces.Notification
+namespace Domain.Core.Interfaces.Notification
 {
     public interface IStaffNotificationRepository : IGenericRepository<StaffNotification>
     {
@@ -11,5 +11,6 @@ namespace Core.Core.Interfaces.Notification
         Task<IEnumerable<StaffNotification>> GetUnreadNotificationsByStaffId(long staffId);
         Task<IEnumerable<StaffNotification>> GetImportantNotificationsByStaffId(long staffId);
         Task<bool> DeleteStaffNotification(long staffId, long notificationId);
+        Task<IEnumerable<StaffNotification>> GetStaffNotifications(long staffId);
     }
 }

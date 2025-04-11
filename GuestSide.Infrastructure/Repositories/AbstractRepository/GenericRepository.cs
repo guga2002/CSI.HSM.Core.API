@@ -1,6 +1,8 @@
-﻿using Core.Core.Data;
-using Core.Core.Interfaces.AbstractInterface;
+﻿using Domain.Core.Entities.Hotel.GeoLocation;
 using Core.Persistance.Cashing;
+using Domain.Core.Data;
+using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Interfaces.AbstractInterface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -87,8 +89,8 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
             return cachedData;
         }
 
-        var entity = await DbSet.Where(e => EF.Property<bool>(e, "IsActive"))
-                            .FirstOrDefaultAsync(e => EF.Property<object>(e, "Id").Equals(id), cancellationToken);
+        var entity = await DbSet
+                            .FirstOrDefaultAsync(e => EF.Property<long>(e, "Id").Equals(id), cancellationToken);
 
         if (entity is null)
         {
@@ -156,6 +158,16 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
             throw new ArgumentNullException(nameof(entity));
         }
 
+        if (entity is IExistable<T> existable)
+        {
+            var predicate = existable.GetExistencePredicate();
+            bool exists = await ExistsAsync(predicate);
+            if (exists)
+            {
+                throw new ArgumentException("Value is already in Db try different value");
+            }
+        }
+
         var regionName = GetHotelRegion();
 
         await DbSet.AddAsync(entity, cancellationToken);
@@ -190,8 +202,7 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
         }
 
         var regionName = GetHotelRegion();
-        DbSet.Attach(entity);
-        Context.Entry(entity).State = EntityState.Modified;
+        DbSet.Update(entity);
         await Context.SaveChangesAsync(cancellationToken);
 
         try
@@ -223,13 +234,16 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
             throw new ArgumentNullException(nameof(id));
         }
 
-        var regionName = GetHotelRegion();
-        var entityToDelete = await DbSet.FindAsync(id, cancellationToken);
 
-        if (entityToDelete is null)
+        var regionName = GetHotelRegion();
+
+        var idValue = id.GetType().GetProperty("Id")?.GetValue(id) as long?;
+        if (idValue is null)
         {
-            throw new KeyNotFoundException($"Entity with id {id} not found.");
+            throw new InvalidOperationException("Id property is missing or not a valid long.");
         }
+
+        var entityToDelete = await DbSet.FindAsync(idValue, cancellationToken);
 
         DbSet.Remove(entityToDelete);
         await Context.SaveChangesAsync(cancellationToken);
@@ -305,6 +319,11 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
     {
         _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("X-Hotel-Id", out var regionName);
         return regionName.ToString();
+    }
+
+    private Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
+    {
+        return Context.Set<T>().AnyAsync(predicate, cancellationToken);
     }
     #endregion
 }

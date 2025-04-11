@@ -2,13 +2,13 @@
 using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.DTOs.Response.Advertisment;
 using Core.Application.Interface.Advertisment;
-using Core.Core.Entities.Advertisements;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Advertisement;
+using Domain.Core.Entities.Advertisements;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Advertisement;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 
-namespace Core.Application.Services.Advertismenet
+namespace Core.Application.Services.Advertismenet.Service
 {
     public class AdvertisementService : GenericService<AdvertismentDto, AdvertismentResponseDto, long, Advertisement>, IAdvertisementService
     {
@@ -127,14 +127,6 @@ namespace Core.Application.Services.Advertismenet
         public async Task<bool> DeleteAdvertisementByIdAsync(long id, CancellationToken cancellationToken = default)
         {
             ValidatePositiveId(id, nameof(id));
-
-            var advertisement = await _advertisementRepository.GetAdvertisementByTitleAsync(id.ToString());
-            if (advertisement is null)
-            {
-                _logger.LogWarning("Advertisement with ID {Id} does not exist.", id);
-                throw new ArgumentException($"Advertisement with ID {id} does not exist.");
-            }
-
             return await _advertisementRepository.DeleteAdvertisementByIdAsync(id);
         }
     }

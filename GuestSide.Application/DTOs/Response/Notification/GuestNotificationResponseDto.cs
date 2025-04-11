@@ -1,18 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Core.Application.DTOs.Response.Guest;
-using Core.Core.Entities.Guest;
-using Core.Core.Entities.Notification;
+﻿namespace Core.Application.DTOs.Response.Notification;
 
-namespace Core.Application.DTOs.Response.Notification;
-
-public class GuestNotificationResponseDto
+public class GuestNotificationResponseDto : AbstractResponse
 {
-    public long Id { get; set; }
-
-    public bool IsActive { get; set; }
-
-    public NotificationResponseDto Notifications { get; set; }
-
     public long GuestId { get; set; }
 
     public long NotificationId { get; set; }
@@ -24,4 +13,6 @@ public class GuestNotificationResponseDto
     public DateTime? ReadTime { get; set; }
 
     public bool IsImportant { get; set; }
+
+    public virtual NotificationResponseDto? Notifications { get; set; }
 }

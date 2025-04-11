@@ -1,7 +1,8 @@
 ﻿using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Response.Item;
 using Core.Application.Interface.GenericContracts;
-using Core.Core.Entities.Item;
+using Domain.Core.Entities.Enums;
+using Domain.Core.Entities.Item;
 
 namespace Core.Application.Interface.Item
 {
@@ -16,7 +17,7 @@ namespace Core.Application.Interface.Item
         /// <summary>
         /// Get refill requests by priority.
         /// </summary>
-        Task<IEnumerable<StaffInfoAboutRanOutItemsResponseDto>> GetRequestsByPriorityAsync(RefillPriority priority, CancellationToken cancellationToken = default);
+        Task<IEnumerable<StaffInfoAboutRanOutItemsResponseDto>> GetRequestsByPriorityAsync(PriorityEnum priority, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get unresolved refill requests.

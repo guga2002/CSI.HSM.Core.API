@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
-using Core.Core.Entities.Task;
+using Domain.Core.Entities.Task;
 
 namespace Core.Application.Services.Task.Task.Mapper;
 

@@ -1,33 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.Core.Entities.Staff;
+﻿using Domain.Core.Entities.Staff;
 
-namespace Core.Application.DTOs.Response.Staff
+namespace Core.Application.DTOs.Response.Staff;
+
+public class StaffSupportResponseResponseDto : AbstractResponse
 {
-    public class StaffSupportResponseResponseDto
-    {
-        public long Id { get; set; }
-        public long StaffId { get; set; }
+    public long TicketId { get; set; } 
 
-        public string? Subject { get; set; }
+    public virtual StaffSupport? StaffSupport { get; set; } // Virtual for lazy loading
 
-        public string? Description { get; set; }
+    public string? ResponderName { get; set; } 
 
-        public string? Category { get; set; }
+    public string? ResponseMessage { get; set; }
 
-        public SupportTicketPriority Priority { get; set; }
+    public bool IsFromSupportTeam { get; set; } = false; 
 
-        public SupportTicketStatus Status { get; set; }
-
-        public DateTime CreatedDate { get; set; }
-
-        public DateTime? ResolvedDate { get; set; }
-
-        public DateTime UpdatedAt { get; set; }
-
-        public string? AttachmentUrlsSerialized { get; set; }
-    }
+    public List<string>? AttachmentUrls {  get; set; }
 }

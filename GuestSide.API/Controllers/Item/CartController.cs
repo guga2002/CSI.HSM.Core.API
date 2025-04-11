@@ -1,11 +1,10 @@
 ﻿using Core.API.CustomExtendControllerBase;
-using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Response.Item;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Item;
-using Core.Core.Entities.Item;
+using Domain.Core.Entities.Item;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -33,7 +32,7 @@ public class CartController : CSIControllerBase<CartDto, CartResponseDto, long, 
     public async Task<Response<CartResponseDto?>> GetLatestActiveCartForGuestAsync([FromRoute] long guestId, CancellationToken cancellationToken = default)
     {
         var result = await _cartService.GetLatestActiveCartForGuestAsync(guestId, cancellationToken);
-        return new Response<CartResponseDto?>(true, result);
+        return new Response<CartResponseDto?>(result is not null ? true : false, result);
     }
 
     [HttpDelete("clearCart/{cartId:long}")]

@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Core.Application.Services.Hotel.Mapper;
 using Core.Application.Interface.GenericContracts;
-using Core.Core.Interfaces.AbstractInterface;
 using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Core.Interfaces.Hotel;
 using Core.Application.DTOs.Response.Hotel;
 using Core.Application.DTOs.Request.Hotel;
 using Core.Application.Interface.Hotel;
-using Core.Core.Entities.Hotel.GeoLocation;
 using Core.Infrastructure.Repositories.Hotel;
 using Core.Application.Services.Hotel.Service;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Hotel;
+using Domain.Core.Entities.Hotel.GeoLocation;
 
 namespace Core.Application.Services.Hotel.Injection;
 
@@ -21,8 +21,8 @@ public static class LocationDi
         services.AddScoped<ILocationRepository, LocationRepository>();
         services.AddScoped<ILocationService, LocationService>();
         services.AddAutoMapper(typeof(LocationMapper));
-        services.AddScoped<IService<LocationrequestDto, LocationResponse, long, Location>, LocationService>();
-        services.AddScoped<IAdditionalFeatures<LocationrequestDto, LocationResponse, long, Location>, LocationService>();
+        services.AddScoped<IService<LocationRequestDto, LocationResponse, long, Location>, LocationService>();
+        services.AddScoped<IAdditionalFeatures<LocationRequestDto, LocationResponse, long, Location>, LocationService>();
         services.AddScoped<IAdditionalFeaturesRepository<Location>, AdditionalFeaturesRepository<Location>>();
     }
 }

@@ -9,4 +9,6 @@ public class FeedbackDto
     public string? LanguageCode { get; set; }
 
     public long TaskId { get; set; }
+
+    public int Rating { get; set; }
 }

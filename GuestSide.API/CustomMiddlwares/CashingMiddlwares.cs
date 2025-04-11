@@ -7,13 +7,12 @@ namespace Core.API.CustomMiddlwares
     public class CashingMiddlwares
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<CashingMiddlwares> _logger;
+       // private readonly ILogger<CashingMiddlwares> _logger;
         private readonly IRedisCash _redisCache;
 
-        public CashingMiddlwares(RequestDelegate next, ILogger<CashingMiddlwares> logger, IRedisCash redisCache)
+        public CashingMiddlwares(RequestDelegate next, IRedisCash redisCache)
         {
             _next = next;
-            _logger = logger;
             _redisCache = redisCache;
         }
 
@@ -48,7 +47,6 @@ namespace Core.API.CustomMiddlwares
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogCritical($"Something went wrong: {ex}");
                     await HandleError(context, ex);
                     return;
                 }
@@ -56,7 +54,7 @@ namespace Core.API.CustomMiddlwares
                 responseBody.Seek(0, SeekOrigin.Begin);
                 var responseBodyString = new StreamReader(responseBody).ReadToEnd();
 
-                await _redisCache.SetCache(cacheKey, responseBodyString, TimeSpan.FromMinutes(5));
+                await _redisCache.SetCache(cacheKey, responseBodyString, TimeSpan.FromMinutes(1));
 
                 responseBody.Seek(0, SeekOrigin.Begin);
                 await responseBody.CopyToAsync(originalBodyStream);

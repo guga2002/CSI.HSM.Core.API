@@ -2,14 +2,14 @@
 using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.DTOs.Response.Advertisment;
 using Core.Application.Interface.AdvertiementType;
-using Core.Core.Interfaces.AbstractInterface;
-using Core.Core.Interfaces.Advertisement;
+using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Advertisement;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 
 namespace Core.Application.Services.AdvertisementType.Service
 {
-    public class AdvertisementTypeService : GenericService<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, Core.Entities.Advertisements.AdvertisementType>, IAdvertisementTypeService
+    public class AdvertisementTypeService : GenericService<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, Domain.Core.Entities.Advertisements.AdvertisementType>, IAdvertisementTypeService
     {
         private readonly IAdvertisementTypeRepository _advertisementTypeRepository;
         private readonly IMapper _mapper;
@@ -20,8 +20,8 @@ namespace Core.Application.Services.AdvertisementType.Service
             IMapper mapper,
             IAdvertisementTypeRepository advertisementTypeRepository,
             ILogger<AdvertisementTypeService> logger,
-            IGenericRepository<Core.Entities.Advertisements.AdvertisementType> repository,
-            IAdditionalFeaturesRepository<Core.Entities.Advertisements.AdvertisementType> additionalFeatures)
+            IGenericRepository<Domain.Core.Entities.Advertisements.AdvertisementType> repository,
+            IAdditionalFeaturesRepository<Domain.Core.Entities.Advertisements.AdvertisementType> additionalFeatures)
             : base(mapper, repository, logger, additionalFeatures)
         {
             _advertisementTypeRepository = advertisementTypeRepository;
@@ -91,20 +91,6 @@ namespace Core.Application.Services.AdvertisementType.Service
         {
             ValidatePositiveId(advertisementTypeId, nameof(advertisementTypeId));
             ValidateDescription(newDescription);
-
-            var advertisementType = await _advertisementTypeRepository.GetAdvertisementTypeByNameAsync(advertisementTypeId.ToString());
-            if (advertisementType is null)
-            {
-                _logger.LogWarning("AdvertisementType with ID {Id} does not exist.", advertisementTypeId);
-                throw new ArgumentException($"AdvertisementType with ID {advertisementTypeId} does not exist.");
-            }
-
-            if (advertisementType.Description == newDescription)
-            {
-                _logger.LogInformation("AdvertisementType ID {Id} already has the description set to {Description}.", advertisementTypeId, newDescription);
-                return false; // No update needed
-            }
-
             return await _advertisementTypeRepository.UpdateAdvertisementTypeDescriptionAsync(advertisementTypeId, newDescription);
         }
 
@@ -112,7 +98,7 @@ namespace Core.Application.Services.AdvertisementType.Service
         {
             ValidatePositiveId(advertisementTypeId, nameof(advertisementTypeId));
 
-            var advertisementType = await _advertisementTypeRepository.GetAdvertisementTypeByNameAsync(advertisementTypeId.ToString());
+            var advertisementType = await _advertisementTypeRepository.FindAsync(i=>i.Id==advertisementTypeId, cancellationToken);
             if (advertisementType is null)
             {
                 _logger.LogWarning("AdvertisementType with ID {Id} does not exist.", advertisementTypeId);

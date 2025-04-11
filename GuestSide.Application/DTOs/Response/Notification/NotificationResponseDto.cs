@@ -1,14 +1,9 @@
-﻿
-
-using Core.Core.Entities.Notification;
-using System.ComponentModel.DataAnnotations;
+﻿using Domain.Core.Entities.Enums;
 
 namespace Core.Application.DTOs.Response.Notification;
 
-public class NotificationResponseDto
+public class NotificationResponseDto : AbstractResponse
 {
-    public long Id { get; set; }
-
     public required string Title { get; set; }
 
     public required string Message { get; set; }
@@ -23,9 +18,7 @@ public class NotificationResponseDto
 
     public string? LanguageCode { get; set; }
 
-    public string? NotificationType { get; set; } // Categorizes notifications (e.g., "Reminder", "Offer", "System Alert")
+    public NotificationType NotificationType { get; set; }
 
-    public NotificationPriority PriorityLevel { get; set; }
-
-    public DateTime CreatedAt { get; set; }
+    public PriorityEnum PriorityLevel { get; set; }
 }

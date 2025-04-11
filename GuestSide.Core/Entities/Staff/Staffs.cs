@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Core.Entities.AbstractEntities;
-using Core.Core.Entities.Item;
-using Core.Core.Entities.Notification;
+using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.Item;
+using Domain.Core.Entities.Notification;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Core.Entities.Staff;
+namespace Domain.Core.Entities.Staff;
 
 [Table("Staffs", Schema = "CSI")]
 [Index(nameof(Email), IsUnique = true)]
@@ -16,33 +16,47 @@ namespace Core.Core.Entities.Staff;
 [Index(nameof(IsActive))]
 public class Staffs : AbstractEntity
 {
-    [StringLength(100)] public required string FirstName { get; set; }
+    [StringLength(100)]
+    public required string FirstName { get; set; }
 
-    [StringLength(100)] public required string LastName { get; set; }
+    [StringLength(100)]
+    public required string LastName { get; set; }
 
-    [StringLength(100)] public required string Email { get; set; }
+    [StringLength(100)]
+    public required string Email { get; set; }
 
-    [StringLength(100)] public required string PhoneNumber { get; set; }
+    [StringLength(100)]
+    public required string PhoneNumber { get; set; }
 
-    [StringLength(50)] public required string Position { get; set; }
+    [StringLength(50)]
+    public required string Position { get; set; }
 
-    [DataType(DataType.Date)] public DateTime? DateOfBirth { get; set; }
+    [DataType(DataType.Date)]
+    public DateTime? DateOfBirth { get; set; }
 
-    [DataType(DataType.Date)] public DateTime? HireDate { get; set; } = DateTime.UtcNow;
+    [DataType(DataType.Date)]
+    public DateTime? HireDate { get; set; } = DateTime.UtcNow;
 
-    [Precision(18, 2)] public decimal? Salary { get; set; }
+    [Precision(18, 2)]
+    public decimal? Salary { get; set; }
 
-    [StringLength(150)] public string? ProfilePictureUrl { get; set; }
+    public byte[]? ProfilePictureUrl { get; set; }
 
-    [ForeignKey(nameof(StaffCategory))] public long StaffCategoryId { get; set; }
+    [ForeignKey(nameof(StaffCategory))]
+    public long StaffCategoryId { get; set; }
 
-    [ForeignKey(nameof(Supervisor))] public long? SupervisorId { get; set; }
+    [ForeignKey(nameof(Supervisor))]
+    public long? SupervisorId { get; set; }
 
-    [StringLength(200)] public string? EmergencyContact { get; set; }
+    [StringLength(200)]
+    public string? EmergencyContact { get; set; }
 
-    [StringLength(500)] public string? Bio { get; set; }
+    [StringLength(500)]
+    public string? Bio { get; set; }
 
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow; // Tracks last modification time
+    public bool IsOnDuty {  get; set; } = false;
+
+    public DateTime? LastCheckedLoginTime { get; set; }
 
     public virtual StaffCategory? StaffCategory { get; set; }
 

@@ -1,7 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Core.Core.Entities.Guest;
-using Core.Core.Entities.Language;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Application.DTOs.Request.Guest;
 
@@ -18,7 +15,6 @@ public class GuestDto
 
     [StringLength(100)]
     public required string PhoneNumber { get; set; }
-
 
     public byte[]? ProfilePicture { get; set; }
 
@@ -43,7 +39,6 @@ public class GuestDto
     [StringLength(255)]
     public string? AdminNotes { get; set; }
 
-    [ForeignKey(nameof(Status))]
     public long StatusId { get; set; }
 
     public bool IsFrequentGuest { get; set; } = false;
@@ -57,10 +52,9 @@ public class GuestDto
     [StringLength(255)]
     public string? Preferences { get; set; }
 
-    [ForeignKey(nameof(Room))]
     public long RoomId { get; set; }
 
-    [ForeignKey(nameof(LanguagePack))]
-    public long LanguageId { get; set; }
+    [StringLength(10)]
+    public string? LanguageCode { get; set; }
 
 }
