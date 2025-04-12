@@ -6,7 +6,6 @@ using Core.Application.Services.Restaurant.Mapper;
 using Core.Application.Services.Restaurant.Services;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Infrastructure.Repositories.Restaurant;
-using Domain.Application.Services.Payment.PaymentOption.Mapper;
 using Domain.Core.Entities.Restaurant;
 using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.Restaurant;

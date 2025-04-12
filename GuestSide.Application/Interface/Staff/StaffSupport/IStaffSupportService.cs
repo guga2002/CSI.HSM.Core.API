@@ -6,8 +6,8 @@ using Domain.Core.Entities.Staff;
 
 namespace Core.Application.Interface.Staff.StaffSupport;
 
-public interface IStaffSupportService : IService<StaffSupportDto, StaffSupportResponseDto, long, StaffSupport>,
-    IAdditionalFeatures<StaffSupportDto, StaffSupportResponseDto, long, StaffSupport>
+public interface IStaffSupportService : IService<StaffSupportDto, StaffSupportResponseDto, long, Domain.Core.Entities.Staff.StaffSupport>,
+    IAdditionalFeatures<StaffSupportDto, StaffSupportResponseDto, long, Domain.Core.Entities.Staff.StaffSupport>
 {
     /// <summary>
     /// Get support tickets by staff ID.

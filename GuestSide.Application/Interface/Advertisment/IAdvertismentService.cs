@@ -1,6 +1,5 @@
 ﻿using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.Interface.GenericContracts;
-using Domain.Application.DTOs.Response.Advertisment;
 using Domain.Core.Entities.Advertisements;
 
 namespace Core.Application.Interface.Advertisment

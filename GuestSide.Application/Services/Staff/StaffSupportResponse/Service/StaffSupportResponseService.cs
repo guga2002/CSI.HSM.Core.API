@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Staff.StaffSupportResponse.Service;
 
-public class StaffSupportResponseService : GenericService<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, Core.Entities.Staff.StaffSupportResponse>, IStaffSupportResponseService
+public class StaffSupportResponseService : GenericService<StaffSupportResponseRequestDto, StaffSupportResponseResponseDto, long, Domain.Core.Entities.Staff.StaffSupportResponse>, IStaffSupportResponseService
 {
     private readonly IStaffSupportResponseRepository _staffSupportResponseRepository;
     private readonly IMapper _mapper;
@@ -19,8 +19,8 @@ public class StaffSupportResponseService : GenericService<StaffSupportResponseRe
         IMapper mapper,
         IStaffSupportResponseRepository staffSupportResponseRepository,
         ILogger<StaffSupportResponseService> logger,
-        IGenericRepository<Core.Entities.Staff.StaffSupportResponse> repository,
-        IAdditionalFeaturesRepository<Core.Entities.Staff.StaffSupportResponse> additionalFeatures)
+        IGenericRepository<Domain.Core.Entities.Staff.StaffSupportResponse> repository,
+        IAdditionalFeaturesRepository<Domain.Core.Entities.Staff.StaffSupportResponse> additionalFeatures)
         : base(mapper, repository, logger, additionalFeatures)
     {
         _staffSupportResponseRepository = staffSupportResponseRepository;

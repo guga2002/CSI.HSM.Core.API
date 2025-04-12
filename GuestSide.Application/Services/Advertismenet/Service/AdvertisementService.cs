@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.Interface.Advertisment;
-using Core.Application.Services;
-using Domain.Application.DTOs.Response.Advertisment;
 using Domain.Core.Entities.Advertisements;
 using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.Advertisement;

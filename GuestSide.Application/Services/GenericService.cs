@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
-using Domain.Application.ErrorSuccessKeys;
 using System.Linq.Expressions;
-using Domain.Application.CustomExceptions;
 using InvalidOperationException = Core.Application.CustomExceptions.InvalidOperationException;
 using Domain.Core.Interfaces.AbstractInterface;
 using Core.Application.Interface.GenericContracts;
+using Core.Application.CustomExceptions;
+using Core.Application.ErrorSuccessKeys;
 
 namespace Core.Application.Services;
 
@@ -45,7 +45,7 @@ public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEnt
         }
     }
 
-    public async Task BulkAddAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
+    public async System.Threading.Tasks.Task BulkAddAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
     {
         LogOperation("Starting bulk add operation.");
 
@@ -69,7 +69,7 @@ public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEnt
         }
     }
 
-    public async Task BulkDeleteAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
+    public async System.Threading.Tasks.Task BulkDeleteAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
     {
         LogOperation("Starting bulk delete operation.");
 
@@ -93,7 +93,7 @@ public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEnt
         }
     }
 
-    public async Task BulkUpdateAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
+    public async System.Threading.Tasks.Task BulkUpdateAsync(IEnumerable<RequestDto> entities, CancellationToken cancellationToken = default)
     {
         LogOperation("Starting bulk update operation.");
 

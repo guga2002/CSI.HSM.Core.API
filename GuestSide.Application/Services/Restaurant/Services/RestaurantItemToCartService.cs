@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Restaurant.Services;
 
-public class RestaurantItemToCartService : GenericService<RestaurantItemToCartDto, RestaurantItemToCartResponseDto, long, Core.Entities.Restaurant.RestaurantItemToCart>, IRestaurantItemToCartService
+public class RestaurantItemToCartService : GenericService<RestaurantItemToCartDto, RestaurantItemToCartResponseDto, long, Domain.Core.Entities.Restaurant.RestaurantItemToCart>, IRestaurantItemToCartService
 {
     public RestaurantItemToCartService(IMapper mapper, IGenericRepository<RestaurantItemToCart> repository, ILogger<GenericService<RestaurantItemToCartDto, RestaurantItemToCartResponseDto, long, RestaurantItemToCart>> logger, IAdditionalFeaturesRepository<RestaurantItemToCart> additioalFeatures) : base(mapper, repository, logger, additioalFeatures)
     {

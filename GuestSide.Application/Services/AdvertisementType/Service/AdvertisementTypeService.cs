@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace Core.Application.Services.AdvertisementType.Service
 {
-    public class AdvertisementTypeService : GenericService<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, Core.Entities.Advertisements.AdvertisementType>, IAdvertisementTypeService
+    public class AdvertisementTypeService : GenericService<AdvertisementTypeDto, AdvertisementTypeResponseDto, long, Domain.Core.Entities.Advertisements.AdvertisementType>, IAdvertisementTypeService
     {
         private readonly IAdvertisementTypeRepository _advertisementTypeRepository;
         private readonly IMapper _mapper;
@@ -21,8 +21,8 @@ namespace Core.Application.Services.AdvertisementType.Service
             IMapper mapper,
             IAdvertisementTypeRepository advertisementTypeRepository,
             ILogger<AdvertisementTypeService> logger,
-            IGenericRepository<Core.Entities.Advertisements.AdvertisementType> repository,
-            IAdditionalFeaturesRepository<Core.Entities.Advertisements.AdvertisementType> additionalFeatures)
+            IGenericRepository<Domain.Core.Entities.Advertisements.AdvertisementType> repository,
+            IAdditionalFeaturesRepository<Domain.Core.Entities.Advertisements.AdvertisementType> additionalFeatures)
             : base(mapper, repository, logger, additionalFeatures)
         {
             _advertisementTypeRepository = advertisementTypeRepository;

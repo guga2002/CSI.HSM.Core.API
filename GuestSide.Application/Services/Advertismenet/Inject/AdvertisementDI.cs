@@ -5,13 +5,12 @@ using Core.Application.Services.Advertismenet.Mapper;
 using Core.Application.Services.Advertismenet.Service;
 using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Infrastructure.Repositories.Advertisement;
-using Domain.Application.DTOs.Response.Advertisment;
 using Domain.Core.Entities.Advertisements;
 using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.Advertisement;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Application.Services.Advertismenet.Inject;
+namespace Domain.Core.Application.Services.Advertismenet.Inject;
 
 public static class AdvertisementDI
 {
