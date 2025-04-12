@@ -6,7 +6,7 @@ using Domain.Core.Interfaces.Guest;
 using Domain.Core.Interfaces.Hotel;
 using Domain.Core.Interfaces.Item;
 using Domain.Core.Interfaces.Language;
-using Domain.Core.Interfaces.LogEntities;
+using Domain.Core.Interfaces.LogInterfaces;
 using Domain.Core.Interfaces.Notification;
 using Domain.Core.Interfaces.Restaurant;
 using Domain.Core.Interfaces.Restaurant.Payment;

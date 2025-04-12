@@ -9,15 +9,15 @@ using System.Text.Json;
 
 namespace Core.Infrastructure.Repositories.Hotel;
 
-public class HotelRepository : GenericRepository<Core.Entities.Hotel.Hotel>, IHotelRepository
+public class HotelRepository : GenericRepository<Domain.Core.Entities.Hotel.Hotel>, IHotelRepository
 {
-    public HotelRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Core.Entities.Hotel.Hotel> logger)
+    public HotelRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Domain.Core.Entities.Hotel.Hotel> logger)
         : base(context, redisCache, httpContextAccessor, logger)
     {
     }
 
     #region  Get All Hotels
-    public async Task<IEnumerable<Core.Entities.Hotel.Hotel>> GetAllHotelsAsync()
+    public async Task<IEnumerable<Domain.Core.Entities.Hotel.Hotel>> GetAllHotelsAsync()
     {
 
         var hotels = await DbSet
@@ -30,7 +30,7 @@ public class HotelRepository : GenericRepository<Core.Entities.Hotel.Hotel>, IHo
     #endregion
 
     #region  Get Hotel by ID
-    public async Task<Core.Entities.Hotel.Hotel?> GetHotelById(long hotelId)
+    public async Task<Domain.Core.Entities.Hotel.Hotel?> GetHotelById(long hotelId)
     {
 
         var hotel = await DbSet
@@ -42,7 +42,7 @@ public class HotelRepository : GenericRepository<Core.Entities.Hotel.Hotel>, IHo
     #endregion
 
     #region Get Hotels by City
-    public async Task<IEnumerable<Core.Entities.Hotel.Hotel>> GetHotelsByCity(string city)
+    public async Task<IEnumerable<Domain.Core.Entities.Hotel.Hotel>> GetHotelsByCity(string city)
     {
         return await DbSet
             .Where(predicate: h => h.Location.City == city)
@@ -52,7 +52,7 @@ public class HotelRepository : GenericRepository<Core.Entities.Hotel.Hotel>, IHo
     #endregion
 
     #region Get Hotels by Stars
-    public async Task<IEnumerable<Core.Entities.Hotel.Hotel>> GetHotelsByStars(int stars)
+    public async Task<IEnumerable<Domain.Core.Entities.Hotel.Hotel>> GetHotelsByStars(int stars)
     {
         return await DbSet
             .Where(h => h.Stars == stars)
@@ -78,7 +78,7 @@ public class HotelRepository : GenericRepository<Core.Entities.Hotel.Hotel>, IHo
     #endregion
 
     #region  Get Full Hotel Details
-    public async Task<Core.Entities.Hotel.Hotel?> GetFullHotelDetails(long hotelId)
+    public async Task<Domain.Core.Entities.Hotel.Hotel?> GetFullHotelDetails(long hotelId)
     {
         return await DbSet
             .Include(h => h.Location)
@@ -88,7 +88,7 @@ public class HotelRepository : GenericRepository<Core.Entities.Hotel.Hotel>, IHo
     #endregion
 
     #region  Get All (Overridden)
-    public override async Task<IEnumerable<Core.Entities.Hotel.Hotel>> GetAllAsync(CancellationToken cancellationToken = default)
+    public override async Task<IEnumerable<Domain.Core.Entities.Hotel.Hotel>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         return await DbSet
             .Include(h => h.Location)
@@ -99,7 +99,7 @@ public class HotelRepository : GenericRepository<Core.Entities.Hotel.Hotel>, IHo
     #endregion
 
     #region Get By ID (Overridden)
-    public override async Task<Core.Entities.Hotel.Hotel> GetByIdAsync(object id, CancellationToken cancellationToken = default)
+    public override async Task<Domain.Core.Entities.Hotel.Hotel> GetByIdAsync(object id, CancellationToken cancellationToken = default)
     {
         return await DbSet
             .Include(h => h.Location)

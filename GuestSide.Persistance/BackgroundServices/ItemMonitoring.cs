@@ -86,7 +86,7 @@ public class ItemMonitoring : IHostedService, IDisposable
                     LanguageCode = "En",
                     RequestTime = DateTime.Now,
                     Resolved = false,
-                    Priority = Core.Entities.Enums.PriorityEnum.High,
+                    Priority = Domain.Core.Entities.Enums.PriorityEnum.High,
                     Notes = "THis request was automated made!"
                 });
                 var smtpService = scope.ServiceProvider.GetRequiredService<SmtpService>();
