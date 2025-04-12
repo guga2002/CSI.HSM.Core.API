@@ -13,14 +13,14 @@ namespace Core.API.Controllers.Tasks;
 
 [Route("api/[controller]")]
 [ApiController]
-public class TaskController : CSIControllerBase<TaskDto, TaskResponseDto, long, Core.Entities.Task.Tasks>
+public class TaskController : CSIControllerBase<TaskDto, TaskResponseDto, long, Domain.Core.Entities.Task.Tasks>
 {
     private readonly ITaskService _taskService;
 
     public TaskController(
         ITaskService taskService,
-        IService<TaskDto, TaskResponseDto, long, Core.Entities.Task.Tasks> serviceProvider,
-        IAdditionalFeatures<TaskDto, TaskResponseDto, long, Core.Entities.Task.Tasks> additionalFeatures)
+        IService<TaskDto, TaskResponseDto, long, Domain.Core.Entities.Task.Tasks> serviceProvider,
+        IAdditionalFeatures<TaskDto, TaskResponseDto, long, Domain.Core.Entities.Task.Tasks> additionalFeatures)
         : base(serviceProvider, additionalFeatures)
     {
         _taskService = taskService;

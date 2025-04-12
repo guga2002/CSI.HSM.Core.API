@@ -1,4 +1,4 @@
-using Microsoft.OpenApi.Models;
+ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -7,9 +7,6 @@ using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.UniteOfWork;
 using Domain.Core.Data;
 using Csi.VoicePack;
-using Microsoft.Extensions.Options;
-using System.Security.Cryptography.X509Certificates;
-using System.Security.Cryptography;
 using Core.API.Fillters;
 using Core.API.CustomMiddlwares;
 using Core.Application.Services.Hotel.Injection;
@@ -32,7 +29,6 @@ using Core.Application.Services.Staff.Staff.DI;
 using Core.Application.Services.Guest.Injection;
 using Core.Application.Services.Staff.Cart.DI;
 using Core.Application.Services.Payment.RestaurantOrderPayment.DI;
-using Core.Application.Services.Advertismenet.Inject;
 using Core.Application.Services.Task.TaskLog.Startup;
 using Core.Application.Services.Staff.StaffSupport.DI;
 using Core.Application.Services.Task.Status.DI;
@@ -43,6 +39,7 @@ using Core.Persistance.Cashing.Inject;
 using Core.Persistance.BackgroundServices;
 using Core.Persistance.PtmsCsi;
 using Core.Persistance.MailServices;
+using Domain.Core.Application.Services.Advertismenet.Inject;
 
 var builder = WebApplication.CreateBuilder(args);
 

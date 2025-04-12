@@ -8,7 +8,7 @@ public class RoomMapper : Profile
 {
     public RoomMapper()
     {
-        CreateMap<RoomsDto, Core.Entities.Room.Room>().ReverseMap();
-        CreateMap<Core.Entities.Room.Room, RoomsResponseDto>().ReverseMap();
+        CreateMap<RoomsDto, Domain.Core.Entities.Room.Room>().ReverseMap();
+        CreateMap<Domain.Core.Entities.Room.Room, RoomsResponseDto>().ReverseMap();
     }
 }

@@ -17,12 +17,12 @@ public static class RestaurantDi
 
     public static void AddRestaurantServices(this IServiceCollection services)
     {
-        services.AddScoped<IGenericRepository<Core.Entities.Restaurant.Restaurants>, RestaurantRepository>();
+        services.AddScoped<IGenericRepository<Domain.Core.Entities.Restaurant.Restaurants>, RestaurantRepository>();
         services.AddScoped<IRestaurantRepository, RestaurantRepository>();
         services.AddScoped<IRestaurantService, RestaurantService>();
-        services.AddScoped<IService<RestaurantDto, RestaurantResponseDto, long, Core.Entities.Restaurant.Restaurants>, RestaurantService>();
-        services.AddScoped<IAdditionalFeatures<RestaurantDto, RestaurantResponseDto, long, Core.Entities.Restaurant.Restaurants>, RestaurantService>();
+        services.AddScoped<IService<RestaurantDto, RestaurantResponseDto, long, Domain.Core.Entities.Restaurant.Restaurants>, RestaurantService>();
+        services.AddScoped<IAdditionalFeatures<RestaurantDto, RestaurantResponseDto, long, Domain.Core.Entities.Restaurant.Restaurants>, RestaurantService>();
         services.AddAutoMapper(typeof(RestaurantMapper));
-        services.AddScoped<IAdditionalFeaturesRepository<Core.Entities.Restaurant.Restaurants>, AdditionalFeaturesRepository<Core.Entities.Restaurant.Restaurants>>();
+        services.AddScoped<IAdditionalFeaturesRepository<Domain.Core.Entities.Restaurant.Restaurants>, AdditionalFeaturesRepository<Domain.Core.Entities.Restaurant.Restaurants>>();
     }
 }

@@ -16,12 +16,12 @@ public static class RestaurantOrderPaymentDi
 {
     public static void InjectRestaurantOrderPaymen(this IServiceCollection services)
     {
-        services.AddScoped<IGenericRepository<Core.Entities.Payment.RestaurantOrderPayment>, RestaurantOrderPaymentRepository>();
+        services.AddScoped<IGenericRepository<Domain.Core.Entities.Payment.RestaurantOrderPayment>, RestaurantOrderPaymentRepository>();
         services.AddScoped<IRestaurantOrderPaymentRepository, RestaurantOrderPaymentRepository>();
         services.AddScoped<IRestaurantOrderPayment, RestaurantOrderPaymentService>();
-        services.AddScoped<IService<RestaurantOrderPaymentDto, RestaurantOrderPaymentResponseDto, long, Core.Entities.Payment.RestaurantOrderPayment>, RestaurantOrderPaymentService>();
-        services.AddScoped<IAdditionalFeatures<RestaurantOrderPaymentDto, RestaurantOrderPaymentResponseDto, long, Core.Entities.Payment.RestaurantOrderPayment>, RestaurantOrderPaymentService>();
+        services.AddScoped<IService<RestaurantOrderPaymentDto, RestaurantOrderPaymentResponseDto, long, Domain.Core.Entities.Payment.RestaurantOrderPayment>, RestaurantOrderPaymentService>();
+        services.AddScoped<IAdditionalFeatures<RestaurantOrderPaymentDto, RestaurantOrderPaymentResponseDto, long, Domain.Core.Entities.Payment.RestaurantOrderPayment>, RestaurantOrderPaymentService>();
         services.AddAutoMapper(typeof(RestaurantOrderPaymetnMapper));
-        services.AddScoped<IAdditionalFeaturesRepository<Core.Entities.Payment.RestaurantOrderPayment>, AdditionalFeaturesRepository<Core.Entities.Payment.RestaurantOrderPayment>>();
+        services.AddScoped<IAdditionalFeaturesRepository<Domain.Core.Entities.Payment.RestaurantOrderPayment>, AdditionalFeaturesRepository<Domain.Core.Entities.Payment.RestaurantOrderPayment>>();
     }
 }

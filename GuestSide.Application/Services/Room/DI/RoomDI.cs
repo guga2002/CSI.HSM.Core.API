@@ -17,12 +17,12 @@ public static class RoomDI
 {
     public static void InjectRoom(this IServiceCollection services)
     {
-        services.AddScoped<IGenericRepository<Core.Entities.Room.Room>, RoomRepository>();
+        services.AddScoped<IGenericRepository<Domain.Core.Entities.Room.Room>, RoomRepository>();
         services.AddScoped<IRoomRepository, RoomRepository>();
         services.AddScoped<IRoomService, RoomService>();
-        services.AddScoped<IService<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room>, RoomService>();
-        services.AddScoped<IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Core.Entities.Room.Room>, RoomService>();
-        services.AddScoped<IAdditionalFeaturesRepository<Core.Entities.Room.Room>, AdditionalFeaturesRepository<Core.Entities.Room.Room>>();
+        services.AddScoped<IService<RoomsDto, RoomsResponseDto, long, Domain.Core.Entities.Room.Room>, RoomService>();
+        services.AddScoped<IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Domain.Core.Entities.Room.Room>, RoomService>();
+        services.AddScoped<IAdditionalFeaturesRepository<Domain.Core.Entities.Room.Room>, AdditionalFeaturesRepository<Domain.Core.Entities.Room.Room>>();
         services.AddAutoMapper(typeof(RoomMapper));
     }
 }

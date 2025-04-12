@@ -8,7 +8,7 @@ public class PaymentOptionMapper : Profile
 {
     public PaymentOptionMapper()
     {
-        CreateMap<PaymentOptionDto, Core.Entities.Payment.PaymentOption>().ReverseMap();
-        CreateMap<Core.Entities.Payment.PaymentOption, PaymentOptionResponseDto>().ReverseMap();
+        CreateMap<PaymentOptionDto, Domain.Core.Entities.Payment.PaymentOption>().ReverseMap();
+        CreateMap<Domain.Core.Entities.Payment.PaymentOption, PaymentOptionResponseDto>().ReverseMap();
     }
 }

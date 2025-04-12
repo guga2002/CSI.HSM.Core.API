@@ -16,12 +16,12 @@ public static class HotelDi
 {
     public static void InjectHotel(this IServiceCollection services)
     {
-        services.AddScoped<IGenericRepository<Core.Entities.Hotel.Hotel>, HotelRepository>();
+        services.AddScoped<IGenericRepository<Domain.Core.Entities.Hotel.Hotel>, HotelRepository>();
         services.AddAutoMapper(typeof(HotelMapper));
         services.AddScoped<IHotelRepository, HotelRepository>();
         services.AddScoped<IHotelService, HotelService>();
-        services.AddScoped<IService<HotelRequestDto, HotelResponse, long, Core.Entities.Hotel.Hotel>, HotelService>();
-        services.AddScoped<IAdditionalFeatures<HotelRequestDto, HotelResponse, long, Core.Entities.Hotel.Hotel>, HotelService>();
-        services.AddScoped<IAdditionalFeaturesRepository<Core.Entities.Hotel.Hotel>, AdditionalFeaturesRepository<Core.Entities.Hotel.Hotel>>();
+        services.AddScoped<IService<HotelRequestDto, HotelResponse, long, Domain.Core.Entities.Hotel.Hotel>, HotelService>();
+        services.AddScoped<IAdditionalFeatures<HotelRequestDto, HotelResponse, long, Domain.Core.Entities.Hotel.Hotel>, HotelService>();
+        services.AddScoped<IAdditionalFeaturesRepository<Domain.Core.Entities.Hotel.Hotel>, AdditionalFeaturesRepository<Domain.Core.Entities.Hotel.Hotel>>();
     }
 }

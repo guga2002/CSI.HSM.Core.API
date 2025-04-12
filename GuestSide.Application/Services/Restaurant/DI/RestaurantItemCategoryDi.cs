@@ -17,12 +17,12 @@ public static class RestaurantItemCategoryDi
 
     public static void AddRestaurantItemCategory(this IServiceCollection services)
     {
-        services.AddScoped<IGenericRepository<Core.Entities.Restaurant.RestaurantItemCategory>, RestaurantItemCategoryRepository>();
+        services.AddScoped<IGenericRepository<Domain.Core.Entities.Restaurant.RestaurantItemCategory>, RestaurantItemCategoryRepository>();
         services.AddScoped<IRestaurantItemCategoryRepository, RestaurantItemCategoryRepository>();
         services.AddScoped<IRestaurantItemCategoryService, RestaurantItemCategoryService>();
-        services.AddScoped<IService<RestaurantItemCategoryDto, RestaurantItemCategoryResponseDto, long, Core.Entities.Restaurant.RestaurantItemCategory>, RestaurantItemCategoryService>();
-        services.AddScoped<IAdditionalFeatures<RestaurantItemCategoryDto, RestaurantItemCategoryResponseDto, long, Core.Entities.Restaurant.RestaurantItemCategory>, RestaurantItemCategoryService>();
+        services.AddScoped<IService<RestaurantItemCategoryDto, RestaurantItemCategoryResponseDto, long, Domain.Core.Entities.Restaurant.RestaurantItemCategory>, RestaurantItemCategoryService>();
+        services.AddScoped<IAdditionalFeatures<RestaurantItemCategoryDto, RestaurantItemCategoryResponseDto, long, Domain.Core.Entities.Restaurant.RestaurantItemCategory>, RestaurantItemCategoryService>();
         services.AddAutoMapper(typeof(RestaurantItemCategoryMapper));
-        services.AddScoped<IAdditionalFeaturesRepository<Core.Entities.Restaurant.RestaurantItemCategory>, AdditionalFeaturesRepository<Core.Entities.Restaurant.RestaurantItemCategory>>();
+        services.AddScoped<IAdditionalFeaturesRepository<Domain.Core.Entities.Restaurant.RestaurantItemCategory>, AdditionalFeaturesRepository<Domain.Core.Entities.Restaurant.RestaurantItemCategory>>();
     }
 }
