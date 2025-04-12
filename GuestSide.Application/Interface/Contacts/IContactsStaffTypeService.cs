@@ -5,6 +5,7 @@ using Domain.Core.Entities.Contacts;
 
 namespace Core.Application.Interface.Contacts;
 
-public interface IContactsStaffTypeService : IService<ContactsStaffTypeDto, ContactsStaffTypeResponseDto, long, ContactsStaffType>
+public interface IContactsStaffTypeService : IService<ContactsStaffTypeDto, ContactsStaffTypeResponseDto, long, ContactsStaffType>,
+    IAdditionalFeatures<ContactsStaffTypeDto, ContactsStaffTypeResponseDto, long, ContactsStaffType>
 {
 }

@@ -2,7 +2,6 @@
 using Core.Application.DTOs.Request.Contacts;
 using Core.Application.DTOs.Response.Contacts;
 using Core.Application.Interface.Contacts;
-using Core.Application.Services;
 using Domain.Core.Entities.Contacts;
 using Domain.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.Logging;

@@ -40,6 +40,7 @@ using Core.Persistance.BackgroundServices;
 using Core.Persistance.PtmsCsi;
 using Core.Persistance.MailServices;
 using Domain.Core.Application.Services.Advertismenet.Inject;
+using Core.Application.Services.Contacts.Injection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -187,6 +188,9 @@ builder.Services.InjectCart();
 builder.Services.InjectTaskStatus();
 
 builder.Services.InjectTasks();
+
+builder.Services.InjectContact();
+builder.Services.InjectContactsStaffType();
 
 builder.Services.AddScoped<IUniteOfWork, UniteOfWorkRepository>();
 //builder.Services.AddCors(options =>
