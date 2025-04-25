@@ -57,11 +57,15 @@ builder.Services.AddDbContext<GuestSideDb>(options =>
     options.UseSqlServer(!builder.Environment.IsProduction()? builder.Configuration.GetSection("connectionTest:CSICOnnect").Value: builder.Configuration.GetConnectionString("CSICOnnect"));
 });
 
-builder.Services.AddHttpClient<CsiVoicePack>(i => i.BaseAddress = new Uri("http://api.logixplore.com:3333/"));
+builder.Services.AddHttpClient<CsiVoicePack>(i => i.BaseAddress = new Uri("https://api.logixplore.com:3333/"));
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(2044);
+    options.ListenAnyIP(2044, listenOptions =>
+    {
+        listenOptions.UseHttps("C:\\certs\\SSLFORCSI.pfx", "Tabaxmela123#");
+    });
+    options.ListenAnyIP(2045);
 });
 
 builder.Services.AddHostedService<NotifyUsersService>();
