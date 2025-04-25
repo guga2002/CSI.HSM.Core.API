@@ -9,6 +9,7 @@ using Core.Application.DTOs.Request.Contacts;
 using Core.Application.Services.Contacts.Mapper;
 using Core.Application.Services.Contacts.Service;
 using Core.Infrastructure.Repositories.Contacts;
+using Core.Infrastructure.Repositories.AbstractRepository;
 
 namespace Core.Application.Services.Contacts.Injection;
 
@@ -20,6 +21,8 @@ public static class ContactDI
         services.AddScoped<IContactRespository, ContactRepository>();
         services.AddScoped<IContactService, ContactService>();
         services.AddScoped<IService<ContactDto, ContactResponseDto, long, Contact>, ContactService>();
+        services.AddScoped<IAdditionalFeatures<ContactDto, ContactResponseDto, long, Contact>, ContactService>();
+        services.AddScoped<IAdditionalFeaturesRepository<Contact>, AdditionalFeaturesRepository<Contact>>();
         services.AddAutoMapper(typeof(ContactMapper));
     }
 }
