@@ -24,6 +24,7 @@ using Core.Application.Services.Feadback.Injection;
 using Core.Application.Services.Item.DI;
 using Core.Application.Services.Payment.PaymentOption.DI;
 using Core.Application.Services.Language.Di;
+using Domain.Core.Application.Services.Advertismenet.Inject;
 using Core.Application.Services.Task.Task.DI;
 using Core.Application.Services.Staff.Staff.DI;
 using Core.Application.Services.Guest.Injection;
@@ -39,17 +40,14 @@ using Core.Persistance.Cashing.Inject;
 using Core.Persistance.BackgroundServices;
 using Core.Persistance.PtmsCsi;
 using Core.Persistance.MailServices;
-using Domain.Core.Application.Services.Advertismenet.Inject;
 using Core.Application.Services.Contacts.Injection;
 using Core.Application.Services.Task.Comments.DI;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers()
- //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.AuthorizationController).Assembly)
- //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.UsersController).Assembly)
- //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.RolesController).Assembly)
  .AddControllersAsServices();
+
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddHttpContextAccessor();
