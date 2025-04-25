@@ -121,6 +121,8 @@ public class GuestSideDb : DbContext
 
     public virtual DbSet<IncidentTypeToStaffCategory> IncidentTypeToStaffCategories { get; set; }
 
+    public virtual DbSet<Comment> Comments { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);

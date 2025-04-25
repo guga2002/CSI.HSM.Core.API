@@ -1,4 +1,4 @@
- using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -41,6 +41,7 @@ using Core.Persistance.PtmsCsi;
 using Core.Persistance.MailServices;
 using Domain.Core.Application.Services.Advertismenet.Inject;
 using Core.Application.Services.Contacts.Injection;
+using Core.Application.Services.Task.Comments.DI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -191,6 +192,7 @@ builder.Services.InjectTasks();
 
 builder.Services.InjectContact();
 builder.Services.InjectContactsStaffType();
+builder.Services.InjectComment();
 
 builder.Services.AddScoped<IUniteOfWork, UniteOfWorkRepository>();
 //builder.Services.AddCors(options =>

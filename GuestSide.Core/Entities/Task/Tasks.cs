@@ -42,4 +42,6 @@ public class Tasks : AbstractEntity
     public virtual List<TaskItem>? TaskItems { get; set; }
 
     public virtual TaskToStaff? TaskToStaff { get; set; }
+
+    public virtual List<Comment>? Comments { get; set; }
 }
