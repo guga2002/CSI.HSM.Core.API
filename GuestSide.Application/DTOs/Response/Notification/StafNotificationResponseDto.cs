@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Response.Notification;
+﻿using Core.Application.DTOs.Response;
+
+namespace Core.Application.DTOs.Response.Notification;
 
 public class StafNotificationResponseDto : AbstractResponse
 {
@@ -8,7 +10,7 @@ public class StafNotificationResponseDto : AbstractResponse
 
     public bool IsRead { get; set; }
 
-    public DateTime SentTime { get; set; } 
+    public DateTime SentTime { get; set; }
 
     public DateTime? ReadTime { get; set; }
 

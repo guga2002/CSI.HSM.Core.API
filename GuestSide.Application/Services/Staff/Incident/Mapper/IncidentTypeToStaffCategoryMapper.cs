@@ -5,7 +5,7 @@ using Domain.Core.Entities.Staff;
 
 namespace Core.Application.Services.Staff.Incident.Mapper;
 
-public class IncidentTypeToStaffCategoryMapper:Profile
+public class IncidentTypeToStaffCategoryMapper : Profile
 {
     public IncidentTypeToStaffCategoryMapper()
     {

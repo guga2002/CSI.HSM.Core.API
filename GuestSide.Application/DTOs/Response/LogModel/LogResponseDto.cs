@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Response.LogModel;
+﻿using Core.Application.DTOs.Response;
+
+namespace Core.Application.DTOs.Response.LogModel;
 
 public class LogResponseDto : AbstractResponse
 {

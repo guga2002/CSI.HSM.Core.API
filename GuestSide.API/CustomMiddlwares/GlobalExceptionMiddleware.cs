@@ -1,6 +1,6 @@
-﻿using System.Net;
+﻿using Core.API.Response;
+using System.Net;
 using System.Text.Json;
-using Core.API.Response;
 
 namespace Core.API.CustomMiddlwares;
 

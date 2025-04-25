@@ -5,7 +5,7 @@ using Domain.Core.Entities.Item;
 
 namespace Core.Application.Services.Item.Mapper;
 
-public class ItemCategoryToStaffCategoryMapper:Profile
+public class ItemCategoryToStaffCategoryMapper : Profile
 {
     public ItemCategoryToStaffCategoryMapper()
     {

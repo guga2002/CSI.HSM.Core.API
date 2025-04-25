@@ -73,5 +73,22 @@ namespace Core.Application.Interface.Staff.staf
         /// Get the sentiment score of a staff member based on analysis.
         /// </summary>
         Task<double?> GetStaffSentimentScoreAsync(long staffId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// check staff status
+        /// </summary>
+        /// <param name="staffId"></param>
+        /// <param name="Status"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<bool> CheckIsOnDuteAsync(long staffId, bool Status, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// get staffs last login date
+        /// </summary>
+        /// <param name="staffId"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<StaffLoginDate> GetLastLoginDateAsync(long staffId, CancellationToken cancellationToken = default);
     }
 }

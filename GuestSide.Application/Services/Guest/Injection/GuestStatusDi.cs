@@ -26,5 +26,5 @@ public static class GuestStatusDi
         services.AddScoped<IAdditionalFeaturesRepository<Status>, AdditionalFeaturesRepository<Status>>();
         services.AddAutoMapper(typeof(GuestStatusMapper));
     }
-    
+
 }

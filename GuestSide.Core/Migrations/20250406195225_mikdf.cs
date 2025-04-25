@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Core.Core.Migrations
+namespace Domain.Core.Migrations
 {
     /// <inheritdoc />
     public partial class mikdf : Migration

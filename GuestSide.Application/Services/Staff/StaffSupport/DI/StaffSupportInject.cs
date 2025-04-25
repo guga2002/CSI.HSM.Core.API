@@ -1,10 +1,7 @@
 ﻿using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.GenericContracts;
-using Core.Application.Interface.Staff.staf;
 using Core.Application.Interface.Staff.StaffSupport;
-using Core.Application.Services.Staff.Staff.Mapper;
-using Core.Application.Services.Staff.Staff.Services;
 using Core.Application.Services.Staff.StaffSupport.Mapper;
 using Core.Application.Services.Staff.StaffSupport.Service;
 using Core.Infrastructure.Repositories.AbstractRepository;
@@ -15,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Application.Services.Staff.StaffSupport.DI
 {
-    public  static class StaffSupportInject
+    public static class StaffSupportInject
     {
         public static void ActiveStaffSupport(this IServiceCollection services)
         {

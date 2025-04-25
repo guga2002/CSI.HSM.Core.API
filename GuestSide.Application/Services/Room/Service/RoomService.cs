@@ -3,6 +3,7 @@ using Core.Application.DTOs.Request.Room;
 using Core.Application.DTOs.Response.Hotel;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.Room;
+using Domain.Core.Entities.Room;
 using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.Room;
 using Microsoft.Extensions.Logging;

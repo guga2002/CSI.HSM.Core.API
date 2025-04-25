@@ -5,7 +5,7 @@ using Domain.Core.Entities.Item;
 
 namespace Core.Application.Services.Item.Mapper;
 
-public class TaskItemMapper:Profile
+public class TaskItemMapper : Profile
 {
     public TaskItemMapper()
     {

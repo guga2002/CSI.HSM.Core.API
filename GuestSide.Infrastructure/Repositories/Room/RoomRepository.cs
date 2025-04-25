@@ -69,7 +69,7 @@ namespace Core.Infrastructure.Repositories.Room
 
         public async Task<Domain.Core.Entities.Hotel.Hotel> GetHotelForRoomAsync(long roomId)
         {
-           return await DbSet.Include(io=>io.Hotel).Where(io => io.Id == roomId).Select(io => io.Hotel).FirstOrDefaultAsync();
+            return await DbSet.Include(io => io.Hotel).Where(io => io.Id == roomId).Select(io => io.Hotel).FirstOrDefaultAsync();
         }
 
     }

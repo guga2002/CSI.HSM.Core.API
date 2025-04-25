@@ -1,12 +1,12 @@
-﻿using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Persistance.Cashing;
-using Domain.Core.Data;
+﻿using Domain.Core.Data;
 using Domain.Core.Entities.Item;
 using Domain.Core.Entities.Staff;
 using Domain.Core.Interfaces.Staff;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Persistance.Cashing;
 
 namespace Core.Infrastructure.Repositories.Staff
 {
@@ -113,7 +113,7 @@ namespace Core.Infrastructure.Repositories.Staff
         {
             return await _context.Set<TaskToStaff>().AsNoTracking()
                 .Where(t => t.AssignedByStaff.Id == staffId)
-                .Include(t=>t.AssignedByStaff)
+                .Include(t => t.AssignedByStaff)
                 .Include(t => t.Task)
                 .ToListAsync(cancellationToken);
         }
@@ -138,6 +138,25 @@ namespace Core.Infrastructure.Repositories.Staff
                 .Where(s => s.StaffId == staffId)
                 .Select(s => s.SentimentScore)
                 .AverageAsync(cancellationToken);
+        }
+        #endregion
+
+        #region StaffStatus
+        public async Task<bool> CheckIsOnDute(long staffId, bool Status, CancellationToken cancellationToken = default)
+        {
+            var staff = await _context.Staffs.FirstOrDefaultAsync(id => id.Id == staffId);
+            if (staff == null) return false;
+            staff.IsOnDuty = Status;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<(long, DateTime)> GetLastLoginDate(long staffId, CancellationToken cancellationToken = default)
+        {
+            var staff = await _context.Staffs.FirstOrDefaultAsync(id => id.Id == staffId);
+            if (staff is null) return (0, DateTime.MinValue);
+
+            return (staff.Id, staff.LastCheckedLoginTime ?? DateTime.MinValue);
         }
         #endregion
 

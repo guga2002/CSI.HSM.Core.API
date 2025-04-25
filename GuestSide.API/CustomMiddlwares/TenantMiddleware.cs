@@ -32,7 +32,7 @@
             {
                 connectionString = _configuration.GetSection("connectionTest:CSICOnnect").Value;
             }
-         
+
             if (string.IsNullOrEmpty(connectionString))
             {
                 context.Response.StatusCode = 400;

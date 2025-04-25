@@ -1,10 +1,7 @@
 ﻿using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.GenericContracts;
-using Core.Application.Interface.Task.Task;
 using Core.Application.Interface.Task.TaskLogs;
-using Core.Application.Services.Task.Task.Mapper;
-using Core.Application.Services.Task.Task.Services;
 using Core.Application.Services.Task.TaskLog.Mapper;
 using Core.Application.Services.Task.TaskLog.Service;
 using Core.Infrastructure.Repositories.AbstractRepository;

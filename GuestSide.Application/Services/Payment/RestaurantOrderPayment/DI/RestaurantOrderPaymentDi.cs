@@ -19,7 +19,7 @@ public static class RestaurantOrderPaymentDi
         services.AddScoped<IGenericRepository<Domain.Core.Entities.Payment.RestaurantOrderPayment>, RestaurantOrderPaymentRepository>();
         services.AddScoped<IRestaurantOrderPaymentRepository, RestaurantOrderPaymentRepository>();
         services.AddScoped<IRestaurantOrderPayment, RestaurantOrderPaymentService>();
-        services.AddScoped<IService<RestaurantOrderPaymentDto, RestaurantOrderPaymentResponseDto, long, Domain.Core.Entities.Payment.RestaurantOrderPayment>,RestaurantOrderPaymentService>();
+        services.AddScoped<IService<RestaurantOrderPaymentDto, RestaurantOrderPaymentResponseDto, long, Domain.Core.Entities.Payment.RestaurantOrderPayment>, RestaurantOrderPaymentService>();
         services.AddScoped<IAdditionalFeatures<RestaurantOrderPaymentDto, RestaurantOrderPaymentResponseDto, long, Domain.Core.Entities.Payment.RestaurantOrderPayment>, RestaurantOrderPaymentService>();
         services.AddAutoMapper(typeof(RestaurantOrderPaymetnMapper));
         services.AddScoped<IAdditionalFeaturesRepository<Domain.Core.Entities.Payment.RestaurantOrderPayment>, AdditionalFeaturesRepository<Domain.Core.Entities.Payment.RestaurantOrderPayment>>();

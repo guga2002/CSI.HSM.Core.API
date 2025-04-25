@@ -1,4 +1,5 @@
-﻿using Core.Application.DTOs.Response.Task;
+﻿using Core.Application.DTOs.Response;
+using Core.Application.DTOs.Response.Task;
 using Domain.Core.Entities.Staff;
 using Domain.Core.Entities.Task;
 
@@ -6,7 +7,7 @@ namespace Core.Application.DTOs.Response.Staff;
 
 public class TaskToStaffResponseDto : AbstractResponse
 {
-    public DateTime? StartDate { get; set; } 
+    public DateTime? StartDate { get; set; }
 
     public DateTime? EndDate { get; set; }
 

@@ -134,6 +134,33 @@ public class StaffController : CSIControllerBase<StaffDto, StaffResponseDto, lon
             : Response<bool>.ErrorResponse("Staff member not found.");
     }
 
+    [HttpPatch("checkIsOnDute/{staffId:long}")]
+    [SwaggerOperation(Summary = "check isondute", Description = "check staffs check is on dute")]
+    [SwaggerResponse(StatusCodes.Status200OK, "check is on dute successfully.", typeof(Response<bool>))]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Staff member not found.")]
+    public async Task<Response<bool>> CheckIsOnDuteAsync(long staffId, bool Status, CancellationToken cancellationToken = default)
+    {
+        var result = await _staffService.CheckIsOnDuteAsync(staffId, Status, cancellationToken);
+        return result
+            ? Response<bool>.SuccessResponse(true, "Check is on dute successfully")
+            : Response<bool>.ErrorResponse("Staff member not found.");
+    }
+
+    [HttpGet("getLastLoginDate/{staffId:long}")]
+    [SwaggerOperation(
+     Summary = "Get last login date for staff",
+     Description = "Returns the last recorded login time for the specified staff member.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Last login date retrieved successfully.", typeof(Response<StaffLoginDate>))]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Staff member not found.")]
+    public async Task<Response<StaffLoginDate>> GetLastLoginDateAsync(long staffId, CancellationToken cancellationToken = default)
+    {
+        var result = await _staffService.GetLastLoginDateAsync(staffId, cancellationToken);
+
+        return result != null
+            ? Response<StaffLoginDate>.SuccessResponse(result)
+            : Response<StaffLoginDate>.ErrorResponse("Staff is not found");
+    }
+
     [HttpGet]
     [SwaggerOperation(Summary = "Retrieve all Staff Members", Description = "Returns all staff records.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<StaffResponseDto>>))]

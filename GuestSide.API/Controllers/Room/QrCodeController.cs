@@ -114,7 +114,7 @@ public class QrCodeController : CSIControllerBase<QRCodeDto, QRCodeResponseDto, 
         if (dto.QrImage == null || dto.QrImage.Length == 0)
             return Response<QRCodeResponseDto>.ErrorResponse("FIle is not valid");
 
-        var entityDto=new QRCodeDto { Code = dto.Code};
+        var entityDto = new QRCodeDto { Code = dto.Code };
 
         using (var memoryStream = new MemoryStream())
         {

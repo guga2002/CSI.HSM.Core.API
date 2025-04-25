@@ -4,7 +4,7 @@ using Core.Application.DTOs.Response.Hotel;
 
 namespace Core.Application.Services.Hotel.Mapper;
 
-public class HotelMapper:Profile
+public class HotelMapper : Profile
 {
 
     public HotelMapper()

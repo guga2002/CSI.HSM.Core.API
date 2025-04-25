@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Domain.Core.Data;
+using Domain.Core.Entities.Task;
+using Domain.Core.Entities.Notification;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Domain.Core.Data;
-using Domain.Core.Entities.Task;
-using Domain.Core.Entities.Notification;
 using Domain.Core.Entities.Item;
 
 namespace Core.Persistance.BackgroundServices;
@@ -71,7 +71,7 @@ public class GuestCheckOutFinalizerWorker : IHostedService, IDisposable
                     Description = $"Auto-generated cleaning task for room {guest.Room?.RoomNumber} after guest {guest.FirstName} {guest.LastName} checked out.",
                     CartId = cart.Id,
                     DueDate = now.AddHours(2),
-                    Status =Domain.Core.Entities.Enums.StatusEnum.Pending,
+                    Status = Domain.Core.Entities.Enums.StatusEnum.Pending,
                     Priority = Domain.Core.Entities.Enums.PriorityEnum.Medium,
                     Note = "Auto-cleaning task after guest checkout",
                     IsCompleted = false

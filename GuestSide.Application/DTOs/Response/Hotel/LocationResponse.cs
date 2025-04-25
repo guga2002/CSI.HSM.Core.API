@@ -1,8 +1,10 @@
-﻿namespace Core.Application.DTOs.Response.Hotel;
+﻿using Core.Application.DTOs.Response;
+
+namespace Core.Application.DTOs.Response.Hotel;
 
 public class LocationResponse : AbstractResponse
 {
-    public string? Address { get; set; } 
+    public string? Address { get; set; }
 
     public string? City { get; set; }
 

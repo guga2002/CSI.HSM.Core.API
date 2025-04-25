@@ -1,16 +1,16 @@
-﻿using Core.Application.DTOs.Request.Audio;
-using Core.Application.DTOs.Response.Audio;
+﻿using Domain.Core.Interfaces.AbstractInterface;
+using Domain.Core.Interfaces.Audio;
+using System;
+using Microsoft.Extensions.DependencyInjection;
+using Domain.Core.Entities.Audio;
 using Core.Application.Interface.Audio;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.Audio.Mapper;
 using Core.Application.Services.Audio.Service;
-using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Application.DTOs.Response.Audio;
+using Core.Application.DTOs.Request.Audio;
 using Core.Infrastructure.Repositories.Audio;
-using System;
-using Microsoft.Extensions.DependencyInjection;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Audio;
-using Domain.Core.Entities.Audio;
+using Core.Infrastructure.Repositories.AbstractRepository;
 
 namespace Core.Application.Services.Audio.Injection;
 public static class AudioResponseCategoryDi

@@ -2,7 +2,6 @@
 using Core.Application.DTOs.Request.Notification;
 using Core.Application.DTOs.Response.Notification;
 using Core.Application.Interface.Notification;
-using Core.Infrastructure.Repositories.Notification;
 using Domain.Core.Entities.Notification;
 using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.Notification;

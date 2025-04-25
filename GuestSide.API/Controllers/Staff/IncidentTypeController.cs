@@ -13,7 +13,7 @@ namespace Core.API.Controllers.Staff;
 [ApiController]
 public class IncidentTypeController : CSIControllerBase<IncidentTypeDto, IncidentTypeResponseDto, long, IncidentType>
 {
-    public IncidentTypeController(IService<IncidentTypeDto, IncidentTypeResponseDto, 
+    public IncidentTypeController(IService<IncidentTypeDto, IncidentTypeResponseDto,
         long, IncidentType> serviceProvider, IAdditionalFeatures<IncidentTypeDto,
             IncidentTypeResponseDto, long, IncidentType> additionalFeatures)
         : base(serviceProvider, additionalFeatures)

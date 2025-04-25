@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
-using Core.Application.ErrorSuccessKeys;
-using Core.Application.Interface.GenericContracts;
 using System.Linq.Expressions;
-using Core.Application.CustomExceptions;
 using InvalidOperationException = Core.Application.CustomExceptions.InvalidOperationException;
 using Domain.Core.Interfaces.AbstractInterface;
+using Core.Application.Interface.GenericContracts;
+using Core.Application.CustomExceptions;
 
 namespace Core.Application.Services;
 
@@ -154,7 +153,7 @@ public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEnt
             var entity = await repository.GetByIdAsync(id, cancellationToken);
             if (entity == null)
             {
-                throw new BusinessRuleViolationException(ErrorKeys.INVALID_INPUT);
+                throw new BusinessRuleViolationException(Domain.Application.ErrorSuccessKeys.ErrorKeys.INVALID_INPUT);
             }
 
             var result = await repository.DeleteAsync(entity, cancellationToken);
@@ -180,7 +179,7 @@ public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEnt
             var entity = await repository.GetByIdAsync(id, cancellationToken);
             if (entity == null)
             {
-                throw new BusinessRuleViolationException(ErrorKeys.ACCESS_DENIED);
+                throw new BusinessRuleViolationException(Domain.Application.ErrorSuccessKeys.ErrorKeys.ACCESS_DENIED);
             }
 
             LogOperation("Entity with ID {Id} fetched successfully.", id);

@@ -6,5 +6,5 @@ public class LanguagePackDto
 
     public required string Name { get; set; }
 
-    public  byte[]? LanguageCountryImage { get; set; }
+    public byte[]? LanguageCountryImage { get; set; }
 }

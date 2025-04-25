@@ -13,7 +13,7 @@ public class TaskDto
 
     public bool IsCompleted { get; set; }
 
-    public StatusEnum Status { get; set; } 
+    public StatusEnum Status { get; set; }
 
     public PriorityEnum Priority { get; set; }
 

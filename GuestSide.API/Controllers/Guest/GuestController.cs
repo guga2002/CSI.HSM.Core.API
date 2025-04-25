@@ -61,7 +61,7 @@ public class GuestController : CSIControllerBase<GuestDto, GuestResponseDto, lon
         var result = await _guestService.CheckGuestExistsAsync(email, phoneNumber, cancellationToken);
         return new Response<bool>(result ? true : false, result);
     }
-    
+
     [HttpPut("update-status/{guestId:long}")]
     [SwaggerOperation(Summary = "Update guest status", Description = "Updates the status of a guest.")]
     [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]

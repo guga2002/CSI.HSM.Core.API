@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Response.Language;
+﻿using Core.Application.DTOs.Response;
+
+namespace Core.Application.DTOs.Response.Language;
 
 public class LanguagePackResponseDto : AbstractResponse
 {

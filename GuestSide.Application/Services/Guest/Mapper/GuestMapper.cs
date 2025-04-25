@@ -5,12 +5,12 @@ using Domain.Core.Entities.Guest;
 
 namespace Core.Application.Services.Guest.Mapper;
 
-public class GuestMapper:Profile
+public class GuestMapper : Profile
 {
 
     public GuestMapper()
     {
-         CreateMap<GuestDto, Guests>().ReverseMap();
+        CreateMap<GuestDto, Guests>().ReverseMap();
         CreateMap<GuestResponseDto, Guests>().ReverseMap();
     }
 }

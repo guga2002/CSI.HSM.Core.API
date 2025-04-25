@@ -7,7 +7,7 @@ namespace Core.API.CustomMiddlwares
     public class CashingMiddlwares
     {
         private readonly RequestDelegate _next;
-       // private readonly ILogger<CashingMiddlwares> _logger;
+        // private readonly ILogger<CashingMiddlwares> _logger;
         private readonly IRedisCash _redisCache;
 
         public CashingMiddlwares(RequestDelegate next, IRedisCash redisCache)

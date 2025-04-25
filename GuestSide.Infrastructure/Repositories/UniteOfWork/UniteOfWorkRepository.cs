@@ -93,6 +93,9 @@ public class UniteOfWorkRepository : IUniteOfWork
 
     public IIncidentTypeToStaffCategoryRepository IncidentTypeToStaffCategory { get; }
 
+    public ICommentRepository CommentRepository { get; }
+
+
     private readonly GuestSideDb _context;
 
     public UniteOfWorkRepository(
@@ -133,6 +136,7 @@ public class UniteOfWorkRepository : IUniteOfWork
      IItemCategoryToStaffCategoryRepository itemCategoryToStaffCategory,
      IIncidentTypeRepository incidentTypeRepository,
      IIncidentTypeToStaffCategoryRepository incidentTypeToStaffCategoryRepository,
+     ICommentRepository commentRepository,
      GuestSideDb Context
  )
     {
@@ -173,6 +177,7 @@ public class UniteOfWorkRepository : IUniteOfWork
         ItemCategoryToStaffCategory = itemCategoryToStaffCategory;
         IncidentTypeRepository = incidentTypeRepository;
         IncidentTypeToStaffCategory = incidentTypeToStaffCategoryRepository;
+        IncidentTypeRepository = incidentTypeRepository;
         _context = Context;
     }
 

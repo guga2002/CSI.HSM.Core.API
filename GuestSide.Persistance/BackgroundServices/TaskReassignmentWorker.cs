@@ -36,9 +36,9 @@ public class TaskReassignmentWorker : IHostedService, IDisposable
             using var scope = _serviceProvider.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<GuestSideDb>();
             var now = DateTime.UtcNow;
-            var overdueTasks =await db.TaskToStaffs.
-                Include(i=>i.Task).
-                ThenInclude(i=>i.TaskItems)
+            var overdueTasks = await db.TaskToStaffs.
+                Include(i => i.Task).
+                ThenInclude(i => i.TaskItems)
                 .Where(tts => !tts.IsCompleted && tts.Task.DueDate < now && tts.EndDate == null)
                 .ToListAsync();
 
@@ -47,7 +47,7 @@ public class TaskReassignmentWorker : IHostedService, IDisposable
 
                 var taskId = taskToStaff.TaskId;
                 var taskItemId = taskToStaff.Task.TaskItems?.Select(i => i.Item.ItemCategoryId).FirstOrDefault();
-                var itemCategory =await db.ItemCategoryToStaffCategories.FirstOrDefaultAsync(i => i.ItemCategoryId == taskItemId);
+                var itemCategory = await db.ItemCategoryToStaffCategories.FirstOrDefaultAsync(i => i.ItemCategoryId == taskItemId);
 
                 var currentStaffId = taskToStaff.AssignedBy;
                 if (itemCategory is not null)

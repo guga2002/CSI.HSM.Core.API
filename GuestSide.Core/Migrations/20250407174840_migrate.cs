@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Core.Core.Migrations
+namespace Domain.Core.Migrations
 {
     /// <inheritdoc />
     public partial class migrate : Migration

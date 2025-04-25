@@ -5,7 +5,7 @@ using Domain.Core.Entities.Task;
 
 namespace Core.Application.Services.Task.Task.Mapper;
 
-public class TaskMapper:Profile
+public class TaskMapper : Profile
 {
     public TaskMapper()
     {

@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Response.Room;
+﻿using Core.Application.DTOs.Response;
+
+namespace Core.Application.DTOs.Response.Room;
 
 public class RoomsResponseDto : AbstractResponse
 {
@@ -8,16 +10,16 @@ public class RoomsResponseDto : AbstractResponse
 
     public string? WhatWillRobotSay { get; set; }
 
-    public bool IsAvailable { get; set; } 
+    public bool IsAvailable { get; set; }
 
     public int MaxOccupancy { get; set; }
 
-    public decimal PricePerNight { get; set; } 
+    public decimal PricePerNight { get; set; }
 
     public List<string>? Pictures
     {
-        get ;
-        set ;
+        get;
+        set;
     }
 
     public long RoomCategoryId { get; set; }

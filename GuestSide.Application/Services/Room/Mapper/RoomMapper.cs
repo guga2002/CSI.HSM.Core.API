@@ -4,7 +4,7 @@ using Core.Application.DTOs.Response.Room;
 
 namespace Core.Application.Services.Room.Mapper;
 
-public class RoomMapper:Profile
+public class RoomMapper : Profile
 {
     public RoomMapper()
     {

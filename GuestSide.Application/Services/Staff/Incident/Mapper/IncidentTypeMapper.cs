@@ -5,11 +5,11 @@ using Domain.Core.Entities.Staff;
 
 namespace Core.Application.Services.Staff.Incident.Mapper;
 
-public class IncidentTypeMapper:Profile
+public class IncidentTypeMapper : Profile
 {
     public IncidentTypeMapper()
     {
-        CreateMap<IncidentTypeDto,IncidentType>().ReverseMap();
-        CreateMap<IncidentTypeResponseDto,IncidentType>().ReverseMap();
+        CreateMap<IncidentTypeDto, IncidentType>().ReverseMap();
+        CreateMap<IncidentTypeResponseDto, IncidentType>().ReverseMap();
     }
 }

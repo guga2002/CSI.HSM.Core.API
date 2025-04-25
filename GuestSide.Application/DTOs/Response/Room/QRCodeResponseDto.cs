@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Response.Room;
+﻿using Core.Application.DTOs.Response;
+
+namespace Core.Application.DTOs.Response.Room;
 
 public class QRCodeResponseDto : AbstractResponse
 {
@@ -8,7 +10,7 @@ public class QRCodeResponseDto : AbstractResponse
 
     public required byte[] QrCodeImage { get; set; }
 
-    public DateTime GeneratedDate { get; set; } 
+    public DateTime GeneratedDate { get; set; }
 
     public DateTime? ExpirationDate { get; set; }
 

@@ -5,7 +5,7 @@ using Domain.Core.Entities.Hotel.GeoLocation;
 
 namespace Core.Application.Services.Hotel.Mapper;
 
-public class LocationMapper:Profile
+public class LocationMapper : Profile
 {
 
     public LocationMapper()

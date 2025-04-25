@@ -5,7 +5,7 @@ using Domain.Core.Entities.Room;
 
 namespace Core.Application.Services.Room.Mapper;
 
-public class RoomCategoryMapper:Profile
+public class RoomCategoryMapper : Profile
 {
     public RoomCategoryMapper()
     {

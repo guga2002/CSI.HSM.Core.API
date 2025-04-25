@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.Application.DTOs.Request.Staff;
+﻿using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Staff.Sentiments;
-using Core.Application.Services.Staff.Incident.Mapper;
-using Core.Application.Services.Staff.Incident.Service;
 using Core.Application.Services.Staff.Sentiments.Mapper;
 using Core.Application.Services.Staff.Sentiments.Service;
 using Core.Infrastructure.Repositories.AbstractRepository;

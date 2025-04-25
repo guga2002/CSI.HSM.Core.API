@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Domain.Core.Interfaces.LogInterfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Domain.Core.Interfaces.LogInterfaces;
 
 namespace Core.Persistance.LoggingConfigs
 {

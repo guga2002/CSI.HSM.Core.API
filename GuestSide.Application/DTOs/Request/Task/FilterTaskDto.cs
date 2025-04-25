@@ -8,7 +8,7 @@ public class FilterTaskDto
 
     public PriorityEnum? Priority { get; set; }
 
-    public bool? IsCompleted {  get; set; }
+    public bool? IsCompleted { get; set; }
 
     //shualedi roca task daregistrirda
     public DateTime? StartDate { get; set; }

@@ -1,5 +1,4 @@
-﻿
-namespace Core.Application.DTOs.Request.Room;
+﻿namespace Core.Application.DTOs.Request.Room;
 
 public class RoomCategoryDto
 {

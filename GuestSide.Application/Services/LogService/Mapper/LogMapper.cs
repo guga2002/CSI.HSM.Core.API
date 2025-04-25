@@ -5,11 +5,11 @@ using Domain.Core.Entities.LogEntities;
 
 namespace Core.Application.Services.LogService.Mapper;
 
-public class LogMapper:Profile
+public class LogMapper : Profile
 {
     public LogMapper()
     {
-        CreateMap<LogDto,Logs>().ReverseMap();
-        CreateMap<Logs,LogResponseDto>().ReverseMap();
+        CreateMap<LogDto, Logs>().ReverseMap();
+        CreateMap<Logs, LogResponseDto>().ReverseMap();
     }
 }

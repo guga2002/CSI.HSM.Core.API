@@ -1,4 +1,5 @@
-﻿using Core.Application.DTOs.Response.Item;
+﻿using Core.Application.DTOs.Response;
+using Core.Application.DTOs.Response.Item;
 using Core.Application.DTOs.Response.Notification;
 using Domain.Core.Entities.Item;
 using Domain.Core.Entities.Notification;
@@ -34,9 +35,13 @@ public class StaffResponseDto : AbstractResponse
 
     public string? Bio { get; set; }
 
+    public bool IsOnDuty { get; set; }
+
+    public DateTime? LastCheckedLoginTime { get; set; }
+
     public virtual StaffCategoryResponseDto? StaffCategory { get; set; }
 
-    public virtual StaffResponseDto? Supervisor { get; set; } 
+    public virtual StaffResponseDto? Supervisor { get; set; }
 
     public virtual List<StafNotificationResponseDto>? StaffNotifications { get; set; }
 

@@ -18,7 +18,7 @@ namespace Core.Infrastructure.Repositories.Hotel
 
         public override Task<Location> AddAsync(Location entity, CancellationToken cancellationToken = default)
         {
-            entity.MapUrl= $"https://www.google.com/maps?q={entity.Latitude},{entity.Longitude}";
+            entity.MapUrl = $"https://www.google.com/maps?q={entity.Latitude},{entity.Longitude}";
             return base.AddAsync(entity, cancellationToken);
         }
 
@@ -62,7 +62,7 @@ namespace Core.Infrastructure.Repositories.Hotel
         #region Update Hotel Location
         public async Task<bool> UpdateHotelLocation(long hotelId, double latitude, double longitude)
         {
-            var location = await DbSet.Include(i=>i.Hotel).FirstOrDefaultAsync(l => l.Hotel.Id == hotelId);
+            var location = await DbSet.Include(i => i.Hotel).FirstOrDefaultAsync(l => l.Hotel.Id == hotelId);
 
             if (location == null) return false;
 

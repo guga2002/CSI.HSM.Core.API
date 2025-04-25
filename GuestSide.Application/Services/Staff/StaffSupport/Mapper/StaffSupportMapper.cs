@@ -4,7 +4,7 @@ using Core.Application.DTOs.Response.Staff;
 
 namespace Core.Application.Services.Staff.StaffSupport.Mapper;
 
-public class StaffSupportMapper:Profile
+public class StaffSupportMapper : Profile
 {
 
     public StaffSupportMapper()

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Core.Application.DTOs.Response;
 using Domain.Core.Entities.Staff;
 
 namespace Core.Application.DTOs.Response.Staff;
@@ -21,7 +22,7 @@ public class StaffSentimentResponseDto : AbstractResponse
     [StringLength(100)]
     public string? Source { get; set; }
 
-    public DateTime AnalysisDate { get; set; } 
+    public DateTime AnalysisDate { get; set; }
 
     [StringLength(500)]
     public string? SuggestedAction { get; set; }

@@ -5,11 +5,11 @@ using Domain.Core.Entities.FeedBacks;
 
 namespace Core.Application.Services.Feadback.Mapper;
 
-public class FeadbackMapper: Profile
+public class FeadbackMapper : Profile
 {
     public FeadbackMapper()
     {
-        CreateMap<FeedbackDto,Feedback>().ReverseMap();
+        CreateMap<FeedbackDto, Feedback>().ReverseMap();
         CreateMap<FeedbackResponseDto, Feedback>().ReverseMap();
     }
 }

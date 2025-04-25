@@ -2,6 +2,7 @@
 using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.DTOs.Response.Advertisment;
 using Core.Application.Interface.AdvertiementType;
+using Core.Application.Services;
 using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.Advertisement;
 using Microsoft.Extensions.Logging;
@@ -98,7 +99,7 @@ namespace Core.Application.Services.AdvertisementType.Service
         {
             ValidatePositiveId(advertisementTypeId, nameof(advertisementTypeId));
 
-            var advertisementType = await _advertisementTypeRepository.FindAsync(i=>i.Id==advertisementTypeId, cancellationToken);
+            var advertisementType = await _advertisementTypeRepository.FindAsync(i => i.Id == advertisementTypeId, cancellationToken);
             if (advertisementType is null)
             {
                 _logger.LogWarning("AdvertisementType with ID {Id} does not exist.", advertisementTypeId);

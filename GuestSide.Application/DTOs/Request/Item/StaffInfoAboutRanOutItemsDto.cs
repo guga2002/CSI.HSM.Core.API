@@ -7,7 +7,7 @@ public class StaffInfoAboutRanOutItemsDto : AbstractResponse
 {
     public long StaffId { get; set; }
 
-    public List<long> ItemIds {get ; set ; }
+    public List<long> ItemIds { get; set; }
 
     public DateTime RequestTime { get; set; }
 

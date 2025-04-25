@@ -5,8 +5,8 @@ using Domain.Core.Entities.Staff;
 
 namespace Core.Application.Interface.Staff.Incident;
 
-public interface IIncidentTypeToStaffCategoryService:IService
-    <IncidentTypeToStaffCategoryDto, IncidentTypeToStaffCategoryResponseDto,long,IncidentTypeToStaffCategory>,
+public interface IIncidentTypeToStaffCategoryService : IService
+    <IncidentTypeToStaffCategoryDto, IncidentTypeToStaffCategoryResponseDto, long, IncidentTypeToStaffCategory>,
     IAdditionalFeatures<IncidentTypeToStaffCategoryDto, IncidentTypeToStaffCategoryResponseDto, long, IncidentTypeToStaffCategory>
 {
 }

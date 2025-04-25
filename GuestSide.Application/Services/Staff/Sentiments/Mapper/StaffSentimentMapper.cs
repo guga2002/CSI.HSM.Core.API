@@ -5,7 +5,7 @@ using Domain.Core.Entities.Staff;
 
 namespace Core.Application.Services.Staff.Sentiments.Mapper
 {
-    public class StaffSentimentMapper:Profile
+    public class StaffSentimentMapper : Profile
     {
         public StaffSentimentMapper()
         {

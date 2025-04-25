@@ -1,58 +1,60 @@
 using Microsoft.OpenApi.Models;
-using Core.Persistance.Cashing.Inject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Core.Application.Services.LogService.DI;
-using Core.Application.Services.Language.Di;
-using Core.Application.Services.Payment.PaymentOption.DI;
-using Core.Application.Services.Payment.RestaurantOrderPayment.DI;
-using Core.Application.Services.Restaurant.DI;
-using Core.Application.Services.Staff.Cart.DI;
-using Core.Application.Services.Staff.Category.DI;
-using Core.Application.Services.Staff.Staff.DI;
-using Core.Application.Services.Task.Status.DI;
-using Core.Application.Services.Task.Task.DI;
-using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Infrastructure.Repositories.UniteOfWork;
-using Core.Application.Services.Guest.Injection;
-using Core.Application.Services.Task.TaskLog.Startup;
-using Core.Application.Services.Audio.Injection;
-using Core.Application.Services.Item.DI;
-using Core.Application.Services.Notification.DI;
-using Core.Application.Services.Room.DI;
-using Core.API.CustomMiddlwares;
-using Core.Application.Services.AdvertisementType.Injection;
-using Core.Application.Services.Advertismenet.Inject;
-using Core.Application.Services.Feadback.Injection;
-using Core.Application.Services.Hotel.Injection;
-using Core.Application.Services.Staff.Incident.DI;
-using Core.Application.Services.Staff.Sentiments.Injection;
-using Core.Application.Services.Staff.StaffSupport.DI;
-using Core.Application.Services.Staff.StaffSupportResponse.DI;
-using Core.Application.Services.Promo.Startup;
-using Csi.VoicePack;
-using Core.API.Fillters;
-using Core.Persistance.PtmsCsi;
-using Core.Persistance.MailServices;
-using Core.Persistance.BackgroundServices;
-using Domain.Core.Data;
 using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.UniteOfWork;
+using Domain.Core.Data;
+using Csi.VoicePack;
+using Core.API.Fillters;
+using Core.API.CustomMiddlwares;
+using Core.Application.Services.Hotel.Injection;
+using Core.Application.Services.LogService.DI;
+using Core.Application.Services.Room.DI;
+using Core.Application.Services.Staff.Category.DI;
+using Core.Application.Services.Staff.Incident.DI;
+using Core.Application.Services.Restaurant.DI;
+using Core.Application.Services.Audio.Injection;
+using Core.Application.Services.Notification.DI;
+using Core.Application.Services.Staff.StaffSupportResponse.DI;
+using Core.Application.Services.Promo.Startup;
+using Core.Application.Services.Staff.Sentiments.Injection;
+using Core.Application.Services.Feadback.Injection;
+using Core.Application.Services.Item.DI;
+using Core.Application.Services.Payment.PaymentOption.DI;
+using Core.Application.Services.Language.Di;
+using Core.Application.Services.Task.Task.DI;
+using Core.Application.Services.Staff.Staff.DI;
+using Core.Application.Services.Guest.Injection;
+using Core.Application.Services.Staff.Cart.DI;
+using Core.Application.Services.Payment.RestaurantOrderPayment.DI;
+using Core.Application.Services.Task.TaskLog.Startup;
+using Core.Application.Services.Staff.StaffSupport.DI;
+using Core.Application.Services.Task.Status.DI;
+using Core.Application.Services.AdvertisementType.Injection;
+using Core.Infrastructure.Repositories.UniteOfWork;
+using Core.Infrastructure.Repositories.AbstractRepository;
+using Core.Persistance.Cashing.Inject;
+using Core.Persistance.BackgroundServices;
+using Core.Persistance.PtmsCsi;
+using Core.Persistance.MailServices;
+using Domain.Core.Application.Services.Advertismenet.Inject;
+using Core.Application.Services.Contacts.Injection;
+using Core.Application.Services.Task.Comments.DI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers(options =>
-{
-    options.Filters.Add<SetHttpStatusCodeFilter>();
-}).AddControllersAsServices();
-
+builder.Services.AddControllers()
+ //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.AuthorizationController).Assembly)
+ //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.UsersController).Assembly)
+ //.AddApplicationPart(typeof(AuthorizationHelper.Minimal.Controllers.RolesController).Assembly)
+ .AddControllersAsServices();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddDbContext<GuestSideDb>(options =>
+builder.Services.AddDbContext<GuestSideDb>(options =>//respect testing enviroment
 {
     options.UseSqlServer(!builder.Environment.IsProduction()? builder.Configuration.GetSection("connectionTest:CSICOnnect").Value: builder.Configuration.GetConnectionString("CSICOnnect"));
 });
@@ -192,7 +194,21 @@ builder.Services.InjectTaskStatus();
 
 builder.Services.InjectTasks();
 
+builder.Services.InjectContact();
+builder.Services.InjectContactsStaffType();
+builder.Services.InjectComment();
+
 builder.Services.AddScoped<IUniteOfWork, UniteOfWorkRepository>();
+//builder.Services.AddCors(options =>
+//{
+//    options.AddDefaultPolicy(policy =>
+//    {
+//        policy.AllowAnyOrigin()
+//              .AllowAnyHeader()
+//              .AllowAnyMethod();
+//    });
+//});
+
 
 builder.Services.AddGuestActiveLanguage();
 
@@ -219,18 +235,25 @@ var app = builder.Build();
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api V1");
         options.RoutePrefix = "swagger";
-        options.InjectStylesheet("CustomJs/swagger-custom.css");
-        options.InjectJavascript("/swagger-custom.js");
+        options.InjectStylesheet("CustomJs/swagger-custom.css"); // Optional
+        options.InjectJavascript("/swagger-custom.js");  // Add this line
+        //options.InjectJavascript("/swagger-voice-search.js");
     });
 
 app.UseMiddleware<TenantMiddleware>();
 app.UseMiddleware<TranslationMiddleware>();
 app.UseMiddleware<CashingMiddlwares>();
+//app.UseMiddleware<ForceHttp200Except500Middleware>();
 app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseMiddleware<RequestTranslationMiddleware>();
+//app.UseMiddleware<RequestLoggerMiddleware>();
+//app.UseMiddleware<CashingMiddlwares>();
+//app.UseCors(); // No name
+
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseHttpsRedirection();
 app.MapControllers();
 await app.RunAsync();

@@ -2,7 +2,7 @@
 
 public class RoomsDto
 {
-    public int RoomNumber { get; set; } 
+    public int RoomNumber { get; set; }
 
     public int Floor { get; set; }
 

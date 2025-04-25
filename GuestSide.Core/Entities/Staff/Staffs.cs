@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Core.Entities.AbstractEntities;
 using Domain.Core.Entities.Item;
 using Domain.Core.Entities.Notification;
+using Domain.Core.Entities.Task;
 using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Core.Entities.Staff;
@@ -54,6 +55,10 @@ public class Staffs : AbstractEntity
     [StringLength(500)]
     public string? Bio { get; set; }
 
+    public bool IsOnDuty {  get; set; } = false;
+
+    public DateTime? LastCheckedLoginTime { get; set; }
+
     public virtual StaffCategory? StaffCategory { get; set; }
 
     public virtual Staffs? Supervisor { get; set; } // Tracks reporting hierarchy
@@ -65,4 +70,6 @@ public class Staffs : AbstractEntity
     public virtual List<StaffSentiment>? StaffSentiments { get; set; }
 
     public virtual List<StaffInfoAboutRanOutItems>? StaffRequestForItemStockRenewal { get; set; }
+
+    public virtual List<Comment>? Comment { get; set; }
 }

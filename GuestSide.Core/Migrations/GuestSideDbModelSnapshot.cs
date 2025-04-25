@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Core.Core.Migrations
+namespace Domain.Core.Migrations
 {
     [DbContext(typeof(GuestSideDb))]
     partial class GuestSideDbModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace Core.Core.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Core.Core.Entities.Advertisements.Advertisement", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Advertisements.Advertisement", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -77,7 +77,7 @@ namespace Core.Core.Migrations
                     b.ToTable("Advertisements", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Advertisements.AdvertisementType", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Advertisements.AdvertisementType", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -118,7 +118,7 @@ namespace Core.Core.Migrations
                     b.ToTable("AdvertisementTypes", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Audio.AudioResponse", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Audio.AudioResponse", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -177,7 +177,7 @@ namespace Core.Core.Migrations
                     b.ToTable("AudioResponses", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Audio.AudioResponseCategory", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Audio.AudioResponseCategory", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -201,7 +201,7 @@ namespace Core.Core.Migrations
                     b.ToTable("AudioResponseCategories", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.FeedBacks.Feedback", b =>
+            modelBuilder.Entity("Domain.Core.Entities.FeedBacks.Feedback", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -260,7 +260,7 @@ namespace Core.Core.Migrations
                     b.ToTable("Feedbacks", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Guest.GuestActiveLanguage", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Guest.GuestActiveLanguage", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -301,7 +301,7 @@ namespace Core.Core.Migrations
                     b.ToTable("GuestLanguages", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Guest.Guests", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Guest.Guests", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -422,7 +422,7 @@ namespace Core.Core.Migrations
                     b.ToTable("Guests", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Guest.Status", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Guest.Status", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -460,7 +460,7 @@ namespace Core.Core.Migrations
                     b.ToTable("Statuses", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Hotel.GeoLocation.Location", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Hotel.GeoLocation.Location", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -511,7 +511,7 @@ namespace Core.Core.Migrations
                     b.ToTable("Locations", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Hotel.Hotel", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Hotel.Hotel", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -570,7 +570,7 @@ namespace Core.Core.Migrations
                     b.ToTable("Hotels", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.Cart", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Item.Cart", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -616,7 +616,7 @@ namespace Core.Core.Migrations
                     b.ToTable("Carts", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.ItemCategory", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Item.ItemCategory", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -664,7 +664,7 @@ namespace Core.Core.Migrations
                     b.ToTable("ItemCategories", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.ItemCategoryToStaffCategory", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Item.ItemCategoryToStaffCategory", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -707,7 +707,7 @@ namespace Core.Core.Migrations
                     b.ToTable("ItemCategoryToStaffCategory", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.Items", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Item.Items", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -777,7 +777,7 @@ namespace Core.Core.Migrations
                     b.ToTable("Items", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.StaffInfoAboutRanOutItems", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Item.StaffInfoAboutRanOutItems", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -837,7 +837,7 @@ namespace Core.Core.Migrations
                     b.ToTable("StaffAboutRanOutItems", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.StaffReserveItem", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Item.StaffReserveItem", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -901,7 +901,7 @@ namespace Core.Core.Migrations
                     b.ToTable("StaffReserveItems", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.TaskItem", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Item.TaskItem", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -958,7 +958,7 @@ namespace Core.Core.Migrations
                     b.ToTable("TaskItems", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Language.LanguagePack", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Language.LanguagePack", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1007,7 +1007,7 @@ namespace Core.Core.Migrations
                     b.ToTable("LanguagePacks", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.LogEntities.Logs", b =>
+            modelBuilder.Entity("Domain.Core.Entities.LogEntities.Logs", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1080,7 +1080,7 @@ namespace Core.Core.Migrations
                     b.ToTable("Logs", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Notification.GuestNotification", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Notification.GuestNotification", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1138,7 +1138,7 @@ namespace Core.Core.Migrations
                     b.ToTable("GuestNotifications", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Notification.Notifications", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Notification.Notifications", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1203,7 +1203,7 @@ namespace Core.Core.Migrations
                     b.ToTable("Notifications", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Notification.StaffNotification", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Notification.StaffNotification", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1259,7 +1259,7 @@ namespace Core.Core.Migrations
                     b.ToTable("StaffNotifications", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Payment.PaymentOption", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Payment.PaymentOption", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1312,7 +1312,7 @@ namespace Core.Core.Migrations
                     b.ToTable("PaymentOptions", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Payment.RestaurantOrderPayment", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Payment.RestaurantOrderPayment", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1380,7 +1380,7 @@ namespace Core.Core.Migrations
                     b.ToTable("RestaurantOrderPayments", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Promo.PromoCode", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Promo.PromoCode", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1450,7 +1450,7 @@ namespace Core.Core.Migrations
                     b.ToTable("PromoCode", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantCart", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Restaurant.RestaurantCart", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1513,7 +1513,7 @@ namespace Core.Core.Migrations
                     b.ToTable("RestaurantCarts", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItem", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Restaurant.RestaurantItem", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1591,7 +1591,7 @@ namespace Core.Core.Migrations
                     b.ToTable("RestaurantItems", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItemCategory", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Restaurant.RestaurantItemCategory", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1635,7 +1635,7 @@ namespace Core.Core.Migrations
                     b.ToTable("RestaurantItemCategories", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItemToCart", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Restaurant.RestaurantItemToCart", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1687,7 +1687,7 @@ namespace Core.Core.Migrations
                     b.ToTable("RestaurantItemToCarts", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.Restaurants", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Restaurant.Restaurants", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1743,7 +1743,7 @@ namespace Core.Core.Migrations
                     b.ToTable("Restaurants", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Room.QRCode", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Room.QRCode", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1803,7 +1803,7 @@ namespace Core.Core.Migrations
                     b.ToTable("QRCodes", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Room.Room", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Room.Room", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1874,7 +1874,7 @@ namespace Core.Core.Migrations
                     b.ToTable("Rooms", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Room.RoomCategory", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Room.RoomCategory", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1922,7 +1922,7 @@ namespace Core.Core.Migrations
                     b.ToTable("RoomCategories", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.IncidentType", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.IncidentType", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1961,7 +1961,7 @@ namespace Core.Core.Migrations
                     b.ToTable("IncidentTypes", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.IncidentTypeToStaffCategory", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.IncidentTypeToStaffCategory", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -2003,7 +2003,7 @@ namespace Core.Core.Migrations
                     b.ToTable("IncidentTypeToStaffCategories", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.StaffCategory", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.StaffCategory", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -2047,7 +2047,7 @@ namespace Core.Core.Migrations
                     b.ToTable("StaffCategories", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.StaffIncident", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.StaffIncident", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -2125,7 +2125,7 @@ namespace Core.Core.Migrations
                     b.ToTable("StaffIncidents", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.StaffSentiment", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.StaffSentiment", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -2198,7 +2198,7 @@ namespace Core.Core.Migrations
                     b.ToTable("StaffSentiments", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.StaffSupport", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.StaffSupport", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -2263,7 +2263,7 @@ namespace Core.Core.Migrations
                     b.ToTable("StaffSupports", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.StaffSupportResponse", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.StaffSupportResponse", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -2317,7 +2317,7 @@ namespace Core.Core.Migrations
                     b.ToTable("StaffSupportResponses", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.Staffs", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.Staffs", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -2355,9 +2355,15 @@ namespace Core.Core.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsOnDuty")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LanguageCode")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<DateTime?>("LastCheckedLoginTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -2414,7 +2420,7 @@ namespace Core.Core.Migrations
                     b.ToTable("Staffs", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.TaskToStaff", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.TaskToStaff", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -2480,7 +2486,7 @@ namespace Core.Core.Migrations
                     b.ToTable("TaskToStaffs", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Statistic.DailyStatistic", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Statistic.DailyStatistic", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -2543,7 +2549,52 @@ namespace Core.Core.Migrations
                     b.ToTable("DailyStatistics", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Task.TaskLogs", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Task.Comment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<long>("StaffId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TaskId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.HasIndex("StaffId");
+
+                    b.HasIndex("TaskId");
+
+                    b.ToTable("Comments", "CSI");
+                });
+
+            modelBuilder.Entity("Domain.Core.Entities.Task.TaskLogs", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -2591,7 +2642,7 @@ namespace Core.Core.Migrations
                     b.ToTable("TaskLogs", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Task.Tasks", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Task.Tasks", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -2658,7 +2709,7 @@ namespace Core.Core.Migrations
                     b.ToTable("Tasks", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Task.TasksStatus", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Task.TasksStatus", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -2703,9 +2754,9 @@ namespace Core.Core.Migrations
                     b.ToTable("TaskStatus", "CSI");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Advertisements.Advertisement", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Advertisements.Advertisement", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Advertisements.AdvertisementType", "AdvertisementType")
+                    b.HasOne("Domain.Core.Entities.Advertisements.AdvertisementType", "AdvertisementType")
                         .WithMany("Advertisements")
                         .HasForeignKey("AdvertisementTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2714,9 +2765,9 @@ namespace Core.Core.Migrations
                     b.Navigation("AdvertisementType");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Audio.AudioResponse", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Audio.AudioResponse", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Audio.AudioResponseCategory", "Category")
+                    b.HasOne("Domain.Core.Entities.Audio.AudioResponseCategory", "Category")
                         .WithMany("AudioResponses")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2725,9 +2776,9 @@ namespace Core.Core.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.FeedBacks.Feedback", b =>
+            modelBuilder.Entity("Domain.Core.Entities.FeedBacks.Feedback", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Task.Tasks", "Task")
+                    b.HasOne("Domain.Core.Entities.Task.Tasks", "Task")
                         .WithMany("Feedbacks")
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2736,26 +2787,26 @@ namespace Core.Core.Migrations
                     b.Navigation("Task");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Guest.GuestActiveLanguage", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Guest.GuestActiveLanguage", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Guest.Guests", "Guest")
+                    b.HasOne("Domain.Core.Entities.Guest.Guests", "Guest")
                         .WithOne("ActiveLanguage")
-                        .HasForeignKey("Core.Core.Entities.Guest.GuestActiveLanguage", "GuestId")
+                        .HasForeignKey("Domain.Core.Entities.Guest.GuestActiveLanguage", "GuestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Guest");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Guest.Guests", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Guest.Guests", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Room.Room", "Room")
+                    b.HasOne("Domain.Core.Entities.Room.Room", "Room")
                         .WithMany("Guests")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Guest.Status", "Status")
+                    b.HasOne("Domain.Core.Entities.Guest.Status", "Status")
                         .WithMany("GuestsStatuses")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2766,20 +2817,20 @@ namespace Core.Core.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Hotel.Hotel", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Hotel.Hotel", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Hotel.GeoLocation.Location", "Location")
+                    b.HasOne("Domain.Core.Entities.Hotel.GeoLocation.Location", "Location")
                         .WithOne("Hotel")
-                        .HasForeignKey("Core.Core.Entities.Hotel.Hotel", "LocationId")
+                        .HasForeignKey("Domain.Core.Entities.Hotel.Hotel", "LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Location");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.Cart", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Item.Cart", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Guest.Guests", "Guest")
+                    b.HasOne("Domain.Core.Entities.Guest.Guests", "Guest")
                         .WithMany("Carts")
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2788,15 +2839,15 @@ namespace Core.Core.Migrations
                     b.Navigation("Guest");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.ItemCategoryToStaffCategory", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Item.ItemCategoryToStaffCategory", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Item.ItemCategory", "ItemCategory")
+                    b.HasOne("Domain.Core.Entities.Item.ItemCategory", "ItemCategory")
                         .WithOne("ItemCategoryToStaffCategory")
-                        .HasForeignKey("Core.Core.Entities.Item.ItemCategoryToStaffCategory", "ItemCategoryId")
+                        .HasForeignKey("Domain.Core.Entities.Item.ItemCategoryToStaffCategory", "ItemCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Staff.StaffCategory", "StaffCategory")
+                    b.HasOne("Domain.Core.Entities.Staff.StaffCategory", "StaffCategory")
                         .WithMany("ItemCategoryToStaff")
                         .HasForeignKey("StaffCategoryId");
 
@@ -2805,9 +2856,9 @@ namespace Core.Core.Migrations
                     b.Navigation("StaffCategory");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.Items", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Item.Items", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Item.ItemCategory", "ItemCategory")
+                    b.HasOne("Domain.Core.Entities.Item.ItemCategory", "ItemCategory")
                         .WithMany("Items")
                         .HasForeignKey("ItemCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2816,24 +2867,24 @@ namespace Core.Core.Migrations
                     b.Navigation("ItemCategory");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.StaffInfoAboutRanOutItems", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Item.StaffInfoAboutRanOutItems", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Staff.Staffs", "StaffMember")
+                    b.HasOne("Domain.Core.Entities.Staff.Staffs", "StaffMember")
                         .WithMany("StaffRequestForItemStockRenewal")
                         .HasForeignKey("StaffId");
 
                     b.Navigation("StaffMember");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.TaskItem", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Item.TaskItem", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Item.Items", "Item")
+                    b.HasOne("Domain.Core.Entities.Item.Items", "Item")
                         .WithMany("TaskItems")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Task.Tasks", "Task")
+                    b.HasOne("Domain.Core.Entities.Task.Tasks", "Task")
                         .WithMany("TaskItems")
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2844,15 +2895,15 @@ namespace Core.Core.Migrations
                     b.Navigation("Task");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Notification.GuestNotification", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Notification.GuestNotification", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Guest.Guests", "Guest")
+                    b.HasOne("Domain.Core.Entities.Guest.Guests", "Guest")
                         .WithMany("GuestNotifications")
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Notification.Notifications", "Notifications")
+                    b.HasOne("Domain.Core.Entities.Notification.Notifications", "Notifications")
                         .WithMany("GuestNotifications")
                         .HasForeignKey("NotificationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2863,15 +2914,15 @@ namespace Core.Core.Migrations
                     b.Navigation("Notifications");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Notification.StaffNotification", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Notification.StaffNotification", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Notification.Notifications", "Notifications")
+                    b.HasOne("Domain.Core.Entities.Notification.Notifications", "Notifications")
                         .WithMany("StaffNotifications")
                         .HasForeignKey("NotificationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Staff.Staffs", "StaffMember")
+                    b.HasOne("Domain.Core.Entities.Staff.Staffs", "StaffMember")
                         .WithMany("StaffNotifications")
                         .HasForeignKey("StaffId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2882,17 +2933,17 @@ namespace Core.Core.Migrations
                     b.Navigation("StaffMember");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Payment.RestaurantOrderPayment", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Payment.RestaurantOrderPayment", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Payment.PaymentOption", "PaymentOption")
+                    b.HasOne("Domain.Core.Entities.Payment.PaymentOption", "PaymentOption")
                         .WithMany("RestaurantOrderPayments")
                         .HasForeignKey("PaymentOptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Restaurant.RestaurantCart", "RestaurantCart")
+                    b.HasOne("Domain.Core.Entities.Restaurant.RestaurantCart", "RestaurantCart")
                         .WithOne("RestaurantOrderPayment")
-                        .HasForeignKey("Core.Core.Entities.Payment.RestaurantOrderPayment", "RestaurantCartId")
+                        .HasForeignKey("Domain.Core.Entities.Payment.RestaurantOrderPayment", "RestaurantCartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2901,9 +2952,9 @@ namespace Core.Core.Migrations
                     b.Navigation("RestaurantCart");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantCart", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Restaurant.RestaurantCart", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Guest.Guests", "Guest")
+                    b.HasOne("Domain.Core.Entities.Guest.Guests", "Guest")
                         .WithMany("RestaurantCart")
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2912,15 +2963,15 @@ namespace Core.Core.Migrations
                     b.Navigation("Guest");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItem", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Restaurant.RestaurantItem", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Restaurant.Restaurants", "Restaurant")
+                    b.HasOne("Domain.Core.Entities.Restaurant.Restaurants", "Restaurant")
                         .WithMany("Items")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Restaurant.RestaurantItemCategory", "RestaurantItemCategory")
+                    b.HasOne("Domain.Core.Entities.Restaurant.RestaurantItemCategory", "RestaurantItemCategory")
                         .WithMany("RestaurantItems")
                         .HasForeignKey("RestaurantItemCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2931,15 +2982,15 @@ namespace Core.Core.Migrations
                     b.Navigation("RestaurantItemCategory");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItemToCart", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Restaurant.RestaurantItemToCart", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Restaurant.RestaurantCart", "RestaurantCart")
+                    b.HasOne("Domain.Core.Entities.Restaurant.RestaurantCart", "RestaurantCart")
                         .WithMany("RestaurantItemToCarts")
                         .HasForeignKey("RestaurantCartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Restaurant.RestaurantItem", "RestaurantItem")
+                    b.HasOne("Domain.Core.Entities.Restaurant.RestaurantItem", "RestaurantItem")
                         .WithMany("RestaurantItemToCarts")
                         .HasForeignKey("RestaurantItemId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2950,26 +3001,26 @@ namespace Core.Core.Migrations
                     b.Navigation("RestaurantItem");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Room.QRCode", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Room.QRCode", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Room.Room", "Room")
+                    b.HasOne("Domain.Core.Entities.Room.Room", "Room")
                         .WithOne("QRCode")
-                        .HasForeignKey("Core.Core.Entities.Room.QRCode", "RoomId")
+                        .HasForeignKey("Domain.Core.Entities.Room.QRCode", "RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Room.Room", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Room.Room", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Hotel.Hotel", "Hotel")
+                    b.HasOne("Domain.Core.Entities.Hotel.Hotel", "Hotel")
                         .WithMany("Rooms")
                         .HasForeignKey("HotelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Room.RoomCategory", "RoomCategory")
+                    b.HasOne("Domain.Core.Entities.Room.RoomCategory", "RoomCategory")
                         .WithMany("Rooms")
                         .HasForeignKey("RoomCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2980,15 +3031,15 @@ namespace Core.Core.Migrations
                     b.Navigation("RoomCategory");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.IncidentTypeToStaffCategory", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.IncidentTypeToStaffCategory", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Staff.IncidentType", "IncidentType")
+                    b.HasOne("Domain.Core.Entities.Staff.IncidentType", "IncidentType")
                         .WithMany("IncidentTypeToStaffCategories")
                         .HasForeignKey("IncidentTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Staff.StaffCategory", "Category")
+                    b.HasOne("Domain.Core.Entities.Staff.StaffCategory", "Category")
                         .WithMany("StaffIncidentTypeToStaffCategories")
                         .HasForeignKey("StaffCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2999,15 +3050,15 @@ namespace Core.Core.Migrations
                     b.Navigation("IncidentType");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.StaffIncident", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.StaffIncident", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Staff.IncidentType", "IncidentType")
+                    b.HasOne("Domain.Core.Entities.Staff.IncidentType", "IncidentType")
                         .WithMany("Incidents")
                         .HasForeignKey("IncidentTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Staff.Staffs", "ReportedByStaff")
+                    b.HasOne("Domain.Core.Entities.Staff.Staffs", "ReportedByStaff")
                         .WithMany("StaffIncidents")
                         .HasForeignKey("ReportedByStaffId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -3018,9 +3069,9 @@ namespace Core.Core.Migrations
                     b.Navigation("ReportedByStaff");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.StaffSentiment", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.StaffSentiment", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Staff.Staffs", "StaffMember")
+                    b.HasOne("Domain.Core.Entities.Staff.Staffs", "StaffMember")
                         .WithMany("StaffSentiments")
                         .HasForeignKey("StaffId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -3029,9 +3080,9 @@ namespace Core.Core.Migrations
                     b.Navigation("StaffMember");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.StaffSupport", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.StaffSupport", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Staff.Staffs", "StaffMember")
+                    b.HasOne("Domain.Core.Entities.Staff.Staffs", "StaffMember")
                         .WithMany()
                         .HasForeignKey("StaffId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -3040,26 +3091,26 @@ namespace Core.Core.Migrations
                     b.Navigation("StaffMember");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.StaffSupportResponse", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.StaffSupportResponse", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Staff.StaffSupport", "StaffSupport")
+                    b.HasOne("Domain.Core.Entities.Staff.StaffSupport", "StaffSupport")
                         .WithOne("SupportResponse")
-                        .HasForeignKey("Core.Core.Entities.Staff.StaffSupportResponse", "TicketId")
+                        .HasForeignKey("Domain.Core.Entities.Staff.StaffSupportResponse", "TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("StaffSupport");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.Staffs", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.Staffs", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Staff.StaffCategory", "StaffCategory")
+                    b.HasOne("Domain.Core.Entities.Staff.StaffCategory", "StaffCategory")
                         .WithMany("Staff")
                         .HasForeignKey("StaffCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Staff.Staffs", "Supervisor")
+                    b.HasOne("Domain.Core.Entities.Staff.Staffs", "Supervisor")
                         .WithMany()
                         .HasForeignKey("SupervisorId");
 
@@ -3068,25 +3119,25 @@ namespace Core.Core.Migrations
                     b.Navigation("Supervisor");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.TaskToStaff", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.TaskToStaff", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Staff.Staffs", "AssignedByStaff")
+                    b.HasOne("Domain.Core.Entities.Staff.Staffs", "AssignedByStaff")
                         .WithMany()
                         .HasForeignKey("AssignedBy");
 
-                    b.HasOne("Core.Core.Entities.Staff.StaffCategory", null)
+                    b.HasOne("Domain.Core.Entities.Staff.StaffCategory", null)
                         .WithMany("TaskToStaff")
                         .HasForeignKey("StaffCategoryId");
 
-                    b.HasOne("Core.Core.Entities.Task.TasksStatus", "Status")
+                    b.HasOne("Domain.Core.Entities.Task.TasksStatus", "Status")
                         .WithMany("TaskToStaff")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Core.Entities.Task.Tasks", "Task")
+                    b.HasOne("Domain.Core.Entities.Task.Tasks", "Task")
                         .WithOne("TaskToStaff")
-                        .HasForeignKey("Core.Core.Entities.Staff.TaskToStaff", "TaskId")
+                        .HasForeignKey("Domain.Core.Entities.Staff.TaskToStaff", "TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -3097,9 +3148,28 @@ namespace Core.Core.Migrations
                     b.Navigation("Task");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Task.TaskLogs", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Task.Comment", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Task.Tasks", "Task")
+                    b.HasOne("Domain.Core.Entities.Staff.Staffs", "Staff")
+                        .WithMany("Comment")
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Core.Entities.Task.Tasks", "Tasks")
+                        .WithMany("Comments")
+                        .HasForeignKey("TaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Staff");
+
+                    b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("Domain.Core.Entities.Task.TaskLogs", b =>
+                {
+                    b.HasOne("Domain.Core.Entities.Task.Tasks", "Task")
                         .WithMany()
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -3108,9 +3178,9 @@ namespace Core.Core.Migrations
                     b.Navigation("Task");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Task.Tasks", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Task.Tasks", b =>
                 {
-                    b.HasOne("Core.Core.Entities.Item.Cart", "Cart")
+                    b.HasOne("Domain.Core.Entities.Item.Cart", "Cart")
                         .WithMany("Tasks")
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -3119,17 +3189,17 @@ namespace Core.Core.Migrations
                     b.Navigation("Cart");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Advertisements.AdvertisementType", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Advertisements.AdvertisementType", b =>
                 {
                     b.Navigation("Advertisements");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Audio.AudioResponseCategory", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Audio.AudioResponseCategory", b =>
                 {
                     b.Navigation("AudioResponses");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Guest.Guests", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Guest.Guests", b =>
                 {
                     b.Navigation("ActiveLanguage")
                         .IsRequired();
@@ -3141,93 +3211,93 @@ namespace Core.Core.Migrations
                     b.Navigation("RestaurantCart");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Guest.Status", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Guest.Status", b =>
                 {
                     b.Navigation("GuestsStatuses");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Hotel.GeoLocation.Location", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Hotel.GeoLocation.Location", b =>
                 {
                     b.Navigation("Hotel")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Hotel.Hotel", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Hotel.Hotel", b =>
                 {
                     b.Navigation("Rooms");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.Cart", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Item.Cart", b =>
                 {
                     b.Navigation("Tasks");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.ItemCategory", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Item.ItemCategory", b =>
                 {
                     b.Navigation("ItemCategoryToStaffCategory");
 
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Item.Items", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Item.Items", b =>
                 {
                     b.Navigation("TaskItems");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Notification.Notifications", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Notification.Notifications", b =>
                 {
                     b.Navigation("GuestNotifications");
 
                     b.Navigation("StaffNotifications");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Payment.PaymentOption", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Payment.PaymentOption", b =>
                 {
                     b.Navigation("RestaurantOrderPayments");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantCart", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Restaurant.RestaurantCart", b =>
                 {
                     b.Navigation("RestaurantItemToCarts");
 
                     b.Navigation("RestaurantOrderPayment");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItem", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Restaurant.RestaurantItem", b =>
                 {
                     b.Navigation("RestaurantItemToCarts");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.RestaurantItemCategory", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Restaurant.RestaurantItemCategory", b =>
                 {
                     b.Navigation("RestaurantItems");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Restaurant.Restaurants", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Restaurant.Restaurants", b =>
                 {
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Room.Room", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Room.Room", b =>
                 {
                     b.Navigation("Guests");
 
                     b.Navigation("QRCode");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Room.RoomCategory", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Room.RoomCategory", b =>
                 {
                     b.Navigation("Rooms");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.IncidentType", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.IncidentType", b =>
                 {
                     b.Navigation("IncidentTypeToStaffCategories");
 
                     b.Navigation("Incidents");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.StaffCategory", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.StaffCategory", b =>
                 {
                     b.Navigation("ItemCategoryToStaff");
 
@@ -3238,13 +3308,15 @@ namespace Core.Core.Migrations
                     b.Navigation("TaskToStaff");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.StaffSupport", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.StaffSupport", b =>
                 {
                     b.Navigation("SupportResponse");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Staff.Staffs", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Staff.Staffs", b =>
                 {
+                    b.Navigation("Comment");
+
                     b.Navigation("StaffIncidents");
 
                     b.Navigation("StaffNotifications");
@@ -3254,8 +3326,10 @@ namespace Core.Core.Migrations
                     b.Navigation("StaffSentiments");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Task.Tasks", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Task.Tasks", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Feedbacks");
 
                     b.Navigation("TaskItems");
@@ -3263,7 +3337,7 @@ namespace Core.Core.Migrations
                     b.Navigation("TaskToStaff");
                 });
 
-            modelBuilder.Entity("Core.Core.Entities.Task.TasksStatus", b =>
+            modelBuilder.Entity("Domain.Core.Entities.Task.TasksStatus", b =>
                 {
                     b.Navigation("TaskToStaff");
                 });

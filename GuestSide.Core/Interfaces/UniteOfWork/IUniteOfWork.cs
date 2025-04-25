@@ -91,6 +91,8 @@ public interface IUniteOfWork
 
     public IIncidentTypeToStaffCategoryRepository IncidentTypeToStaffCategory { get; }
 
+    public ICommentRepository CommentRepository { get; }
+
     System.Threading.Tasks.Task Savechanges(bool Track = false);
 
     System.Threading.Tasks.Task BeginTransaction();

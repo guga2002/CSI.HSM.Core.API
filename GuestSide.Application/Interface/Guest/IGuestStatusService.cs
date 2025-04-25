@@ -5,7 +5,7 @@ using Domain.Core.Entities.Guest;
 
 namespace Core.Application.Interface.Guest;
 
-public interface IGuestStatusService: IService<StatusDto, GuestStatusResponseDto, long, Status>,
+public interface IGuestStatusService : IService<StatusDto, GuestStatusResponseDto, long, Status>,
     IAdditionalFeatures<StatusDto, GuestStatusResponseDto, long, Status>
 {
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Core.Application.ErrorSuccessKeys {
+namespace Domain.Application.ErrorSuccessKeys {
     using System;
     
     

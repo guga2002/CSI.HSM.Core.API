@@ -1,7 +1,7 @@
-﻿using Domain.Core.Data;
-using Domain.Core.Entities.Item;
-using Core.Persistance.MailServices;
+﻿using Core.Persistance.MailServices;
 using Core.Persistance.PtmsCsi;
+using Domain.Core.Data;
+using Domain.Core.Entities.Item;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Core.Persistance.BackgroundServices;
 
-public class ItemMonitoring : IHostedService,IDisposable
+public class ItemMonitoring : IHostedService, IDisposable
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly ILogger<ItemMonitoring> _logger;
@@ -36,9 +36,9 @@ public class ItemMonitoring : IHostedService,IDisposable
 
         try
         {
-            List<Items> items=new List<Items> { };
+            List<Items> items = new List<Items> { };
             _isProcessing = true;
-            var scope= _serviceProvider.CreateScope();
+            var scope = _serviceProvider.CreateScope();
             var httpContextAccessor = scope.ServiceProvider.GetRequiredService<IHttpContextAccessor>();
             if (httpContextAccessor.HttpContext == null)
             {
@@ -71,7 +71,7 @@ public class ItemMonitoring : IHostedService,IDisposable
             var dbcontext = scope.ServiceProvider.GetRequiredService<GuestSideDb>();
             foreach (var item in dbcontext.Items)
             {
-                if(item.Quantity<=3&&item.IsOrderAble&&item.IsActive)
+                if (item.Quantity <= 3 && item.IsOrderAble && item.IsActive)
                 {
                     items.Add(item);
                 }
@@ -87,7 +87,7 @@ public class ItemMonitoring : IHostedService,IDisposable
                     RequestTime = DateTime.Now,
                     Resolved = false,
                     Priority = Domain.Core.Entities.Enums.PriorityEnum.High,
-                    Notes="THis request was automated made!"
+                    Notes = "THis request was automated made!"
                 });
                 var smtpService = scope.ServiceProvider.GetRequiredService<SmtpService>();
                 var templateGatewayService = scope.ServiceProvider.GetRequiredService<ITemplateGatewayService>();

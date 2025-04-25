@@ -4,7 +4,7 @@ using Core.Application.DTOs.Response.Payment;
 
 namespace Core.Application.Services.Payment.RestaurantOrderPayment.Mapper;
 
-public class RestaurantOrderPaymetnMapper:Profile
+public class RestaurantOrderPaymetnMapper : Profile
 {
     public RestaurantOrderPaymetnMapper()
     {

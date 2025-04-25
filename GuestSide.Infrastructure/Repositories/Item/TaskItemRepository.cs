@@ -107,7 +107,7 @@ namespace Core.Infrastructure.Repositories.Item
         }
         #endregion
 
-   
+
 
         #region Caching Helpers
         private async Task<bool> InvalidateCache(long taskItemId)

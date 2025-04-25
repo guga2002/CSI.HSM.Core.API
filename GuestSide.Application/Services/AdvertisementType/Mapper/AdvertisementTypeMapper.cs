@@ -4,7 +4,7 @@ using Core.Application.DTOs.Response.Advertisment;
 
 namespace Core.Application.Services.AdvertisementType.Mapper;
 
-public class AdvertisementTypeMapper:Profile
+public class AdvertisementTypeMapper : Profile
 {
     public AdvertisementTypeMapper()
     {

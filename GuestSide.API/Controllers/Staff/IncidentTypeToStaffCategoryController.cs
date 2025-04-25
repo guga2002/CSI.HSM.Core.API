@@ -16,8 +16,8 @@ public class IncidentTypeToStaffCategoryController : CSIControllerBase<IncidentT
 {
     public IncidentTypeToStaffCategoryController(IService<IncidentTypeToStaffCategoryDto,
         IncidentTypeToStaffCategoryResponseDto, long, IncidentTypeToStaffCategory> serviceProvider,
-        IAdditionalFeatures<IncidentTypeToStaffCategoryDto, IncidentTypeToStaffCategoryResponseDto, 
-            long, IncidentTypeToStaffCategory> additionalFeatures) 
+        IAdditionalFeatures<IncidentTypeToStaffCategoryDto, IncidentTypeToStaffCategoryResponseDto,
+            long, IncidentTypeToStaffCategory> additionalFeatures)
         : base(serviceProvider, additionalFeatures)
     {
     }

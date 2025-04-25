@@ -1,5 +1,4 @@
 ﻿using Core.Application.DTOs.Request.Advertisment;
-using Core.Application.DTOs.Response.Advertisment;
 using Core.Application.Interface.Advertisment;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.Advertismenet.Mapper;
@@ -11,7 +10,7 @@ using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.Advertisement;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Application.Services.Advertismenet.Inject;
+namespace Domain.Core.Application.Services.Advertismenet.Inject;
 
 public static class AdvertisementDI
 {

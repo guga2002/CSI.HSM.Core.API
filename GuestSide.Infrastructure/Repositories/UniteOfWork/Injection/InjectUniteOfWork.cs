@@ -1,4 +1,5 @@
-﻿using Domain.Core.Interfaces.UniteOfWork;
+﻿using Core.Infrastructure.Repositories.UniteOfWork;
+using Domain.Core.Interfaces.UniteOfWork;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Infrastructure.Repositories.UniteOfWork.Injection;

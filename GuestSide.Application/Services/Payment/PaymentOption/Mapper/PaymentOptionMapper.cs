@@ -4,7 +4,7 @@ using Core.Application.DTOs.Response.Payment;
 
 namespace Core.Application.Services.Payment.PaymentOption.Mapper;
 
-public class PaymentOptionMapper:Profile
+public class PaymentOptionMapper : Profile
 {
     public PaymentOptionMapper()
     {

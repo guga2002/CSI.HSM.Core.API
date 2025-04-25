@@ -165,7 +165,7 @@ public class StaffIncidentController : CSIControllerBase<StaffIncidentDto, Staff
     }
 
     [HttpPost("CreteIncident")]
-    public override Task<Response<StaffIncidentResponseDto>> CreateAsync([FromBody]StaffIncidentDto entityDto, CancellationToken cancellationToken = default)
+    public override Task<Response<StaffIncidentResponseDto>> CreateAsync([FromBody] StaffIncidentDto entityDto, CancellationToken cancellationToken = default)
     {
         return base.CreateAsync(entityDto, cancellationToken);
     }

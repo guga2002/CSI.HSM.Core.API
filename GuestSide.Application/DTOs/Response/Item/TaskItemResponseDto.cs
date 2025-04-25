@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Response.Item;
+﻿using Core.Application.DTOs.Response;
+
+namespace Core.Application.DTOs.Response.Item;
 
 public class TaskItemResponseDto : AbstractResponse
 {
@@ -8,9 +10,9 @@ public class TaskItemResponseDto : AbstractResponse
 
     public int Quantity { get; set; }
 
-    public bool IsCompleted { get; set; } 
+    public bool IsCompleted { get; set; }
 
-    public DateTime AssignedDate { get; set; } 
+    public DateTime AssignedDate { get; set; }
 
     public string? Notes { get; set; }
 }
