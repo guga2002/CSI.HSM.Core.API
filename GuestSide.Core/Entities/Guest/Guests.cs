@@ -82,7 +82,7 @@ public class Guests : AbstractEntity
 
     public virtual List<RestaurantCart> RestaurantCart { get; set; }
 
-    public virtual List<GuestIssue>? GuestIssues { get; set; } 
+   // public virtual List<GuestIssue>? GuestIssues { get; set; } 
 
     public Guests(string pattern = "Hi {0} {1}, welcome to our hotel, we are glad to see you here")
     {
