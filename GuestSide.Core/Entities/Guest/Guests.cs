@@ -71,20 +71,22 @@ public class Guests : AbstractEntity
     [ForeignKey(nameof(Room))]
     public long RoomId { get; set; }
     public bool HasBeenFinalized { get; set; } = false;
-    public virtual Room.Room? Room { get; set; } // Virtual navigation
-    public virtual Status? Status { get; set; } // Virtual navigation
+    public virtual Room.Room? Room { get; set; } 
+    public virtual Status? Status { get; set; } 
 
-    public virtual GuestActiveLanguage ActiveLanguage { get; set; } // Virtual navigation
+    public virtual GuestActiveLanguage ActiveLanguage { get; set; } 
 
     public virtual List<Cart>? Carts { get; set; }
 
-    public virtual List<GuestNotification> GuestNotifications { get; set; } = new(); // Optimized
+    public virtual List<GuestNotification> GuestNotifications { get; set; }
 
-    public virtual List<RestaurantCart> RestaurantCart { get; set; } = new(); // ORM optimization
+    public virtual List<RestaurantCart> RestaurantCart { get; set; }
+
+    public virtual List<GuestIssue>? GuestIssues { get; set; } 
 
     public Guests(string pattern = "Hi {0} {1}, welcome to our hotel, we are glad to see you here")
     {
-        FirstName = "Guest"; // Ensures constructor initialization
+        FirstName = "Guest";
         LastName = "Gustiashvili";
         WhatWillRobotSay = string.Format(pattern, FirstName, LastName);
     }
