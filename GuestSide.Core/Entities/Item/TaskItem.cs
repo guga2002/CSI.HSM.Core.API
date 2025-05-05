@@ -30,4 +30,9 @@ public class TaskItem : AbstractEntity
 
     [StringLength(300)]
     public string? Notes { get; set; }
+
+    [ForeignKey(nameof(IssueKeyword))]
+    public long? IssueKeuwordId {  get; set; }
+
+    public IssueKeyword? IssueKeyword { get; set; }
 }

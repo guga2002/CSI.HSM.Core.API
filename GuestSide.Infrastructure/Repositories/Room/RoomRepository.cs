@@ -10,7 +10,7 @@ namespace Core.Infrastructure.Repositories.Room
 {
     public class RoomRepository : GenericRepository<Domain.Core.Entities.Room.Room>, IRoomRepository
     {
-        public RoomRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Domain.Core.Entities.Room.Room> logger)
+        public RoomRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Domain.Core.Entities.Room.Room> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
         }

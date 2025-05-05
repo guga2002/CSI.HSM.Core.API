@@ -12,11 +12,11 @@ namespace Core.Infrastructure.Repositories.Item
 {
     public class StaffInfoAboutRanOutItemsRepository : GenericRepository<StaffInfoAboutRanOutItems>, IStaffInfoAboutRanOutItemsRepository
     {
-        private readonly GuestSideDb _context;
+        private readonly CoreSideDb _context;
         private readonly IRedisCash _redisCache;
         private readonly ILogger<StaffInfoAboutRanOutItems> _logger;
 
-        public StaffInfoAboutRanOutItemsRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<StaffInfoAboutRanOutItems> logger)
+        public StaffInfoAboutRanOutItemsRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<StaffInfoAboutRanOutItems> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
             _context = context;

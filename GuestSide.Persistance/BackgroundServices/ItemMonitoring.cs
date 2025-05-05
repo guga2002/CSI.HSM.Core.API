@@ -68,7 +68,7 @@ public class ItemMonitoring : IHostedService, IDisposable
                 Console.WriteLine("Hotel ID header not found.will take default Db");
             }
 
-            var dbcontext = scope.ServiceProvider.GetRequiredService<GuestSideDb>();
+            var dbcontext = scope.ServiceProvider.GetRequiredService<CoreSideDb>();
             foreach (var item in dbcontext.Items)
             {
                 if (item.Quantity <= 3 && item.IsOrderAble && item.IsActive)

@@ -10,7 +10,7 @@ namespace Core.Infrastructure.Repositories.Advertisement
 {
     public class AdvertisementRepository : GenericRepository<Domain.Core.Entities.Advertisements.Advertisement>, IAdvertisementRepository
     {
-        public AdvertisementRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Domain.Core.Entities.Advertisements.Advertisement> logger)
+        public AdvertisementRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Domain.Core.Entities.Advertisements.Advertisement> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
         }

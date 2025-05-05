@@ -11,11 +11,11 @@ namespace Core.Infrastructure.Repositories.Item
 {
     public class ItemCategoryToStaffCategoryRepository : GenericRepository<ItemCategoryToStaffCategory>, IItemCategoryToStaffCategoryRepository
     {
-        private readonly GuestSideDb _context;
+        private readonly CoreSideDb _context;
         private readonly IRedisCash _redisCache;
         private readonly ILogger<ItemCategoryToStaffCategory> _logger;
 
-        public ItemCategoryToStaffCategoryRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<ItemCategoryToStaffCategory> logger)
+        public ItemCategoryToStaffCategoryRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<ItemCategoryToStaffCategory> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
             _context = context;

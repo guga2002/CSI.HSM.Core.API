@@ -45,6 +45,11 @@ public class Items : AbstractEntity, IExistable<Items>
         set => PicturesSerialized = value == null ? null : JsonSerializer.Serialize(value);
     }
 
+    [ForeignKey(nameof(ItemBehaviorType))]
+    public long ItemBehaviorTypeId {  get; set; }
+
+    public ItemBehaviorType? ItemBehaviorType { get; set; }
+
     public Items() { }
 
     public Items(string whatWillRobotSay = "Your choice is {0}. See details and more information about this item.")

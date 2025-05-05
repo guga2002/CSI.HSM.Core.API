@@ -36,7 +36,7 @@ public class MonthlyReportWorker : IHostedService, IDisposable
         try
         {
             using var scoped = _serviceProvider.CreateScope();
-            var db = scoped.ServiceProvider.GetRequiredService<GuestSideDb>();
+            var db = scoped.ServiceProvider.GetRequiredService<CoreSideDb>();
 
             var today = DateTime.Now.Date;
             var lastMonth = today.AddDays(-30);

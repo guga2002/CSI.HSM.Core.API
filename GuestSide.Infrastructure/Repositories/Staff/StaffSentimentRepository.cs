@@ -11,11 +11,11 @@ namespace Core.Infrastructure.Repositories.Staff
 {
     public class StaffSentimentRepository : GenericRepository<StaffSentiment>, IStaffSentimentRepository
     {
-        private readonly GuestSideDb _context;
+        private readonly CoreSideDb _context;
         private readonly IRedisCash _redisCache;
         private readonly ILogger<StaffSentiment> _logger;
 
-        public StaffSentimentRepository(GuestSideDb context, IRedisCash redisCache,
+        public StaffSentimentRepository(CoreSideDb context, IRedisCash redisCache,
             IHttpContextAccessor httpContextAccessor, ILogger<StaffSentiment> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {

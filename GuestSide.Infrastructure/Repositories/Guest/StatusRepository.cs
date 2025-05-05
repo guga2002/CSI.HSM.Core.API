@@ -10,7 +10,7 @@ namespace Core.Infrastructure.Repositories.Guest;
 
 public class StatusRepository : GenericRepository<Status>, IStatusRepository
 {
-    public StatusRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Status> logger) : base(context, redisCache, httpContextAccessor, logger)
+    public StatusRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Status> logger) : base(context, redisCache, httpContextAccessor, logger)
     {
     }
 }

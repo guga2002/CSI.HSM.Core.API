@@ -12,7 +12,7 @@ namespace Core.Infrastructure.Repositories.Notification;
 
 public class NotificationRepository : GenericRepository<Notifications>, INotificationRepository
 {
-    public NotificationRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Notifications> logger)
+    public NotificationRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Notifications> logger)
         : base(context, redisCache, httpContextAccessor, logger)
     {
     }

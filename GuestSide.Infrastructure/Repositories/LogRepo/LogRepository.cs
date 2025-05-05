@@ -11,7 +11,7 @@ namespace Core.Infrastructure.Repositories.LogRepo
 {
     public class LogsRepository : GenericRepository<Logs>, ILogsRepository
     {
-        public LogsRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Logs> logger)
+        public LogsRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Logs> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
         }

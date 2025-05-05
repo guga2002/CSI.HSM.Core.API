@@ -14,7 +14,7 @@ namespace Core.Infrastructure.Repositories.Notification
 {
     public class StaffNotificationRepository : GenericRepository<StaffNotification>, IStaffNotificationRepository
     {
-        public StaffNotificationRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<StaffNotification> logger)
+        public StaffNotificationRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<StaffNotification> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
         }

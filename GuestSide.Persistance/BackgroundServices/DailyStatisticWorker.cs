@@ -34,7 +34,7 @@ public class DailyStatisticWorker : IHostedService, IDisposable
         try
         {
             using var scope = _serviceProvider.CreateScope();
-            var db = scope.ServiceProvider.GetRequiredService<GuestSideDb>();
+            var db = scope.ServiceProvider.GetRequiredService<CoreSideDb>();
 
             var today = DateTime.UtcNow.Date;
             var tomorrow = today.AddDays(1);

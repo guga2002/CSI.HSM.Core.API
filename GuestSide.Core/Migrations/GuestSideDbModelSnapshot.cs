@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Domain.Core.Migrations
 {
-    [DbContext(typeof(GuestSideDb))]
+    [DbContext(typeof(CoreSideDb))]
     partial class GuestSideDbModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -2447,9 +2447,6 @@ namespace Domain.Core.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<long?>("StaffCategoryId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -2473,8 +2470,6 @@ namespace Domain.Core.Migrations
                     b.HasIndex("IsActive");
 
                     b.HasIndex("LanguageCode");
-
-                    b.HasIndex("StaffCategoryId");
 
                     b.HasIndex("StartDate");
 
@@ -3166,10 +3161,6 @@ namespace Domain.Core.Migrations
                         .WithMany()
                         .HasForeignKey("AssignedBy");
 
-                    b.HasOne("Domain.Core.Entities.Staff.StaffCategory", null)
-                        .WithMany("TaskToStaff")
-                        .HasForeignKey("StaffCategoryId");
-
                     b.HasOne("Domain.Core.Entities.Task.TasksStatus", "Status")
                         .WithMany("TaskToStaff")
                         .HasForeignKey("StatusId")
@@ -3345,8 +3336,6 @@ namespace Domain.Core.Migrations
                     b.Navigation("Staff");
 
                     b.Navigation("StaffIncidentTypeToStaffCategories");
-
-                    b.Navigation("TaskToStaff");
                 });
 
             modelBuilder.Entity("Domain.Core.Entities.Staff.StaffSupport", b =>

@@ -11,7 +11,7 @@ namespace Core.Infrastructure.Repositories.Guest
 {
     public class GuestActiveLanguageRepository : GenericRepository<GuestActiveLanguage>, IGuestActiveLanguageRepository
     {
-        public GuestActiveLanguageRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<GuestActiveLanguage> logger)
+        public GuestActiveLanguageRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<GuestActiveLanguage> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
         }

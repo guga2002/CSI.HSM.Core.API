@@ -52,7 +52,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddDbContext<GuestSideDb>(options =>//respect testing enviroment
+builder.Services.AddDbContext<CoreSideDb>(options =>//respect testing enviroment
 {
     options.UseSqlServer(!builder.Environment.IsProduction()? builder.Configuration.GetSection("connectionTest:CSICOnnect").Value: builder.Configuration.GetConnectionString("CSICOnnect"));
 });

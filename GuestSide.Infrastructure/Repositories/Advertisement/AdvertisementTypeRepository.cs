@@ -11,7 +11,7 @@ namespace Core.Infrastructure.Repositories.Advertisement
 {
     public class AdvertisementTypeRepository : GenericRepository<AdvertisementType>, IAdvertisementTypeRepository
     {
-        public AdvertisementTypeRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<AdvertisementType> logger)
+        public AdvertisementTypeRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<AdvertisementType> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
         }

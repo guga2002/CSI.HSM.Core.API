@@ -34,7 +34,7 @@ public class StaleCartCleanerWorker : IHostedService, IDisposable
         try
         {
             using var scope = _serviceProvider.CreateScope();
-            var db = scope.ServiceProvider.GetRequiredService<GuestSideDb>();
+            var db = scope.ServiceProvider.GetRequiredService<CoreSideDb>();
 
             var cutoff = DateTime.UtcNow.AddHours(-24);
 

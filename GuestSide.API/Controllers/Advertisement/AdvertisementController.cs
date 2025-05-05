@@ -18,7 +18,7 @@ public class AdvertisementController : CSIControllerBase<AdvertismentDto, Advert
     public AdvertisementController(
         IAdvertisementService advertisementService,
         IService<AdvertismentDto, AdvertismentResponseDto, long, Domain.Core.Entities.Advertisements.Advertisement> serviceProvider,
-        GuestSideDb db,
+        CoreSideDb db,
         IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Domain.Core.Entities.Advertisements.Advertisement> feat)
         : base(serviceProvider, feat)
     {

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Domain.Core.Migrations
 {
-    [DbContext(typeof(GuestSideDb))]
+    [DbContext(typeof(CoreSideDb))]
     [Migration("20250406195225_mikdf")]
     partial class mikdf
     {

@@ -35,7 +35,7 @@ public class IncidentRiskClassifierWorker : IHostedService, IDisposable
         try
         {
             using var scope = _serviceProvider.CreateScope();
-            var db = scope.ServiceProvider.GetRequiredService<GuestSideDb>();
+            var db = scope.ServiceProvider.GetRequiredService<CoreSideDb>();
 
             var now = DateTime.UtcNow;
             var criticalThreshold = now.AddDays(-7);

@@ -96,7 +96,7 @@ public class UniteOfWorkRepository : IUniteOfWork
     public ICommentRepository CommentRepository { get; }
 
 
-    private readonly GuestSideDb _context;
+    private readonly CoreSideDb _context;
 
     public UniteOfWorkRepository(
      IAdvertisementRepository advertisementRepository,
@@ -137,7 +137,7 @@ public class UniteOfWorkRepository : IUniteOfWork
      IIncidentTypeRepository incidentTypeRepository,
      IIncidentTypeToStaffCategoryRepository incidentTypeToStaffCategoryRepository,
      ICommentRepository commentRepository,
-     GuestSideDb Context
+     CoreSideDb Context
  )
     {
         AdvertisementRepository = advertisementRepository;

@@ -75,7 +75,7 @@ public class NotifyUsersService : IHostedService, IDisposable
                 Console.WriteLine("Hotel ID header not found.will take default Db");
             }
 
-            var context = scope.ServiceProvider.GetRequiredService<GuestSideDb>();
+            var context = scope.ServiceProvider.GetRequiredService<CoreSideDb>();
             var smtpService = scope.ServiceProvider.GetRequiredService<SmtpService>();
             var templateGatewayService = scope.ServiceProvider.GetRequiredService<ITemplateGatewayService>();
 

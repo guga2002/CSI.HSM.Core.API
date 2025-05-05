@@ -11,7 +11,7 @@ namespace Core.Infrastructure.Repositories.Language;
 
 public class LanguagePackRepository : GenericRepository<LanguagePack>, ILanguagePackRepository
 {
-    public LanguagePackRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<LanguagePack> logger)
+    public LanguagePackRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<LanguagePack> logger)
         : base(context, redisCache, httpContextAccessor, logger)
     {
     }

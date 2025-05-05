@@ -36,7 +36,7 @@ public class AutoTaskAssignerWorker : IHostedService, IDisposable
         try
         {
             using var scope = _serviceProvider.CreateScope();
-            var db = scope.ServiceProvider.GetRequiredService<GuestSideDb>();
+            var db = scope.ServiceProvider.GetRequiredService<CoreSideDb>();
 
             var unassignedTasks = await db.Tasks
                 .Include(t => t.TaskToStaff)

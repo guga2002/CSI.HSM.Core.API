@@ -10,7 +10,7 @@ namespace Core.Infrastructure.Repositories.Staff;
 
 public class IncidentTypeRepository : GenericRepository<IncidentType>, IIncidentTypeRepository
 {
-    public IncidentTypeRepository(GuestSideDb context, IRedisCash redisCache,
+    public IncidentTypeRepository(CoreSideDb context, IRedisCash redisCache,
         IHttpContextAccessor httpContextAccessor, ILogger<IncidentType> logger)
         : base(context, redisCache, httpContextAccessor, logger)
     {

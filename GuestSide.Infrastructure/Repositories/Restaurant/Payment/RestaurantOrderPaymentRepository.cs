@@ -10,7 +10,7 @@ namespace Core.Infrastructure.Repositories.Restaurant.Payment;
 
 public class RestaurantOrderPaymentRepository : GenericRepository<RestaurantOrderPayment>, IRestaurantOrderPaymentRepository
 {
-    public RestaurantOrderPaymentRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<RestaurantOrderPayment> logger) : base(context, redisCache, httpContextAccessor, logger)
+    public RestaurantOrderPaymentRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<RestaurantOrderPayment> logger) : base(context, redisCache, httpContextAccessor, logger)
     {
     }
 }

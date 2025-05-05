@@ -11,7 +11,7 @@ namespace Core.Infrastructure.Repositories.Audio
 {
     public class AudioResponseRepository : GenericRepository<AudioResponse>, IAudioResponseRepository
     {
-        public AudioResponseRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<AudioResponse> logger)
+        public AudioResponseRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<AudioResponse> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
         }

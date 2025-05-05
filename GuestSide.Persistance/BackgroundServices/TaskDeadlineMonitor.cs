@@ -37,7 +37,7 @@ public class TaskDeadlineMonitor : IHostedService, IDisposable
         try
         {
             var scope = _serviceProvider.CreateScope();
-            var db = scope.ServiceProvider.GetRequiredService<GuestSideDb>();
+            var db = scope.ServiceProvider.GetRequiredService<CoreSideDb>();
             var smtpService = scope.ServiceProvider.GetRequiredService<SmtpService>();
             var templateGateway = scope.ServiceProvider.GetRequiredService<ITemplateGatewayService>();
             var httpContextAccessor = scope.ServiceProvider.GetRequiredService<IHttpContextAccessor>();

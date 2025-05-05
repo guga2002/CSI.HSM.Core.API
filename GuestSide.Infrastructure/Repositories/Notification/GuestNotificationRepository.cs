@@ -11,7 +11,7 @@ namespace Core.Infrastructure.Repositories.Notification;
 
 public class GuestNotificationRepository : GenericRepository<GuestNotification>, IGuestNotificationRepository
 {
-    public GuestNotificationRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<GuestNotification> logger)
+    public GuestNotificationRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<GuestNotification> logger)
         : base(context, redisCache, httpContextAccessor, logger)
     {
     }

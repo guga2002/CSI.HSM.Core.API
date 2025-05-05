@@ -11,7 +11,7 @@ namespace Core.Infrastructure.Repositories.Room
 {
     public class RoomCategoryRepository : GenericRepository<RoomCategory>, IRoomCategoryRepository
     {
-        public RoomCategoryRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<RoomCategory> logger)
+        public RoomCategoryRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<RoomCategory> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
         }

@@ -11,11 +11,11 @@ namespace Core.Infrastructure.Repositories.Item
 {
     public class ItemsRepository : GenericRepository<Items>, IItemsRepository
     {
-        private readonly GuestSideDb _context;
+        private readonly CoreSideDb _context;
         private readonly IRedisCash _redisCache;
         private readonly ILogger<Items> _logger;
 
-        public ItemsRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Items> logger)
+        public ItemsRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Items> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
             _context = context;

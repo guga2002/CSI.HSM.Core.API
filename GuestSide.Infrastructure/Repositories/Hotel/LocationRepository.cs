@@ -11,7 +11,7 @@ namespace Core.Infrastructure.Repositories.Hotel
 {
     public class LocationRepository : GenericRepository<Location>, ILocationRepository
     {
-        public LocationRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Location> logger)
+        public LocationRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Location> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
         }

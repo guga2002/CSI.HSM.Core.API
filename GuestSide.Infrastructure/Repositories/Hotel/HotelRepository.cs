@@ -11,7 +11,7 @@ namespace Core.Infrastructure.Repositories.Hotel;
 
 public class HotelRepository : GenericRepository<Domain.Core.Entities.Hotel.Hotel>, IHotelRepository
 {
-    public HotelRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Domain.Core.Entities.Hotel.Hotel> logger)
+    public HotelRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Domain.Core.Entities.Hotel.Hotel> logger)
         : base(context, redisCache, httpContextAccessor, logger)
     {
     }

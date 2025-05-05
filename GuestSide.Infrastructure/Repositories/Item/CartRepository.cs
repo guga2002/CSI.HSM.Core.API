@@ -11,7 +11,7 @@ namespace Core.Infrastructure.Repositories.Item
 {
     public class CartRepository : GenericRepository<Cart>, ICartRepository
     {
-        public CartRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Cart> logger)
+        public CartRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Cart> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
         }

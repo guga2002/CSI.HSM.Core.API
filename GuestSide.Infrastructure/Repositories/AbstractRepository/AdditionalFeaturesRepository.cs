@@ -12,14 +12,14 @@ namespace Core.Infrastructure.Repositories.AbstractRepository;
 public class AdditionalFeaturesRepository<T> : IAdditionalFeaturesRepository<T> where T : class
 {
     #region Constructor
-    private readonly GuestSideDb _context;
+    private readonly CoreSideDb _context;
     private readonly DbSet<T> DbSet;
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="context"></param>
-    public AdditionalFeaturesRepository(GuestSideDb context)
+    public AdditionalFeaturesRepository(CoreSideDb context)
     {
         _context = context;
         DbSet = _context.Set<T>();

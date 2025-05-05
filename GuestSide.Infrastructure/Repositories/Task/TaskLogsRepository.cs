@@ -10,7 +10,7 @@ namespace Core.Infrastructure.Repositories.Task;
 
 public class TaskLogsRepository : GenericRepository<TaskLogs>, ITaskLogsRepository
 {
-    public TaskLogsRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<TaskLogs> logger) : base(context, redisCache, httpContextAccessor, logger)
+    public TaskLogsRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<TaskLogs> logger) : base(context, redisCache, httpContextAccessor, logger)
     {
     }
 }

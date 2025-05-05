@@ -72,7 +72,7 @@ public class PromoCodeMonitoring : IHostedService, IDisposable
                 Console.WriteLine("Hotel ID header not found.will take default Db");
             }
 
-            var context = scope.ServiceProvider.GetRequiredService<GuestSideDb>();
+            var context = scope.ServiceProvider.GetRequiredService<CoreSideDb>();
             foreach (var item in context.PromoCodes.ToList())
             {
                 if (item.ValidUntil <= DateTime.UtcNow)

@@ -11,7 +11,7 @@ namespace Core.Infrastructure.Repositories.FeedBack;
 
 public class FeedbackRepository : GenericRepository<Feedback>, IFeedbackRepository
 {
-    public FeedbackRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Feedback> logger)
+    public FeedbackRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Feedback> logger)
         : base(context, redisCache, httpContextAccessor, logger)
     {
     }

@@ -10,7 +10,7 @@ namespace Core.Infrastructure.Repositories.Contacts;
 
 public class ContactRepository : GenericRepository<Contact>, IContactRespository
 {
-    public ContactRepository(GuestSideDb context, IRedisCash redisCache,
+    public ContactRepository(CoreSideDb context, IRedisCash redisCache,
         IHttpContextAccessor httpContextAccessor, ILogger<Contact> logger)
         : base(context, redisCache, httpContextAccessor, logger)
     {

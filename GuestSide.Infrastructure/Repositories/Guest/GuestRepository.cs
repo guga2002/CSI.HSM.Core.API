@@ -11,7 +11,7 @@ namespace Core.Infrastructure.Repositories.Guest
 {
     public class GuestRepository : GenericRepository<Guests>, IGuestRepository
     {
-        public GuestRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Guests> logger)
+        public GuestRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Guests> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
         }

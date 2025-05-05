@@ -11,7 +11,7 @@ namespace Core.Infrastructure.Repositories.Task
 {
     public class TaskStatusRepository : GenericRepository<TasksStatus>, ITaskStatusRepository
     {
-        public TaskStatusRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<TasksStatus> logger)
+        public TaskStatusRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<TasksStatus> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
         }

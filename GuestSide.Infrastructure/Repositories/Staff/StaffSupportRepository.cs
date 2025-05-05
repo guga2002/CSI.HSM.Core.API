@@ -12,11 +12,11 @@ namespace Core.Infrastructure.Repositories.Staff
 {
     public class StaffSupportRepository : GenericRepository<StaffSupport>, IStaffSupportRepository
     {
-        private readonly GuestSideDb _context;
+        private readonly CoreSideDb _context;
         private readonly IRedisCash _redisCache;
         private readonly ILogger<StaffSupport> _logger;
 
-        public StaffSupportRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<StaffSupport> logger)
+        public StaffSupportRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<StaffSupport> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
             _context = context;

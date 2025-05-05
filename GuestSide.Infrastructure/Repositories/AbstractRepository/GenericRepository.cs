@@ -15,7 +15,7 @@ namespace Core.Infrastructure.Repositories.AbstractRepository;
 public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
 {
     #region Constructor
-    protected readonly GuestSideDb Context;
+    protected readonly CoreSideDb Context;
     protected readonly DbSet<T> DbSet;
     private readonly IRedisCash _redisCache;
     private readonly IHttpContextAccessor _httpContextAccessor;
@@ -29,7 +29,7 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
     /// <param name="httpContextAccessor"></param>
     /// <param name="logger"></param>
     /// <exception cref="ArgumentNullException"></exception>
-    protected GenericRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<T> logger)
+    protected GenericRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<T> logger)
     {
         Context = context ?? throw new ArgumentNullException(nameof(context));
         DbSet = context.Set<T>();

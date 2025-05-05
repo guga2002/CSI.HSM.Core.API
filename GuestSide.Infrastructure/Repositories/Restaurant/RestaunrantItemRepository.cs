@@ -10,7 +10,7 @@ namespace Core.Infrastructure.Repositories.Restaurant;
 
 public class RestaunrantItemRepository : GenericRepository<RestaurantItem>, IRestaunrantItemRepository
 {
-    public RestaunrantItemRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<RestaurantItem> logger) : base(context, redisCache, httpContextAccessor, logger)
+    public RestaunrantItemRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<RestaurantItem> logger) : base(context, redisCache, httpContextAccessor, logger)
     {
     }
 }

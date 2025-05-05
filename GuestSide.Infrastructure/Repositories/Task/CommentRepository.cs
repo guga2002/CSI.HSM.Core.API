@@ -10,7 +10,7 @@ namespace Core.Infrastructure.Repositories.Task;
 
 public class CommentRepository : GenericRepository<Comment>, ICommentRepository
 {
-    public CommentRepository(GuestSideDb context,
+    public CommentRepository(CoreSideDb context,
         IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, 
         ILogger<Comment> logger) 
         : base(context, redisCache, httpContextAccessor, logger)

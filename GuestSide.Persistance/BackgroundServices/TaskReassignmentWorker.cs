@@ -34,7 +34,7 @@ public class TaskReassignmentWorker : IHostedService, IDisposable
         try
         {
             using var scope = _serviceProvider.CreateScope();
-            var db = scope.ServiceProvider.GetRequiredService<GuestSideDb>();
+            var db = scope.ServiceProvider.GetRequiredService<CoreSideDb>();
             var now = DateTime.UtcNow;
             var overdueTasks = await db.TaskToStaffs.
                 Include(i => i.Task).

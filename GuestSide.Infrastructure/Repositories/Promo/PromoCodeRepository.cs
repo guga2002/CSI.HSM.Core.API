@@ -13,7 +13,7 @@ namespace Core.Infrastructure.Repositories.Promo
     public class PromoCodeRepository : GenericRepository<PromoCode>, IPromoCodeRepository
     {
         public PromoCodeRepository(
-            GuestSideDb context,
+            CoreSideDb context,
             IRedisCash redisCache,
             IHttpContextAccessor httpContextAccessor,
             ILogger<PromoCode> logger)

@@ -11,7 +11,7 @@ namespace Core.Infrastructure.Repositories.Room
 {
     public class QRCodeRepository : GenericRepository<QRCode>, IQRCodeRepository
     {
-        public QRCodeRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<QRCode> logger)
+        public QRCodeRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<QRCode> logger)
             : base(context, redisCache, httpContextAccessor, logger)
         {
         }

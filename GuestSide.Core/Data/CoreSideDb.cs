@@ -20,10 +20,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Core.Data;
 
-public class GuestSideDb : DbContext
+public class CoreSideDb : DbContext
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
-    public GuestSideDb(DbContextOptions<GuestSideDb> options, IHttpContextAccessor httpContextAccessor) : base(options)
+    public CoreSideDb(DbContextOptions<CoreSideDb> options, IHttpContextAccessor httpContextAccessor) : base(options)
     {
 
         _httpContextAccessor = httpContextAccessor;
@@ -124,6 +124,10 @@ public class GuestSideDb : DbContext
     public virtual DbSet<Comment> Comments { get; set; }
 
     public virtual DbSet<VoiceRequest> VoiceRequests { get; set; }
+
+    public virtual DbSet<IssueKeyword> IssueKeywords { get; set; }
+
+    public virtual DbSet<ItemBehaviorType> ItemBehaviorTypes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

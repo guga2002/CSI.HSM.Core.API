@@ -13,7 +13,7 @@ namespace Core.Infrastructure.Repositories.Task;
 
 public class TaskRepository : GenericRepository<Tasks>, ITaskRepository
 {
-    public TaskRepository(GuestSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Tasks> logger)
+    public TaskRepository(CoreSideDb context, IRedisCash redisCache, IHttpContextAccessor httpContextAccessor, ILogger<Tasks> logger)
         : base(context, redisCache, httpContextAccessor, logger)
     {
     }

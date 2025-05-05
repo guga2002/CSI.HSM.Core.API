@@ -20,8 +20,6 @@ public class StaffCategory : AbstractEntity, IExistable<StaffCategory>
 
     public virtual List<Staffs>? Staff { get; set; }
 
-    public virtual List<TaskToStaff>? TaskToStaff { get; set; }
-
     public virtual List<ItemCategoryToStaffCategory>? ItemCategoryToStaff { get; set; }
 
     public virtual List<IncidentTypeToStaffCategory>? StaffIncidentTypeToStaffCategories { get; set; }
