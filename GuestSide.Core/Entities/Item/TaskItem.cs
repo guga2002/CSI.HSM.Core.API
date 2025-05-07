@@ -1,4 +1,5 @@
 ﻿using Domain.Core.Entities.AbstractEntities;
+using Domain.Core.Entities.IssueKeywords;
 using Domain.Core.Entities.Task;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
@@ -30,4 +31,8 @@ public class TaskItem : AbstractEntity
 
     [StringLength(300)]
     public string? Notes { get; set; }
+
+    [ForeignKey(nameof(IssueKeyword))]
+    public int? IssueKeywordId { get; set; }
+    public IssueKeyword IssueKeyword { get; set; }
 }

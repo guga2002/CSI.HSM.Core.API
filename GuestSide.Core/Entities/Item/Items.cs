@@ -38,6 +38,10 @@ public class Items : AbstractEntity, IExistable<Items>
 
     public string? PicturesSerialized { get; set; }
 
+    [ForeignKey(nameof(ItemBehaviorType))]
+    public int ItemBehaviorTypeId { get; set; }
+    public ItemBehaviorType ItemBehaviorType { get; set; }
+
     [NotMapped]
     public List<string>? Pictures
     {
