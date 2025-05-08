@@ -20,8 +20,8 @@ public class Items : AbstractEntity, IExistable<Items>
 
     [StringLength(255)]
     public string? Information { get; set; }
+
     public int Quantity { get; set; }
-    public bool IsOrderAble { get; set; }
 
     [Precision(18, 2)] // Ensuring consistent decimal precision
     public decimal? Price { get; set; }
