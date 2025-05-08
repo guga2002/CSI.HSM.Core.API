@@ -15,6 +15,6 @@ namespace Domain.Core.Interfaces.Item
         Task<bool> SetItemOrderableStatusAsync(long itemId, bool isOrderable, CancellationToken cancellationToken = default);
 
         Task<int> CountItemsInCategoryAsync(long categoryId, CancellationToken cancellationToken = default);
-        Task<int> CountOrderableItemsAsync(CancellationToken cancellationToken = default);
+        //Task<int> CountOrderableItemsAsync(CancellationToken cancellationToken = default);
     }
 }

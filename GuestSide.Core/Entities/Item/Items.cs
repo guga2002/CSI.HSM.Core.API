@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 namespace Domain.Core.Entities.Item;
 
 [Table("Items", Schema = "CSI")]
-[Index(nameof(IsOrderAble))]
 public class Items : AbstractEntity, IExistable<Items>
 {
     [Column("ItemName")]
