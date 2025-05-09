@@ -129,6 +129,8 @@ public class CoreSideDb : DbContext
 
     public virtual DbSet<ItemBehaviorType> ItemBehaviorTypes { get; set; }
 
+    public virtual DbSet<ScheduledDelivery> ScheduledDeliveries {  get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);

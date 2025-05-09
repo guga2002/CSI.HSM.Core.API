@@ -4,6 +4,7 @@ using Domain.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Core.Migrations
 {
     [DbContext(typeof(CoreSideDb))]
-    partial class GuestSideDbModelSnapshot : ModelSnapshot
+    [Migration("20250509091353_refactorTables")]
+    partial class refactorTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -851,47 +854,6 @@ namespace Domain.Core.Migrations
                     b.HasIndex("LanguageCode");
 
                     b.ToTable("Items", "CSI");
-                });
-
-            modelBuilder.Entity("Domain.Core.Entities.Item.ScheduledDelivery", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LanguageCode")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<DateTime>("ScheduledDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("TaskItemId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedAt");
-
-                    b.HasIndex("IsActive");
-
-                    b.HasIndex("LanguageCode");
-
-                    b.HasIndex("TaskItemId")
-                        .IsUnique();
-
-                    b.ToTable("ScheduledDeliveries", "CSI");
                 });
 
             modelBuilder.Entity("Domain.Core.Entities.Item.StaffInfoAboutRanOutItems", b =>
@@ -3037,17 +2999,6 @@ namespace Domain.Core.Migrations
                     b.Navigation("ItemCategory");
                 });
 
-            modelBuilder.Entity("Domain.Core.Entities.Item.ScheduledDelivery", b =>
-                {
-                    b.HasOne("Domain.Core.Entities.Item.TaskItem", "TaskItem")
-                        .WithOne("ScheduledDelivery")
-                        .HasForeignKey("Domain.Core.Entities.Item.ScheduledDelivery", "TaskItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TaskItem");
-                });
-
             modelBuilder.Entity("Domain.Core.Entities.Item.StaffInfoAboutRanOutItems", b =>
                 {
                     b.HasOne("Domain.Core.Entities.Staff.Staffs", "StaffMember")
@@ -3427,11 +3378,6 @@ namespace Domain.Core.Migrations
             modelBuilder.Entity("Domain.Core.Entities.Item.Items", b =>
                 {
                     b.Navigation("TaskItems");
-                });
-
-            modelBuilder.Entity("Domain.Core.Entities.Item.TaskItem", b =>
-                {
-                    b.Navigation("ScheduledDelivery");
                 });
 
             modelBuilder.Entity("Domain.Core.Entities.Notification.Notifications", b =>
