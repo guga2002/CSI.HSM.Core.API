@@ -19,4 +19,6 @@ public class StaffIncidentDto
     public required string Location { get; set; }
 
     public long IncidentTypeId { get; set; }
+
+    public long? TakenByStaffId { get; set; }
 }

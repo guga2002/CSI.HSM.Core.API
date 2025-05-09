@@ -1,5 +1,4 @@
-﻿using Core.Application.DTOs.Response;
-using Domain.Core.Entities.Enums;
+﻿using Domain.Core.Entities.Enums;
 
 namespace Core.Application.DTOs.Response.Staff;
 
@@ -26,6 +25,8 @@ public class StaffIncidentResponseDto : AbstractResponse
     public bool RequiresImmediateAction { get; set; }
 
     public long IncidentTypeId { get; set; }
+
+    public long? TakenByStaffId { get; set; }
 
     public virtual StaffResponseDto? ReportedByStaff { get; set; }
 
