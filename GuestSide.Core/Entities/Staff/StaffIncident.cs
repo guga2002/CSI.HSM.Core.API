@@ -38,7 +38,10 @@ public class StaffIncident : AbstractEntity
     [ForeignKey(nameof(IncidentType))]
     public long IncidentTypeId { get; set; }
 
-    public virtual IncidentType? IncidentType { get; set; }
+    [ForeignKey(nameof(TakenByStaff))]
+    public long TakenByStaffId { get; set; }
 
+    public virtual IncidentType? IncidentType { get; set; }
     public virtual Staffs? ReportedByStaff { get; set; } // Virtual for lazy loading
+    public virtual Staffs? TakenByStaff { get; set; }   
 }

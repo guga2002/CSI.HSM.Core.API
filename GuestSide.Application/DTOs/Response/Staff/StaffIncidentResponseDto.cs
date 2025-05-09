@@ -27,7 +27,9 @@ public class StaffIncidentResponseDto : AbstractResponse
 
     public long IncidentTypeId { get; set; }
 
-    public virtual StaffResponseDto? ReportedByStaff { get; set; }
+    public long TakenByStaffId { get; set; }
 
+    public virtual StaffResponseDto? TakenByStaff { get; set; }
+    public virtual StaffResponseDto? ReportedByStaff { get; set; }
     public virtual IncidentTypeResponseDto? IncidentType { get; set; }
 }
