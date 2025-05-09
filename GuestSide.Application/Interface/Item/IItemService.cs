@@ -51,6 +51,6 @@ namespace Core.Application.Interface.Item
         /// <summary>
         /// Count the number of orderable items.
         /// </summary>
-        Task<int> CountOrderableItemsAsync(CancellationToken cancellationToken = default);
+       // Task<int> CountOrderableItemsAsync(CancellationToken cancellationToken = default);
     }
 }

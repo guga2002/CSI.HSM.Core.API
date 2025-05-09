@@ -59,14 +59,14 @@ builder.Services.AddDbContext<CoreSideDb>(options =>//respect testing enviroment
 
 builder.Services.AddHttpClient<CsiVoicePack>(i => i.BaseAddress = new Uri("https://api.logixplore.com:3333/"));
 
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(2044, listenOptions =>
-    {
-        listenOptions.UseHttps("C:\\certs\\SSLFORCSI.pfx", "Tabaxmela123#");
-    });
-    options.ListenAnyIP(2045);
-});
+//builder.WebHost.ConfigureKestrel(options =>
+//{
+//    options.ListenAnyIP(2044, listenOptions =>
+//    {
+//        listenOptions.UseHttps("C:\\certs\\SSLFORCSI.pfx", "Tabaxmela123#");
+//    });
+//    options.ListenAnyIP(2045);
+//});
 
 builder.Services.AddHostedService<NotifyUsersService>();
 builder.Services.AddHostedService<ItemMonitoring>();

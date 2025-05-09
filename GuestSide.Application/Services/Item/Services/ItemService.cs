@@ -146,9 +146,9 @@ namespace Core.Application.Services.Item.Services
             return await _itemsRepository.CountItemsInCategoryAsync(categoryId, cancellationToken);
         }
 
-        public async Task<int> CountOrderableItemsAsync(CancellationToken cancellationToken = default)
-        {
-            return await _itemsRepository.CountOrderableItemsAsync(cancellationToken);
-        }
+        //public async Task<int> CountOrderableItemsAsync(CancellationToken cancellationToken = default)
+        //{
+        //    return await _itemsRepository.CountOrderableItemsAsync(cancellationToken);
+        //}
     }
 }

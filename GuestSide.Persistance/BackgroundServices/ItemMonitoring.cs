@@ -71,7 +71,7 @@ public class ItemMonitoring : IHostedService, IDisposable
             var dbcontext = scope.ServiceProvider.GetRequiredService<CoreSideDb>();
             foreach (var item in dbcontext.Items)
             {
-                if (item.Quantity <= 3 && item.IsOrderAble && item.IsActive)
+                if (item.Quantity <= 3 && item.IsActive)
                 {
                     items.Add(item);
                 }
