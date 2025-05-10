@@ -4,6 +4,7 @@ using Domain.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Core.Migrations
 {
     [DbContext(typeof(CoreSideDb))]
-    partial class GuestSideDbModelSnapshot : ModelSnapshot
+    [Migration("20250509073225_mdfgdfknhgf56")]
+    partial class mdfgdfknhgf56
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -616,6 +619,82 @@ namespace Domain.Core.Migrations
                     b.ToTable("Carts", "CSI");
                 });
 
+            modelBuilder.Entity("Domain.Core.Entities.Item.IssueKeyword", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Keyword")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.ToTable("IssueKeywords", "CSI");
+                });
+
+            modelBuilder.Entity("Domain.Core.Entities.Item.ItemBehaviorType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Alias")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.ToTable("ItemBehaviorTypes");
+                });
+
             modelBuilder.Entity("Domain.Core.Entities.Item.ItemCategory", b =>
                 {
                     b.Property<long>("Id")
@@ -729,8 +808,8 @@ namespace Domain.Core.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsOrderAble")
-                        .HasColumnType("bit");
+                    b.Property<long>("ItemBehaviorTypeId")
+                        .HasColumnType("bigint");
 
                     b.Property<long>("ItemCategoryId")
                         .HasColumnType("bigint");
@@ -768,7 +847,7 @@ namespace Domain.Core.Migrations
 
                     b.HasIndex("IsActive");
 
-                    b.HasIndex("IsOrderAble");
+                    b.HasIndex("ItemBehaviorTypeId");
 
                     b.HasIndex("ItemCategoryId");
 
@@ -921,6 +1000,9 @@ namespace Domain.Core.Migrations
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
+                    b.Property<long?>("IssueKeuwordId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("ItemId")
                         .HasColumnType("bigint");
 
@@ -948,6 +1030,8 @@ namespace Domain.Core.Migrations
                     b.HasIndex("IsActive");
 
                     b.HasIndex("IsCompleted");
+
+                    b.HasIndex("IssueKeuwordId");
 
                     b.HasIndex("ItemId");
 
@@ -2894,11 +2978,19 @@ namespace Domain.Core.Migrations
 
             modelBuilder.Entity("Domain.Core.Entities.Item.Items", b =>
                 {
+                    b.HasOne("Domain.Core.Entities.Item.ItemBehaviorType", "ItemBehaviorType")
+                        .WithMany("Items")
+                        .HasForeignKey("ItemBehaviorTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Core.Entities.Item.ItemCategory", "ItemCategory")
                         .WithMany("Items")
                         .HasForeignKey("ItemCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ItemBehaviorType");
 
                     b.Navigation("ItemCategory");
                 });
@@ -2914,6 +3006,10 @@ namespace Domain.Core.Migrations
 
             modelBuilder.Entity("Domain.Core.Entities.Item.TaskItem", b =>
                 {
+                    b.HasOne("Domain.Core.Entities.Item.IssueKeyword", "IssueKeyword")
+                        .WithMany("TaskItem")
+                        .HasForeignKey("IssueKeuwordId");
+
                     b.HasOne("Domain.Core.Entities.Item.Items", "Item")
                         .WithMany("TaskItems")
                         .HasForeignKey("ItemId")
@@ -2925,6 +3021,8 @@ namespace Domain.Core.Migrations
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("IssueKeyword");
 
                     b.Navigation("Item");
 
@@ -3262,6 +3360,16 @@ namespace Domain.Core.Migrations
             modelBuilder.Entity("Domain.Core.Entities.Item.Cart", b =>
                 {
                     b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("Domain.Core.Entities.Item.IssueKeyword", b =>
+                {
+                    b.Navigation("TaskItem");
+                });
+
+            modelBuilder.Entity("Domain.Core.Entities.Item.ItemBehaviorType", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("Domain.Core.Entities.Item.ItemCategory", b =>
