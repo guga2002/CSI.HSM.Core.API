@@ -34,5 +34,7 @@ public class TaskItem : AbstractEntity
     [ForeignKey(nameof(IssueKeyword))]
     public long? IssueKeuwordId {  get; set; }
 
-    public IssueKeyword? IssueKeyword { get; set; }
+    public virtual IssueKeyword? IssueKeyword { get; set; }
+
+    public virtual ScheduledDelivery? ScheduledDelivery { get; set; }
 }

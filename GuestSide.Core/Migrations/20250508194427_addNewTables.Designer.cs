@@ -4,6 +4,7 @@ using Domain.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Core.Migrations
 {
     [DbContext(typeof(CoreSideDb))]
-    partial class GuestSideDbModelSnapshot : ModelSnapshot
+    [Migration("20250508194427_addNewTables")]
+    partial class addNewTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -851,47 +854,6 @@ namespace Domain.Core.Migrations
                     b.HasIndex("LanguageCode");
 
                     b.ToTable("Items", "CSI");
-                });
-
-            modelBuilder.Entity("Domain.Core.Entities.Item.ScheduledDelivery", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LanguageCode")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<DateTime>("ScheduledDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("TaskItemId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedAt");
-
-                    b.HasIndex("IsActive");
-
-                    b.HasIndex("LanguageCode");
-
-                    b.HasIndex("TaskItemId")
-                        .IsUnique();
-
-                    b.ToTable("ScheduledDeliveries", "CSI");
                 });
 
             modelBuilder.Entity("Domain.Core.Entities.Item.StaffInfoAboutRanOutItems", b =>
@@ -2218,9 +2180,6 @@ namespace Domain.Core.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<long?>("TakenByStaffId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -2680,9 +2639,6 @@ namespace Domain.Core.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("GuestId")
-                        .HasColumnType("bigint");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -2690,7 +2646,7 @@ namespace Domain.Core.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<long?>("StaffId")
+                    b.Property<long>("StaffId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("TaskId")
@@ -2709,6 +2665,8 @@ namespace Domain.Core.Migrations
                     b.HasIndex("IsActive");
 
                     b.HasIndex("LanguageCode");
+
+                    b.HasIndex("StaffId");
 
                     b.HasIndex("TaskId");
 
@@ -3037,17 +2995,6 @@ namespace Domain.Core.Migrations
                     b.Navigation("ItemCategory");
                 });
 
-            modelBuilder.Entity("Domain.Core.Entities.Item.ScheduledDelivery", b =>
-                {
-                    b.HasOne("Domain.Core.Entities.Item.TaskItem", "TaskItem")
-                        .WithOne("ScheduledDelivery")
-                        .HasForeignKey("Domain.Core.Entities.Item.ScheduledDelivery", "TaskItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TaskItem");
-                });
-
             modelBuilder.Entity("Domain.Core.Entities.Item.StaffInfoAboutRanOutItems", b =>
                 {
                     b.HasOne("Domain.Core.Entities.Staff.Staffs", "StaffMember")
@@ -3333,11 +3280,19 @@ namespace Domain.Core.Migrations
 
             modelBuilder.Entity("Domain.Core.Entities.Task.Comment", b =>
                 {
+                    b.HasOne("Domain.Core.Entities.Staff.Staffs", "Staff")
+                        .WithMany("Comment")
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Core.Entities.Task.Tasks", "Tasks")
                         .WithMany("Comments")
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Staff");
 
                     b.Navigation("Tasks");
                 });
@@ -3429,11 +3384,6 @@ namespace Domain.Core.Migrations
                     b.Navigation("TaskItems");
                 });
 
-            modelBuilder.Entity("Domain.Core.Entities.Item.TaskItem", b =>
-                {
-                    b.Navigation("ScheduledDelivery");
-                });
-
             modelBuilder.Entity("Domain.Core.Entities.Notification.Notifications", b =>
                 {
                     b.Navigation("GuestNotifications");
@@ -3503,6 +3453,8 @@ namespace Domain.Core.Migrations
 
             modelBuilder.Entity("Domain.Core.Entities.Staff.Staffs", b =>
                 {
+                    b.Navigation("Comment");
+
                     b.Navigation("StaffIncidents");
 
                     b.Navigation("StaffNotifications");

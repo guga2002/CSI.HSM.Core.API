@@ -35,6 +35,8 @@ public class StaffIncident : AbstractEntity
 
     public bool RequiresImmediateAction { get; set; } = false; // Marks if urgent attention is needed
 
+    public long? TakenByStaffId { get; set; }
+
     [ForeignKey(nameof(IncidentType))]
     public long IncidentTypeId { get; set; }
 

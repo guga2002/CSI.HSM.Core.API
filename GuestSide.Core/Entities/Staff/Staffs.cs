@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Core.Entities.AbstractEntities;
 using Domain.Core.Entities.Item;
 using Domain.Core.Entities.Notification;
-using Domain.Core.Entities.Task;
 using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Core.Entities.Staff;
@@ -70,6 +69,4 @@ public class Staffs : AbstractEntity
     public virtual List<StaffSentiment>? StaffSentiments { get; set; }
 
     public virtual List<StaffInfoAboutRanOutItems>? StaffRequestForItemStockRenewal { get; set; }
-
-    public virtual List<Comment>? Comment { get; set; }
 }

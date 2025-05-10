@@ -2,7 +2,9 @@
 
 public class CommentDto
 {
-    public long StaffId { get; set; }
+    public long? StaffId { get; set; }
+
+    public long? GuestId { get; set; }
 
     public long TaskId { get; set; }
 
