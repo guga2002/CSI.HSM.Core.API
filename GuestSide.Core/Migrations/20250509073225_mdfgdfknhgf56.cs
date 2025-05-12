@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Domain.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class mikdf : Migration
+    public partial class mdfgdfknhgf56 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,10 +23,10 @@ namespace Domain.Core.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LanguageCode = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -49,6 +49,33 @@ namespace Domain.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DailyStatistics",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalTasksCreated = table.Column<int>(type: "int", nullable: false),
+                    TasksCompleted = table.Column<int>(type: "int", nullable: false),
+                    TasksOverdue = table.Column<int>(type: "int", nullable: false),
+                    TotalFeedbacks = table.Column<int>(type: "int", nullable: false),
+                    PositiveFeedbacks = table.Column<int>(type: "int", nullable: false),
+                    NegativeFeedbacks = table.Column<int>(type: "int", nullable: false),
+                    SupportRequestsOpened = table.Column<int>(type: "int", nullable: false),
+                    SupportRequestsResolved = table.Column<int>(type: "int", nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DailyStatistics", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "IncidentTypes",
                 schema: "CSI",
                 columns: table => new
@@ -59,11 +86,49 @@ namespace Domain.Core.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IncidentTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IssueKeywords",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Keyword = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IssueKeywords", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ItemBehaviorTypes",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Alias = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemBehaviorTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -76,10 +141,10 @@ namespace Domain.Core.Migrations
                     CategoryName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     WhatWillRobotSay = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -98,7 +163,8 @@ namespace Domain.Core.Migrations
                     LanguageCountryImage = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -119,7 +185,8 @@ namespace Domain.Core.Migrations
                     Longitude = table.Column<double>(type: "float", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -145,7 +212,8 @@ namespace Domain.Core.Migrations
                     StackTrace = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -165,12 +233,12 @@ namespace Domain.Core.Migrations
                     NotificationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsSent = table.Column<bool>(type: "bit", nullable: false),
                     SentDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     NotificationType = table.Column<int>(type: "int", nullable: false),
                     PriorityLevel = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -219,7 +287,8 @@ namespace Domain.Core.Migrations
                     TimesUsed = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -237,7 +306,8 @@ namespace Domain.Core.Migrations
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -258,7 +328,8 @@ namespace Domain.Core.Migrations
                     ClosingTime = table.Column<TimeSpan>(type: "time", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -275,10 +346,10 @@ namespace Domain.Core.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     WhatWillRobotSay = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -296,7 +367,8 @@ namespace Domain.Core.Migrations
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -321,7 +393,8 @@ namespace Domain.Core.Migrations
                     Notes = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -336,10 +409,10 @@ namespace Domain.Core.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StatusName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -355,14 +428,34 @@ namespace Domain.Core.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NameOfStatus = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TaskStatus", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VoiceRequests",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GuestId = table.Column<long>(type: "bigint", nullable: false),
+                    VoiceText = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsProcessed = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VoiceRequests", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -377,11 +470,11 @@ namespace Domain.Core.Migrations
                     AdvertisementTypeId = table.Column<long>(type: "bigint", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LanguageCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     PictureUrlsSerialized = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -403,12 +496,15 @@ namespace Domain.Core.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TextContent = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     VoiceType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     AudioFilePath = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Duration = table.Column<TimeSpan>(type: "time", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CategoryId = table.Column<long>(type: "bigint", nullable: false)
+                    CategoryId = table.Column<long>(type: "bigint", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -432,19 +528,26 @@ namespace Domain.Core.Migrations
                     ItemName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     Information = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    IsOrderAble = table.Column<bool>(type: "bit", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
                     WhatWillRobotSay = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     ItemCategoryId = table.Column<long>(type: "bigint", nullable: false),
-                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     PicturesSerialized = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ItemBehaviorTypeId = table.Column<long>(type: "bigint", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Items", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Items_ItemBehaviorTypes_ItemBehaviorTypeId",
+                        column: x => x.ItemBehaviorTypeId,
+                        principalTable: "ItemBehaviorTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Items_ItemCategories_ItemCategoryId",
                         column: x => x.ItemCategoryId,
@@ -465,13 +568,13 @@ namespace Domain.Core.Migrations
                     RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Stars = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     LocationId = table.Column<long>(type: "bigint", nullable: false),
                     PicturesSerialized = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FacilitiesSerialized = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -505,7 +608,8 @@ namespace Domain.Core.Migrations
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RestaurantItemCategoryId = table.Column<long>(type: "bigint", nullable: false),
                     RestaurantId = table.Column<long>(type: "bigint", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -537,7 +641,8 @@ namespace Domain.Core.Migrations
                     IncidentTypeId = table.Column<long>(type: "bigint", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -569,7 +674,8 @@ namespace Domain.Core.Migrations
                     StaffCategoryId = table.Column<long>(type: "bigint", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -609,9 +715,12 @@ namespace Domain.Core.Migrations
                     SupervisorId = table.Column<long>(type: "bigint", nullable: true),
                     EmergencyContact = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Bio = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    IsOnDuty = table.Column<bool>(type: "bit", nullable: false),
+                    LastCheckedLoginTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -649,7 +758,8 @@ namespace Domain.Core.Migrations
                     HotelId = table.Column<long>(type: "bigint", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -677,7 +787,7 @@ namespace Domain.Core.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StaffId = table.Column<long>(type: "bigint", nullable: false),
+                    StaffId = table.Column<long>(type: "bigint", nullable: true),
                     ItemIdsSerialized = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RequestTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Priority = table.Column<int>(type: "int", nullable: false),
@@ -686,7 +796,8 @@ namespace Domain.Core.Migrations
                     HandledDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -696,8 +807,7 @@ namespace Domain.Core.Migrations
                         column: x => x.StaffId,
                         principalSchema: "CSI",
                         principalTable: "Staffs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -719,7 +829,8 @@ namespace Domain.Core.Migrations
                     IncidentTypeId = table.Column<long>(type: "bigint", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -755,7 +866,8 @@ namespace Domain.Core.Migrations
                     IsImportant = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -794,7 +906,8 @@ namespace Domain.Core.Migrations
                     SuggestedAction = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -825,7 +938,8 @@ namespace Domain.Core.Migrations
                     AttachmentUrlsSerialized = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -865,10 +979,11 @@ namespace Domain.Core.Migrations
                     EmergencyContactPhone = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Preferences = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     RoomId = table.Column<long>(type: "bigint", nullable: false),
-                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    HasBeenFinalized = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -904,7 +1019,8 @@ namespace Domain.Core.Migrations
                     RoomId = table.Column<long>(type: "bigint", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -932,7 +1048,8 @@ namespace Domain.Core.Migrations
                     AttachmentUrlsSerialized = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -955,11 +1072,11 @@ namespace Domain.Core.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GuestId = table.Column<long>(type: "bigint", nullable: false),
                     WhatWillRobotSay = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     IsComplete = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -981,11 +1098,11 @@ namespace Domain.Core.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GuestId = table.Column<long>(type: "bigint", nullable: false),
-                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     SetDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1014,7 +1131,8 @@ namespace Domain.Core.Migrations
                     IsImportant = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1051,7 +1169,8 @@ namespace Domain.Core.Migrations
                     IsPaid = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1078,12 +1197,12 @@ namespace Domain.Core.Migrations
                     IsCompleted = table.Column<bool>(type: "bit", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     Priority = table.Column<int>(type: "int", nullable: false),
-                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     CartId = table.Column<long>(type: "bigint", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1111,7 +1230,8 @@ namespace Domain.Core.Migrations
                     IsOrdered = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1150,7 +1270,8 @@ namespace Domain.Core.Migrations
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1172,6 +1293,40 @@ namespace Domain.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Comments",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StaffId = table.Column<long>(type: "bigint", nullable: false),
+                    TaskId = table.Column<long>(type: "bigint", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_Staffs_StaffId",
+                        column: x => x.StaffId,
+                        principalSchema: "CSI",
+                        principalTable: "Staffs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comments_Tasks_TaskId",
+                        column: x => x.TaskId,
+                        principalSchema: "CSI",
+                        principalTable: "Tasks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Feedbacks",
                 schema: "CSI",
                 columns: table => new
@@ -1183,11 +1338,11 @@ namespace Domain.Core.Migrations
                     WhatWillRobotSay = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     CorrelationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false),
-                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     TaskId = table.Column<long>(type: "bigint", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1214,13 +1369,21 @@ namespace Domain.Core.Migrations
                     IsCompleted = table.Column<bool>(type: "bit", nullable: false),
                     AssignedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
+                    IssueKeuwordId = table.Column<long>(type: "bigint", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TaskItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TaskItems_IssueKeywords_IssueKeuwordId",
+                        column: x => x.IssueKeuwordId,
+                        principalSchema: "CSI",
+                        principalTable: "IssueKeywords",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TaskItems_Items_ItemId",
                         column: x => x.ItemId,
@@ -1250,7 +1413,8 @@ namespace Domain.Core.Migrations
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1277,20 +1441,14 @@ namespace Domain.Core.Migrations
                     TaskId = table.Column<long>(type: "bigint", nullable: false),
                     IsCompleted = table.Column<bool>(type: "bit", nullable: false),
                     AssignedBy = table.Column<long>(type: "bigint", nullable: true),
-                    StaffCategoryId = table.Column<long>(type: "bigint", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TaskToStaffs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TaskToStaffs_StaffCategories_StaffCategoryId",
-                        column: x => x.StaffCategoryId,
-                        principalSchema: "CSI",
-                        principalTable: "StaffCategories",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TaskToStaffs_Staffs_AssignedBy",
                         column: x => x.AssignedBy,
@@ -1320,10 +1478,16 @@ namespace Domain.Core.Migrations
                 column: "AdvertisementTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Advertisements_EndDate",
+                name: "IX_Advertisements_CreatedAt",
                 schema: "CSI",
                 table: "Advertisements",
-                column: "EndDate");
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Advertisements_IsActive",
+                schema: "CSI",
+                table: "Advertisements",
+                column: "IsActive");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Advertisements_LanguageCode",
@@ -1332,10 +1496,16 @@ namespace Domain.Core.Migrations
                 column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Advertisements_StartDate",
+                name: "IX_AdvertisementTypes_CreatedAt",
                 schema: "CSI",
-                table: "Advertisements",
-                column: "StartDate");
+                table: "AdvertisementTypes",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AdvertisementTypes_IsActive",
+                schema: "CSI",
+                table: "AdvertisementTypes",
+                column: "IsActive");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AdvertisementTypes_LanguageCode",
@@ -1362,10 +1532,16 @@ namespace Domain.Core.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AudioResponses_CreatedDate",
+                name: "IX_AudioResponses_CreatedAt",
                 schema: "CSI",
                 table: "AudioResponses",
-                column: "CreatedDate");
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AudioResponses_IsActive",
+                schema: "CSI",
+                table: "AudioResponses",
+                column: "IsActive");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AudioResponses_LanguageCode",
@@ -1380,10 +1556,22 @@ namespace Domain.Core.Migrations
                 column: "VoiceType");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Carts_CreatedAt",
+                schema: "CSI",
+                table: "Carts",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Carts_GuestId",
                 schema: "CSI",
                 table: "Carts",
                 column: "GuestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_IsActive",
+                schema: "CSI",
+                table: "Carts",
+                column: "IsActive");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Carts_IsComplete",
@@ -1398,10 +1586,70 @@ namespace Domain.Core.Migrations
                 column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_CreatedAt",
+                schema: "CSI",
+                table: "Comments",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_IsActive",
+                schema: "CSI",
+                table: "Comments",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_LanguageCode",
+                schema: "CSI",
+                table: "Comments",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_StaffId",
+                schema: "CSI",
+                table: "Comments",
+                column: "StaffId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_TaskId",
+                schema: "CSI",
+                table: "Comments",
+                column: "TaskId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DailyStatistics_CreatedAt",
+                schema: "CSI",
+                table: "DailyStatistics",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DailyStatistics_IsActive",
+                schema: "CSI",
+                table: "DailyStatistics",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DailyStatistics_LanguageCode",
+                schema: "CSI",
+                table: "DailyStatistics",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Feedbacks_CorrelationId",
                 schema: "CSI",
                 table: "Feedbacks",
                 column: "CorrelationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Feedbacks_CreatedAt",
+                schema: "CSI",
+                table: "Feedbacks",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Feedbacks_IsActive",
+                schema: "CSI",
+                table: "Feedbacks",
+                column: "IsActive");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Feedbacks_LanguageCode",
@@ -1410,16 +1658,16 @@ namespace Domain.Core.Migrations
                 column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Feedbacks_Rating",
-                schema: "CSI",
-                table: "Feedbacks",
-                column: "Rating");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Feedbacks_TaskId",
                 schema: "CSI",
                 table: "Feedbacks",
                 column: "TaskId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GuestLanguages_CreatedAt",
+                schema: "CSI",
+                table: "GuestLanguages",
+                column: "CreatedAt");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GuestLanguages_GuestId",
@@ -1429,10 +1677,22 @@ namespace Domain.Core.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_GuestLanguages_IsActive",
+                schema: "CSI",
+                table: "GuestLanguages",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GuestLanguages_LanguageCode",
                 schema: "CSI",
                 table: "GuestLanguages",
                 column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GuestNotifications_CreatedAt",
+                schema: "CSI",
+                table: "GuestNotifications",
+                column: "CreatedAt");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GuestNotifications_GuestId",
@@ -1441,10 +1701,22 @@ namespace Domain.Core.Migrations
                 column: "GuestId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GuestNotifications_IsActive",
+                schema: "CSI",
+                table: "GuestNotifications",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GuestNotifications_IsRead",
                 schema: "CSI",
                 table: "GuestNotifications",
                 column: "IsRead");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GuestNotifications_LanguageCode",
+                schema: "CSI",
+                table: "GuestNotifications",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GuestNotifications_NotificationId",
@@ -1471,11 +1743,29 @@ namespace Domain.Core.Migrations
                 column: "CheckOutDate");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Guests_CreatedAt",
+                schema: "CSI",
+                table: "Guests",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Guests_Email",
                 schema: "CSI",
                 table: "Guests",
                 column: "Email",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Guests_IsActive",
+                schema: "CSI",
+                table: "Guests",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Guests_LanguageCode",
+                schema: "CSI",
+                table: "Guests",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Guests_PhoneNumber",
@@ -1496,11 +1786,53 @@ namespace Domain.Core.Migrations
                 column: "StatusId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Hotels_CreatedAt",
+                schema: "CSI",
+                table: "Hotels",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Hotels_IsActive",
+                schema: "CSI",
+                table: "Hotels",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Hotels_LanguageCode",
+                schema: "CSI",
+                table: "Hotels",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Hotels_LocationId",
                 schema: "CSI",
                 table: "Hotels",
                 column: "LocationId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IncidentTypes_CreatedAt",
+                schema: "CSI",
+                table: "IncidentTypes",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IncidentTypes_IsActive",
+                schema: "CSI",
+                table: "IncidentTypes",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IncidentTypes_LanguageCode",
+                schema: "CSI",
+                table: "IncidentTypes",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IncidentTypeToStaffCategories_CreatedAt",
+                schema: "CSI",
+                table: "IncidentTypeToStaffCategories",
+                column: "CreatedAt");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IncidentTypeToStaffCategories_IncidentTypeId",
@@ -1509,10 +1841,55 @@ namespace Domain.Core.Migrations
                 column: "IncidentTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_IncidentTypeToStaffCategories_IsActive",
+                schema: "CSI",
+                table: "IncidentTypeToStaffCategories",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IncidentTypeToStaffCategories_LanguageCode",
+                schema: "CSI",
+                table: "IncidentTypeToStaffCategories",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_IncidentTypeToStaffCategories_StaffCategoryId",
                 schema: "CSI",
                 table: "IncidentTypeToStaffCategories",
                 column: "StaffCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IssueKeywords_CreatedAt",
+                schema: "CSI",
+                table: "IssueKeywords",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IssueKeywords_IsActive",
+                schema: "CSI",
+                table: "IssueKeywords",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IssueKeywords_LanguageCode",
+                schema: "CSI",
+                table: "IssueKeywords",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemBehaviorTypes_CreatedAt",
+                table: "ItemBehaviorTypes",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemBehaviorTypes_IsActive",
+                table: "ItemBehaviorTypes",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemBehaviorTypes_LanguageCode",
+                table: "ItemBehaviorTypes",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemCategories_CategoryName",
@@ -1521,10 +1898,34 @@ namespace Domain.Core.Migrations
                 column: "CategoryName");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ItemCategories_CreatedAt",
+                schema: "CSI",
+                table: "ItemCategories",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemCategories_IsActive",
+                schema: "CSI",
+                table: "ItemCategories",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ItemCategories_LanguageCode",
                 schema: "CSI",
                 table: "ItemCategories",
                 column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemCategoryToStaffCategory_CreatedAt",
+                schema: "CSI",
+                table: "ItemCategoryToStaffCategory",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemCategoryToStaffCategory_IsActive",
+                schema: "CSI",
+                table: "ItemCategoryToStaffCategory",
+                column: "IsActive");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemCategoryToStaffCategory_ItemCategoryId",
@@ -1534,16 +1935,34 @@ namespace Domain.Core.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_ItemCategoryToStaffCategory_LanguageCode",
+                schema: "CSI",
+                table: "ItemCategoryToStaffCategory",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ItemCategoryToStaffCategory_StaffCategoryId",
                 schema: "CSI",
                 table: "ItemCategoryToStaffCategory",
                 column: "StaffCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Items_IsOrderAble",
+                name: "IX_Items_CreatedAt",
                 schema: "CSI",
                 table: "Items",
-                column: "IsOrderAble");
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Items_IsActive",
+                schema: "CSI",
+                table: "Items",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Items_ItemBehaviorTypeId",
+                schema: "CSI",
+                table: "Items",
+                column: "ItemBehaviorTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_ItemCategoryId",
@@ -1564,10 +1983,46 @@ namespace Domain.Core.Migrations
                 column: "Code");
 
             migrationBuilder.CreateIndex(
+                name: "IX_LanguagePacks_CreatedAt",
+                schema: "CSI",
+                table: "LanguagePacks",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LanguagePacks_IsActive",
+                schema: "CSI",
+                table: "LanguagePacks",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LanguagePacks_LanguageCode",
+                schema: "CSI",
+                table: "LanguagePacks",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LanguagePacks_Name",
                 schema: "CSI",
                 table: "LanguagePacks",
                 column: "Name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Locations_CreatedAt",
+                schema: "CSI",
+                table: "Locations",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Locations_IsActive",
+                schema: "CSI",
+                table: "Locations",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Locations_LanguageCode",
+                schema: "CSI",
+                table: "Locations",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Locations_Latitude_Longitude",
@@ -1582,10 +2037,28 @@ namespace Domain.Core.Migrations
                 column: "CorrelationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Logs_CreatedAt",
+                schema: "CSI",
+                table: "Logs",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Logs_IsActive",
+                schema: "CSI",
+                table: "Logs",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Logs_IsEmergency",
                 schema: "CSI",
                 table: "Logs",
                 column: "IsEmergency");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Logs_LanguageCode",
+                schema: "CSI",
+                table: "Logs",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Logs_LoggerId",
@@ -1598,6 +2071,18 @@ namespace Domain.Core.Migrations
                 schema: "CSI",
                 table: "Logs",
                 column: "LogLevel");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_CreatedAt",
+                schema: "CSI",
+                table: "Notifications",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_IsActive",
+                schema: "CSI",
+                table: "Notifications",
+                column: "IsActive");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Notifications_IsSent",
@@ -1618,10 +2103,22 @@ namespace Domain.Core.Migrations
                 column: "NotificationDate");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PaymentOptions_CreatedAt",
+                schema: "CSI",
+                table: "PaymentOptions",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PaymentOptions_CreatedDate",
                 schema: "CSI",
                 table: "PaymentOptions",
                 column: "CreatedDate");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PaymentOptions_IsActive",
+                schema: "CSI",
+                table: "PaymentOptions",
+                column: "IsActive");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PaymentOptions_LanguageCode",
@@ -1637,11 +2134,47 @@ namespace Domain.Core.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_PromoCode_CreatedAt",
+                schema: "CSI",
+                table: "PromoCode",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PromoCode_IsActive",
+                schema: "CSI",
+                table: "PromoCode",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PromoCode_LanguageCode",
+                schema: "CSI",
+                table: "PromoCode",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_QRCodes_Code",
                 schema: "CSI",
                 table: "QRCodes",
                 column: "Code",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QRCodes_CreatedAt",
+                schema: "CSI",
+                table: "QRCodes",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QRCodes_IsActive",
+                schema: "CSI",
+                table: "QRCodes",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QRCodes_LanguageCode",
+                schema: "CSI",
+                table: "QRCodes",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QRCodes_RoomId",
@@ -1663,10 +2196,22 @@ namespace Domain.Core.Migrations
                 column: "GuestId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RestaurantCarts_IsActive",
+                schema: "CSI",
+                table: "RestaurantCarts",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RestaurantCarts_IsPaid",
                 schema: "CSI",
                 table: "RestaurantCarts",
                 column: "IsPaid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantCarts_LanguageCode",
+                schema: "CSI",
+                table: "RestaurantCarts",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RestaurantItemCategories_CategoryName",
@@ -1688,10 +2233,34 @@ namespace Domain.Core.Migrations
                 column: "IsActive");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RestaurantItemCategories_LanguageCode",
+                schema: "CSI",
+                table: "RestaurantItemCategories",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantItems_CreatedAt",
+                schema: "CSI",
+                table: "RestaurantItems",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantItems_IsActive",
+                schema: "CSI",
+                table: "RestaurantItems",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RestaurantItems_IsAvailable",
                 schema: "CSI",
                 table: "RestaurantItems",
                 column: "IsAvailable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantItems_LanguageCode",
+                schema: "CSI",
+                table: "RestaurantItems",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RestaurantItems_Price",
@@ -1718,6 +2287,18 @@ namespace Domain.Core.Migrations
                 column: "CreatedAt");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RestaurantItemToCarts_IsActive",
+                schema: "CSI",
+                table: "RestaurantItemToCarts",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantItemToCarts_LanguageCode",
+                schema: "CSI",
+                table: "RestaurantItemToCarts",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RestaurantItemToCarts_RestaurantCartId",
                 schema: "CSI",
                 table: "RestaurantItemToCarts",
@@ -1728,6 +2309,24 @@ namespace Domain.Core.Migrations
                 schema: "CSI",
                 table: "RestaurantItemToCarts",
                 column: "RestaurantItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantOrderPayments_CreatedAt",
+                schema: "CSI",
+                table: "RestaurantOrderPayments",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantOrderPayments_IsActive",
+                schema: "CSI",
+                table: "RestaurantOrderPayments",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantOrderPayments_LanguageCode",
+                schema: "CSI",
+                table: "RestaurantOrderPayments",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RestaurantOrderPayments_PaymentOptionId",
@@ -1759,6 +2358,12 @@ namespace Domain.Core.Migrations
                 schema: "CSI",
                 table: "Restaurants",
                 column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Restaurants_LanguageCode",
+                schema: "CSI",
+                table: "Restaurants",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Restaurants_Name",
@@ -1817,10 +2422,22 @@ namespace Domain.Core.Migrations
                 column: "HotelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Rooms_IsActive",
+                schema: "CSI",
+                table: "Rooms",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Rooms_IsAvailable",
                 schema: "CSI",
                 table: "Rooms",
                 column: "IsAvailable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rooms_LanguageCode",
+                schema: "CSI",
+                table: "Rooms",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rooms_RoomCategoryId",
@@ -1833,6 +2450,24 @@ namespace Domain.Core.Migrations
                 schema: "CSI",
                 table: "Rooms",
                 column: "RoomNumber");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffAboutRanOutItems_CreatedAt",
+                schema: "CSI",
+                table: "StaffAboutRanOutItems",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffAboutRanOutItems_IsActive",
+                schema: "CSI",
+                table: "StaffAboutRanOutItems",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffAboutRanOutItems_LanguageCode",
+                schema: "CSI",
+                table: "StaffAboutRanOutItems",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StaffAboutRanOutItems_Priority",
@@ -1872,10 +2507,34 @@ namespace Domain.Core.Migrations
                 column: "IsActive");
 
             migrationBuilder.CreateIndex(
+                name: "IX_StaffCategories_LanguageCode",
+                schema: "CSI",
+                table: "StaffCategories",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffIncidents_CreatedAt",
+                schema: "CSI",
+                table: "StaffIncidents",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StaffIncidents_IncidentTypeId",
                 schema: "CSI",
                 table: "StaffIncidents",
                 column: "IncidentTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffIncidents_IsActive",
+                schema: "CSI",
+                table: "StaffIncidents",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffIncidents_LanguageCode",
+                schema: "CSI",
+                table: "StaffIncidents",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StaffIncidents_ReportedByStaffId",
@@ -1902,10 +2561,28 @@ namespace Domain.Core.Migrations
                 column: "Status");
 
             migrationBuilder.CreateIndex(
+                name: "IX_StaffNotifications_CreatedAt",
+                schema: "CSI",
+                table: "StaffNotifications",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffNotifications_IsActive",
+                schema: "CSI",
+                table: "StaffNotifications",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StaffNotifications_IsRead",
                 schema: "CSI",
                 table: "StaffNotifications",
                 column: "IsRead");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffNotifications_LanguageCode",
+                schema: "CSI",
+                table: "StaffNotifications",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StaffNotifications_NotificationId",
@@ -1920,16 +2597,40 @@ namespace Domain.Core.Migrations
                 column: "StaffId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_StaffReserveItems_CreatedAt",
+                schema: "CSI",
+                table: "StaffReserveItems",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StaffReserveItems_FinalUsed",
                 schema: "CSI",
                 table: "StaffReserveItems",
                 column: "FinalUsed");
 
             migrationBuilder.CreateIndex(
+                name: "IX_StaffReserveItems_IsActive",
+                schema: "CSI",
+                table: "StaffReserveItems",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffReserveItems_LanguageCode",
+                schema: "CSI",
+                table: "StaffReserveItems",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StaffReserveItems_ReservedTill",
                 schema: "CSI",
                 table: "StaffReserveItems",
                 column: "ReservedTill");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Staffs_CreatedAt",
+                schema: "CSI",
+                table: "Staffs",
+                column: "CreatedAt");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Staffs_Email",
@@ -1949,6 +2650,12 @@ namespace Domain.Core.Migrations
                 schema: "CSI",
                 table: "Staffs",
                 column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Staffs_LanguageCode",
+                schema: "CSI",
+                table: "Staffs",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Staffs_PhoneNumber",
@@ -1981,10 +2688,28 @@ namespace Domain.Core.Migrations
                 column: "AnalysisDate");
 
             migrationBuilder.CreateIndex(
+                name: "IX_StaffSentiments_CreatedAt",
+                schema: "CSI",
+                table: "StaffSentiments",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StaffSentiments_Emotion",
                 schema: "CSI",
                 table: "StaffSentiments",
                 column: "Emotion");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffSentiments_IsActive",
+                schema: "CSI",
+                table: "StaffSentiments",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffSentiments_LanguageCode",
+                schema: "CSI",
+                table: "StaffSentiments",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StaffSentiments_SentimentLabel",
@@ -2005,10 +2730,28 @@ namespace Domain.Core.Migrations
                 column: "StaffId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_StaffSupportResponses_CreatedAt",
+                schema: "CSI",
+                table: "StaffSupportResponses",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffSupportResponses_IsActive",
+                schema: "CSI",
+                table: "StaffSupportResponses",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StaffSupportResponses_IsFromSupportTeam",
                 schema: "CSI",
                 table: "StaffSupportResponses",
                 column: "IsFromSupportTeam");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffSupportResponses_LanguageCode",
+                schema: "CSI",
+                table: "StaffSupportResponses",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StaffSupportResponses_TicketId",
@@ -2016,6 +2759,24 @@ namespace Domain.Core.Migrations
                 table: "StaffSupportResponses",
                 column: "TicketId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffSupports_CreatedAt",
+                schema: "CSI",
+                table: "StaffSupports",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffSupports_IsActive",
+                schema: "CSI",
+                table: "StaffSupports",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffSupports_LanguageCode",
+                schema: "CSI",
+                table: "StaffSupports",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StaffSupports_Priority",
@@ -2036,6 +2797,18 @@ namespace Domain.Core.Migrations
                 column: "Status");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Statuses_CreatedAt",
+                schema: "CSI",
+                table: "Statuses",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Statuses_IsActive",
+                schema: "CSI",
+                table: "Statuses",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Statuses_LanguageCode",
                 schema: "CSI",
                 table: "Statuses",
@@ -2048,10 +2821,28 @@ namespace Domain.Core.Migrations
                 column: "StatusName");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TaskItems_CreatedAt",
+                schema: "CSI",
+                table: "TaskItems",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskItems_IsActive",
+                schema: "CSI",
+                table: "TaskItems",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TaskItems_IsCompleted",
                 schema: "CSI",
                 table: "TaskItems",
                 column: "IsCompleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskItems_IssueKeuwordId",
+                schema: "CSI",
+                table: "TaskItems",
+                column: "IssueKeuwordId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskItems_ItemId",
@@ -2060,10 +2851,34 @@ namespace Domain.Core.Migrations
                 column: "ItemId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TaskItems_LanguageCode",
+                schema: "CSI",
+                table: "TaskItems",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TaskItems_TaskId",
                 schema: "CSI",
                 table: "TaskItems",
                 column: "TaskId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskLogs_CreatedAt",
+                schema: "CSI",
+                table: "TaskLogs",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskLogs_IsActive",
+                schema: "CSI",
+                table: "TaskLogs",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskLogs_LanguageCode",
+                schema: "CSI",
+                table: "TaskLogs",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskLogs_TaskId",
@@ -2078,10 +2893,22 @@ namespace Domain.Core.Migrations
                 column: "CartId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tasks_CreatedAt",
+                schema: "CSI",
+                table: "Tasks",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tasks_DueDate",
                 schema: "CSI",
                 table: "Tasks",
                 column: "DueDate");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tasks_IsActive",
+                schema: "CSI",
+                table: "Tasks",
+                column: "IsActive");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tasks_IsCompleted",
@@ -2127,16 +2954,28 @@ namespace Domain.Core.Migrations
                 column: "AssignedBy");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TaskToStaffs_CreatedAt",
+                schema: "CSI",
+                table: "TaskToStaffs",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TaskToStaffs_EndDate",
                 schema: "CSI",
                 table: "TaskToStaffs",
                 column: "EndDate");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TaskToStaffs_StaffCategoryId",
+                name: "IX_TaskToStaffs_IsActive",
                 schema: "CSI",
                 table: "TaskToStaffs",
-                column: "StaffCategoryId");
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskToStaffs_LanguageCode",
+                schema: "CSI",
+                table: "TaskToStaffs",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskToStaffs_StartDate",
@@ -2156,6 +2995,24 @@ namespace Domain.Core.Migrations
                 table: "TaskToStaffs",
                 column: "TaskId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VoiceRequests_CreatedAt",
+                schema: "CSI",
+                table: "VoiceRequests",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VoiceRequests_IsActive",
+                schema: "CSI",
+                table: "VoiceRequests",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VoiceRequests_LanguageCode",
+                schema: "CSI",
+                table: "VoiceRequests",
+                column: "LanguageCode");
         }
 
         /// <inheritdoc />
@@ -2167,6 +3024,14 @@ namespace Domain.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "AudioResponses",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
+                name: "Comments",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
+                name: "DailyStatistics",
                 schema: "CSI");
 
             migrationBuilder.DropTable(
@@ -2250,6 +3115,10 @@ namespace Domain.Core.Migrations
                 schema: "CSI");
 
             migrationBuilder.DropTable(
+                name: "VoiceRequests",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
                 name: "AdvertisementTypes",
                 schema: "CSI");
 
@@ -2282,6 +3151,10 @@ namespace Domain.Core.Migrations
                 schema: "CSI");
 
             migrationBuilder.DropTable(
+                name: "IssueKeywords",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
                 name: "Items",
                 schema: "CSI");
 
@@ -2304,6 +3177,9 @@ namespace Domain.Core.Migrations
             migrationBuilder.DropTable(
                 name: "Staffs",
                 schema: "CSI");
+
+            migrationBuilder.DropTable(
+                name: "ItemBehaviorTypes");
 
             migrationBuilder.DropTable(
                 name: "ItemCategories",
