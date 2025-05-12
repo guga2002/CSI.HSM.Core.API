@@ -1,7 +1,9 @@
-﻿using Domain.Core.Entities.AbstractEntities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Core.Entities.AbstractEntities;
 
 namespace Domain.Core.Entities.Item;
 
+[Table("ItemBehaviorTypes", Schema = "CSI")]
 public class ItemBehaviorType : AbstractEntity
 {
     public string? Name { get; set; }

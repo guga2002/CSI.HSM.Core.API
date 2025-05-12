@@ -4,6 +4,7 @@ using Domain.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Core.Migrations
 {
     [DbContext(typeof(CoreSideDb))]
-    partial class GuestSideDbModelSnapshot : ModelSnapshot
+    [Migration("20250510072501_hjahs")]
+    partial class hjahs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -689,7 +692,7 @@ namespace Domain.Core.Migrations
 
                     b.HasIndex("LanguageCode");
 
-                    b.ToTable("ItemBehaviorTypes", "CSI");
+                    b.ToTable("ItemBehaviorTypes");
                 });
 
             modelBuilder.Entity("Domain.Core.Entities.Item.ItemCategory", b =>
@@ -852,12 +855,12 @@ namespace Domain.Core.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<long?>("ItemReportId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("LanguageCode")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
-
-                    b.Property<long?>("TaskItemId")
-                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -868,9 +871,9 @@ namespace Domain.Core.Migrations
 
                     b.HasIndex("IsActive");
 
-                    b.HasIndex("LanguageCode");
+                    b.HasIndex("ItemReportId");
 
-                    b.HasIndex("TaskItemId");
+                    b.HasIndex("LanguageCode");
 
                     b.ToTable("ItemReportAttachments", "CSI");
                 });
@@ -3123,11 +3126,11 @@ namespace Domain.Core.Migrations
 
             modelBuilder.Entity("Domain.Core.Entities.Item.ItemReportAttachment", b =>
                 {
-                    b.HasOne("Domain.Core.Entities.Item.TaskItem", "TaskItem")
+                    b.HasOne("Domain.Core.Entities.Item.ItemReport", "ItemReport")
                         .WithMany("ReportAttachments")
-                        .HasForeignKey("TaskItemId");
+                        .HasForeignKey("ItemReportId");
 
-                    b.Navigation("TaskItem");
+                    b.Navigation("ItemReport");
                 });
 
             modelBuilder.Entity("Domain.Core.Entities.Item.Items", b =>
@@ -3536,6 +3539,11 @@ namespace Domain.Core.Migrations
                     b.Navigation("Items");
                 });
 
+            modelBuilder.Entity("Domain.Core.Entities.Item.ItemReport", b =>
+                {
+                    b.Navigation("ReportAttachments");
+                });
+
             modelBuilder.Entity("Domain.Core.Entities.Item.Items", b =>
                 {
                     b.Navigation("ItemReport");
@@ -3545,8 +3553,6 @@ namespace Domain.Core.Migrations
 
             modelBuilder.Entity("Domain.Core.Entities.Item.TaskItem", b =>
                 {
-                    b.Navigation("ReportAttachments");
-
                     b.Navigation("ScheduledDelivery");
                 });
 

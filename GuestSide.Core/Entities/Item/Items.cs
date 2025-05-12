@@ -47,7 +47,9 @@ public class Items : AbstractEntity, IExistable<Items>
     [ForeignKey(nameof(ItemBehaviorType))]
     public long ItemBehaviorTypeId {  get; set; }
 
-    public ItemBehaviorType? ItemBehaviorType { get; set; }
+    public virtual ItemBehaviorType? ItemBehaviorType { get; set; }
+
+    public virtual List<ItemReport>? ItemReport { get; set; }
 
     public Items() { }
 

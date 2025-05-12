@@ -37,4 +37,6 @@ public class TaskItem : AbstractEntity
     public virtual IssueKeyword? IssueKeyword { get; set; }
 
     public virtual ScheduledDelivery? ScheduledDelivery { get; set; }
+
+    public List<ItemReportAttachment> ReportAttachments { get; set; }
 }
