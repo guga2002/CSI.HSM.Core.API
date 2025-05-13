@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Core.Migrations
 {
     [DbContext(typeof(CoreSideDb))]
-    [Migration("20250510090606_taskitem")]
-    partial class taskitem
+    [Migration("20250512073705_addNoteFieldForScheduledDelivery")]
+    partial class addNoteFieldForScheduledDelivery
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -965,6 +965,9 @@ namespace Domain.Core.Migrations
                     b.Property<string>("LanguageCode")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ScheduledDateTime")
                         .HasColumnType("datetime2");

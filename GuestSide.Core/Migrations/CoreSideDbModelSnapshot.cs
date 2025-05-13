@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Core.Migrations
 {
     [DbContext(typeof(CoreSideDb))]
-    partial class GuestSideDbModelSnapshot : ModelSnapshot
+    partial class CoreSideDbModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -962,6 +962,9 @@ namespace Domain.Core.Migrations
                     b.Property<string>("LanguageCode")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ScheduledDateTime")
                         .HasColumnType("datetime2");
