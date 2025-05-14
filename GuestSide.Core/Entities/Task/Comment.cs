@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Core.Entities.AbstractEntities;
-using Domain.Core.Entities.Staff;
 
 namespace Domain.Core.Entities.Task;
 

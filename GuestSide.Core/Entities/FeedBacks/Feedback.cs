@@ -24,6 +24,8 @@ public class Feedback : AbstractEntity
 
     public int Rating { get; set; }
 
+    public long GuestId {  get; set; }
+
     [ForeignKey(nameof(Task))]
     public long TaskId { get; set; }
 
