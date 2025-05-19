@@ -18,6 +18,8 @@ public class TasksStatus : AbstractEntity, IExistable<TasksStatus>
     [StringLength(255)]
     public string? Description { get; set; }
 
+    public bool? IsDefault { get; set; }
+
     public virtual List<TaskToStaff>? TaskToStaff { get; set; }
 
     public Expression<Func<TasksStatus, bool>> GetExistencePredicate()
