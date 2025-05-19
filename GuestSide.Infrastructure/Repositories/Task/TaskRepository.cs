@@ -1,7 +1,6 @@
 ﻿using Core.Infrastructure.Repositories.AbstractRepository;
 using Core.Persistance.Cashing;
 using Domain.Core.Data;
-using Domain.Core.Entities.Enums;
 using Domain.Core.Entities.Item;
 using Domain.Core.Entities.Task;
 using Domain.Core.Interfaces.Task;
@@ -30,46 +29,6 @@ public class TaskRepository : GenericRepository<Tasks>, ITaskRepository
     }
     #endregion
 
-    #region Update Task Status
-    public async Task<bool> UpdateTaskStatus(long taskId, StatusEnum newStatus)
-    {
-        var task = await DbSet.FindAsync(taskId);
-        if (task == null) return false;
-
-        task.Status = newStatus;
-        task.UpdatedAt = DateTime.UtcNow;
-        await Context.SaveChangesAsync();
-
-        return true;
-    }
-    #endregion
-
-    #region  Get Tasks by Status
-    public async Task<IEnumerable<Tasks>> GetTasksByStatus(StatusEnum status, int limit = 50)
-    {
-        return await DbSet
-            .Where(task => task.Status == status)
-            .OrderByDescending(task => task.CreatedAt)
-            .Take(limit)
-            .Include(t => t.TaskToStaff)
-            .Include(t => t.TaskItems)
-            .ToListAsync();
-    }
-    #endregion
-
-    #region Get High Priority Tasks
-    public async Task<IEnumerable<Tasks>> GetHighPriorityTasks(int limit = 10)
-    {
-        return await DbSet
-            .Where(task => task.Priority == PriorityEnum.High || task.Priority == PriorityEnum.Critical)
-            .OrderByDescending(task => task.CreatedAt)
-            .Take(limit)
-            .Include(t => t.TaskToStaff)
-            .Include(t => t.TaskItems)
-            .ToListAsync();
-    }
-    #endregion
-
     #region GetTaskItemsByCartIdAsync
 
     public async Task<Dictionary<long, IEnumerable<TaskItem>>> GetTaskItemsByCartIdAsync(long cartId)
@@ -85,12 +44,12 @@ public class TaskRepository : GenericRepository<Tasks>, ITaskRepository
     #endregion
 
     #region Update Task Priority
-    public async Task<bool> UpdateTaskPriority(long taskId, PriorityEnum newPriority)
+    public async Task<bool> UpdateTaskPriority(long taskId, long priorityId)
     {
         var task = await DbSet.FindAsync(taskId);
         if (task == null) return false;
 
-        task.Priority = newPriority;
+        task.PriorityId = priorityId;
         task.UpdatedAt = DateTime.UtcNow;
         await Context.SaveChangesAsync();
 
@@ -100,12 +59,11 @@ public class TaskRepository : GenericRepository<Tasks>, ITaskRepository
 
     #region FilterTask
     public async Task<IEnumerable<Tasks>> GetFilteredTasks(
-        StatusEnum? status, PriorityEnum? priority, bool? isCompleted, DateTime? startDate, DateTime? endDate)
+           long? priorityId, bool? isCompleted, DateTime? startDate, DateTime? endDate)
     {
         return await DbSet
         .Where(t =>
-            (!status.HasValue || t.Status == status.Value) &&
-            (!priority.HasValue || t.Priority == priority.Value) &&
+            (!priorityId.HasValue || t.PriorityId == priorityId) &&
             (!isCompleted.HasValue || t.IsCompleted == isCompleted.Value) &&
             (!startDate.HasValue || t.CreatedAt >= startDate.Value) &&
             (!endDate.HasValue || t.CreatedAt <= endDate.Value))

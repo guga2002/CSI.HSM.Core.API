@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Core.Entities.AbstractEntities;
-using Domain.Core.Entities.Enums;
 using Domain.Core.Entities.FeedBacks;
 using Domain.Core.Entities.Item;
 using Domain.Core.Entities.Staff;
@@ -25,10 +24,6 @@ public class Tasks : AbstractEntity
 
     public bool IsCompleted { get; set; } = false; // Indicates whether the task is completed
 
-    public StatusEnum Status { get; set; } = StatusEnum.Pending; // More detailed status tracking
-
-    public PriorityEnum Priority { get; set; } = PriorityEnum.Medium; // Task priority level
-
     [ForeignKey(nameof(Cart))]
     public long CartId { get; set; }
 
@@ -36,6 +31,11 @@ public class Tasks : AbstractEntity
 
     [StringLength(255)]
     public string? Note { get; set; }
+
+    [ForeignKey(nameof(Priority))]
+    public long PriorityId { get; set; }
+
+    public virtual Priority? Priority { get; set; }
 
     public virtual List<Feedback>? Feedbacks { get; set; }
 
