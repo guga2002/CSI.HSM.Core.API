@@ -10,10 +10,6 @@ public class TaskItemResponseDto : AbstractResponse
 
     public int Quantity { get; set; }
 
-    public bool IsCompleted { get; set; }
-
-    public DateTime AssignedDate { get; set; }
-
     public string? Notes { get; set; }
 
     public virtual IssueKeyword? IssueKeyword { get; set; }

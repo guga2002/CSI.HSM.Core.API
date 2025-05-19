@@ -77,34 +77,6 @@ public class TaskItemControllerTests
     }
 
     [Fact]
-    public async Task GetPendingTaskItemsAsync_ReturnsSuccessResponse()
-    {
-        var taskItems = new List<TaskItemResponseDto> { new TaskItemResponseDto { Id = 1 } };
-
-        _mockTaskItemService.Setup(s => s.GetPendingTaskItemsAsync(It.IsAny<CancellationToken>()))
-            .ReturnsAsync(taskItems);
-
-        var result = await _controller.GetPendingTaskItemsAsync();
-
-        Assert.True(result.Success);
-        Assert.Equal(taskItems.Count, result.Data.Count());
-    }
-
-    [Fact]
-    public async Task GetCompletedTaskItemsAsync_ReturnsSuccessResponse()
-    {
-        var taskItems = new List<TaskItemResponseDto> { new TaskItemResponseDto { Id = 1 } };
-
-        _mockTaskItemService.Setup(s => s.GetCompletedTaskItemsAsync(It.IsAny<CancellationToken>()))
-            .ReturnsAsync(taskItems);
-
-        var result = await _controller.GetCompletedTaskItemsAsync();
-
-        Assert.True(result.Success);
-        Assert.Equal(taskItems.Count, result.Data.Count());
-    }
-
-    [Fact]
     public async Task UpdateItemQuantityAsync_ReturnsSuccessResponse_WhenUpdateSucceeds()
     {
         var taskItemId = 1L;
@@ -132,34 +104,6 @@ public class TaskItemControllerTests
 
         Assert.False(result.Success);
         Assert.Equal("Failed to update quantity.", result.Message);
-    }
-
-    [Fact]
-    public async Task MarkTaskItemCompletedAsync_ReturnsSuccessResponse_WhenMarkingSucceeds()
-    {
-        var taskItemId = 1L;
-
-        _mockTaskItemService.Setup(s => s.MarkTaskItemCompletedAsync(taskItemId, It.IsAny<CancellationToken>()))
-            .ReturnsAsync(true);
-
-        var result = await _controller.MarkTaskItemCompletedAsync(taskItemId);
-
-        Assert.True(result.Success);
-        Assert.True(result.Data);
-    }
-
-    [Fact]
-    public async Task MarkTaskItemCompletedAsync_ReturnsErrorResponse_WhenMarkingFails()
-    {
-        var taskItemId = 1L;
-
-        _mockTaskItemService.Setup(s => s.MarkTaskItemCompletedAsync(taskItemId, It.IsAny<CancellationToken>()))
-            .ReturnsAsync(false);
-
-        var result = await _controller.MarkTaskItemCompletedAsync(taskItemId);
-
-        Assert.False(result.Success);
-        Assert.Equal("Failed to mark task item as completed.", result.Message);
     }
 
     [Fact]
@@ -202,21 +146,6 @@ public class TaskItemControllerTests
             .ReturnsAsync(count);
 
         var result = await _controller.CountTotalItemsInTaskAsync(taskId);
-
-        Assert.True(result.Success);
-        Assert.Equal(count, result.Data);
-    }
-
-    [Fact]
-    public async Task CountCompletedItemsInTaskAsync_ReturnsSuccessResponse()
-    {
-        var taskId = 1L;
-        var count = 3;
-
-        _mockTaskItemService.Setup(s => s.CountCompletedItemsInTaskAsync(taskId, It.IsAny<CancellationToken>()))
-            .ReturnsAsync(count);
-
-        var result = await _controller.CountCompletedItemsInTaskAsync(taskId);
 
         Assert.True(result.Success);
         Assert.Equal(count, result.Data);

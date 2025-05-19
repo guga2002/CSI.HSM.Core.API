@@ -1133,7 +1133,7 @@ namespace Domain.Core.Migrations
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
-                    b.Property<long?>("IssueKeuwordId")
+                    b.Property<long?>("IssueKeywordId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("ItemId")
@@ -1164,7 +1164,7 @@ namespace Domain.Core.Migrations
 
                     b.HasIndex("IsCompleted");
 
-                    b.HasIndex("IssueKeuwordId");
+                    b.HasIndex("IssueKeywordId");
 
                     b.HasIndex("ItemId");
 
@@ -3176,7 +3176,7 @@ namespace Domain.Core.Migrations
                 {
                     b.HasOne("Domain.Core.Entities.Item.IssueKeyword", "IssueKeyword")
                         .WithMany("TaskItem")
-                        .HasForeignKey("IssueKeuwordId");
+                        .HasForeignKey("IssueKeywordId");
 
                     b.HasOne("Domain.Core.Entities.Item.Items", "Item")
                         .WithMany("TaskItems")

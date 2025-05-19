@@ -2991,7 +2991,7 @@ namespace Domain.Core.Migrations
                 name: "IX_TaskItems_IssueKeuwordId",
                 schema: "CSI",
                 table: "TaskItems",
-                column: "IssueKeuwordId");
+                column: "IssueKeywordId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskItems_ItemId",
