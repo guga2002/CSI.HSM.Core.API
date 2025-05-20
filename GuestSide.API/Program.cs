@@ -135,7 +135,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddDistributedMemoryCache();
 
-builder.Services.AddRedisCash("127.0.0.1" ?? throw new ArgumentNullException("Redis Key Is not defined"));
+builder.Services.AddRedisCash("127.0.0.1:6379" ?? throw new ArgumentNullException("Redis Key Is not defined"));
 
 builder.Services.InjectAdvertisment();
 builder.Services.AddAdvertisementType();
