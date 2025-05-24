@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Core.Migrations
 {
     [DbContext(typeof(CoreSideDb))]
-    [Migration("20250520185556_refacctoringTable")]
-    partial class refacctoringTable
+    [Migration("20250524171423_addfailedNotificationtable")]
+    partial class addfailedNotificationtable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1295,6 +1295,47 @@ namespace Domain.Core.Migrations
                     b.ToTable("Logs", "CSI");
                 });
 
+            modelBuilder.Entity("Domain.Core.Entities.Notification.FailedNotification", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Data")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.ToTable("FailedNotifications", "CSI");
+                });
+
             modelBuilder.Entity("Domain.Core.Entities.Notification.GuestNotification", b =>
                 {
                     b.Property<long>("Id")
@@ -2529,8 +2570,7 @@ namespace Domain.Core.Migrations
 
                     b.HasIndex("LanguageCode");
 
-                    b.HasIndex("TicketId")
-                        .IsUnique();
+                    b.HasIndex("TicketId");
 
                     b.ToTable("StaffSupportResponses", "CSI");
                 });
@@ -3432,8 +3472,8 @@ namespace Domain.Core.Migrations
             modelBuilder.Entity("Domain.Core.Entities.Staff.StaffSupportResponse", b =>
                 {
                     b.HasOne("Domain.Core.Entities.Staff.StaffSupport", "StaffSupport")
-                        .WithOne("SupportResponse")
-                        .HasForeignKey("Domain.Core.Entities.Staff.StaffSupportResponse", "TicketId")
+                        .WithMany("SupportResponse")
+                        .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

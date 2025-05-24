@@ -10,7 +10,7 @@ using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.Advertisement;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Domain.Core.Application.Services.Advertismenet.Inject;
+namespace Core.Application.Services.Advertismenet.Inject;
 
 public static class AdvertisementDI
 {

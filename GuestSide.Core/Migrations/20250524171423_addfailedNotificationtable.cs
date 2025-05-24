@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Domain.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class refacctoringTable : Migration
+    public partial class addfailedNotificationtable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -73,6 +73,26 @@ namespace Domain.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DailyStatistics", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FailedNotifications",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Data = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Count = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FailedNotifications", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -1731,6 +1751,24 @@ namespace Domain.Core.Migrations
                 column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FailedNotifications_CreatedAt",
+                schema: "CSI",
+                table: "FailedNotifications",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FailedNotifications_IsActive",
+                schema: "CSI",
+                table: "FailedNotifications",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FailedNotifications_LanguageCode",
+                schema: "CSI",
+                table: "FailedNotifications",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Feedbacks_CorrelationId",
                 schema: "CSI",
                 table: "Feedbacks",
@@ -2948,8 +2986,7 @@ namespace Domain.Core.Migrations
                 name: "IX_StaffSupportResponses_TicketId",
                 schema: "CSI",
                 table: "StaffSupportResponses",
-                column: "TicketId",
-                unique: true);
+                column: "TicketId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StaffSupports_CreatedAt",
@@ -3223,6 +3260,10 @@ namespace Domain.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "DailyStatistics",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
+                name: "FailedNotifications",
                 schema: "CSI");
 
             migrationBuilder.DropTable(
