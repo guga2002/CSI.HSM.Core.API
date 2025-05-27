@@ -89,6 +89,7 @@ builder.Services.AddScoped<IDbConnection>(sp =>
     throw new InvalidOperationException("Database connection string not found in HttpContext.Items.");
 });
 
+builder.Services.ActivateJobs();
 builder.Services.AddHostedService<NotifyUsersService>();
 builder.Services.AddHostedService<ItemMonitoring>();
 builder.Services.AddHostedService<PromoCodeMonitoring>();
