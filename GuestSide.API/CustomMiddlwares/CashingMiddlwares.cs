@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
+using Common.Data.Cashing;
 using Generic.API.Interface;
 
 namespace Core.API.CustomMiddlwares
@@ -8,9 +9,9 @@ namespace Core.API.CustomMiddlwares
     {
         private readonly RequestDelegate _next;
         // private readonly ILogger<CashingMiddlwares> _logger;
-        private readonly IRedisCashService _redisCache;
+        private readonly IRedisCachService _redisCache;
 
-        public CashingMiddlwares(RequestDelegate next, IRedisCashService redisCache)
+        public CashingMiddlwares(RequestDelegate next, IRedisCachService redisCache)
         {
             _next = next;
             _redisCache = redisCache;
