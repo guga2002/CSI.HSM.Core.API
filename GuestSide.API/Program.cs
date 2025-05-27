@@ -39,6 +39,12 @@ using Common.Data.Interfaces.AbstractInterface;
 using Common.Data.Repositories.UniteOfWork;
 using Common.Data.Repositories.AbstractRepository;
 using Generic.API.Jobs;
+using Generic.API.Injections;
+using Generic.API;
+using Generic.API.ServiceProvider.Interface;
+using Generic.API.ServiceProvider.Service;
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +54,12 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.ActiveShearedServices(builder.Configuration);
+
+builder.Services.AddScoped<ICoreServiceProvider,CoreServiceProvider>();
+
+builder.Services.ActivateCashing();
 
 builder.Services.AddDbContext<CoreSideDb>(options =>//respect testing enviroment
 {
@@ -67,6 +79,15 @@ if(builder.Environment.IsProduction())
         options.ListenAnyIP(2045);
     });
 }
+
+builder.Services.AddScoped<IDbConnection>(sp =>
+{
+    var context = sp.GetRequiredService<IHttpContextAccessor>().HttpContext;
+    var connStr = context?.Items["HotelDbConnectionString"] as string;
+    if (!string.IsNullOrEmpty(connStr))
+        return new SqlConnection(connStr);
+    throw new InvalidOperationException("Database connection string not found in HttpContext.Items.");
+});
 
 builder.Services.AddHostedService<NotifyUsersService>();
 builder.Services.AddHostedService<ItemMonitoring>();
@@ -234,12 +255,12 @@ var app = builder.Build();
         //options.InjectJavascript("/swagger-voice-search.js");
     });
 
-app.UseMiddleware<TenantMiddleware>();
-app.UseMiddleware<TranslationMiddleware>();
-app.UseMiddleware<CashingMiddlwares>();
-//app.UseMiddleware<ForceHttp200Except500Middleware>();
-app.UseMiddleware<GlobalExceptionMiddleware>();
-app.UseMiddleware<RequestTranslationMiddleware>();
+//app.UseMiddleware<TenantMiddleware>();
+//app.UseMiddleware<TranslationMiddleware>();
+//app.UseMiddleware<CashingMiddlwares>();
+////app.UseMiddleware<ForceHttp200Except500Middleware>();
+//app.UseMiddleware<GlobalExceptionMiddleware>();
+//app.UseMiddleware<RequestTranslationMiddleware>();
 //app.UseMiddleware<RequestLoggerMiddleware>();
 //app.UseMiddleware<CashingMiddlwares>();
 //app.UseCors(); // No name
