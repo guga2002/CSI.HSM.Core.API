@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Common.Data.Entities.Task;
 using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
-using Domain.Core.Entities.Task;
 
 namespace Core.Application.Services.Task.Comments.Mapper;
 

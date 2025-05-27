@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
-using Domain.Core.Entities.Task;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Task;
-using Domain.Core.Entities.Item;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.Task.Task;
+using Core.Application.Services;
 using Core.Application.DTOs.Request.Task;
+using Common.Data.Entities.Task;
+using Common.Data.Entities.Item;
+using Common.Data.Entities.Enums;
+using Common.Data.Interfaces.Task;
+using Common.Data.Interfaces.AbstractInterface;
 
 namespace Core.Application.Services.Task.Task.Services;
 
@@ -32,9 +34,26 @@ public class TasksService : GenericService<TaskDto, TaskResponseDto, long, Tasks
         return _mapper.Map<IEnumerable<TaskResponseDto>>(tasks);
     }
 
-    public async Task<bool> UpdateTaskPriority(long taskId, long priorityId)
+    public async Task<bool> UpdateTaskStatus(long taskId, StatusEnum newStatus)
     {
-        return await _taskRepository.UpdateTaskPriority(taskId, priorityId);
+        return await _taskRepository.UpdateTaskStatus(taskId, newStatus);
+    }
+
+    public async Task<bool> UpdateTaskPriority(long taskId, PriorityEnum newPriority)
+    {
+        return await _taskRepository.UpdateTaskPriority(taskId, newPriority);
+    }
+
+    public async Task<IEnumerable<TaskResponseDto>> GetTasksByStatus(StatusEnum status, int limit = 50)
+    {
+        var tasks = await _taskRepository.GetTasksByStatus(status, limit);
+        return _mapper.Map<IEnumerable<TaskResponseDto>>(tasks);
+    }
+
+    public async Task<IEnumerable<TaskResponseDto>> GetHighPriorityTasks(int limit = 10)
+    {
+        var tasks = await _taskRepository.GetHighPriorityTasks(limit);
+        return _mapper.Map<IEnumerable<TaskResponseDto>>(tasks);
     }
 
     public async Task<Dictionary<long, IEnumerable<TaskItem>>> GetTaskItemsByCartIdAsync(long cartId)
@@ -46,7 +65,8 @@ public class TasksService : GenericService<TaskDto, TaskResponseDto, long, Tasks
     public async Task<IEnumerable<TaskResponseDto>> GetFilteredTasks(FilterTaskDto filterTaskDto)
     {
         var tasks = await _taskRepository.GetFilteredTasks
-           (filterTaskDto.PriorityId,
+           (filterTaskDto.Status,
+            filterTaskDto.Priority,
             filterTaskDto.IsCompleted,
             filterTaskDto.StartDate,
             filterTaskDto.EndDate);

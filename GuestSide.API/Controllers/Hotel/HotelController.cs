@@ -11,13 +11,13 @@ namespace Core.API.Controllers.Hotel;
 
 [Route("api/[controller]")]
 [ApiController]
-public class HotelController : CSIControllerBase<HotelRequestDto, HotelResponse, long, Domain.Core.Entities.Hotel.Hotel>
+public class HotelController : CSIControllerBase<HotelRequestDto, HotelResponse, long, Common.Data.Entities.Hotel.Hotel>
 {
     private readonly IHotelService _hotelService;
     public HotelController(
         IHotelService hotelService,
-        IService<HotelRequestDto, HotelResponse, long, Domain.Core.Entities.Hotel.Hotel> serviceProvider,
-        IAdditionalFeatures<HotelRequestDto, HotelResponse, long, Domain.Core.Entities.Hotel.Hotel> additionalFeatures)
+        IService<HotelRequestDto, HotelResponse, long, Common.Data.Entities.Hotel.Hotel> serviceProvider,
+        IAdditionalFeatures<HotelRequestDto, HotelResponse, long, Common.Data.Entities.Hotel.Hotel> additionalFeatures)
         : base(serviceProvider, additionalFeatures)
     {
         _hotelService = hotelService;

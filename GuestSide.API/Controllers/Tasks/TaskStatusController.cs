@@ -1,10 +1,10 @@
-﻿using Core.API.CustomExtendControllerBase;
+﻿using Common.Data.Entities.Task;
+using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Task.Status;
-using Domain.Core.Entities.Task;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

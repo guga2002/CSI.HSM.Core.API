@@ -1,14 +1,14 @@
-﻿using Core.Application.DTOs.Request.Guest;
+﻿using Common.Data.Entities.Guest;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Interfaces.Guest;
+using Common.Data.Repositories.AbstractRepository;
+using Common.Data.Repositories.Guest;
+using Core.Application.DTOs.Request.Guest;
 using Core.Application.DTOs.Response.Guest;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Guest;
 using Core.Application.Services.Guest.Mapper;
 using Core.Application.Services.Guest.Service;
-using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Infrastructure.Repositories.Guest;
-using Domain.Core.Entities.Guest;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Guest;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Application.Services.Guest.Injection;

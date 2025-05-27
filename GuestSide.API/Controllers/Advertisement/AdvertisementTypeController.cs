@@ -1,10 +1,10 @@
-﻿using Core.API.CustomExtendControllerBase;
+﻿using Common.Data.Entities.Advertisements;
+using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.DTOs.Response.Advertisment;
 using Core.Application.Interface.AdvertiementType;
 using Core.Application.Interface.GenericContracts;
-using Domain.Core.Entities.Advertisements;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

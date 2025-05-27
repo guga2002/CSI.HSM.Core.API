@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Common.Data.Entities.Advertisements;
 using Core.Application.DTOs.Request.Advertisment;
-using Domain.Core.Entities.Advertisements;
 
 namespace Core.Application.Services.Advertismenet.Mapper;
 

@@ -4,8 +4,8 @@ using Core.Application.Interface.GenericContracts;
 
 namespace Core.Application.Interface.Hotel;
 
-public interface IHotelService : IService<HotelRequestDto, HotelResponse, long, Domain.Core.Entities.Hotel.Hotel>,
-    IAdditionalFeatures<HotelRequestDto, HotelResponse, long, Domain.Core.Entities.Hotel.Hotel>
+public interface IHotelService : IService<HotelRequestDto, HotelResponse, long, Common.Data.Entities.Hotel.Hotel>,
+    IAdditionalFeatures<HotelRequestDto, HotelResponse, long, Common.Data.Entities.Hotel.Hotel>
 {
     /// <summary>
     /// Get all hotels.

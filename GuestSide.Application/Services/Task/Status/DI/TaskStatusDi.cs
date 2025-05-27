@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Entities.Task;
-using Domain.Core.Interfaces.Task;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Task.Status;
 using Core.Application.DTOs.Request.Task;
 using Core.Application.Services.Task.Status.Services;
 using Core.Application.Services.Task.Status.Mapper;
-using Core.Infrastructure.Repositories.Task;
-using Core.Infrastructure.Repositories.AbstractRepository;
+using Common.Data.Entities.Task;
+using Common.Data.Interfaces.Task;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Repositories.AbstractRepository;
+using Common.Data.Repositories.Task;
 
 namespace Core.Application.Services.Task.Status.DI;
 

@@ -1,9 +1,9 @@
-﻿using Core.API.CustomExtendControllerBase;
+﻿using Common.Data.Entities.Contacts;
+using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Contacts;
 using Core.Application.DTOs.Response.Contacts;
 using Core.Application.Interface.GenericContracts;
-using Domain.Core.Entities.Contacts;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

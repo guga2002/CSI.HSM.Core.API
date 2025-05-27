@@ -1,14 +1,14 @@
-﻿using Core.Application.DTOs.Request.Staff;
+﻿using Common.Data.Entities.Staff;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Interfaces.Staff;
+using Common.Data.Repositories.AbstractRepository;
+using Common.Data.Repositories.Staff;
+using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Staff.Incident;
 using Core.Application.Services.Staff.Incident.Mapper;
 using Core.Application.Services.Staff.Incident.Service;
-using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Infrastructure.Repositories.Staff;
-using Domain.Core.Entities.Staff;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Staff;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Application.Services.Staff.Incident.DI;

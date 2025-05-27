@@ -1,10 +1,12 @@
-﻿using Domain.Core.Entities.Enums;
+﻿using Common.Data.Entities.Enums;
 
 namespace Core.Application.DTOs.Request.Task;
 
 public class FilterTaskDto
 {
-    public long? PriorityId { get; set; }
+    public StatusEnum? Status { get; set; }
+
+    public PriorityEnum? Priority { get; set; }
 
     public bool? IsCompleted { get; set; }
 

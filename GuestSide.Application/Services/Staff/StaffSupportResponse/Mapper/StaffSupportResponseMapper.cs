@@ -8,7 +8,7 @@ public class StaffSupportResponseMapper : Profile
 {
     public StaffSupportResponseMapper()
     {
-        CreateMap<Domain.Core.Entities.Staff.StaffSupportResponse, StaffSupportResponseResponseDto>().ReverseMap();
-        CreateMap<Domain.Core.Entities.Staff.StaffSupportResponse, StaffSupportResponseRequestDto>().ReverseMap();
+        CreateMap<Common.Data.Entities.Staff.StaffSupportResponse, StaffSupportResponseResponseDto>().ReverseMap();
+        CreateMap<Common.Data.Entities.Staff.StaffSupportResponse, StaffSupportResponseRequestDto>().ReverseMap();
     }
 }

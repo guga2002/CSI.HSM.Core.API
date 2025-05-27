@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
+using Common.Data.Entities.Staff;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Interfaces.Staff;
+using Common.Data.Sheared;
 using Core.Application.CustomExceptions;
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.Staff.Task;
-using Domain.Core.Entities.Staff;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Staff;
-using Domain.Core.Sheared;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Staff.Cart.Services

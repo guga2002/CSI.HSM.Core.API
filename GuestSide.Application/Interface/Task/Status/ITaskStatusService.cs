@@ -1,7 +1,7 @@
-﻿using Core.Application.DTOs.Request.Task;
+﻿using Common.Data.Entities.Task;
+using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.GenericContracts;
-using Domain.Core.Entities.Task;
 
 namespace Core.Application.Interface.Task.Status
 {

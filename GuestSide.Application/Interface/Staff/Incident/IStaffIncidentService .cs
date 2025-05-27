@@ -1,8 +1,8 @@
-﻿using Core.Application.DTOs.Request.Staff;
+﻿using Common.Data.Entities.Enums;
+using Common.Data.Entities.Staff;
+using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.GenericContracts;
-using Domain.Core.Entities.Enums;
-using Domain.Core.Entities.Staff;
 
 namespace Core.Application.Interface.Staff.Incident
 {

@@ -3,9 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.UniteOfWork;
-using Domain.Core.Data;
 using Core.API.Fillters;
 using Core.API.CustomMiddlwares;
 using Core.Application.Services.Hotel.Injection;
@@ -32,16 +29,16 @@ using Core.Application.Services.Task.TaskLog.Startup;
 using Core.Application.Services.Staff.StaffSupport.DI;
 using Core.Application.Services.Task.Status.DI;
 using Core.Application.Services.AdvertisementType.Injection;
-using Core.Infrastructure.Repositories.UniteOfWork;
-using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Persistance.Cashing.Inject;
-using Core.Persistance.BackgroundServices;
-using Core.Persistance.PtmsCsi;
-using Core.Persistance.MailServices;
 using Core.Application.Services.Contacts.Injection;
 using Core.Application.Services.Task.Comments.DI;
 using Core.Application.Services.Advertismenet.Inject;
 using Generic.API.Gateway;
+using Common.Data.Data;
+using Common.Data.Interfaces.UniteOfWork;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Repositories.UniteOfWork;
+using Common.Data.Repositories.AbstractRepository;
+using Generic.API.Jobs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -138,8 +135,6 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddDistributedMemoryCache();
 
-builder.Services.AddRedisCash("127.0.0.1:6379" ?? throw new ArgumentNullException("Redis Key Is not defined"));
-
 builder.Services.InjectAdvertisment();
 builder.Services.AddAdvertisementType();
 builder.Services.InjectFeadbacks();
@@ -169,9 +164,7 @@ builder.Services.ActiveStaffSentiments();
 builder.Services.ActiveStaffSupport();
 builder.Services.ActiveStaffSupportResponse();
 builder.Services.InjectPaymentOption();
-builder.Services.AddScoped<ITemplateGatewayService, TemplateGatewayService>();
 builder.Services.InjectRestaurantOrderPaymen();
-builder.Services.AddScoped<SmtpService>();
 builder.Services.AddRestaurantCartServices();
 builder.Services.AddRestaurantServices();
 builder.Services.AddRestaurantItemCategory();

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using Common.Data.Entities.Language;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Interfaces.Language;
 using Core.Application.DTOs.Request.Language;
 using Core.Application.DTOs.Response.Language;
 using Core.Application.Interface.Language;
 using Core.Application.Services;
-using Domain.Core.Entities.Language;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Language;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 

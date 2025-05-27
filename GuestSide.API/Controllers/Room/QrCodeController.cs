@@ -1,11 +1,11 @@
-﻿using Core.API.CustomExtendControllerBase;
+﻿using Common.Data.Entities.Room;
+using Core.API.CustomExtendControllerBase;
 using Core.API.Models;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Room;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Room;
-using Domain.Core.Entities.Room;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

@@ -1,7 +1,7 @@
-﻿using Core.Application.DTOs.Request.Contacts;
+﻿using Common.Data.Entities.Contacts;
+using Core.Application.DTOs.Request.Contacts;
 using Core.Application.DTOs.Response.Contacts;
 using Core.Application.Interface.GenericContracts;
-using Domain.Core.Entities.Contacts;
 
 namespace Core.Application.Interface.Contacts;
 

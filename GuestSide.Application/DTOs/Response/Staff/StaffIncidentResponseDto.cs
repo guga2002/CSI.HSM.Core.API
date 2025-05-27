@@ -1,4 +1,4 @@
-﻿using Domain.Core.Entities.Enums;
+﻿using Common.Data.Entities.Enums;
 
 namespace Core.Application.DTOs.Response.Staff;
 

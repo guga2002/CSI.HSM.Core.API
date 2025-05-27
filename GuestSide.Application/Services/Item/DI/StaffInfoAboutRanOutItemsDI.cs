@@ -1,14 +1,14 @@
-﻿using Core.Application.DTOs.Request.Item;
+﻿using Common.Data.Entities.Item;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Interfaces.Item;
+using Common.Data.Repositories.AbstractRepository;
+using Common.Data.Repositories.Item;
+using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Response.Item;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Item;
 using Core.Application.Services.Item.Mapper;
 using Core.Application.Services.Item.Services;
-using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Infrastructure.Repositories.Item;
-using Domain.Core.Entities.Item;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Item;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Application.Services.Item.DI

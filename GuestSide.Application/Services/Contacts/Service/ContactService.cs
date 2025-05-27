@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using Common.Data.Entities.Contacts;
+using Common.Data.Interfaces.AbstractInterface;
 using Core.Application.DTOs.Request.Contacts;
 using Core.Application.DTOs.Response.Contacts;
 using Core.Application.Interface.Contacts;
-using Domain.Core.Entities.Contacts;
-using Domain.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Contacts.Service;

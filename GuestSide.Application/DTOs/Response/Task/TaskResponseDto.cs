@@ -1,6 +1,7 @@
 ﻿using Core.Application.DTOs.Response.Item;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.DTOs.Response.FeedBacks;
+using Common.Data.Entities.Enums;
 
 namespace Core.Application.DTOs.Response.Task;
 
@@ -14,7 +15,9 @@ public class TaskResponseDto : AbstractResponse
 
     public bool IsCompleted { get; set; } = false; // Indicates whether the task is completed
 
-    public long PriorityId { get; set; }
+    public StatusEnum Status { get; set; }
+
+    public PriorityEnum Priority { get; set; }
 
     public string? LanguageCode { get; set; }
 

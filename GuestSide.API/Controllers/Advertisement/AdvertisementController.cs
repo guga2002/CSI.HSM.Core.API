@@ -1,9 +1,9 @@
-﻿using Core.API.CustomExtendControllerBase;
+﻿using Common.Data.Data;
+using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.Interface.Advertisment;
 using Core.Application.Interface.GenericContracts;
-using Domain.Core.Data;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -11,15 +11,15 @@ namespace Core.API.Controllers.Advertisement;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AdvertisementController : CSIControllerBase<AdvertismentDto, AdvertismentResponseDto, long, Domain.Core.Entities.Advertisements.Advertisement>
+public class AdvertisementController : CSIControllerBase<AdvertismentDto, AdvertismentResponseDto, long, Common.Data.Entities.Advertisements.Advertisement>
 {
     private readonly IAdvertisementService _advertisementService;
 
     public AdvertisementController(
         IAdvertisementService advertisementService,
-        IService<AdvertismentDto, AdvertismentResponseDto, long, Domain.Core.Entities.Advertisements.Advertisement> serviceProvider,
+        IService<AdvertismentDto, AdvertismentResponseDto, long, Common.Data.Entities.Advertisements.Advertisement> serviceProvider,
         CoreSideDb db,
-        IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Domain.Core.Entities.Advertisements.Advertisement> feat)
+        IAdditionalFeatures<AdvertismentDto, AdvertismentResponseDto, long, Common.Data.Entities.Advertisements.Advertisement> feat)
         : base(serviceProvider, feat)
     {
         _advertisementService = advertisementService;

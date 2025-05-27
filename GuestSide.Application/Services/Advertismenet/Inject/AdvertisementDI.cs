@@ -1,13 +1,13 @@
-﻿using Core.Application.DTOs.Request.Advertisment;
+﻿using Common.Data.Entities.Advertisements;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Interfaces.Advertisement;
+using Common.Data.Repositories.AbstractRepository;
+using Common.Data.Repositories.Advertisement;
+using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.Interface.Advertisment;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Services.Advertismenet.Mapper;
 using Core.Application.Services.Advertismenet.Service;
-using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Infrastructure.Repositories.Advertisement;
-using Domain.Core.Entities.Advertisements;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Advertisement;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Application.Services.Advertismenet.Inject;

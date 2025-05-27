@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using Common.Data.Entities.Hotel.GeoLocation;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Interfaces.Hotel;
+using Common.Data.Interfaces.UniteOfWork;
 using Core.Application.DTOs.Request.Hotel;
 using Core.Application.DTOs.Response.Hotel;
 using Core.Application.Interface.Hotel;
-using Domain.Core.Entities.Hotel.GeoLocation;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Hotel;
-using Domain.Core.Interfaces.UniteOfWork;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Hotel.Service

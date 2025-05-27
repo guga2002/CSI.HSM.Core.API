@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
 using InvalidOperationException = Core.Application.CustomExceptions.InvalidOperationException;
-using Domain.Core.Interfaces.AbstractInterface;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.CustomExceptions;
+using Common.Data.Interfaces.AbstractInterface;
 
 namespace Core.Application.Services;
 

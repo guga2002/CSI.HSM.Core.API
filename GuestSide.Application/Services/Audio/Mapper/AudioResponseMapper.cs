@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Common.Data.Entities.Audio;
 using Core.Application.DTOs.Request.Audio;
-using Domain.Core.Entities.Audio;
 
 namespace Core.Application.Services.Audio.Mapper;
 
