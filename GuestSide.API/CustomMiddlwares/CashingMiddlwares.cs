@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
 using Common.Data.Cashing;
-using Generic.API.Interface;
 
 namespace Core.API.CustomMiddlwares
 {
