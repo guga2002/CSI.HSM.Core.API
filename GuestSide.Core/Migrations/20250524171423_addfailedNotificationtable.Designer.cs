@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Core.Migrations
 {
     [DbContext(typeof(CoreSideDb))]
-    [Migration("20250508194427_addNewTables")]
-    partial class addNewTables
+    [Migration("20250524171423_addfailedNotificationtable")]
+    partial class addfailedNotificationtable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -222,6 +222,9 @@ namespace Domain.Core.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<long>("GuestId")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -692,7 +695,7 @@ namespace Domain.Core.Migrations
 
                     b.HasIndex("LanguageCode");
 
-                    b.ToTable("ItemBehaviorTypes");
+                    b.ToTable("ItemBehaviorTypes", "CSI");
                 });
 
             modelBuilder.Entity("Domain.Core.Entities.Item.ItemCategory", b =>
@@ -786,6 +789,98 @@ namespace Domain.Core.Migrations
                     b.ToTable("ItemCategoryToStaffCategory", "CSI");
                 });
 
+            modelBuilder.Entity("Domain.Core.Entities.Item.ItemReport", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("ItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("ReportReason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("reportedByUserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.ToTable("ItemReports", "CSI");
+                });
+
+            modelBuilder.Entity("Domain.Core.Entities.Item.ItemReportAttachment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<long?>("TaskItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.HasIndex("TaskItemId");
+
+                    b.ToTable("ItemReportAttachments", "CSI");
+                });
+
             modelBuilder.Entity("Domain.Core.Entities.Item.Items", b =>
                 {
                     b.Property<long>("Id")
@@ -854,6 +949,50 @@ namespace Domain.Core.Migrations
                     b.HasIndex("LanguageCode");
 
                     b.ToTable("Items", "CSI");
+                });
+
+            modelBuilder.Entity("Domain.Core.Entities.Item.ScheduledDelivery", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ScheduledDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("TaskItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.HasIndex("TaskItemId")
+                        .IsUnique();
+
+                    b.ToTable("ScheduledDeliveries", "CSI");
                 });
 
             modelBuilder.Entity("Domain.Core.Entities.Item.StaffInfoAboutRanOutItems", b =>
@@ -988,19 +1127,13 @@ namespace Domain.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime?>("AssignedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<long?>("IssueKeuwordId")
+                    b.Property<long?>("IssueKeywordId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("ItemId")
@@ -1029,9 +1162,7 @@ namespace Domain.Core.Migrations
 
                     b.HasIndex("IsActive");
 
-                    b.HasIndex("IsCompleted");
-
-                    b.HasIndex("IssueKeuwordId");
+                    b.HasIndex("IssueKeywordId");
 
                     b.HasIndex("ItemId");
 
@@ -1162,6 +1293,47 @@ namespace Domain.Core.Migrations
                     b.HasIndex("LoggerId");
 
                     b.ToTable("Logs", "CSI");
+                });
+
+            modelBuilder.Entity("Domain.Core.Entities.Notification.FailedNotification", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Data")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.ToTable("FailedNotifications", "CSI");
                 });
 
             modelBuilder.Entity("Domain.Core.Entities.Notification.GuestNotification", b =>
@@ -2180,6 +2352,9 @@ namespace Domain.Core.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<long?>("TakenByStaffId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -2395,8 +2570,7 @@ namespace Domain.Core.Migrations
 
                     b.HasIndex("LanguageCode");
 
-                    b.HasIndex("TicketId")
-                        .IsUnique();
+                    b.HasIndex("TicketId");
 
                     b.ToTable("StaffSupportResponses", "CSI");
                 });
@@ -2639,6 +2813,9 @@ namespace Domain.Core.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<long?>("GuestId")
+                        .HasColumnType("bigint");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -2646,7 +2823,7 @@ namespace Domain.Core.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<long>("StaffId")
+                    b.Property<long?>("StaffId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("TaskId")
@@ -2666,11 +2843,45 @@ namespace Domain.Core.Migrations
 
                     b.HasIndex("LanguageCode");
 
-                    b.HasIndex("StaffId");
-
                     b.HasIndex("TaskId");
 
                     b.ToTable("Comments", "CSI");
+                });
+
+            modelBuilder.Entity("Domain.Core.Entities.Task.Priority", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("LanguageCode");
+
+                    b.ToTable("Priorities", "CSI");
                 });
 
             modelBuilder.Entity("Domain.Core.Entities.Task.TaskLogs", b =>
@@ -2757,11 +2968,8 @@ namespace Domain.Core.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("Priority")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<long>("PriorityId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -2785,6 +2993,8 @@ namespace Domain.Core.Migrations
 
                     b.HasIndex("LanguageCode");
 
+                    b.HasIndex("PriorityId");
+
                     b.ToTable("Tasks", "CSI");
                 });
 
@@ -2804,6 +3014,9 @@ namespace Domain.Core.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDefault")
                         .HasColumnType("bit");
 
                     b.Property<string>("LanguageCode")
@@ -2976,6 +3189,26 @@ namespace Domain.Core.Migrations
                     b.Navigation("StaffCategory");
                 });
 
+            modelBuilder.Entity("Domain.Core.Entities.Item.ItemReport", b =>
+                {
+                    b.HasOne("Domain.Core.Entities.Item.Items", "Items")
+                        .WithMany("ItemReport")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("Domain.Core.Entities.Item.ItemReportAttachment", b =>
+                {
+                    b.HasOne("Domain.Core.Entities.Item.TaskItem", "TaskItem")
+                        .WithMany("ReportAttachments")
+                        .HasForeignKey("TaskItemId");
+
+                    b.Navigation("TaskItem");
+                });
+
             modelBuilder.Entity("Domain.Core.Entities.Item.Items", b =>
                 {
                     b.HasOne("Domain.Core.Entities.Item.ItemBehaviorType", "ItemBehaviorType")
@@ -2995,6 +3228,17 @@ namespace Domain.Core.Migrations
                     b.Navigation("ItemCategory");
                 });
 
+            modelBuilder.Entity("Domain.Core.Entities.Item.ScheduledDelivery", b =>
+                {
+                    b.HasOne("Domain.Core.Entities.Item.TaskItem", "TaskItem")
+                        .WithOne("ScheduledDelivery")
+                        .HasForeignKey("Domain.Core.Entities.Item.ScheduledDelivery", "TaskItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TaskItem");
+                });
+
             modelBuilder.Entity("Domain.Core.Entities.Item.StaffInfoAboutRanOutItems", b =>
                 {
                     b.HasOne("Domain.Core.Entities.Staff.Staffs", "StaffMember")
@@ -3008,7 +3252,7 @@ namespace Domain.Core.Migrations
                 {
                     b.HasOne("Domain.Core.Entities.Item.IssueKeyword", "IssueKeyword")
                         .WithMany("TaskItem")
-                        .HasForeignKey("IssueKeuwordId");
+                        .HasForeignKey("IssueKeywordId");
 
                     b.HasOne("Domain.Core.Entities.Item.Items", "Item")
                         .WithMany("TaskItems")
@@ -3228,8 +3472,8 @@ namespace Domain.Core.Migrations
             modelBuilder.Entity("Domain.Core.Entities.Staff.StaffSupportResponse", b =>
                 {
                     b.HasOne("Domain.Core.Entities.Staff.StaffSupport", "StaffSupport")
-                        .WithOne("SupportResponse")
-                        .HasForeignKey("Domain.Core.Entities.Staff.StaffSupportResponse", "TicketId")
+                        .WithMany("SupportResponse")
+                        .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -3280,19 +3524,11 @@ namespace Domain.Core.Migrations
 
             modelBuilder.Entity("Domain.Core.Entities.Task.Comment", b =>
                 {
-                    b.HasOne("Domain.Core.Entities.Staff.Staffs", "Staff")
-                        .WithMany("Comment")
-                        .HasForeignKey("StaffId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Core.Entities.Task.Tasks", "Tasks")
                         .WithMany("Comments")
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Staff");
 
                     b.Navigation("Tasks");
                 });
@@ -3316,7 +3552,15 @@ namespace Domain.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Core.Entities.Task.Priority", "Priority")
+                        .WithMany("Tasks")
+                        .HasForeignKey("PriorityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Cart");
+
+                    b.Navigation("Priority");
                 });
 
             modelBuilder.Entity("Domain.Core.Entities.Advertisements.AdvertisementType", b =>
@@ -3381,7 +3625,16 @@ namespace Domain.Core.Migrations
 
             modelBuilder.Entity("Domain.Core.Entities.Item.Items", b =>
                 {
+                    b.Navigation("ItemReport");
+
                     b.Navigation("TaskItems");
+                });
+
+            modelBuilder.Entity("Domain.Core.Entities.Item.TaskItem", b =>
+                {
+                    b.Navigation("ReportAttachments");
+
+                    b.Navigation("ScheduledDelivery");
                 });
 
             modelBuilder.Entity("Domain.Core.Entities.Notification.Notifications", b =>
@@ -3453,8 +3706,6 @@ namespace Domain.Core.Migrations
 
             modelBuilder.Entity("Domain.Core.Entities.Staff.Staffs", b =>
                 {
-                    b.Navigation("Comment");
-
                     b.Navigation("StaffIncidents");
 
                     b.Navigation("StaffNotifications");
@@ -3462,6 +3713,11 @@ namespace Domain.Core.Migrations
                     b.Navigation("StaffRequestForItemStockRenewal");
 
                     b.Navigation("StaffSentiments");
+                });
+
+            modelBuilder.Entity("Domain.Core.Entities.Task.Priority", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 
             modelBuilder.Entity("Domain.Core.Entities.Task.Tasks", b =>

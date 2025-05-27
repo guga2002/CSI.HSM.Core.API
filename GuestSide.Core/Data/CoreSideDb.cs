@@ -131,6 +131,12 @@ public class CoreSideDb : DbContext
 
     public virtual DbSet<ScheduledDelivery> ScheduledDeliveries {  get; set; }
 
+    public virtual DbSet<ItemReport> ItemReports { get; set; }
+
+    public virtual DbSet<ItemReportAttachment> ItemReportsAttachments { get; set; }
+
+    public virtual DbSet<FailedNotification> FailedNotifications { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);

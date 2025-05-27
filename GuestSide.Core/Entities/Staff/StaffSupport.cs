@@ -43,5 +43,5 @@ public class StaffSupport : AbstractEntity
         set => AttachmentUrlsSerialized = value == null ? null : JsonSerializer.Serialize(value);
     }
 
-    public virtual StaffSupportResponse? SupportResponse { get; set; } // Virtual for lazy loading
+    public virtual List<StaffSupportResponse>? SupportResponse { get; set; } // Virtual for lazy loading
 }

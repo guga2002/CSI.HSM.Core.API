@@ -37,20 +37,6 @@ namespace Core.Infrastructure.Repositories.Item
                 .Where(ti => ti.ItemId == itemId)
                 .ToListAsync(cancellationToken);
         }
-
-        public async Task<IEnumerable<TaskItem>> GetPendingTaskItemsAsync(CancellationToken cancellationToken = default)
-        {
-            return await _context.TaskItems.AsNoTracking()
-                .Where(ti => !ti.IsCompleted)
-                .ToListAsync(cancellationToken);
-        }
-
-        public async Task<IEnumerable<TaskItem>> GetCompletedTaskItemsAsync(CancellationToken cancellationToken = default)
-        {
-            return await _context.TaskItems.AsNoTracking()
-                .Where(ti => ti.IsCompleted)
-                .ToListAsync(cancellationToken);
-        }
         #endregion
 
         #region Task-Item Management
@@ -60,18 +46,6 @@ namespace Core.Infrastructure.Repositories.Item
             if (taskItem == null) return false;
 
             taskItem.Quantity = newQuantity;
-            await _context.SaveChangesAsync(cancellationToken);
-
-            await InvalidateCache(taskItemId);
-            return true;
-        }
-
-        public async Task<bool> MarkTaskItemCompletedAsync(long taskItemId, CancellationToken cancellationToken = default)
-        {
-            var taskItem = await _context.TaskItems.FindAsync(new object[] { taskItemId }, cancellationToken);
-            if (taskItem == null) return false;
-
-            taskItem.IsCompleted = true;
             await _context.SaveChangesAsync(cancellationToken);
 
             await InvalidateCache(taskItemId);
@@ -98,16 +72,7 @@ namespace Core.Infrastructure.Repositories.Item
                 .Where(ti => ti.TaskId == taskId)
                 .CountAsync(cancellationToken);
         }
-
-        public async Task<int> CountCompletedItemsInTaskAsync(long taskId, CancellationToken cancellationToken = default)
-        {
-            return await _context.TaskItems
-                .Where(ti => ti.TaskId == taskId && ti.IsCompleted)
-                .CountAsync(cancellationToken);
-        }
         #endregion
-
-
 
         #region Caching Helpers
         private async Task<bool> InvalidateCache(long taskItemId)

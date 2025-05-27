@@ -9,7 +9,6 @@ namespace Domain.Core.Entities.Item;
 [Table("TaskItems", Schema = "CSI")]
 [Index(nameof(TaskId))] // Optimized for task-item lookups
 [Index(nameof(ItemId))] // Optimized for item-task lookups
-[Index(nameof(IsCompleted))] // Helps in filtering completed vs. pending items
 public class TaskItem : AbstractEntity
 {
     [ForeignKey(nameof(Task))]
@@ -24,17 +23,15 @@ public class TaskItem : AbstractEntity
 
     public int Quantity { get; set; }
 
-    public bool IsCompleted { get; set; } = false;
-
-    public DateTime? AssignedDate { get; set; }
-
     [StringLength(300)]
     public string? Notes { get; set; }
 
     [ForeignKey(nameof(IssueKeyword))]
-    public long? IssueKeuwordId {  get; set; }
+    public long? IssueKeywordId {  get; set; }
 
     public virtual IssueKeyword? IssueKeyword { get; set; }
 
     public virtual ScheduledDelivery? ScheduledDelivery { get; set; }
+
+    public List<ItemReportAttachment> ReportAttachments { get; set; }
 }

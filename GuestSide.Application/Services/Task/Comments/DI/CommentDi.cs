@@ -1,7 +1,7 @@
 ﻿using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.GenericContracts;
-using Core.Application.Interface.Task.Comment;
+using Core.Application.Interface.Task.Comments;
 using Core.Application.Services.Task.Comments.Mapper;
 using Core.Application.Services.Task.Comments.Services;
 using Core.Infrastructure.Repositories.AbstractRepository;

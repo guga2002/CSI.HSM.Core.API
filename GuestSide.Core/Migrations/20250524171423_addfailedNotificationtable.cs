@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Domain.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class mdfgdfknhgf56 : Migration
+    public partial class addfailedNotificationtable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -76,6 +76,26 @@ namespace Domain.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FailedNotifications",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Data = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Count = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FailedNotifications", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "IncidentTypes",
                 schema: "CSI",
                 columns: table => new
@@ -114,6 +134,7 @@ namespace Domain.Core.Migrations
 
             migrationBuilder.CreateTable(
                 name: "ItemBehaviorTypes",
+                schema: "CSI",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -264,6 +285,24 @@ namespace Domain.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PaymentOptions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Priorities",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Priorities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -428,6 +467,7 @@ namespace Domain.Core.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NameOfStatus = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -545,6 +585,7 @@ namespace Domain.Core.Migrations
                     table.ForeignKey(
                         name: "FK_Items_ItemBehaviorTypes_ItemBehaviorTypeId",
                         column: x => x.ItemBehaviorTypeId,
+                        principalSchema: "CSI",
                         principalTable: "ItemBehaviorTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -741,6 +782,34 @@ namespace Domain.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ItemReports",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ItemId = table.Column<long>(type: "bigint", nullable: false),
+                    reportedByUserId = table.Column<long>(type: "bigint", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: true),
+                    ReportReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemReports", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItemReports_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalSchema: "CSI",
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Rooms",
                 schema: "CSI",
                 columns: table => new
@@ -826,6 +895,7 @@ namespace Domain.Core.Migrations
                     ResolutionNotes = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     Location = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     RequiresImmediateAction = table.Column<bool>(type: "bit", nullable: false),
+                    TakenByStaffId = table.Column<long>(type: "bigint", nullable: true),
                     IncidentTypeId = table.Column<long>(type: "bigint", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -1195,10 +1265,9 @@ namespace Domain.Core.Migrations
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsCompleted = table.Column<bool>(type: "bit", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    Priority = table.Column<int>(type: "int", nullable: false),
                     CartId = table.Column<long>(type: "bigint", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    PriorityId = table.Column<long>(type: "bigint", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -1212,6 +1281,13 @@ namespace Domain.Core.Migrations
                         column: x => x.CartId,
                         principalSchema: "CSI",
                         principalTable: "Carts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tasks_Priorities_PriorityId",
+                        column: x => x.PriorityId,
+                        principalSchema: "CSI",
+                        principalTable: "Priorities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1299,7 +1375,8 @@ namespace Domain.Core.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StaffId = table.Column<long>(type: "bigint", nullable: false),
+                    StaffId = table.Column<long>(type: "bigint", nullable: true),
+                    GuestId = table.Column<long>(type: "bigint", nullable: true),
                     TaskId = table.Column<long>(type: "bigint", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
@@ -1310,13 +1387,6 @@ namespace Domain.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Comments_Staffs_StaffId",
-                        column: x => x.StaffId,
-                        principalSchema: "CSI",
-                        principalTable: "Staffs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Comments_Tasks_TaskId",
                         column: x => x.TaskId,
@@ -1338,6 +1408,7 @@ namespace Domain.Core.Migrations
                     WhatWillRobotSay = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     CorrelationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false),
+                    GuestId = table.Column<long>(type: "bigint", nullable: false),
                     TaskId = table.Column<long>(type: "bigint", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -1366,10 +1437,8 @@ namespace Domain.Core.Migrations
                     TaskId = table.Column<long>(type: "bigint", nullable: false),
                     ItemId = table.Column<long>(type: "bigint", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
-                    AssignedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    IssueKeuwordId = table.Column<long>(type: "bigint", nullable: true),
+                    IssueKeywordId = table.Column<long>(type: "bigint", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -1379,8 +1448,8 @@ namespace Domain.Core.Migrations
                 {
                     table.PrimaryKey("PK_TaskItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TaskItems_IssueKeywords_IssueKeuwordId",
-                        column: x => x.IssueKeuwordId,
+                        name: "FK_TaskItems_IssueKeywords_IssueKeywordId",
+                        column: x => x.IssueKeywordId,
                         principalSchema: "CSI",
                         principalTable: "IssueKeywords",
                         principalColumn: "Id");
@@ -1467,6 +1536,60 @@ namespace Domain.Core.Migrations
                         column: x => x.TaskId,
                         principalSchema: "CSI",
                         principalTable: "Tasks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ItemReportAttachments",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TaskItemId = table.Column<long>(type: "bigint", nullable: true),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemReportAttachments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItemReportAttachments_TaskItems_TaskItemId",
+                        column: x => x.TaskItemId,
+                        principalSchema: "CSI",
+                        principalTable: "TaskItems",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ScheduledDeliveries",
+                schema: "CSI",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TaskItemId = table.Column<long>(type: "bigint", nullable: false),
+                    ScheduledDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LanguageCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ScheduledDeliveries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ScheduledDeliveries_TaskItems_TaskItemId",
+                        column: x => x.TaskItemId,
+                        principalSchema: "CSI",
+                        principalTable: "TaskItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1604,12 +1727,6 @@ namespace Domain.Core.Migrations
                 column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_StaffId",
-                schema: "CSI",
-                table: "Comments",
-                column: "StaffId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Comments_TaskId",
                 schema: "CSI",
                 table: "Comments",
@@ -1631,6 +1748,24 @@ namespace Domain.Core.Migrations
                 name: "IX_DailyStatistics_LanguageCode",
                 schema: "CSI",
                 table: "DailyStatistics",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FailedNotifications_CreatedAt",
+                schema: "CSI",
+                table: "FailedNotifications",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FailedNotifications_IsActive",
+                schema: "CSI",
+                table: "FailedNotifications",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FailedNotifications_LanguageCode",
+                schema: "CSI",
+                table: "FailedNotifications",
                 column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
@@ -1878,16 +2013,19 @@ namespace Domain.Core.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemBehaviorTypes_CreatedAt",
+                schema: "CSI",
                 table: "ItemBehaviorTypes",
                 column: "CreatedAt");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemBehaviorTypes_IsActive",
+                schema: "CSI",
                 table: "ItemBehaviorTypes",
                 column: "IsActive");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemBehaviorTypes_LanguageCode",
+                schema: "CSI",
                 table: "ItemBehaviorTypes",
                 column: "LanguageCode");
 
@@ -1945,6 +2083,54 @@ namespace Domain.Core.Migrations
                 schema: "CSI",
                 table: "ItemCategoryToStaffCategory",
                 column: "StaffCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemReportAttachments_CreatedAt",
+                schema: "CSI",
+                table: "ItemReportAttachments",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemReportAttachments_IsActive",
+                schema: "CSI",
+                table: "ItemReportAttachments",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemReportAttachments_LanguageCode",
+                schema: "CSI",
+                table: "ItemReportAttachments",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemReportAttachments_TaskItemId",
+                schema: "CSI",
+                table: "ItemReportAttachments",
+                column: "TaskItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemReports_CreatedAt",
+                schema: "CSI",
+                table: "ItemReports",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemReports_IsActive",
+                schema: "CSI",
+                table: "ItemReports",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemReports_ItemId",
+                schema: "CSI",
+                table: "ItemReports",
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemReports_LanguageCode",
+                schema: "CSI",
+                table: "ItemReports",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_CreatedAt",
@@ -2132,6 +2318,24 @@ namespace Domain.Core.Migrations
                 table: "PaymentOptions",
                 column: "Payment_Method_Name",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Priorities_CreatedAt",
+                schema: "CSI",
+                table: "Priorities",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Priorities_IsActive",
+                schema: "CSI",
+                table: "Priorities",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Priorities_LanguageCode",
+                schema: "CSI",
+                table: "Priorities",
+                column: "LanguageCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PromoCode_CreatedAt",
@@ -2452,6 +2656,31 @@ namespace Domain.Core.Migrations
                 column: "RoomNumber");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ScheduledDeliveries_CreatedAt",
+                schema: "CSI",
+                table: "ScheduledDeliveries",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ScheduledDeliveries_IsActive",
+                schema: "CSI",
+                table: "ScheduledDeliveries",
+                column: "IsActive");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ScheduledDeliveries_LanguageCode",
+                schema: "CSI",
+                table: "ScheduledDeliveries",
+                column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ScheduledDeliveries_TaskItemId",
+                schema: "CSI",
+                table: "ScheduledDeliveries",
+                column: "TaskItemId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StaffAboutRanOutItems_CreatedAt",
                 schema: "CSI",
                 table: "StaffAboutRanOutItems",
@@ -2757,8 +2986,7 @@ namespace Domain.Core.Migrations
                 name: "IX_StaffSupportResponses_TicketId",
                 schema: "CSI",
                 table: "StaffSupportResponses",
-                column: "TicketId",
-                unique: true);
+                column: "TicketId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StaffSupports_CreatedAt",
@@ -2833,16 +3061,10 @@ namespace Domain.Core.Migrations
                 column: "IsActive");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TaskItems_IsCompleted",
+                name: "IX_TaskItems_IssueKeywordId",
                 schema: "CSI",
                 table: "TaskItems",
-                column: "IsCompleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TaskItems_IssueKeuwordId",
-                schema: "CSI",
-                table: "TaskItems",
-                column: "IssueKeuwordId");
+                column: "IssueKeywordId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskItems_ItemId",
@@ -2921,6 +3143,12 @@ namespace Domain.Core.Migrations
                 schema: "CSI",
                 table: "Tasks",
                 column: "LanguageCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tasks_PriorityId",
+                schema: "CSI",
+                table: "Tasks",
+                column: "PriorityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskStatus_CreatedAt",
@@ -3035,6 +3263,10 @@ namespace Domain.Core.Migrations
                 schema: "CSI");
 
             migrationBuilder.DropTable(
+                name: "FailedNotifications",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
                 name: "Feedbacks",
                 schema: "CSI");
 
@@ -3052,6 +3284,14 @@ namespace Domain.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "ItemCategoryToStaffCategory",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
+                name: "ItemReportAttachments",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
+                name: "ItemReports",
                 schema: "CSI");
 
             migrationBuilder.DropTable(
@@ -3079,6 +3319,10 @@ namespace Domain.Core.Migrations
                 schema: "CSI");
 
             migrationBuilder.DropTable(
+                name: "ScheduledDeliveries",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
                 name: "StaffAboutRanOutItems",
                 schema: "CSI");
 
@@ -3100,10 +3344,6 @@ namespace Domain.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "StaffSupportResponses",
-                schema: "CSI");
-
-            migrationBuilder.DropTable(
-                name: "TaskItems",
                 schema: "CSI");
 
             migrationBuilder.DropTable(
@@ -3139,6 +3379,10 @@ namespace Domain.Core.Migrations
                 schema: "CSI");
 
             migrationBuilder.DropTable(
+                name: "TaskItems",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
                 name: "IncidentTypes",
                 schema: "CSI");
 
@@ -3151,19 +3395,7 @@ namespace Domain.Core.Migrations
                 schema: "CSI");
 
             migrationBuilder.DropTable(
-                name: "IssueKeywords",
-                schema: "CSI");
-
-            migrationBuilder.DropTable(
-                name: "Items",
-                schema: "CSI");
-
-            migrationBuilder.DropTable(
                 name: "TaskStatus",
-                schema: "CSI");
-
-            migrationBuilder.DropTable(
-                name: "Tasks",
                 schema: "CSI");
 
             migrationBuilder.DropTable(
@@ -3175,11 +3407,24 @@ namespace Domain.Core.Migrations
                 schema: "CSI");
 
             migrationBuilder.DropTable(
+                name: "IssueKeywords",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
+                name: "Items",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
+                name: "Tasks",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
                 name: "Staffs",
                 schema: "CSI");
 
             migrationBuilder.DropTable(
-                name: "ItemBehaviorTypes");
+                name: "ItemBehaviorTypes",
+                schema: "CSI");
 
             migrationBuilder.DropTable(
                 name: "ItemCategories",
@@ -3187,6 +3432,10 @@ namespace Domain.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "Carts",
+                schema: "CSI");
+
+            migrationBuilder.DropTable(
+                name: "Priorities",
                 schema: "CSI");
 
             migrationBuilder.DropTable(

@@ -2,7 +2,6 @@
 using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Response.Item;
 using Core.Application.Interface.Item;
-using Core.Application.Services;
 using Domain.Core.Entities.Item;
 using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.Item;
@@ -72,18 +71,6 @@ namespace Core.Application.Services.Item.Services
             return _mapper.Map<IEnumerable<TaskItemResponseDto>>(items);
         }
 
-        public async Task<IEnumerable<TaskItemResponseDto>> GetPendingTaskItemsAsync(CancellationToken cancellationToken = default)
-        {
-            var items = await _taskItemRepository.GetPendingTaskItemsAsync(cancellationToken);
-            return _mapper.Map<IEnumerable<TaskItemResponseDto>>(items);
-        }
-
-        public async Task<IEnumerable<TaskItemResponseDto>> GetCompletedTaskItemsAsync(CancellationToken cancellationToken = default)
-        {
-            var items = await _taskItemRepository.GetCompletedTaskItemsAsync(cancellationToken);
-            return _mapper.Map<IEnumerable<TaskItemResponseDto>>(items);
-        }
-
         public async Task<bool> UpdateItemQuantityAsync(long taskItemId, int newQuantity, CancellationToken cancellationToken = default)
         {
             ValidatePositiveId(taskItemId, nameof(taskItemId));
@@ -97,20 +84,6 @@ namespace Core.Application.Services.Item.Services
             }
 
             return await _taskItemRepository.UpdateItemQuantityAsync(taskItemId, newQuantity, cancellationToken);
-        }
-
-        public async Task<bool> MarkTaskItemCompletedAsync(long taskItemId, CancellationToken cancellationToken = default)
-        {
-            ValidatePositiveId(taskItemId, nameof(taskItemId));
-
-            var taskItem = await _taskItemRepository.GetByIdAsync(taskItemId, cancellationToken);
-            if (taskItem is null)
-            {
-                _logger.LogWarning("TaskItem with ID {TaskItemId} does not exist.", taskItemId);
-                throw new ArgumentException($"TaskItem with ID {taskItemId} does not exist.");
-            }
-
-            return await _taskItemRepository.MarkTaskItemCompletedAsync(taskItemId, cancellationToken);
         }
 
         public async Task<bool> AddNotesToTaskItemAsync(long taskItemId, string notes, CancellationToken cancellationToken = default)
@@ -133,13 +106,6 @@ namespace Core.Application.Services.Item.Services
             ValidatePositiveId(taskId, nameof(taskId));
 
             return await _taskItemRepository.CountTotalItemsInTaskAsync(taskId, cancellationToken);
-        }
-
-        public async Task<int> CountCompletedItemsInTaskAsync(long taskId, CancellationToken cancellationToken = default)
-        {
-            ValidatePositiveId(taskId, nameof(taskId));
-
-            return await _taskItemRepository.CountCompletedItemsInTaskAsync(taskId, cancellationToken);
         }
     }
 }

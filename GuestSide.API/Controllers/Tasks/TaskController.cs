@@ -4,7 +4,6 @@ using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Task.Task;
-using Domain.Core.Entities.Enums;
 using Domain.Core.Entities.Item;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -39,7 +38,6 @@ public class TaskController : CSIControllerBase<TaskDto, TaskResponseDto, long, 
             : Response<Dictionary<long, IEnumerable<TaskItem>>>.ErrorResponse("No tasks found.");
     }
 
-
     [HttpGet("by-cart/{cartId:long}")]
     [SwaggerOperation(Summary = "Retrieve Tasks by Cart ID", Description = "Fetches all tasks associated with a specific cart.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Tasks retrieved successfully.", typeof(Response<IEnumerable<TaskResponseDto>>))]
@@ -52,52 +50,16 @@ public class TaskController : CSIControllerBase<TaskDto, TaskResponseDto, long, 
             : Response<IEnumerable<TaskResponseDto>>.ErrorResponse("No tasks found.");
     }
 
-    [HttpPatch("update-status/{taskId:long}")]
-    [SwaggerOperation(Summary = "Update Task Status", Description = "Updates the status of a specific task.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Task status updated successfully.", typeof(Response<bool>))]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "Task not found.")]
-    public async Task<Response<bool>> UpdateTaskStatusAsync([FromRoute] long taskId, [FromBody] StatusEnum newStatus)
-    {
-        var result = await _taskService.UpdateTaskStatus(taskId, newStatus);
-        return result
-            ? Response<bool>.SuccessResponse(true, "Task status updated successfully.")
-            : Response<bool>.ErrorResponse("Task not found.");
-    }
-
     [HttpPatch("update-priority/{taskId:long}")]
     [SwaggerOperation(Summary = "Update Task Priority", Description = "Updates the Priority of a specific task.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Task priority updated successfully.", typeof(Response<bool>))]
     [SwaggerResponse(StatusCodes.Status404NotFound, "Task not found.")]
-    public async Task<Response<bool>> UpdateTaskPriorityAsync([FromRoute] long taskId, [FromBody] PriorityEnum newPriority)
+    public async Task<Response<bool>> UpdateTaskPriorityAsync([FromRoute] long taskId, [FromQuery] long priorityId)
     {
-        var result = await _taskService.UpdateTaskPriority(taskId, newPriority);
+        var result = await _taskService.UpdateTaskPriority(taskId, priorityId);
         return result
             ? Response<bool>.SuccessResponse(true, "Task priority updated successfully.")
             : Response<bool>.ErrorResponse("Task not found.");
-    }
-
-    [HttpGet("by-status/{status}")]
-    [SwaggerOperation(Summary = "Retrieve Tasks by Status", Description = "Fetches tasks filtered by status with an optional limit.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Tasks retrieved successfully.", typeof(Response<IEnumerable<TaskResponseDto>>))]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "No tasks found.")]
-    public async Task<Response<IEnumerable<TaskResponseDto>>> GetTasksByStatusAsync([FromRoute] StatusEnum status, [FromQuery] int limit = 50)
-    {
-        var result = await _taskService.GetTasksByStatus(status, limit);
-        return result.Any()
-            ? Response<IEnumerable<TaskResponseDto>>.SuccessResponse(result)
-            : Response<IEnumerable<TaskResponseDto>>.ErrorResponse("No tasks found.");
-    }
-
-    [HttpGet("high-priority")]
-    [SwaggerOperation(Summary = "Retrieve High-Priority Tasks", Description = "Fetches high-priority tasks with a specified limit.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "High-priority tasks retrieved successfully.", typeof(Response<IEnumerable<TaskResponseDto>>))]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "No high-priority tasks found.")]
-    public async Task<Response<IEnumerable<TaskResponseDto>>> GetHighPriorityTasksAsync([FromQuery] int limit = 10)
-    {
-        var result = await _taskService.GetHighPriorityTasks(limit);
-        return result.Any()
-            ? Response<IEnumerable<TaskResponseDto>>.SuccessResponse(result)
-            : Response<IEnumerable<TaskResponseDto>>.ErrorResponse("No high-priority tasks found.");
     }
 
     [HttpPost("filtered-tasks")]

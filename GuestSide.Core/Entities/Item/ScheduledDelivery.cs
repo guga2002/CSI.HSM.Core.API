@@ -13,4 +13,6 @@ public class ScheduledDelivery : AbstractEntity
     public virtual TaskItem? TaskItem { get; set; }
 
     public DateTime ScheduledDateTime { get; set; }
+
+    public string? Note {  get; set; }
 }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
-using Core.Application.Interface.Task.Comment;
+using Core.Application.Interface.Task.Comments;
 using Domain.Core.Entities.Task;
 using Domain.Core.Interfaces.AbstractInterface;
 using Microsoft.Extensions.Logging;

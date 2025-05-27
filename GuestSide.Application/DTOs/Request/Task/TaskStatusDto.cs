@@ -6,5 +6,7 @@ public class TaskStatusDto
 
     public string? Description { get; set; }
 
+    public bool? IsDefault { get; set; } = false;
+
     public string? LanguageCode { get; set; }
 }
