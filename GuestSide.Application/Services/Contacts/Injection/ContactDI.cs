@@ -1,15 +1,15 @@
-﻿using Domain.Core.Entities.Contacts;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Contacts;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.DTOs.Response.Contacts;
 using Core.Application.Interface.Contacts;
 using Core.Application.DTOs.Request.Contacts;
 using Core.Application.Services.Contacts.Mapper;
 using Core.Application.Services.Contacts.Service;
-using Core.Infrastructure.Repositories.Contacts;
-using Core.Infrastructure.Repositories.AbstractRepository;
+using Common.Data.Entities.Contacts;
+using Common.Data.Interfaces.Contacts;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Repositories.Contacts;
+using Common.Data.Repositories.AbstractRepository;
 
 namespace Core.Application.Services.Contacts.Injection;
 

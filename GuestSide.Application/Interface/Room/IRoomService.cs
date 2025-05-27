@@ -5,8 +5,8 @@ using Core.Application.Interface.GenericContracts;
 
 namespace Core.Application.Interface.Room
 {
-    public interface IRoomService : IService<RoomsDto, RoomsResponseDto, long, Domain.Core.Entities.Room.Room>,
-        IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Domain.Core.Entities.Room.Room>
+    public interface IRoomService : IService<RoomsDto, RoomsResponseDto, long, Common.Data.Entities.Room.Room>,
+        IAdditionalFeatures<RoomsDto, RoomsResponseDto, long, Common.Data.Entities.Room.Room>
     {
         /// <summary>
         /// Get available rooms by hotel and category.

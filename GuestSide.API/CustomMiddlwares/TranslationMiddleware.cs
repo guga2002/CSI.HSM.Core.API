@@ -1,15 +1,15 @@
 ﻿using System.Text;
-using Csi.VoicePack;
+using Generic.API.Gateway;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json.Linq;
 
 public class TranslationMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly CsiVoicePack _translatorService;
+    private readonly VoicePackClient _translatorService;
     private readonly IDistributedCache _cache;
 
-    public TranslationMiddleware(RequestDelegate next, CsiVoicePack translatorService, IDistributedCache cache)
+    public TranslationMiddleware(RequestDelegate next, VoicePackClient translatorService, IDistributedCache cache)
     {
         _next = next;
         _translatorService = translatorService;

@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
+using Common.Data.Entities.Enums;
+using Common.Data.Entities.Item;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Interfaces.Item;
 using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Response.Item;
 using Core.Application.Interface.Item;
 using Core.Application.Services;
-using Domain.Core.Entities.Enums;
-using Domain.Core.Entities.Item;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Item;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Item.Services

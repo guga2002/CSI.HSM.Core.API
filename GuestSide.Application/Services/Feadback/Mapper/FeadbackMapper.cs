@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Common.Data.Entities.FeedBacks;
 using Core.Application.DTOs.Request.FeedBacks;
 using Core.Application.DTOs.Response.FeedBacks;
-using Domain.Core.Entities.FeedBacks;
 
 namespace Core.Application.Services.Feadback.Mapper;
 

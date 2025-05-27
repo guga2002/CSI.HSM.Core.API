@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using Common.Data.Entities.Audio;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Interfaces.Audio;
 using Core.Application.DTOs.Request.Audio;
 using Core.Application.DTOs.Response.Audio;
 using Core.Application.Interface.Audio;
 using Core.Application.Services;
-using Domain.Core.Entities.Audio;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Audio;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 

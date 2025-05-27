@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using Common.Data.Entities.Advertisements;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Interfaces.Advertisement;
 using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.Interface.Advertisment;
-using Domain.Core.Entities.Advertisements;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Advertisement;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 

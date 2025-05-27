@@ -1,10 +1,10 @@
-﻿using Core.API.CustomExtendControllerBase;
+﻿using Common.Data.Entities.FeedBacks;
+using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.FeedBacks;
 using Core.Application.DTOs.Response.FeedBacks;
 using Core.Application.Interface.Feadback;
 using Core.Application.Interface.GenericContracts;
-using Domain.Core.Entities.FeedBacks;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

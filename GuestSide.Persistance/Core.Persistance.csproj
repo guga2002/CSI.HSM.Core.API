@@ -29,8 +29,4 @@
     <PackageReference Include="StackExchange.Redis" Version="2.8.22" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\GuestSide.Core\Domain.Core.csproj" />
-  </ItemGroup>
-
 </Project>

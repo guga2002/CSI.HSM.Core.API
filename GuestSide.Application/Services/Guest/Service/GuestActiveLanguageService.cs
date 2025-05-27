@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using Common.Data.Entities.Guest;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Interfaces.Guest;
 using Core.Application.DTOs.Request.Guest;
 using Core.Application.DTOs.Response.Guest;
 using Core.Application.Interface.Guest;
 using Core.Application.Services;
-using Domain.Core.Entities.Guest;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Guest;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 

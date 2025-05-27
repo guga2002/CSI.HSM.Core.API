@@ -4,7 +4,7 @@ using Core.Application.Interface.GenericContracts;
 
 namespace Core.Application.Interface.PaymentOption;
 
-public interface IPaymentOption : IService<PaymentOptionDto, PaymentOptionResponseDto, long, Domain.Core.Entities.Payment.PaymentOption>,
-IAdditionalFeatures<PaymentOptionDto, PaymentOptionResponseDto, long, Domain.Core.Entities.Payment.PaymentOption>
+public interface IPaymentOption : IService<PaymentOptionDto, PaymentOptionResponseDto, long, Common.Data.Entities.Payment.PaymentOption>,
+IAdditionalFeatures<PaymentOptionDto, PaymentOptionResponseDto, long, Common.Data.Entities.Payment.PaymentOption>
 {
 }

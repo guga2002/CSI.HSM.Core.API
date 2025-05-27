@@ -1,8 +1,8 @@
-﻿using Core.Application.DTOs.Request.Staff;
+﻿using Common.Data.Entities.Staff;
+using Common.Data.Sheared;
+using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.GenericContracts;
-using Domain.Core.Entities.Staff;
-using Domain.Core.Sheared;
 
 namespace Core.Application.Interface.Staff.Task
 {

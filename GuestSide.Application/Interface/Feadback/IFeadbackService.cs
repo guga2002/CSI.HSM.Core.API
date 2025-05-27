@@ -1,7 +1,7 @@
-﻿using Core.Application.DTOs.Request.FeedBacks;
+﻿using Common.Data.Entities.FeedBacks;
+using Core.Application.DTOs.Request.FeedBacks;
 using Core.Application.DTOs.Response.FeedBacks;
 using Core.Application.Interface.GenericContracts;
-using Domain.Core.Entities.FeedBacks;
 
 namespace Core.Application.Interface.Feadback
 {

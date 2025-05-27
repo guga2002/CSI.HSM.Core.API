@@ -1,13 +1,12 @@
-﻿using Core.Application.DTOs.Request.Staff;
+﻿using Common.Data.Entities.Enums;
+using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.GenericContracts;
-using Domain.Core.Entities.Enums;
-using Domain.Core.Entities.Staff;
 
 namespace Core.Application.Interface.Staff.StaffSupport;
 
-public interface IStaffSupportService : IService<StaffSupportDto, StaffSupportResponseDto, long, Domain.Core.Entities.Staff.StaffSupport>,
-    IAdditionalFeatures<StaffSupportDto, StaffSupportResponseDto, long, Domain.Core.Entities.Staff.StaffSupport>
+public interface IStaffSupportService : IService<StaffSupportDto, StaffSupportResponseDto, long, Common.Data.Entities.Staff.StaffSupport>,
+    IAdditionalFeatures<StaffSupportDto, StaffSupportResponseDto, long, Common.Data.Entities.Staff.StaffSupport>
 {
     /// <summary>
     /// Get support tickets by staff ID.

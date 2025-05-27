@@ -10,11 +10,11 @@ namespace Core.API.Controllers.PaymentOption;
 
 [Route("api/[controller]")]
 [ApiController]
-public class PaymentOptionController : CSIControllerBase<PaymentOptionDto, PaymentOptionResponseDto, long, Domain.Core.Entities.Payment.PaymentOption>
+public class PaymentOptionController : CSIControllerBase<PaymentOptionDto, PaymentOptionResponseDto, long, Common.Data.Entities.Payment.PaymentOption>
 {
     public PaymentOptionController(
-        IService<PaymentOptionDto, PaymentOptionResponseDto, long, Domain.Core.Entities.Payment.PaymentOption> serviceProvider,
-        IAdditionalFeatures<PaymentOptionDto, PaymentOptionResponseDto, long, Domain.Core.Entities.Payment.PaymentOption> additionalFeatures)
+        IService<PaymentOptionDto, PaymentOptionResponseDto, long, Common.Data.Entities.Payment.PaymentOption> serviceProvider,
+        IAdditionalFeatures<PaymentOptionDto, PaymentOptionResponseDto, long, Common.Data.Entities.Payment.PaymentOption> additionalFeatures)
         : base(serviceProvider, additionalFeatures)
     {
     }

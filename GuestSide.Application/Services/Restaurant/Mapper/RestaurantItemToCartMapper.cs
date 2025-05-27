@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Common.Data.Entities.Restaurant;
 using Core.Application.DTOs.Request.Restaurant;
 using Core.Application.DTOs.Response.Restaurant;
-using Domain.Core.Entities.Restaurant;
 
 namespace Core.Application.Services.Restaurant.Mapper;
 

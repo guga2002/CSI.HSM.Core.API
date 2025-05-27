@@ -1,6 +1,6 @@
-﻿using Core.Application.DTOs.Response;
-using Domain.Core.Entities.Enums;
-using Domain.Core.Entities.Staff;
+﻿using Common.Data.Entities.Enums;
+using Common.Data.Entities.Staff;
+using Core.Application.DTOs.Response;
 
 namespace Core.Application.DTOs.Response.Staff;
 

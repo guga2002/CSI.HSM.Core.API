@@ -33,8 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GuestSide.Core\Domain.Core.csproj" />
-    <ProjectReference Include="..\GuestSide.Infrastructure\Core.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\CSI.HSM.HelpDesk.APIClient\Common.Data\Common.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

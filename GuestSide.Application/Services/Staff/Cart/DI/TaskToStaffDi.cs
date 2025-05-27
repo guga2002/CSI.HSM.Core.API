@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Entities.Staff;
-using Domain.Core.Interfaces.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.Staff.Task;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.Services.Staff.Cart.Services;
-using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Infrastructure.Repositories.Staff;
+using Common.Data.Entities.Staff;
+using Common.Data.Interfaces.Staff;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Repositories.Staff;
+using Common.Data.Repositories.AbstractRepository;
 
 namespace Core.Application.Services.Staff.Cart.DI
 {

@@ -1,9 +1,9 @@
 ﻿
 
 using AutoMapper;
+using Common.Data.Entities.Language;
 using Core.Application.DTOs.Request.Language;
 using Core.Application.DTOs.Response.Language;
-using Domain.Core.Entities.Language;
 
 namespace Core.Application.Services.Language.Mapper;
 

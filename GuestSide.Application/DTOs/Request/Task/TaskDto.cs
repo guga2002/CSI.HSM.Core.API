@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs.Request.Task;
+﻿using Common.Data.Entities.Enums;
+
+namespace Core.Application.DTOs.Request.Task;
 
 public class TaskDto
 {
@@ -12,7 +14,9 @@ public class TaskDto
 
     public bool IsCompleted { get; set; }
 
-    public long PriorityId { get; set; }
+    public StatusEnum Status { get; set; }
+
+    public PriorityEnum Priority { get; set; }
 
     public string? LanguageCode { get; set; }
 

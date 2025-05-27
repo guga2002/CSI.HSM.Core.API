@@ -1,7 +1,7 @@
-﻿using Core.Application.DTOs.Request.Room;
+﻿using Common.Data.Entities.Room;
+using Core.Application.DTOs.Request.Room;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.GenericContracts;
-using Domain.Core.Entities.Room;
 
 namespace Core.Application.Interface.Room
 {

@@ -8,7 +8,7 @@ public class AdvertisementTypeMapper : Profile
 {
     public AdvertisementTypeMapper()
     {
-        CreateMap<AdvertisementTypeDto, Domain.Core.Entities.Advertisements.AdvertisementType>().ReverseMap();
-        CreateMap<Domain.Core.Entities.Advertisements.AdvertisementType, AdvertisementTypeResponseDto>().ReverseMap();
+        CreateMap<AdvertisementTypeDto, Common.Data.Entities.Advertisements.AdvertisementType>().ReverseMap();
+        CreateMap<Common.Data.Entities.Advertisements.AdvertisementType, AdvertisementTypeResponseDto>().ReverseMap();
     }
 }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Common.Data.Entities.Contacts;
 using Core.Application.DTOs.Request.Contacts;
 using Core.Application.DTOs.Response.Contacts;
-using Domain.Core.Entities.Contacts;
 
 namespace Core.Application.Services.Contacts.Mapper;
 

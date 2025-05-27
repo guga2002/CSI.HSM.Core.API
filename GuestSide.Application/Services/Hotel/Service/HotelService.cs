@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Interfaces.Hotel;
+using Common.Data.Interfaces.UniteOfWork;
 using Core.Application.DTOs.Request.Hotel;
 using Core.Application.DTOs.Response.Hotel;
 using Core.Application.Interface.Hotel;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Hotel;
-using Domain.Core.Interfaces.UniteOfWork;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Hotel.Service;
 
-public class HotelService : GenericService<HotelRequestDto, HotelResponse, long, Domain.Core.Entities.Hotel.Hotel>, IHotelService
+public class HotelService : GenericService<HotelRequestDto, HotelResponse, long, Common.Data.Entities.Hotel.Hotel>, IHotelService
 {
     private readonly IUniteOfWork _uniteOfWork;
     private readonly IHotelRepository _hotelRepository;
@@ -21,8 +21,8 @@ public class HotelService : GenericService<HotelRequestDto, HotelResponse, long,
         IHotelRepository hotelRepository,
         IUniteOfWork uniteOfWork,
         ILogger<HotelService> logger,
-        IGenericRepository<Domain.Core.Entities.Hotel.Hotel> repository,
-        IAdditionalFeaturesRepository<Domain.Core.Entities.Hotel.Hotel> additionalFeatures)
+        IGenericRepository<Common.Data.Entities.Hotel.Hotel> repository,
+        IAdditionalFeaturesRepository<Common.Data.Entities.Hotel.Hotel> additionalFeatures)
         : base(mapper, repository, logger, additionalFeatures)
     {
         _uniteOfWork = uniteOfWork;

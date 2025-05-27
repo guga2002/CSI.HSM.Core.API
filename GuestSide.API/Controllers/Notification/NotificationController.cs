@@ -1,11 +1,11 @@
-﻿using Core.API.CustomExtendControllerBase;
+﻿using Common.Data.Entities.Enums;
+using Common.Data.Entities.Notification;
+using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Notification;
 using Core.Application.DTOs.Response.Notification;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Notification;
-using Domain.Core.Entities.Enums;
-using Domain.Core.Entities.Notification;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

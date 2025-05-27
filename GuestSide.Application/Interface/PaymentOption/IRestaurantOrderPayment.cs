@@ -1,7 +1,7 @@
-﻿using Core.Application.DTOs.Request.Payment;
+﻿using Common.Data.Entities.Payment;
+using Core.Application.DTOs.Request.Payment;
 using Core.Application.DTOs.Response.Payment;
 using Core.Application.Interface.GenericContracts;
-using Domain.Core.Entities.Payment;
 
 namespace Core.Application.Interface.PaymentOption;
 

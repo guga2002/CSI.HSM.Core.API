@@ -1,10 +1,10 @@
-﻿using Core.API.CustomExtendControllerBase;
+﻿using Common.Data.Entities.Item;
+using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Item;
 using Core.Application.DTOs.Response.Item;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Item;
-using Domain.Core.Entities.Item;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -45,6 +45,24 @@ public class TaskItemController : CSIControllerBase<TaskItemDto, TaskItemRespons
         return result.Any() ? Response<IEnumerable<TaskItemResponseDto>>.SuccessResponse(result) : Response<IEnumerable<TaskItemResponseDto>>.ErrorResponse("No task items found.");
     }
 
+    [HttpGet("Pending")]
+    [SwaggerOperation(Summary = "Retrieve all Pending Task Items", Description = "Fetches all task items that are still pending.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<TaskItemResponseDto>>))]
+    public async Task<Response<IEnumerable<TaskItemResponseDto>>> GetPendingTaskItemsAsync(CancellationToken cancellationToken = default)
+    {
+        var result = await _taskItemService.GetPendingTaskItemsAsync(cancellationToken);
+        return Response<IEnumerable<TaskItemResponseDto>>.SuccessResponse(result);
+    }
+
+    [HttpGet("Completed")]
+    [SwaggerOperation(Summary = "Retrieve all Completed Task Items", Description = "Fetches all task items that have been marked as completed.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Records retrieved successfully.", typeof(Response<IEnumerable<TaskItemResponseDto>>))]
+    public async Task<Response<IEnumerable<TaskItemResponseDto>>> GetCompletedTaskItemsAsync(CancellationToken cancellationToken = default)
+    {
+        var result = await _taskItemService.GetCompletedTaskItemsAsync(cancellationToken);
+        return Response<IEnumerable<TaskItemResponseDto>>.SuccessResponse(result);
+    }
+
     [HttpPatch("UpdateQuantity/{taskItemId:long}/{newQuantity:int}")]
     [SwaggerOperation(Summary = "Update Task Item Quantity", Description = "Updates the quantity of a task item.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Quantity updated successfully.", typeof(Response<bool>))]
@@ -52,6 +70,15 @@ public class TaskItemController : CSIControllerBase<TaskItemDto, TaskItemRespons
     {
         var result = await _taskItemService.UpdateItemQuantityAsync(taskItemId, newQuantity, cancellationToken);
         return result ? Response<bool>.SuccessResponse(true, "Quantity updated successfully.") : Response<bool>.ErrorResponse("Failed to update quantity.");
+    }
+
+    [HttpPatch("MarkTaskAsCompleted/{taskItemId:long}")]
+    [SwaggerOperation(Summary = "Mark Task Item as Completed", Description = "Marks a task item as completed.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Task item marked as completed.", typeof(Response<bool>))]
+    public async Task<Response<bool>> MarkTaskItemCompletedAsync([FromRoute] long taskItemId, CancellationToken cancellationToken = default)
+    {
+        var result = await _taskItemService.MarkTaskItemCompletedAsync(taskItemId, cancellationToken);
+        return result ? Response<bool>.SuccessResponse(true, "Task item marked as completed.") : Response<bool>.ErrorResponse("Failed to mark task item as completed.");
     }
 
     [HttpPatch("AddNotes/{taskItemId:long}")]
@@ -69,6 +96,15 @@ public class TaskItemController : CSIControllerBase<TaskItemDto, TaskItemRespons
     public async Task<Response<int>> CountTotalItemsInTaskAsync([FromRoute] long taskId, CancellationToken cancellationToken = default)
     {
         var result = await _taskItemService.CountTotalItemsInTaskAsync(taskId, cancellationToken);
+        return Response<int>.SuccessResponse(result);
+    }
+
+    [HttpGet("CountCompleted/{taskId:long}")]
+    [SwaggerOperation(Summary = "Count Completed Items in a Task", Description = "Returns the count of completed items associated with a task.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Count retrieved successfully.", typeof(Response<int>))]
+    public async Task<Response<int>> CountCompletedItemsInTaskAsync([FromRoute] long taskId, CancellationToken cancellationToken = default)
+    {
+        var result = await _taskItemService.CountCompletedItemsInTaskAsync(taskId, cancellationToken);
         return Response<int>.SuccessResponse(result);
     }
 

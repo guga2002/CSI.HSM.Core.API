@@ -1,9 +1,9 @@
-﻿using Core.API.Controllers.Advertisement;
+﻿using Common.Data.Entities.Advertisements;
+using Core.API.Controllers.Advertisement;
 using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.DTOs.Response.Advertisment;
 using Core.Application.Interface.AdvertiementType;
 using Core.Application.Interface.GenericContracts;
-using Domain.Core.Entities.Advertisements;
 using Moq;
 
 namespace CSI.UniteTests;

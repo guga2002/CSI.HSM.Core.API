@@ -1,14 +1,14 @@
-﻿using Core.Application.DTOs.Request.Task;
+﻿using Common.Data.Entities.Task;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Interfaces.Task;
+using Common.Data.Repositories.AbstractRepository;
+using Common.Data.Repositories.Task;
+using Core.Application.DTOs.Request.Task;
 using Core.Application.DTOs.Response.Task;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Task.TaskLogs;
 using Core.Application.Services.Task.TaskLog.Mapper;
 using Core.Application.Services.Task.TaskLog.Service;
-using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Infrastructure.Repositories.Task;
-using Domain.Core.Entities.Task;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Task;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Application.Services.Task.TaskLog.Startup;

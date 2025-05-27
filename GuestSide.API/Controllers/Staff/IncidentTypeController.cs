@@ -1,9 +1,9 @@
-﻿using Core.API.CustomExtendControllerBase;
+﻿using Common.Data.Entities.Staff;
+using Core.API.CustomExtendControllerBase;
 using Core.API.Response;
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.GenericContracts;
-using Domain.Core.Entities.Staff;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

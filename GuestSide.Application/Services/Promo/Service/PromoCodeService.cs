@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using Common.Data.Entities.Promo;
+using Common.Data.Interfaces.Promo;
 using Core.Application.DTOs.Request.Promo;
 using Core.Application.DTOs.Response.Promo;
 using Core.Application.Interface.Promo;
-using Domain.Core.Entities.Promo;
-using Domain.Core.Interfaces.Promo;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Application.Services.Promo.Service;

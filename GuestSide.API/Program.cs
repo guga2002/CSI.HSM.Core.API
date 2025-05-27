@@ -3,10 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.UniteOfWork;
-using Domain.Core.Data;
-using Csi.VoicePack;
 using Core.API.Fillters;
 using Core.API.CustomMiddlwares;
 using Core.Application.Services.Hotel.Injection;
@@ -33,15 +29,22 @@ using Core.Application.Services.Task.TaskLog.Startup;
 using Core.Application.Services.Staff.StaffSupport.DI;
 using Core.Application.Services.Task.Status.DI;
 using Core.Application.Services.AdvertisementType.Injection;
-using Core.Infrastructure.Repositories.UniteOfWork;
-using Core.Infrastructure.Repositories.AbstractRepository;
-using Core.Persistance.Cashing.Inject;
-using Core.Persistance.BackgroundServices;
-using Core.Persistance.PtmsCsi;
-using Core.Persistance.MailServices;
 using Core.Application.Services.Contacts.Injection;
 using Core.Application.Services.Task.Comments.DI;
 using Core.Application.Services.Advertismenet.Inject;
+using Generic.API.Gateway;
+using Common.Data.Data;
+using Common.Data.Interfaces.UniteOfWork;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Repositories.UniteOfWork;
+using Common.Data.Repositories.AbstractRepository;
+using Generic.API.Jobs;
+using Generic.API.Injections;
+using Generic.API;
+using Generic.API.ServiceProvider.Interface;
+using Generic.API.ServiceProvider.Service;
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,21 +55,39 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.ActiveShearedServices(builder.Configuration);
+
+builder.Services.AddScoped<ICoreServiceProvider,CoreServiceProvider>();
+
+builder.Services.ActivateCashing();
+
 builder.Services.AddDbContext<CoreSideDb>(options =>//respect testing enviroment
 {
     options.UseSqlServer(!builder.Environment.IsProduction()? builder.Configuration.GetSection("connectionTest:CSICOnnect").Value: builder.Configuration.GetConnectionString("CSICOnnect"));
 });
 
-builder.Services.AddHttpClient<CsiVoicePack>(i => i.BaseAddress = new Uri("https://api.logixplore.com:3333/"));
+builder.Services.AddHttpClient<VoicePackClient>(i => i.BaseAddress = new Uri("https://api.logixplore.com:3333/"));
 
-//builder.WebHost.ConfigureKestrel(options =>
-//{
-//    options.ListenAnyIP(2044, listenOptions =>
-//    {
-//        listenOptions.UseHttps("C:\\certs\\SSLFORCSI.pfx", "Tabaxmela123#");
-//    });
-//    options.ListenAnyIP(2045);
-//});
+if(builder.Environment.IsProduction())
+{
+    builder.WebHost.ConfigureKestrel(options =>
+    {
+        options.ListenAnyIP(2044, listenOptions =>
+        {
+            listenOptions.UseHttps("C:\\certs\\SSLFORCSI.pfx", "Tabaxmela123#");
+        });
+        options.ListenAnyIP(2045);
+    });
+}
+
+builder.Services.AddScoped<IDbConnection>(sp =>
+{
+    var context = sp.GetRequiredService<IHttpContextAccessor>().HttpContext;
+    var connStr = context?.Items["HotelDbConnectionString"] as string;
+    if (!string.IsNullOrEmpty(connStr))
+        return new SqlConnection(connStr);
+    throw new InvalidOperationException("Database connection string not found in HttpContext.Items.");
+});
 
 builder.Services.AddHostedService<NotifyUsersService>();
 builder.Services.AddHostedService<ItemMonitoring>();
@@ -135,8 +156,6 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddDistributedMemoryCache();
 
-builder.Services.AddRedisCash("127.0.0.1:6379" ?? throw new ArgumentNullException("Redis Key Is not defined"));
-
 builder.Services.InjectAdvertisment();
 builder.Services.AddAdvertisementType();
 builder.Services.InjectFeadbacks();
@@ -166,9 +185,7 @@ builder.Services.ActiveStaffSentiments();
 builder.Services.ActiveStaffSupport();
 builder.Services.ActiveStaffSupportResponse();
 builder.Services.InjectPaymentOption();
-builder.Services.AddScoped<ITemplateGatewayService, TemplateGatewayService>();
 builder.Services.InjectRestaurantOrderPaymen();
-builder.Services.AddScoped<SmtpService>();
 builder.Services.AddRestaurantCartServices();
 builder.Services.AddRestaurantServices();
 builder.Services.AddRestaurantItemCategory();
@@ -238,12 +255,12 @@ var app = builder.Build();
         //options.InjectJavascript("/swagger-voice-search.js");
     });
 
-app.UseMiddleware<TenantMiddleware>();
-app.UseMiddleware<TranslationMiddleware>();
-app.UseMiddleware<CashingMiddlwares>();
-//app.UseMiddleware<ForceHttp200Except500Middleware>();
-app.UseMiddleware<GlobalExceptionMiddleware>();
-app.UseMiddleware<RequestTranslationMiddleware>();
+//app.UseMiddleware<TenantMiddleware>();
+//app.UseMiddleware<TranslationMiddleware>();
+//app.UseMiddleware<CashingMiddlwares>();
+////app.UseMiddleware<ForceHttp200Except500Middleware>();
+//app.UseMiddleware<GlobalExceptionMiddleware>();
+//app.UseMiddleware<RequestTranslationMiddleware>();
 //app.UseMiddleware<RequestLoggerMiddleware>();
 //app.UseMiddleware<CashingMiddlwares>();
 //app.UseCors(); // No name

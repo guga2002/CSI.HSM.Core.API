@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Domain.Core.Interfaces.AbstractInterface;
-using Domain.Core.Interfaces.Notification;
-using Domain.Core.Entities.Notification;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Notification;
 using Core.Application.DTOs.Request.Notification;
 using Core.Application.DTOs.Response.Notification;
 using Core.Application.Services.Notification.Mapper;
 using Core.Application.Services.Notification.Service;
-using Core.Infrastructure.Repositories.Notification;
-using Core.Infrastructure.Repositories.AbstractRepository;
+using Common.Data.Entities.Notification;
+using Common.Data.Interfaces.Notification;
+using Common.Data.Interfaces.AbstractInterface;
+using Common.Data.Repositories.Notification;
+using Common.Data.Repositories.AbstractRepository;
 
 namespace Core.Application.Services.Notification.DI;
 
