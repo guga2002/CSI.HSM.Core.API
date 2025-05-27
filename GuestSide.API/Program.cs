@@ -6,7 +6,6 @@ using System.Text;
 using Domain.Core.Interfaces.AbstractInterface;
 using Domain.Core.Interfaces.UniteOfWork;
 using Domain.Core.Data;
-using Csi.VoicePack;
 using Core.API.Fillters;
 using Core.API.CustomMiddlwares;
 using Core.Application.Services.Hotel.Injection;
@@ -42,6 +41,7 @@ using Core.Persistance.MailServices;
 using Core.Application.Services.Contacts.Injection;
 using Core.Application.Services.Task.Comments.DI;
 using Core.Application.Services.Advertismenet.Inject;
+using Generic.API.Gateway;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,16 +57,19 @@ builder.Services.AddDbContext<CoreSideDb>(options =>//respect testing enviroment
     options.UseSqlServer(!builder.Environment.IsProduction()? builder.Configuration.GetSection("connectionTest:CSICOnnect").Value: builder.Configuration.GetConnectionString("CSICOnnect"));
 });
 
-builder.Services.AddHttpClient<CsiVoicePack>(i => i.BaseAddress = new Uri("https://api.logixplore.com:3333/"));
+builder.Services.AddHttpClient<VoicePackClient>(i => i.BaseAddress = new Uri("https://api.logixplore.com:3333/"));
 
-//builder.WebHost.ConfigureKestrel(options =>
-//{
-//    options.ListenAnyIP(2044, listenOptions =>
-//    {
-//        listenOptions.UseHttps("C:\\certs\\SSLFORCSI.pfx", "Tabaxmela123#");
-//    });
-//    options.ListenAnyIP(2045);
-//});
+if(builder.Environment.IsProduction())
+{
+    builder.WebHost.ConfigureKestrel(options =>
+    {
+        options.ListenAnyIP(2044, listenOptions =>
+        {
+            listenOptions.UseHttps("C:\\certs\\SSLFORCSI.pfx", "Tabaxmela123#");
+        });
+        options.ListenAnyIP(2045);
+    });
+}
 
 builder.Services.AddHostedService<NotifyUsersService>();
 builder.Services.AddHostedService<ItemMonitoring>();
