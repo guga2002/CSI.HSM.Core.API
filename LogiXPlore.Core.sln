@@ -3,15 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Persistance", "GuestSide.Persistance\Core.Persistance.csproj", "{834401E7-1A5E-442E-BE5F-B82D7E39A8C2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Application", "GuestSide.Application\Core.Application.csproj", "{4DF41DBC-F7D3-42B5-A8D0-C3D8C86E83B1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.API", "GuestSide.API\Core.API.csproj", "{CE4F9CAD-B709-431E-8B60-7153368ACF9C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{77DC4A5B-3943-4830-B660-B91007D01F2E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistance", "Persistance", "{2B584D4E-04FB-4DA3-BDBD-18F4D8518438}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{265AF401-B0EC-4D15-9B2C-553BC00E027B}"
 EndProject
@@ -37,10 +33,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{834401E7-1A5E-442E-BE5F-B82D7E39A8C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{834401E7-1A5E-442E-BE5F-B82D7E39A8C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{834401E7-1A5E-442E-BE5F-B82D7E39A8C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{834401E7-1A5E-442E-BE5F-B82D7E39A8C2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4DF41DBC-F7D3-42B5-A8D0-C3D8C86E83B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4DF41DBC-F7D3-42B5-A8D0-C3D8C86E83B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DF41DBC-F7D3-42B5-A8D0-C3D8C86E83B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -70,7 +62,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{834401E7-1A5E-442E-BE5F-B82D7E39A8C2} = {2B584D4E-04FB-4DA3-BDBD-18F4D8518438}
 		{4DF41DBC-F7D3-42B5-A8D0-C3D8C86E83B1} = {77DC4A5B-3943-4830-B660-B91007D01F2E}
 		{CE4F9CAD-B709-431E-8B60-7153368ACF9C} = {265AF401-B0EC-4D15-9B2C-553BC00E027B}
 		{8027D227-8C1E-4B74-B86F-22CD8F4A268C} = {21295F7B-D8E5-4CCF-A815-4F385AB56B68}
