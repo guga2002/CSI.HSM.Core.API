@@ -103,7 +103,7 @@ public class ItemMonitoring : IHostedService, IDisposable
                 {
                     Language = "En",
                     TemplateKey = "ReStockRequest",
-                    Data = new Dictionary<string, string>
+                    Data = new Dictionary<string, object>
                     {
                         { "ITEM_ROWS", itemRowsHtml },
                     }

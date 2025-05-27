@@ -81,7 +81,7 @@ public class TaskDeadlineMonitor : IHostedService, IDisposable
                 {
                     TemplateKey = "TaskDeadlineAlert",
                     Language = "En",
-                    Data = new Dictionary<string, string>
+                    Data = new Dictionary<string, object>
                     {
                     { "ITEM_ROWS", rows }
                     }

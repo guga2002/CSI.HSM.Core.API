@@ -118,7 +118,7 @@ public class NotifyUsersService : IHostedService, IDisposable
 
     private async Task NotifyGuestAsync(GuestNotification user, SmtpService smtpService, ITemplateGatewayService templateGatewayService)
     {
-        var data = new Dictionary<string, string>
+        var data = new Dictionary<string, object>
     {
         { "Title", user.Notifications?.Title??"" },
         { "Message", user.Notifications?.Message??"" },
@@ -152,7 +152,7 @@ public class NotifyUsersService : IHostedService, IDisposable
             return;
         }
 
-        var data = new Dictionary<string, string>
+        var data = new Dictionary<string, object>
 {
     { "StaffFirstName", user.StaffMember.FirstName },
     { "StaffLastName", user.StaffMember.LastName },
