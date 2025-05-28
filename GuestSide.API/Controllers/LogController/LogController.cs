@@ -1,10 +1,10 @@
 ﻿using Common.Data.Entities.LogEntities;
 using Core.API.CustomExtendControllerBase;
-using Core.API.Response;
 using Core.Application.DTOs.Request.LogModel;
 using Core.Application.DTOs.Response.LogModel;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.LogInterfaces;
+using Generic.API.ResponseClass;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

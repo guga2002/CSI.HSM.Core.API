@@ -1,10 +1,10 @@
 ﻿using Common.Data.Entities.Hotel.GeoLocation;
 using Core.API.CustomExtendControllerBase;
-using Core.API.Response;
 using Core.Application.DTOs.Request.Hotel;
 using Core.Application.DTOs.Response.Hotel;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Hotel;
+using Generic.API.ResponseClass;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

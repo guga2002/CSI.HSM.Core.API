@@ -37,8 +37,8 @@ public class AdvertisementControllerTests
 
         var result = await _controller.GetActiveAdvertisementsAsync();
 
-        Assert.True(result.Success);
-        Assert.Equal(data.Count, result.Data.Count());
+        Assert.True(result.success);
+        Assert.Equal(data.Count, result.data.Count());
     }
 
     [Fact]
@@ -50,8 +50,8 @@ public class AdvertisementControllerTests
 
         var result = await _controller.GetAdvertisementsByTypeAsync(2);
 
-        Assert.True(result.Success);
-        Assert.Single(result.Data);
+        Assert.True(result.success);
+        Assert.Single(result.data);
     }
 
     [Fact]
@@ -66,8 +66,8 @@ public class AdvertisementControllerTests
 
         var result = await _controller.GetAdvertisementsByDateRangeAsync(start, end);
 
-        Assert.True(result.Success);
-        Assert.NotEmpty(result.Data);
+        Assert.True(result.success);
+        Assert.NotEmpty(result.data);
     }
 
     [Fact]
@@ -81,8 +81,8 @@ public class AdvertisementControllerTests
 
         var result = await _controller.GetAdvertisementsByLanguageAsync(language);
 
-        Assert.True(result.Success);
-        Assert.Single(result.Data);
+        Assert.True(result.success);
+        Assert.Single(result.data);
     }
 
     [Fact]
@@ -96,8 +96,8 @@ public class AdvertisementControllerTests
 
         var result = await _controller.GetAdvertisementByTitleAsync(title);
 
-        Assert.True(result.Success);
-        Assert.Equal(title, result.Data?.Title);
+        Assert.True(result.success);
+        Assert.Equal(title, result.data?.Title);
     }
 
     [Fact]
@@ -108,8 +108,8 @@ public class AdvertisementControllerTests
 
         var result = await _controller.GetAdvertisementByTitleAsync("unknown");
 
-        Assert.False(result.Success);
-        Assert.Null(result.Data);
+        Assert.False(result.success);
+        Assert.Null(result.data);
     }
 
     [Fact]
@@ -120,8 +120,8 @@ public class AdvertisementControllerTests
 
         var result = await _controller.UpdateAdvertisementDatesAsync(1, DateTime.UtcNow, DateTime.UtcNow.AddDays(2));
 
-        Assert.True(result.Success);
-        Assert.True(result.Data);
+        Assert.True(result.success);
+        Assert.True(result.data);
     }
 
     [Fact]
@@ -132,8 +132,8 @@ public class AdvertisementControllerTests
 
         var result = await _controller.UpdateAdvertisementDatesAsync(1, DateTime.UtcNow, DateTime.UtcNow.AddDays(2));
 
-        Assert.False(result.Success);
-        Assert.False(result.Data);
+        Assert.False(result.success);
+        Assert.False(result.data);
     }
 
     [Fact]
@@ -144,8 +144,8 @@ public class AdvertisementControllerTests
 
         var result = await _controller.DeleteAdvertisementByIdAsync(1);
 
-        Assert.True(result.Success);
-        Assert.True(result.Data);
+        Assert.True(result.success);
+        Assert.True(result.data);
     }
 
     [Fact]
@@ -156,7 +156,7 @@ public class AdvertisementControllerTests
 
         var result = await _controller.DeleteAdvertisementByIdAsync(1);
 
-        Assert.False(result.Success);
-        Assert.False(result.Data);
+        Assert.False(result.success);
+        Assert.False(result.data);
     }
 }

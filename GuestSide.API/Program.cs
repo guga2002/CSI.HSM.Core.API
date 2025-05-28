@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Core.API.Fillters;
-using Core.API.CustomMiddlwares;
 using Core.Application.Services.Hotel.Injection;
 using Core.Application.Services.LogService.DI;
 using Core.Application.Services.Room.DI;
@@ -32,7 +31,6 @@ using Core.Application.Services.AdvertisementType.Injection;
 using Core.Application.Services.Contacts.Injection;
 using Core.Application.Services.Task.Comments.DI;
 using Core.Application.Services.Advertismenet.Inject;
-using Generic.API.Gateway;
 using Common.Data.Data;
 using Common.Data.Interfaces.UniteOfWork;
 using Common.Data.Interfaces.AbstractInterface;
@@ -40,7 +38,6 @@ using Common.Data.Repositories.UniteOfWork;
 using Common.Data.Repositories.AbstractRepository;
 using Generic.API.Jobs;
 using Generic.API.Injections;
-using Generic.API;
 using Generic.API.ServiceProvider.Interface;
 using Generic.API.ServiceProvider.Service;
 using Microsoft.Data.SqlClient;
@@ -66,7 +63,6 @@ builder.Services.AddDbContext<CoreSideDb>(options =>//respect testing enviroment
     options.UseSqlServer(!builder.Environment.IsProduction()? builder.Configuration.GetSection("connectionTest:CSICOnnect").Value: builder.Configuration.GetConnectionString("CSICOnnect"));
 });
 
-builder.Services.AddHttpClient<VoicePackClient>(i => i.BaseAddress = new Uri("https://api.logixplore.com:3333/"));
 
 if(builder.Environment.IsProduction())
 {
@@ -156,27 +152,19 @@ builder.Services.AddSwaggerGen(c =>
     });
 
 builder.Services.AddDistributedMemoryCache();
-
 builder.Services.InjectAdvertisment();
 builder.Services.AddAdvertisementType();
 builder.Services.InjectFeadbacks();
-
 builder.Services.InjectGuest();
-
 builder.Services.InjectHotel();
 builder.Services.InjectLocation();
-
 builder.Services.InjectItemCategory();
 builder.Services.InjectItem();
-
 builder.Services.AddLanguagePack();
-
 builder.Services.InjectLog();
 builder.Services.ActiveTaskLogs();
 builder.Services.ActiveStaffIncident();
-
 builder.Services.ActiveStaffInfoAboutRanOutItems();
-
 builder.Services.InjectNotification();
 builder.Services.InjectGuestNotification();
 builder.Services.InjectStaffNotification();
@@ -192,53 +180,26 @@ builder.Services.AddRestaurantServices();
 builder.Services.AddRestaurantItemCategory();
 builder.Services.AddRestaurantItem();
 builder.Services.AddRestaurantItemToCart();
-
 builder.Services.InjectQrCode();
 builder.Services.InjectRoomCategory();
 builder.Services.InjectRoom();
-
 builder.Services.InjectCartToStaff();
-
 builder.Services.InjectStaffCategory();
 builder.Services.InjectStaffs();
-
 builder.Services.InjectTaskItem();
-
 builder.Services.InjectCart();
-
 builder.Services.InjectTaskStatus();
-
 builder.Services.InjectTasks();
-
 builder.Services.InjectContact();
 builder.Services.InjectContactsStaffType();
 builder.Services.InjectComment();
-
 builder.Services.AddScoped<IUniteOfWork, UniteOfWorkRepository>();
-//builder.Services.AddCors(options =>
-//{
-//    options.AddDefaultPolicy(policy =>
-//    {
-//        policy.AllowAnyOrigin()
-//              .AllowAnyHeader()
-//              .AllowAnyMethod();
-//    });
-//});
-
-
 builder.Services.AddGuestActiveLanguage();
-
 builder.Services.InjectGuestStatus();
-
 builder.Services.InjectAudioResponse();
-
 builder.Services.InjectAudioResponseCategory();
-
 builder.Services.IncidentTypeDI();
-
 builder.Services.IncidentTypeToStaffCategoryDI();
-//builder.Logging.ClearProviders();
-//builder.Services.InjectSeriLog();
 
 builder.Services.AddScoped(typeof(IAdditionalFeaturesRepository<>), typeof(AdditionalFeaturesRepository<>));
 
@@ -251,9 +212,9 @@ var app = builder.Build();
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api V1");
         options.RoutePrefix = "swagger";
-        options.InjectStylesheet("CustomJs/swagger-custom.css"); // Optional
-        options.InjectJavascript("/swagger-custom.js");  // Add this line
-        //options.InjectJavascript("/swagger-voice-search.js");
+        options.InjectStylesheet("CustomJs/swagger-custom.css");
+        options.InjectJavascript("/swagger-custom.js"); 
+        options.InjectJavascript("/swagger-voice-search.js");
     });
 
 //app.UseMiddleware<TenantMiddleware>();
@@ -269,7 +230,6 @@ var app = builder.Build();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.UseHttpsRedirection();
 app.MapControllers();
 await app.RunAsync();

@@ -1,9 +1,9 @@
 ﻿using Common.Data.Entities.Restaurant;
 using Core.API.CustomExtendControllerBase;
-using Core.API.Response;
 using Core.Application.DTOs.Request.Restaurant;
 using Core.Application.DTOs.Response.Restaurant;
 using Core.Application.Interface.GenericContracts;
+using Generic.API.ResponseClass;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

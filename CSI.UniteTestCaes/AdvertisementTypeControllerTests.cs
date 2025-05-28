@@ -39,8 +39,8 @@ public class AdvertisementTypeControllerTests
 
         var result = await _controller.GetAdvertisementTypeByNameAsync(name);
 
-        Assert.True(result.Success);
-        Assert.Equal(name, result.Data?.Name);
+        Assert.True(result.success);
+        Assert.Equal(name, result.data?.Name);
     }
 
     [Fact]
@@ -52,8 +52,8 @@ public class AdvertisementTypeControllerTests
 
         var result = await _controller.GetAdvertisementTypeByNameAsync("Unknown");
 
-        Assert.False(result.Success);
-        Assert.Null(result.Data);
+        Assert.False(result.success);
+        Assert.Null(result.data);
     }
 
     [Fact]
@@ -70,8 +70,8 @@ public class AdvertisementTypeControllerTests
 
         var result = await _controller.GetAllAdvertisementTypesAsync();
 
-        Assert.True(result.Success);
-        Assert.Equal(1, result.Data.Count());
+        Assert.True(result.success);
+        Assert.Equal(1, result.data.Count());
     }
 
     [Fact]
@@ -83,8 +83,8 @@ public class AdvertisementTypeControllerTests
 
         var result = await _controller.GetAllAdvertisementTypesAsync();
 
-        Assert.False(result.Success);
-        Assert.Empty(result.Data);
+        Assert.False(result.success);
+        Assert.Empty(result.data);
     }
 
     [Fact]
@@ -102,8 +102,8 @@ public class AdvertisementTypeControllerTests
 
         var result = await _controller.GetAdvertisementTypesByLanguageAsync(language);
 
-        Assert.True(result.Success);
-        Assert.Single(result.Data);
+        Assert.True(result.success);
+        Assert.Single(result.data);
     }
 
     [Fact]
@@ -115,8 +115,8 @@ public class AdvertisementTypeControllerTests
 
         var result = await _controller.GetAdvertisementTypesByLanguageAsync("de");
 
-        Assert.False(result.Success);
-        Assert.Empty(result.Data);
+        Assert.False(result.success);
+        Assert.Empty(result.data);
     }
 
     [Fact]
@@ -131,8 +131,8 @@ public class AdvertisementTypeControllerTests
 
         var result = await _controller.UpdateAdvertisementTypeDescriptionAsync(id, description);
 
-        Assert.True(result.Success);
-        Assert.True(result.Data);
+        Assert.True(result.success);
+        Assert.True(result.data);
     }
 
     [Fact]
@@ -147,8 +147,8 @@ public class AdvertisementTypeControllerTests
 
         var result = await _controller.UpdateAdvertisementTypeDescriptionAsync(id, description);
 
-        Assert.False(result.Success);
-        Assert.False(result.Data);
+        Assert.False(result.success);
+        Assert.False(result.data);
     }
 
     [Fact]
@@ -162,8 +162,8 @@ public class AdvertisementTypeControllerTests
 
         var result = await _controller.DeleteAdvertisementTypeByIdAsync(id);
 
-        Assert.True(result.Success);
-        Assert.True(result.Data);
+        Assert.True(result.success);
+        Assert.True(result.data);
     }
 
     [Fact]
@@ -177,7 +177,7 @@ public class AdvertisementTypeControllerTests
 
         var result = await _controller.DeleteAdvertisementTypeByIdAsync(id);
 
-        Assert.False(result.Success);
-        Assert.False(result.Data);
+        Assert.False(result.success);
+        Assert.False(result.data);
     }
 }

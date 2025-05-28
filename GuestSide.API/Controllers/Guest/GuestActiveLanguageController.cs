@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Core.API.Response;
 using Core.API.CustomExtendControllerBase;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.DTOs.Response.Guest;
 using Core.Application.Interface.Guest;
 using Core.Application.DTOs.Request.Guest;
 using Common.Data.Entities.Guest;
+using Generic.API.ResponseClass;
 
 namespace Core.API.Controllers.Guest
 {
