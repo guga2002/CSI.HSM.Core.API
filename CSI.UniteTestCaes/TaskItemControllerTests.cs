@@ -27,8 +27,8 @@ public class TaskItemControllerTests
 
         var result = await _controller.GetTaskItemsByTaskIdAsync(taskId);
 
-        Assert.True(result.Success);
-        Assert.Equal(taskItems.Count, result.Data.Count());
+        Assert.True(result.success);
+        Assert.Equal(taskItems.Count, result.data.Count());
     }
 
     [Fact]
@@ -42,8 +42,8 @@ public class TaskItemControllerTests
 
         var result = await _controller.GetTaskItemsByTaskIdAsync(taskId);
 
-        Assert.False(result.Success);
-        Assert.Equal("No task items found.", result.Message);
+        Assert.False(result.success);
+        Assert.Equal("No task items found.", result.message);
     }
 
     [Fact]
@@ -57,8 +57,8 @@ public class TaskItemControllerTests
 
         var result = await _controller.GetTaskItemsByItemIdAsync(itemId);
 
-        Assert.True(result.Success);
-        Assert.Equal(taskItems.Count, result.Data.Count());
+        Assert.True(result.success);
+        Assert.Equal(taskItems.Count, result.data.Count());
     }
 
     [Fact]
@@ -72,8 +72,8 @@ public class TaskItemControllerTests
 
         var result = await _controller.GetTaskItemsByItemIdAsync(itemId);
 
-        Assert.False(result.Success);
-        Assert.Equal("No task items found.", result.Message);
+        Assert.False(result.success);
+        Assert.Equal("No task items found.", result.message);
     }
 
     [Fact]
@@ -87,8 +87,8 @@ public class TaskItemControllerTests
 
         var result = await _controller.UpdateItemQuantityAsync(taskItemId, newQuantity);
 
-        Assert.True(result.Success);
-        Assert.True(result.Data);
+        Assert.True(result.success);
+        Assert.True(result.data);
     }
 
     [Fact]
@@ -102,8 +102,8 @@ public class TaskItemControllerTests
 
         var result = await _controller.UpdateItemQuantityAsync(taskItemId, newQuantity);
 
-        Assert.False(result.Success);
-        Assert.Equal("Failed to update quantity.", result.Message);
+        Assert.False(result.success);
+        Assert.Equal("Failed to update quantity.", result.message);
     }
 
     [Fact]
@@ -117,8 +117,8 @@ public class TaskItemControllerTests
 
         var result = await _controller.AddNotesToTaskItemAsync(taskItemId, notes);
 
-        Assert.True(result.Success);
-        Assert.True(result.Data);
+        Assert.True(result.success);
+        Assert.True(result.data);
     }
 
     [Fact]
@@ -132,8 +132,8 @@ public class TaskItemControllerTests
 
         var result = await _controller.AddNotesToTaskItemAsync(taskItemId, notes);
 
-        Assert.False(result.Success);
-        Assert.Equal("Failed to add notes.", result.Message);
+        Assert.False(result.success);
+        Assert.Equal("Failed to add notes.", result.message);
     }
 
     [Fact]
@@ -147,7 +147,7 @@ public class TaskItemControllerTests
 
         var result = await _controller.CountTotalItemsInTaskAsync(taskId);
 
-        Assert.True(result.Success);
-        Assert.Equal(count, result.Data);
+        Assert.True(result.success);
+        Assert.Equal(count, result.data);
     }
 }

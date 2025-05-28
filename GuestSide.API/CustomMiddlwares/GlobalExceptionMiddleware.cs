@@ -1,6 +1,6 @@
-﻿using Core.API.Response;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
+using Generic.API.ResponseClass;
 
 namespace Core.API.CustomMiddlwares;
 
@@ -26,10 +26,10 @@ public class GlobalExceptionMiddleware
 
             var response = new Response<object>
             {
-                Success = false,
-                Message = "An unexpected error occurred.",
-                StatusCode = 500,
-                Errors = new List<string> { ex.Message }
+                success = false,
+                message = "An unexpected error occurred.",
+                statusCode = 500,
+                errors = new List<string> { ex.Message }
             };
 
             var json = JsonSerializer.Serialize(response);

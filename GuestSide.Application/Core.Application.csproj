@@ -34,30 +34,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\CSI.HSM.HelpDesk.APIClient\Common.Data\Common.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="ErrorSuccessKeys\ErrorKeys.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ErrorKeys.resx</DependentUpon>
-    </Compile>
-    <Compile Update="ErrorSuccessKeys\StandartTexts.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>StandartTexts.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="ErrorSuccessKeys\ErrorKeys.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ErrorKeys.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="ErrorSuccessKeys\StandartTexts.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>StandartTexts.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <ProjectReference Include="..\..\CSI.HSM.HelpDesk.APIClient\Generic.API\Generic.API.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
-using InvalidOperationException = Core.Application.CustomExceptions.InvalidOperationException;
 using Core.Application.Interface.GenericContracts;
-using Core.Application.CustomExceptions;
 using Common.Data.Interfaces.AbstractInterface;
+using Generic.API.Exceptions;
+using Generic.API.ErrorSuccessKeys;
 
 namespace Core.Application.Services;
 
@@ -153,7 +153,7 @@ public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEnt
             var entity = await repository.GetByIdAsync(id, cancellationToken);
             if (entity == null)
             {
-                throw new BusinessRuleViolationException(Domain.Application.ErrorSuccessKeys.ErrorKeys.INVALID_INPUT);
+                throw new BusinessRuleViolationException(ErrorKeys.INVALID_INPUT);
             }
 
             var result = await repository.DeleteAsync(entity, cancellationToken);
@@ -179,7 +179,7 @@ public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEnt
             var entity = await repository.GetByIdAsync(id, cancellationToken);
             if (entity == null)
             {
-                throw new BusinessRuleViolationException(Domain.Application.ErrorSuccessKeys.ErrorKeys.ACCESS_DENIED);
+                throw new BusinessRuleViolationException(ErrorKeys.ACCESS_DENIED);
             }
 
             LogOperation("Entity with ID {Id} fetched successfully.", id);
@@ -267,7 +267,7 @@ public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEnt
             }
             else
             {
-                throw new InvalidOperationException("The entity does not have an 'Id' property.");
+                throw new Generic.API.Exceptions.InvalidOperationException("The entity does not have an 'Id' property.");
             }
             var updatedEntity = await repository.UpdateAsync(mappedEntity, cancellationToken);
 
@@ -335,7 +335,7 @@ public abstract class GenericService<RequestDto, ResponseDto, TKey, TDatabaseEnt
             }
             else
             {
-                throw new InvalidOperationException("The entity does not have an 'IsDeleted' property for soft delete.");
+                throw new Generic.API.Exceptions.InvalidOperationException("The entity does not have an 'IsDeleted' property for soft delete.");
             }
 
             var updatedEntity = await repository.UpdateAsync(entity, cancellationToken);
