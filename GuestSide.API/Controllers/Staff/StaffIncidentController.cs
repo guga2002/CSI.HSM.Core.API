@@ -1,11 +1,11 @@
 ﻿using Common.Data.Entities.Enums;
 using Common.Data.Entities.Staff;
 using Core.API.CustomExtendControllerBase;
-using Core.API.Response;
 using Core.Application.DTOs.Request.Staff;
 using Core.Application.DTOs.Response.Item;
 using Core.Application.DTOs.Response.Staff;
 using Core.Application.Interface.Staff.Incident;
+using Generic.API.ResponseClass;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

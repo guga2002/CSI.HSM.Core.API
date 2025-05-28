@@ -40,7 +40,6 @@ using Common.Data.Repositories.UniteOfWork;
 using Common.Data.Repositories.AbstractRepository;
 using Generic.API.Jobs;
 using Generic.API.Injections;
-using Generic.API;
 using Generic.API.ServiceProvider.Interface;
 using Generic.API.ServiceProvider.Service;
 using Microsoft.Data.SqlClient;

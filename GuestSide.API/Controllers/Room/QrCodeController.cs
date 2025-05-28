@@ -1,12 +1,11 @@
 ﻿using Common.Data.Entities.Room;
 using Core.API.CustomExtendControllerBase;
 using Core.API.Models;
-using Core.API.Response;
 using Core.Application.DTOs.Request.Room;
 using Core.Application.DTOs.Response.Room;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Room;
-using Microsoft.AspNetCore.Http;
+using Generic.API.ResponseClass;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -138,10 +137,10 @@ public class QrCodeController : CSIControllerBase<QRCodeDto, QRCodeResponseDto, 
     {
         var byId = await GetByIdAsync(id);
 
-        if (byId == null || byId.Data?.QrCodeImage == null)
+        if (byId == null || byId.data?.QrCodeImage == null)
             return BadRequest("QR code not found");
 
-        var fileBytes = byId.Data.QrCodeImage;
+        var fileBytes = byId.data.QrCodeImage;
         var fileName = $"QrCode_{id}.png";
         var contentType = "image/png";
 

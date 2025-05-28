@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using Swashbuckle.AspNetCore.Annotations;
 using Core.API.Extensions;
-using Core.API.Response;
 using Core.Application.Interface.GenericContracts;
+using Generic.API.ResponseClass;
 
 namespace Core.API.CustomExtendControllerBase;
 

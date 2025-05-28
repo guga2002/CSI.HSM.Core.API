@@ -1,10 +1,10 @@
 ﻿using Common.Data.Entities.Language;
 using Core.API.CustomExtendControllerBase;
-using Core.API.Response;
 using Core.Application.DTOs.Request.Language;
 using Core.Application.DTOs.Response.Language;
 using Core.Application.Interface.GenericContracts;
 using Core.Application.Interface.Language;
+using Generic.API.ResponseClass;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
