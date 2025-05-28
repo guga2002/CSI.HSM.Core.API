@@ -1,6 +1,5 @@
 ﻿using Common.Data.Data;
 using Core.API.CustomExtendControllerBase;
-using Core.API.Response;
 using Core.Application.DTOs.Request.Advertisment;
 using Core.Application.Interface.Advertisment;
 using Core.Application.Interface.GenericContracts;
