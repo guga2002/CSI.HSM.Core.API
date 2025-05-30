@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Core.API.Extensions;
 using Core.Application.Interface.GenericContracts;
 using Generic.API.ResponseClass;
 

@@ -1,8 +1,8 @@
-﻿using Core.API.Extensions;
+﻿using Core.API.CustomExtendControllerBase;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace Core.API.Extensions
+namespace Core.API.CustomExtendControllerBase
 {
     public static class ControllerBaseExtension
     {
