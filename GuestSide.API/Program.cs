@@ -42,6 +42,8 @@ using Generic.API.ServiceProvider.Service;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using Generic.API.Filters;
+using Generic.API.Middlewares;
+using Generic.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -218,15 +220,10 @@ var app = builder.Build();
         options.InjectJavascript("/swagger-voice-search.js");
     });
 
-//app.UseMiddleware<TenantMiddleware>();
-//app.UseMiddleware<TranslationMiddleware>();
-//app.UseMiddleware<CashingMiddlwares>();
-////app.UseMiddleware<ForceHttp200Except500Middleware>();
-//app.UseMiddleware<GlobalExceptionMiddleware>();
-//app.UseMiddleware<RequestTranslationMiddleware>();
-//app.UseMiddleware<RequestLoggerMiddleware>();
-//app.UseMiddleware<CashingMiddlwares>();
-//app.UseCors(); // No name
+app.UseMiddleware<CachingMiddleware>();
+app.UseMiddleware<TranslationMiddleware>();
+app.UseMiddleware<RequestTranslationMiddleware>();
+app.UseMiddleware<TenantDbConnectionMiddleware>();
 
 
 app.UseAuthentication();
