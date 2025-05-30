@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Core.API.Fillters;
 using Core.Application.Services.Hotel.Injection;
 using Core.Application.Services.LogService.DI;
 using Core.Application.Services.Room.DI;
@@ -42,6 +41,7 @@ using Generic.API.ServiceProvider.Interface;
 using Generic.API.ServiceProvider.Service;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using Generic.API.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
