@@ -97,6 +97,7 @@ builder.Services.AddHostedService<StaleCartCleanerWorker>();
 builder.Services.AddHostedService<RoomStatusAutoResetWorker>();
 builder.Services.AddHostedService<AutoTaskAssignerWorker>();
 builder.Services.AddHostedService<GuestCheckOutFinalizerWorker>();
+
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"];
 builder.Services.AddAuthentication(options =>
