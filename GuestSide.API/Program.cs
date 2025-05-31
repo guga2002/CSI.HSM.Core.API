@@ -42,8 +42,22 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using Generic.API.Filters;
 using Generic.API.Middlwares;
+using Serilog.Events;
+using Serilog;
+
+
+Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug().MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+            .MinimumLevel.Override("System", LogEventLevel.Warning)
+            .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+            .Enrich.FromLogContext()
+            .WriteTo.Console()
+            .WriteTo.Seq("http://api.logixplore.com:5341/")
+            .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSerilog();
 
 builder.Services.AddControllers()
  .AddControllersAsServices();
