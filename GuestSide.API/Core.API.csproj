@@ -39,8 +39,4 @@
     <ProjectReference Include="..\GuestSide.Application\Core.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="CustomJs\" />
-  </ItemGroup>
-
 </Project>
