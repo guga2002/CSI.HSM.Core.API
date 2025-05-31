@@ -35,15 +35,13 @@ using Common.Data.Interfaces.UniteOfWork;
 using Common.Data.Interfaces.AbstractInterface;
 using Common.Data.Repositories.UniteOfWork;
 using Common.Data.Repositories.AbstractRepository;
-using Generic.API.Jobs;
 using Generic.API.Injections;
 using Generic.API.ServiceProvider.Interface;
 using Generic.API.ServiceProvider.Service;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using Generic.API.Filters;
-using Generic.API.Middlewares;
-using Generic.API.Middleware;
+using Generic.API.Middlwares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,11 +56,10 @@ builder.Services.ActiveShearedServices(builder.Configuration);
 
 builder.Services.AddScoped<ICoreServiceProvider,CoreServiceProvider>();
 
-builder.Services.ActivateCashing();
 
-builder.Services.AddDbContext<CoreSideDb>(options =>//respect testing enviroment
+builder.Services.AddDbContext<CoreSideDb>(options =>
 {
-    options.UseSqlServer(!builder.Environment.IsProduction()? builder.Configuration.GetSection("connectionTest:CSICOnnect").Value: builder.Configuration.GetConnectionString("CSICOnnect"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CSICOnnect"));
 });
 
 
@@ -81,24 +78,14 @@ if(builder.Environment.IsProduction())
 builder.Services.AddScoped<IDbConnection>(sp =>
 {
     var context = sp.GetRequiredService<IHttpContextAccessor>().HttpContext;
-    var connStr = context?.Items["HotelDbConnectionString"] as string;
-    if (!string.IsNullOrEmpty(connStr))
-        return new SqlConnection(connStr);
+    var connStr = context?.Items["HotelDbConnection"] as SqlConnection;
+    if (connStr is not null)
+        return connStr;
     throw new InvalidOperationException("Database connection string not found in HttpContext.Items.");
 });
 
-builder.Services.ActivateJobs();
-builder.Services.AddHostedService<NotifyUsersService>();
-builder.Services.AddHostedService<ItemMonitoring>();
-builder.Services.AddHostedService<PromoCodeMonitoring>();
-builder.Services.AddHostedService<TaskDeadlineMonitor>();
-builder.Services.AddHostedService<DailyStatisticWorker>();
-builder.Services.AddHostedService<TaskReassignmentWorker>();
-builder.Services.AddHostedService<IncidentRiskClassifierWorker>();
-builder.Services.AddHostedService<StaleCartCleanerWorker>();
-builder.Services.AddHostedService<RoomStatusAutoResetWorker>();
-builder.Services.AddHostedService<AutoTaskAssignerWorker>();
-builder.Services.AddHostedService<GuestCheckOutFinalizerWorker>();
+
+builder.Services.ActivateCashing();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"];
@@ -203,31 +190,32 @@ builder.Services.InjectAudioResponse();
 builder.Services.InjectAudioResponseCategory();
 builder.Services.IncidentTypeDI();
 builder.Services.IncidentTypeToStaffCategoryDI();
-
+builder.Services.AddMemoryCache();
 builder.Services.AddScoped(typeof(IAdditionalFeaturesRepository<>), typeof(AdditionalFeaturesRepository<>));
 
 var app = builder.Build();
-    app.UseStaticFiles();
 
-    app.UseSwagger();
 
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api V1");
-        options.RoutePrefix = "swagger";
-        options.InjectStylesheet("CustomJs/swagger-custom.css");
-        options.InjectJavascript("/swagger-custom.js"); 
-        options.InjectJavascript("/swagger-voice-search.js");
-    });
-
+app.UseMiddleware<SwaggerAccessMiddleware>();
+app.UseMiddleware<TenantDbConnectionMiddleware>();
 app.UseMiddleware<CachingMiddleware>();
 app.UseMiddleware<TranslationMiddleware>();
 app.UseMiddleware<RequestTranslationMiddleware>();
-app.UseMiddleware<TenantDbConnectionMiddleware>();
+//app.UseMiddleware<ProductionGuardMiddleware>();
+app.UseStaticFiles();
+app.UseSwagger();
 
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api V1");
+    options.RoutePrefix = "swagger";
+    options.InjectStylesheet("/swagger-custom.css");
+    options.InjectJavascript("/swagger-custom.js");
+    options.InjectJavascript("/swagger-voice-search.js");
+});
 
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseHttpsRedirection();
 app.MapControllers();
-await app.RunAsync();
+app.Run();
