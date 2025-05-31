@@ -1,0 +1,208 @@
+﻿/* 🌍 Global Layout */
+body {
+    background-color: #f7f9fc; /* Off-white with a blue hue */
+    color: #1e293b; /* Soft slate */
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    animation: fadeInBody 0.6s ease;
+}
+
+@keyframes fadeInBody {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 🔝 Top Bar */
+.swagger-ui .topbar {
+    background-color: #1e293b; /* Slate Navy */
+    border-bottom: 2px solid #7dd3fc; /* Sky Accent */
+    padding: 10px 0;
+}
+
+.swagger-ui .topbar-wrapper span {
+    color: #e0f2fe !important; /* Light Cyan */
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 0.6px;
+    animation: fadeInTop 0.6s ease;
+}
+
+@keyframes fadeInTop {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 🎯 Operation Blocks */
+.swagger-ui .opblock {
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    background-color: #ffffff;
+    margin-bottom: 18px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInBlock 0.4s ease;
+}
+
+    .swagger-ui .opblock:hover {
+        transform: scale(1.01);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+    }
+
+@keyframes fadeInBlock {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 🏷️ Section Tag */
+.swagger-ui .opblock-tag {
+    background-color: #334155 !important;
+    color: #fef9c3 !important;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin-bottom: 10px;
+}
+
+/* 📍 Endpoint Path */
+.swagger-ui .opblock-summary-path {
+    color: #0f172a !important;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* 🧪 Method Types */
+.swagger-ui .opblock-summary-method {
+    font-weight: bold;
+    font-size: 13px;
+    border-radius: 6px;
+    padding: 6px 10px;
+    transition: background-color 0.3s ease;
+}
+
+/* 📘 Labels */
+.swagger-ui .parameter__name,
+.swagger-ui .response-col_status {
+    color: #2563eb !important; /* Indigo */
+    font-weight: 500;
+}
+
+/* 📋 Markdown & Descriptions */
+.swagger-ui .markdown p {
+    color: #475569; /* Blue Gray */
+    font-size: 14.5px;
+}
+
+/* 📦 Inputs, Parameters, Models */
+.swagger-ui input[type="text"],
+.swagger-ui textarea,
+.swagger-ui select {
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 14px;
+    transition: box-shadow 0.3s ease;
+}
+
+    .swagger-ui input:focus,
+    .swagger-ui textarea:focus,
+    .swagger-ui select:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+/* 📄 Parameter / Model Boxes */
+.swagger-ui .parameters-col_description,
+.swagger-ui .model,
+.swagger-ui .model-title {
+    background-color: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+/* ✅ Response Container */
+.swagger-ui .responses-inner {
+    background-color: #ecfdf5;
+    border-left: 4px solid #10b981;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+/* 🟦 Buttons */
+.swagger-ui .btn {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+    .swagger-ui .btn:hover {
+        background-color: #2563eb !important;
+        transform: scale(1.03);
+    }
+
+/* 📂 Section Headers */
+.swagger-ui .opblock .opblock-section-header {
+    background-color: #f1f5f9;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-weight: 500;
+}
+
+/* 🎨 Method Colors */
+.swagger-ui .opblock.opblock-get {
+    border-left: 4px solid #10b981;
+}
+
+.swagger-ui .opblock.opblock-post {
+    border-left: 4px solid #3b82f6;
+}
+
+.swagger-ui .opblock.opblock-put {
+    border-left: 4px solid #f59e0b;
+}
+
+.swagger-ui .opblock.opblock-delete {
+    border-left: 4px solid #ef4444;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}

@@ -10,8 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="CustomJs\swagger-custom.css" />
-    <Content Include="CustomJs\swagger-custom.js" />
+    <None Include="wwwroot\swagger-custom.css" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,7 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\swagger-voice-search.js" />
+    <Folder Include="CustomJs\" />
   </ItemGroup>
 
 </Project>
