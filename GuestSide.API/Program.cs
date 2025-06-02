@@ -62,6 +62,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
  .AddControllersAsServices();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontendLocalhost", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddHttpContextAccessor();
@@ -209,11 +220,10 @@ builder.Services.AddScoped(typeof(IAdditionalFeaturesRepository<>), typeof(Addit
 
 var app = builder.Build();
 
-
+app.UseCors("AllowFrontendLocalhost");
 app.UseMiddleware<SwaggerAccessMiddleware>();
 app.UseMiddleware<TenantDbConnectionMiddleware>();
 app.UseMiddleware<CachingMiddleware>();
-app.UseMiddleware<TranslationMiddleware>();
 app.UseMiddleware<RequestTranslationMiddleware>();
 //app.UseMiddleware<ProductionGuardMiddleware>();
 app.UseStaticFiles();
