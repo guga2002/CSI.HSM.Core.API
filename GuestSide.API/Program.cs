@@ -42,8 +42,6 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using Generic.API.Filters;
 using Generic.API.Middlwares;
-using Serilog.Events;
-using Serilog;
 
 
 //Log.Logger = new LoggerConfiguration()
