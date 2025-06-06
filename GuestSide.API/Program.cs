@@ -221,7 +221,7 @@ builder.Services.AddScoped(typeof(IAdditionalFeaturesRepository<>), typeof(Addit
 var app = builder.Build();
 
 app.UseCors("AllowFrontendLocalhost");
-app.UseMiddleware<SwaggerAccessMiddleware>();
+//app.UseMiddleware<SwaggerAccessMiddleware>();
 app.UseMiddleware<TenantDbConnectionMiddleware>();
 app.UseMiddleware<CachingMiddleware>();
 app.UseMiddleware<RequestTranslationMiddleware>();
