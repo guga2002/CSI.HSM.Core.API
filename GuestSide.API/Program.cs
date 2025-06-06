@@ -42,6 +42,8 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using Generic.API.Filters;
 using Generic.API.Middlwares;
+using Serilog.Events;
+using Serilog;
 
 
 //Log.Logger = new LoggerConfiguration()
@@ -59,6 +61,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers()
  .AddControllersAsServices();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontendLocalhost", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -207,8 +220,8 @@ builder.Services.AddScoped(typeof(IAdditionalFeaturesRepository<>), typeof(Addit
 
 var app = builder.Build();
 
-
-//app.UseMiddleware<SwaggerAccessMiddleware>();
+app.UseCors("AllowFrontendLocalhost");
+app.UseMiddleware<SwaggerAccessMiddleware>();
 app.UseMiddleware<TenantDbConnectionMiddleware>();
 app.UseMiddleware<CachingMiddleware>();
 app.UseMiddleware<RequestTranslationMiddleware>();
