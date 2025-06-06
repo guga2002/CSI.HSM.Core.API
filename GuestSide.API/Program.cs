@@ -208,10 +208,9 @@ builder.Services.AddScoped(typeof(IAdditionalFeaturesRepository<>), typeof(Addit
 var app = builder.Build();
 
 
-app.UseMiddleware<SwaggerAccessMiddleware>();
+//app.UseMiddleware<SwaggerAccessMiddleware>();
 app.UseMiddleware<TenantDbConnectionMiddleware>();
 app.UseMiddleware<CachingMiddleware>();
-app.UseMiddleware<TranslationMiddleware>();
 app.UseMiddleware<RequestTranslationMiddleware>();
 //app.UseMiddleware<ProductionGuardMiddleware>();
 app.UseStaticFiles();
