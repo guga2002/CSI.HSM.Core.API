@@ -231,11 +231,11 @@ app.UseSwagger();
 
 app.UseSwaggerUI(options =>
 {
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api V1");
-    options.RoutePrefix = "swagger";
-    options.InjectStylesheet("/swagger-custom.css");
+    //options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api V1");
+    //options.RoutePrefix = "swagger";
+   // options.InjectStylesheet("/swagger-custom.css");
 
-    options.InjectJavascript("/swagger-voice-search.js");
+   // options.InjectJavascript("/swagger-voice-search.js");
     //options.InjectJavascript("/swagger-custom.js");
 });
 
