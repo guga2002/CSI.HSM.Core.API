@@ -1,6 +1,4 @@
-﻿using Core.Application.DTOs.Response;
-
-namespace Core.Application.DTOs.Response.Language;
+﻿namespace Core.Application.DTOs.Response.Language;
 
 public class LanguagePackResponseDto : AbstractResponse
 {
@@ -8,5 +6,5 @@ public class LanguagePackResponseDto : AbstractResponse
 
     public required string Name { get; set; }
 
-    public byte[]? LanguageCountryImage { get; set; }
+    public string? LanguageCountryImage { get; set; }
 }
